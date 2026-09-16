@@ -1,0 +1,2578 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Tout le programme de spécialité mathématiques de première, avec des exercices tirés au sort et corrigés pas à pas.">
+<meta name="theme-color" content="#16223F">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png" sizes="192x192">
+<link rel="apple-touch-icon" href="icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Spé maths">
+<style>*,*::before,*::after{box-sizing:border-box}html,body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<title>Cahier de spé maths</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Karla:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap">
+<style>
+/* ---------- tokens ---------- */
+:root{
+  --serif:"Spectral", Georgia, "Times New Roman", serif;
+  --sans:"Karla", "Segoe UI", system-ui, sans-serif;
+  --mono:"JetBrains Mono", Consolas, monospace;
+
+  --paper:#EDF0F5;
+  --surface:#FFFFFF;
+  --surface-2:#F5F7FB;
+  --surface-3:#E7ECF4;
+  --ink:#16223F;
+  --ink-2:#525F7E;
+  --ink-3:#8590A8;
+  --line:#D8DFEA;
+  --line-soft:#E6EBF3;
+
+  --accent:#2F45C5;
+  --accent-soft:#E6E9FA;
+  --accent-ink:#2536A0;
+
+  --amber:#A8710A;
+  --amber-soft:#FBEFD8;
+  --juste:#0F7A54;
+  --juste-soft:#DDF1E8;
+  --faux:#B02F28;
+  --faux-soft:#FAE4E2;
+
+  --grid:rgba(47,69,197,.07);
+  --shadow:0 1px 2px rgba(22,34,63,.05), 0 8px 24px -12px rgba(22,34,63,.18);
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0E1424;
+    --surface:#161E33;
+    --surface-2:#1C2540;
+    --surface-3:#26304E;
+    --ink:#E6EBF6;
+    --ink-2:#A3AFC9;
+    --ink-3:#7A87A4;
+    --line:#2E3958;
+    --line-soft:#232C47;
+    --accent:#8296FF;
+    --accent-soft:#232F63;
+    --accent-ink:#A9B7FF;
+    --amber:#E0A84B;
+    --amber-soft:#3A2D14;
+    --juste:#54C79A;
+    --juste-soft:#123529;
+    --faux:#F08A82;
+    --faux-soft:#3A1C1A;
+    --grid:rgba(130,150,255,.08);
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 30px -14px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0E1424; --surface:#161E33; --surface-2:#1C2540; --surface-3:#26304E;
+  --ink:#E6EBF6; --ink-2:#A3AFC9; --ink-3:#7A87A4; --line:#2E3958; --line-soft:#232C47;
+  --accent:#8296FF; --accent-soft:#232F63; --accent-ink:#A9B7FF;
+  --amber:#E0A84B; --amber-soft:#3A2D14; --juste:#54C79A; --juste-soft:#123529;
+  --faux:#F08A82; --faux-soft:#3A1C1A; --grid:rgba(130,150,255,.08);
+  --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 30px -14px rgba(0,0,0,.7);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.55;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:600;line-height:1.22;text-wrap:balance;margin:0}
+p{margin:0}
+button{font:inherit;color:inherit;cursor:pointer;border:none;background:none}
+input{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+
+/* ---------- notation mathématique ---------- */
+.m{font-family:var(--serif);font-size:1.06em}
+.m i{font-style:italic}
+.frac{display:inline-flex;flex-direction:column;vertical-align:-0.45em;text-align:center;font-size:.9em;line-height:1.18}
+.frac>.n{padding:0 .3em;border-bottom:1px solid currentColor}
+.frac>.d{padding:0 .3em}
+.sqrt>.rad{border-top:1px solid currentColor;padding:0 .15em 0 .06em;margin-left:-.06em}
+.vec{position:relative;display:inline-block}
+.vec>.arw{position:absolute;top:-.8em;left:0;right:0;font-size:.6em;text-align:center;font-style:normal;line-height:1}
+code,.code{font-family:var(--mono);font-size:.88em}
+pre.code{background:var(--surface-2);border:1px solid var(--line-soft);border-radius:var(--r);padding:14px 16px;overflow-x:auto;line-height:1.6;margin:0}
+
+/* ---------- structure ---------- */
+.app{display:grid;grid-template-columns:272px minmax(0,1fr);min-height:100vh}
+.side{background:var(--surface);border-right:1px solid var(--line);display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto}
+.brand{padding:20px 20px 16px;border-bottom:1px solid var(--line-soft);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:22px 22px}
+.brand h1{font-size:19px;letter-spacing:-.01em}
+.brand .sub{font-size:11px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.09em;font-weight:700;margin-top:4px}
+.nav{padding:8px 10px 28px;display:flex;flex-direction:column;gap:2px}
+.nav .grp{font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-3);font-weight:700;padding:16px 10px 6px}
+.nav button{display:flex;align-items:center;gap:9px;width:100%;text-align:left;padding:7px 10px;border-radius:7px;font-size:14px;color:var(--ink-2);transition:background .12s,color .12s}
+.nav button:hover{background:var(--surface-2);color:var(--ink)}
+.nav button.on{background:var(--accent-soft);color:var(--accent-ink);font-weight:600}
+.nav .dot{width:7px;height:7px;border-radius:50%;flex:0 0 auto;background:transparent;border:1.5px solid var(--line)}
+.nav .dot.vu{background:var(--amber);border-color:var(--amber)}
+.nav .dot.fini{background:var(--juste);border-color:var(--juste)}
+.nav .meta{margin-left:auto;font-size:11px;color:var(--ink-3);font-variant-numeric:tabular-nums;flex:0 0 auto}
+main{min-width:0;padding-block:34px;padding-left:40px;padding-right:40px;max-width:1080px;width:100%}
+.topbar{display:none}
+
+@media (max-width:900px){
+  .app{grid-template-columns:1fr}
+  .side{position:fixed;inset:0 auto 0 0;width:min(300px,86vw);z-index:40;transform:translateX(-102%);transition:transform .22s ease;box-shadow:var(--shadow)}
+  .side.open{transform:none}
+  .scrim{position:fixed;inset:0;background:rgba(10,15,30,.45);z-index:35}
+  .topbar{display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:20;background:var(--surface);border-bottom:1px solid var(--line);padding:10px 16px}
+  .topbar h1{font-size:16px}
+  main{padding-left:16px;padding-right:16px;padding-block:22px}
+}
+
+/* ---------- éléments ---------- */
+.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.12em;font-weight:700;color:var(--accent);margin-bottom:8px}
+.lede{color:var(--ink-2);font-size:15px;max-width:64ch}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 18px;border-radius:8px;font-weight:600;font-size:14.5px;background:var(--surface-2);border:1px solid var(--line);transition:background .12s,border-color .12s,transform .08s}
+.btn:hover{background:var(--surface-3)}
+.btn:active{transform:translateY(1px)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.primary:hover{filter:brightness(1.08)}
+:root[data-theme="dark"] .btn.primary{color:#0E1424}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn.primary{color:#0E1424}}
+.btn.ghost{background:transparent}
+.btn.sm{padding:6px 12px;font-size:13px;border-radius:7px}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:.05em;padding:3px 9px;border-radius:999px;text-transform:uppercase}
+.pill.neuf{background:var(--surface-3);color:var(--ink-2)}
+.pill.vu{background:var(--amber-soft);color:var(--amber)}
+.pill.fini{background:var(--juste-soft);color:var(--juste)}
+.pill.soon{background:var(--surface-3);color:var(--ink-3)}
+.bar{height:5px;border-radius:999px;background:var(--surface-3);overflow:hidden}
+.bar>span{display:block;height:100%;background:var(--accent);border-radius:999px;transition:width .3s}
+.bar.g>span{background:var(--juste)}
+.mut{color:var(--ink-2)}
+.tiny{font-size:12.5px;color:var(--ink-3)}
+
+/* ---------- accueil ---------- */
+.home-head{display:flex;flex-wrap:wrap;gap:20px;align-items:flex-end;justify-content:space-between;margin-bottom:26px}
+.encours{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px;align-items:center;background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:var(--r);padding:18px 20px;margin-bottom:14px}
+.modes{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:12px;margin-bottom:30px}
+.mode{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;text-align:left;display:flex;flex-direction:column;gap:5px;transition:border-color .12s,transform .1s}
+.mode:hover{border-color:var(--accent);transform:translateY(-1px)}
+.mode b{font-family:var(--serif);font-size:16.5px;font-weight:600}
+.mode span{font-size:13px;color:var(--ink-2);line-height:1.45}
+.mode[disabled]{opacity:.5}
+.mode[disabled]:hover{border-color:var(--line);transform:none}
+.blocs{display:flex;flex-direction:column;gap:26px}
+.bloc h3{font-size:13px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-3);font-family:var(--sans);font-weight:700;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.chaps{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:10px}
+.chap{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;text-align:left;display:flex;flex-direction:column;gap:9px;transition:border-color .12s,transform .1s}
+.chap:hover{border-color:var(--accent);transform:translateY(-1px)}
+.chap .t{font-family:var(--serif);font-size:16px;font-weight:600;line-height:1.25}
+.chap .row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:auto}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin-bottom:26px}
+.stat{background:var(--surface);padding:14px 16px}
+.stat .v{font-family:var(--serif);font-size:26px;font-weight:600;font-variant-numeric:tabular-nums;line-height:1.1}
+.stat .k{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);font-weight:700;margin-top:2px}
+
+/* ---------- chapitre ---------- */
+.chead{margin-bottom:22px}
+.chead h2{font-size:29px;margin:6px 0 10px}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin-bottom:22px;overflow-x:auto}
+.tabs button{padding:9px 14px;font-size:14px;font-weight:600;color:var(--ink-3);border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap}
+.tabs button.on{color:var(--accent);border-bottom-color:var(--accent)}
+.capa{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px 20px;margin-bottom:18px}
+.capa ul{margin:10px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:6px;font-size:14.5px;color:var(--ink-2)}
+.cours{display:flex;flex-direction:column;gap:14px}
+.blk{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px}
+.blk.def{border-left:3px solid var(--accent)}
+.blk.prop{border-left:3px solid var(--juste)}
+.blk.meth{border-left:3px solid var(--amber)}
+.blk.piege{border-left:3px solid var(--faux);background:var(--surface)}
+.blk .h{display:flex;align-items:center;gap:9px;margin-bottom:8px}
+.blk .h .k{font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;font-weight:700}
+.blk.def .h .k{color:var(--accent)} .blk.prop .h .k{color:var(--juste)}
+.blk.meth .h .k{color:var(--amber)} .blk.piege .h .k{color:var(--faux)}
+.blk .h b{font-family:var(--serif);font-size:16.5px;font-weight:600}
+.blk .body{font-size:14.8px;color:var(--ink-2);display:flex;flex-direction:column;gap:9px}
+.blk .body b,.blk .body strong{color:var(--ink)}
+.blk .body ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:5px}
+.center{text-align:center;color:var(--ink);padding:4px 0}
+.niveaux{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.niv{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;text-align:left;display:flex;flex-direction:column;gap:4px}
+.niv:hover{border-color:var(--accent)}
+.niv b{font-family:var(--serif);font-size:16px;font-weight:600}
+.niv span{font-size:12.5px;color:var(--ink-2)}
+.methods{display:flex;flex-direction:column;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.mrow{display:grid;grid-template-columns:minmax(0,1fr) 92px 68px;gap:12px;align-items:center;background:var(--surface);padding:11px 16px;font-size:14px}
+.mrow .lbl{min-width:0}
+.mrow .sc{font-variant-numeric:tabular-nums;font-size:13px;color:var(--ink-2);text-align:right}
+
+/* ---------- exercices ---------- */
+.run{max-width:760px;margin:0 auto}
+.runtop{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:18px}
+.dots{display:flex;gap:5px;flex-wrap:wrap}
+.dots i{width:9px;height:9px;border-radius:50%;background:var(--surface-3);border:1px solid var(--line);display:block}
+.dots i.ok{background:var(--juste);border-color:var(--juste)}
+.dots i.ko{background:var(--faux);border-color:var(--faux)}
+.dots i.now{background:var(--accent);border-color:var(--accent);transform:scale(1.25)}
+.qcard{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:24px;box-shadow:var(--shadow)}
+.qmeta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.qtext{font-size:17px;line-height:1.6;display:flex;flex-direction:column;gap:10px}
+.qtext .m{font-size:1.12em}
+.fields{display:flex;flex-direction:column;gap:12px;margin-top:20px}
+.field{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.field label{font-size:14.5px;color:var(--ink-2);min-width:140px}
+.field input{padding:9px 12px;border:1px solid var(--line);border-radius:8px;background:var(--surface-2);width:150px;font-size:15px;font-variant-numeric:tabular-nums}
+.field input:focus{outline:2px solid var(--accent);outline-offset:0;border-color:var(--accent)}
+.choices{display:flex;flex-direction:column;gap:8px;margin-top:18px}
+.choice{display:flex;align-items:center;gap:11px;padding:12px 14px;border:1px solid var(--line);border-radius:8px;background:var(--surface-2);text-align:left;font-size:15px;transition:border-color .1s,background .1s}
+.choice:hover{border-color:var(--accent)}
+.choice.sel{border-color:var(--accent);background:var(--accent-soft)}
+.choice .k{width:22px;height:22px;flex:0 0 auto;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;font-size:12px;font-weight:700;color:var(--ink-3);background:var(--surface)}
+.choice.sel .k{background:var(--accent);border-color:var(--accent);color:#fff}
+.choice.good{border-color:var(--juste);background:var(--juste-soft)}
+.choice.bad{border-color:var(--faux);background:var(--faux-soft)}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.verdict{margin-top:20px;border-radius:var(--r);padding:16px 18px;border:1px solid}
+.verdict.ok{background:var(--juste-soft);border-color:var(--juste)}
+.verdict.ko{background:var(--faux-soft);border-color:var(--faux)}
+.verdict .vh{font-family:var(--serif);font-size:17px;font-weight:600;display:flex;align-items:center;gap:8px}
+.verdict.ok .vh{color:var(--juste)} .verdict.ko .vh{color:var(--faux)}
+.verdict .vb{margin-top:6px;font-size:14.5px;color:var(--ink-2)}
+.sol{margin-top:16px;background:var(--surface-2);border:1px solid var(--line-soft);border-radius:var(--r);padding:18px}
+.sol h4{font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-3);font-family:var(--sans);font-weight:700;margin-bottom:12px}
+.steps{display:flex;flex-direction:column;gap:12px;counter-reset:st}
+.step{display:grid;grid-template-columns:24px minmax(0,1fr);gap:11px;font-size:14.8px;color:var(--ink-2);line-height:1.6}
+.step::before{counter-increment:st;content:counter(st);width:24px;height:24px;border-radius:50%;background:var(--surface-3);color:var(--ink-3);font-size:11.5px;font-weight:700;display:grid;place-items:center;font-family:var(--sans)}
+.step .m{color:var(--ink);font-size:1.08em}
+.step b{color:var(--ink)}
+.bilan{text-align:center;padding:34px 24px}
+.bilan .score{font-family:var(--serif);font-size:56px;font-weight:600;line-height:1;font-variant-numeric:tabular-nums}
+.bilan .sur{font-size:24px;color:var(--ink-3)}
+.timer{font-variant-numeric:tabular-nums;font-weight:700;font-size:15px;padding:5px 11px;border-radius:7px;background:var(--surface-3)}
+.timer.warn{background:var(--faux-soft);color:var(--faux)}
+.empty{text-align:center;padding:44px 20px;color:var(--ink-2);background:var(--surface);border:1px dashed var(--line);border-radius:var(--r)}
+.revue{display:flex;flex-direction:column;gap:8px}
+.rev{display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--amber);border-radius:var(--r);padding:12px 16px;font-size:14.5px}
+.rev .ch{font-size:12px;color:var(--ink-3);margin-left:auto;white-space:nowrap}
+/* ---------- rangs et points ---------- */
+.rank{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px 20px 14px;margin-bottom:14px;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:22px 22px}
+.rank-top{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin-bottom:10px}
+.rank-nom{font-size:24px;line-height:1.1}
+.rank-xp{font-family:var(--serif);font-size:26px;font-weight:600;font-variant-numeric:tabular-nums;color:var(--accent);line-height:1}
+.rank-xp span{font-size:13px;color:var(--ink-3);font-family:var(--sans);font-weight:600}
+.rank-foot{display:flex;flex-wrap:wrap;gap:6px 16px;justify-content:space-between;margin-top:8px;font-size:12px;color:var(--ink-3)}
+.rank-foot b{color:var(--ink-2)}
+.side-rank{padding:12px 10px 14px;border-bottom:1px solid var(--line-soft);margin-bottom:6px}
+.side-rank .sr-top{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:6px}
+.side-rank b{font-family:var(--serif);font-size:15px;font-weight:600}
+.side-rank span{font-size:11.5px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.niv-dots{display:inline-flex;gap:3px;flex:0 0 auto}
+.niv-dots i{width:13px;height:4px;border-radius:2px;background:var(--surface-3);display:block}
+.niv-dots i.on{background:var(--accent)}
+.chap-rank{display:flex;align-items:center;gap:8px;font-size:11.5px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.chap-rank.big{margin-top:12px;font-size:13px;gap:10px;color:var(--ink-2)}
+.chap-rank.big b{font-family:var(--serif);font-size:16px;font-weight:600;color:var(--ink)}
+.niv b{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.niv .pts{font-family:var(--sans);font-size:11px;font-weight:700;color:var(--accent);background:var(--accent-soft);padding:2px 7px;border-radius:999px;letter-spacing:.02em}
+.niv.dur{border-color:var(--amber)}
+.niv.dur .pts{color:var(--amber);background:var(--amber-soft)}
+.niv .avert{font-size:11px;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:.06em}
+.streak{font-size:12px;font-weight:700;color:var(--accent);background:var(--accent-soft);padding:5px 10px;border-radius:999px;letter-spacing:.02em}
+.gain{margin-left:auto;font-family:var(--sans);font-size:13px;font-weight:700;background:var(--surface);padding:3px 10px;border-radius:999px}
+.verdict .vh{justify-content:flex-start}
+.gain-total{font-family:var(--sans);font-size:15px;font-weight:700;color:var(--accent);margin-top:6px}
+.bilan-rank{margin-top:22px;text-align:left;background:var(--surface-2);border:1px solid var(--line-soft);border-radius:var(--r);padding:14px 16px}
+.bilan-rank b{font-family:var(--serif);font-size:17px;font-weight:600}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
+.seg{display:inline-flex;background:var(--surface-2);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.seg button{padding:6px 13px;font-size:13px;font-weight:600;color:var(--ink-2)}
+.seg button.on{background:var(--accent);color:#fff}
+:root[data-theme="dark"] .seg button.on{color:#0E1424}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .seg button.on{color:#0E1424}}
+.icon{width:34px;height:34px;border-radius:8px;display:grid;place-items:center;border:1px solid var(--line);background:var(--surface-2);font-size:16px;flex:0 0 auto}
+</style>
+
+<div class="app">
+  <aside class="side" id="side">
+    <div class="brand">
+      <h1>Cahier de spé maths</h1>
+      <div class="sub">Première générale</div>
+    </div>
+    <nav class="nav" id="nav"></nav>
+  </aside>
+  <div>
+    <div class="topbar">
+      <button class="icon" id="burger" aria-label="Ouvrir le sommaire">☰</button>
+      <h1 id="topttl">Cahier de spé maths</h1>
+    </div>
+    <main id="main"></main>
+  </div>
+</div>
+<script>
+/* =========================================================================
+   Cahier de spé maths — Première générale (programme BO 22/01/2019)
+   Noyau : rendu mathématique, stockage de la progression, utilitaires.
+   ========================================================================= */
+
+/* ---------- rendu mathématique (sans dépendance externe) ----------
+   Mini-syntaxe :
+     x^{2}  x^2   u_{n+1}  u_n     -> exposants / indices
+     frac{a}{b}                    -> fraction
+     sqrt{b^{2}-4ac}               -> racine carrée
+     vec{AB}                       -> vecteur (flèche)
+     @e @cos @sin @ln              -> texte droit (non italique)
+   Les lettres isolées deviennent automatiquement italiques.            */
+
+function mathHtml(src){
+  const keep = [];
+  let s = String(src);
+  s = s.replace(/@([A-Za-z]+)/g, (_m, w) => { keep.push(w); return '' + (keep.length - 1) + ''; });
+  s = s.replace(/(?<![A-Za-z-])([a-zA-Z])(?![A-Za-z])/g, '<i>$1</i>');
+  s = s.replace(/\^\{([^{}]*)\}/g, '<sup>$1</sup>');
+  s = s.replace(/\^(-?<i>[a-zA-Z]<\/i>|-?[0-9])/g, '<sup>$1</sup>');
+  s = s.replace(/_\{([^{}]*)\}/g, '<sub>$1</sub>');
+  s = s.replace(/_(<i>[a-zA-Z]<\/i>|[0-9])/g, '<sub>$1</sub>');
+  s = s.replace(/sqrt\{([^{}]*)\}/g, '<span class="sqrt">√<span class="rad">$1</span></span>');
+  s = s.replace(/frac\{([^{}]*)\}\{([^{}]*)\}/g, '<span class="frac"><span class="n">$1</span><span class="d">$2</span></span>');
+  s = s.replace(/vec\{([^{}]*)\}/g, '<span class="vec">$1<span class="arw">→</span></span>');
+  s = s.replace(/(\d+)/g, (_m, i) => keep[+i]);
+  return s;
+}
+function M(src){ return '<span class="m">' + mathHtml(src) + '</span>'; }
+function Mc(src){ return '<div class="center">' + M(src) + '</div>'; }
+
+/* ---------- utilitaires numériques ---------- */
+const R = {
+  int(a, b){ return a + Math.floor(Math.random() * (b - a + 1)); },
+  nz(a, b){ let v = 0; while (v === 0) v = R.int(a, b); return v; },
+  pick(arr){ return arr[Math.floor(Math.random() * arr.length)]; },
+  sign(){ return Math.random() < 0.5 ? -1 : 1; },
+  shuffle(arr){ const a = arr.slice(); for (let i = a.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+};
+
+/* nombre -> texte français (virgule décimale, pas de -0) */
+function nf(x, dec){
+  if (!isFinite(x)) return '—';
+  let v = (dec === undefined) ? x : Math.round(x * Math.pow(10, dec)) / Math.pow(10, dec);
+  if (Object.is(v, -0)) v = 0;
+  let s = (dec === undefined) ? String(v) : v.toFixed(dec);
+  return s.replace('.', ',');
+}
+/* coefficient signé pour écrire un polynôme : +3x, -x, ... */
+function sgn(v, unit){
+  const a = Math.abs(v);
+  const body = unit ? (a === 1 ? unit : nf(a) + unit) : nf(a);
+  return (v < 0 ? ' - ' : ' + ') + body;
+}
+/* premier terme d'un polynôme (pas de + initial) */
+function lead(v, unit){
+  const a = Math.abs(v);
+  const body = unit ? (a === 1 ? unit : nf(a) + unit) : nf(a);
+  return (v < 0 ? '-' : '') + body;
+}
+/* écrit ax^2+bx+c proprement (termes nuls omis) */
+function trinome(a, b, c, v){
+  v = v || 'x';
+  let s = lead(a, v + '^{2}');
+  if (b !== 0) s += sgn(b, v);
+  if (c !== 0) s += sgn(c, '');
+  return s;
+}
+function pgcd(a, b){ a = Math.abs(a); b = Math.abs(b); while (b){ [a, b] = [b, a % b]; } return a || 1; }
+/* fraction réduite en mini-syntaxe */
+function fracTxt(p, q){
+  if (q < 0){ p = -p; q = -q; }
+  const g = pgcd(p, q);
+  p /= g; q /= g;
+  if (q === 1) return nf(p);
+  return (p < 0 ? '-' : '') + 'frac{' + Math.abs(p) + '}{' + q + '}';
+}
+
+/* ---------- état de la progression ---------- */
+const VIDE = () => ({ v: 2, statuts: {}, methodes: {}, courant: null, serie: 0, record: 0, maj: 0 });
+let S = VIDE();
+
+const BOXES = [0, 1, 3, 7, 16];           // révision espacée, en jours
+const JOUR = 86400000;
+
+/* points par exercice réussi, selon la difficulté */
+const POINTS = { app: 10, ent: 15, ds: 25, exp: 40 };
+
+/* rangs — seuils globaux et seuils par chapitre */
+const RANGS = [
+  { min: 0,    nom: 'Débutant' },
+  { min: 300,  nom: 'Confirmé' },
+  { min: 900,  nom: 'Avancé' },
+  { min: 2000, nom: 'Expert' },
+  { min: 4000, nom: 'Maître' }
+];
+const RANGS_CHAP = [
+  { min: 0,   nom: 'Débutant' },
+  { min: 80,  nom: 'Confirmé' },
+  { min: 220, nom: 'Avancé' },
+  { min: 450, nom: 'Expert' },
+  { min: 800, nom: 'Maître' }
+];
+function rang(xp, table){
+  let i = 0;
+  for (let k = 0; k < table.length; k++) if (xp >= table[k].min) i = k;
+  return {
+    index: i, nom: table[i].nom,
+    seuil: table[i].min,
+    prochain: i + 1 < table.length ? table[i + 1] : null,
+    pc: i + 1 < table.length ? Math.round(100 * (xp - table[i].min) / (table[i + 1].min - table[i].min)) : 100
+  };
+}
+
+function mStat(id){
+  if (!S.methodes[id]) S.methodes[id] = { ok: 0, ko: 0, box: 0, due: 0, dernier: 0, xp: 0 };
+  if (S.methodes[id].xp === undefined) S.methodes[id].xp = 0;
+  return S.methodes[id];
+}
+function enregistrer(mid, juste){
+  const st = mStat(mid);
+  let gain = 0;
+  if (juste){
+    st.ok++;
+    st.box = Math.min(st.box + 1, BOXES.length - 1);
+    S.serie = (S.serie || 0) + 1;
+    gain = POINTS[METHODE[mid].niveau] || 10;
+    if (S.serie >= 3) gain += 5;
+    if (S.serie >= 6) gain += 10;
+    st.xp += gain;
+    if (S.serie > (S.record || 0)) S.record = S.serie;
+  } else {
+    st.ko++; st.box = 0; S.serie = 0;
+  }
+  st.dernier = Date.now();
+  st.due = Date.now() + BOXES[st.box] * JOUR;
+  sauver();
+  return gain;
+}
+function xpChap(id){
+  let t = 0;
+  (CHAP[id].gens || []).forEach(g => { const m = S.methodes[g.id]; if (m) t += (m.xp || 0); });
+  return t;
+}
+function xpTotal(){
+  let t = 0;
+  for (const mid in S.methodes) t += (S.methodes[mid].xp || 0);
+  return t;
+}
+function aRevoir(){
+  const now = Date.now();
+  const out = [];
+  for (const mid in S.methodes){
+    const st = S.methodes[mid];
+    const meta = METHODE[mid];
+    if (!meta) continue;
+    if (st.ko > 0 && st.due <= now) out.push({ mid, st, meta });
+  }
+  return out.sort((a, b) => a.st.due - b.st.due);
+}
+function statutChap(id){ return S.statuts[id] || 'neuf'; }
+function scoreChap(id){
+  const ch = CHAP[id];
+  let ok = 0, tot = 0;
+  (ch.gens || []).forEach(g => { const st = S.methodes[g.id]; if (st){ ok += st.ok; tot += st.ok + st.ko; } });
+  return { ok, tot, pc: tot ? Math.round(100 * ok / tot) : null };
+}
+function scoreGlobal(){
+  let ok = 0, tot = 0;
+  for (const mid in S.methodes){ ok += S.methodes[mid].ok; tot += S.methodes[mid].ok + S.methodes[mid].ko; }
+  return { ok, tot, pc: tot ? Math.round(100 * ok / tot) : null };
+}
+
+/* ---------- persistance : db si disponible, sinon navigateur ---------- */
+const CLE = 'cahier-spe-maths-1re';
+let docRef = null, tSave = null, chargement = true;
+
+function localLoad(){
+  try {
+    const raw = localStorage.getItem(CLE);
+    if (raw) return JSON.parse(raw);
+  } catch (e) {}
+  return null;
+}
+function localSave(){
+  try { localStorage.setItem(CLE, JSON.stringify(S)); } catch (e) {}
+}
+function sauver(){
+  S.maj = Date.now();
+  localSave();
+  if (!docRef) return;
+  clearTimeout(tSave);
+  tSave = setTimeout(() => {
+    docRef.set(JSON.parse(JSON.stringify(S))).catch(() => {});
+  }, 700);
+}
+function adopter(d){
+  if (!d || typeof d !== 'object') return;
+  S = Object.assign(VIDE(), d);
+  S.statuts = S.statuts || {};
+  S.methodes = S.methodes || {};
+  S.serie = S.serie || 0;
+  S.record = S.record || 0;
+  for (const mid in S.methodes) if (S.methodes[mid].xp === undefined) S.methodes[mid].xp = 0;
+}
+async function initStore(){
+  const loc = localLoad();
+  if (loc) adopter(loc);
+  try {
+    const db = await (window.claude && window.claude.use ? window.claude.use('db') : null);
+    if (db){
+      docRef = db.doc('progression/eleve');
+      const snap = await docRef.get();
+      const dist = snap && snap.exists ? snap.data() : null;
+      if (dist && (!loc || (dist.maj || 0) >= (loc.maj || 0))) adopter(dist);
+      else if (loc) sauver();
+    }
+  } catch (e) { /* pas de synchro : on reste en local */ }
+  chargement = false;
+  if (typeof rendre === 'function') rendre();
+}
+/* =========================================================================
+   Le programme officiel : spécialité mathématiques, première générale
+   (arrêté du 17 janvier 2019 — BO spécial n°1 du 22 janvier 2019)
+   5 blocs, 12 chapitres. Pour chaque chapitre : capacités attendues + cours.
+   ========================================================================= */
+
+const BLOCS = [
+  { id: 'algebre',    nom: 'Algèbre' },
+  { id: 'analyse',    nom: 'Analyse' },
+  { id: 'geometrie',  nom: 'Géométrie' },
+  { id: 'probas',     nom: 'Probabilités et statistiques' },
+  { id: 'transverse', nom: 'Transversal' }
+];
+
+const CHAPITRES = [
+{
+  id: 'second-degre', bloc: 'algebre', titre: 'Second degré',
+  resume: 'Forme canonique, discriminant, racines, signe du trinôme.',
+  capacites: [
+    'Déterminer la forme canonique, les racines et la forme factorisée d\u2019un trinôme.',
+    'Résoudre une équation du second degré, étudier le signe d\u2019un trinôme.',
+    'Déterminer le sommet et les variations de la parabole.',
+    'Résoudre un problème se ramenant au second degré (optimisation, aire\u2026).'
+  ],
+  cours: [
+    { k: 'def', t: 'Fonction polynôme du second degré', c:
+      '<p>Une fonction du second degré s\u2019écrit ' + M('f(x) = ax^{2} + bx + c') + ' avec ' + M('a \u2260 0') + '.</p>' +
+      '<p>Sa courbe est une <b>parabole</b> : tournée vers le haut si ' + M('a > 0') + ', vers le bas si ' + M('a < 0') + '.</p>' },
+    { k: 'prop', t: 'Forme canonique et sommet', c:
+      '<p>' + M('f(x) = a(x - \u03B1)^{2} + \u03B2') + ' avec ' + M('\u03B1 = frac{-b}{2a}') + ' et ' + M('\u03B2 = f(\u03B1)') + '.</p>' +
+      '<p>Le <b>sommet</b> de la parabole est le point ' + M('S(\u03B1 ; \u03B2)') + '. Si ' + M('a > 0') + ', ' + M('\u03B2') +
+      ' est le <b>minimum</b> de ' + M('f') + ' ; si ' + M('a < 0') + ', c\u2019est le <b>maximum</b>.</p>' },
+    { k: 'def', t: 'Discriminant', c:
+      Mc('\u0394 = b^{2} - 4ac') },
+    { k: 'prop', t: 'Racines et factorisation', c:
+      '<ul>' +
+      '<li>' + M('\u0394 > 0') + ' : deux racines ' + M('x_1 = frac{-b - sqrt{\u0394}}{2a}') + ' et ' + M('x_2 = frac{-b + sqrt{\u0394}}{2a}') +
+      ', et ' + M('f(x) = a(x - x_1)(x - x_2)') + '.</li>' +
+      '<li>' + M('\u0394 = 0') + ' : une racine double ' + M('x_0 = frac{-b}{2a}') + ', et ' + M('f(x) = a(x - x_0)^{2}') + '.</li>' +
+      '<li>' + M('\u0394 < 0') + ' : aucune racine réelle, pas de factorisation.</li></ul>' },
+    { k: 'prop', t: 'Signe du trinôme', c:
+      '<p>' + M('f(x)') + ' est <b>toujours du signe de ' + M('a') + '</b>, <b>sauf entre les racines</b> lorsqu\u2019elles existent.</p>' +
+      '<p>Si ' + M('\u0394 \u2264 0') + ', ' + M('f(x)') + ' garde le signe de ' + M('a') + ' sur tout ' + M('\u211D') + '.</p>' },
+    { k: 'prop', t: 'Somme et produit des racines', c:
+      Mc('x_1 + x_2 = frac{-b}{a}') + Mc('x_1 \u00D7 x_2 = frac{c}{a}') +
+      '<p>Utile pour deviner des racines entières ou vérifier un résultat.</p>' },
+    { k: 'piege', t: 'Erreurs classiques', c:
+      '<ul><li>Oublier le facteur ' + M('a') + ' dans la forme factorisée.</li>' +
+      '<li>Écrire ' + M('\u0394 = b^{2} - 4ac') + ' en oubliant le signe de ' + M('b') + ' ou de ' + M('c') + ' (attention aux coefficients négatifs).</li>' +
+      '<li>' + M('\u0394 < 0') + ' ne signifie pas « impossible » : la parabole ne coupe simplement pas l\u2019axe des abscisses.</li></ul>' }
+  ]
+},
+{
+  id: 'suites', bloc: 'algebre', titre: 'Suites numériques',
+  resume: 'Arithmétiques, géométriques, sommes, variations, seuils.',
+  capacites: [
+    'Modéliser un phénomène discret à l\u2019aide d\u2019une suite.',
+    'Calculer des termes, avec ou sans algorithme.',
+    'Reconnaître une suite arithmétique ou géométrique, donner son terme général.',
+    'Calculer une somme de termes consécutifs.',
+    'Étudier le sens de variation, chercher un seuil.'
+  ],
+  cours: [
+    { k: 'def', t: 'Suite et modes de génération', c:
+      '<p>Une suite ' + M('(u_n)') + ' associe à chaque entier ' + M('n') + ' un nombre ' + M('u_n') + '.</p>' +
+      '<ul><li><b>Explicite</b> : ' + M('u_n = 3n + 5') + ' — on calcule directement n\u2019importe quel terme.</li>' +
+      '<li><b>Par récurrence</b> : ' + M('u_0 = 2') + ' et ' + M('u_{n+1} = 3u_n - 1') + ' — il faut calculer les termes de proche en proche.</li></ul>' },
+    { k: 'def', t: 'Suite arithmétique', c:
+      '<p>On ajoute toujours la même <b>raison</b> ' + M('r') + ' : ' + M('u_{n+1} = u_n + r') + '.</p>' +
+      Mc('u_n = u_0 + n \u00D7 r') +
+      '<p>Plus généralement ' + M('u_n = u_p + (n - p) \u00D7 r') + '.</p>' },
+    { k: 'def', t: 'Suite géométrique', c:
+      '<p>On multiplie toujours par la même <b>raison</b> ' + M('q') + ' : ' + M('u_{n+1} = q \u00D7 u_n') + '.</p>' +
+      Mc('u_n = u_0 \u00D7 q^{n}') },
+    { k: 'prop', t: 'Sommes de référence', c:
+      Mc('1 + 2 + \u2026 + n = frac{n(n+1)}{2}') +
+      Mc('1 + q + q^{2} + \u2026 + q^{n} = frac{1 - q^{n+1}}{1 - q}') + '<p class="tiny">(pour ' + M('q \u2260 1') + ')</p>' +
+      '<p>Somme de termes consécutifs d\u2019une suite arithmétique :</p>' +
+      Mc('u_0 + u_1 + \u2026 + u_n = frac{(n+1)(u_0 + u_n)}{2}') },
+    { k: 'prop', t: 'Sens de variation', c:
+      '<ul><li>Arithmétique : croissante si ' + M('r > 0') + ', décroissante si ' + M('r < 0') + '.</li>' +
+      '<li>Géométrique avec ' + M('u_0 > 0') + ' : croissante si ' + M('q > 1') + ', décroissante si ' + M('0 < q < 1') + '.</li>' +
+      '<li>Si ' + M('q < 0') + ', la suite change de signe : elle n\u2019est <b>pas monotone</b>.</li></ul>' },
+    { k: 'meth', t: 'Chercher un seuil', c:
+      '<p>Trouver le plus petit ' + M('n') + ' tel que ' + M('u_n > S') + ' : on calcule les termes un par un jusqu\u2019à dépasser ' + M('S') + '.</p>' +
+      '<pre class="code">def seuil(S):\n    u = 200        # valeur de u0\n    n = 0\n    while u &lt;= S:\n        u = u * 1.05   # relation de récurrence\n        n = n + 1\n    return n</pre>' },
+    { k: 'piege', t: 'Erreurs classiques', c:
+      '<ul><li>Confondre ' + M('u_n = u_0 + nr') + ' (départ à ' + M('n = 0') + ') et ' + M('u_n = u_1 + (n-1)r') + ' (départ à ' + M('n = 1') + ').</li>' +
+      '<li>Une hausse de 5 % correspond à ' + M('q = 1,05') + ', pas à ' + M('q = 0,05') + '.</li></ul>' }
+  ]
+},
+{
+  id: 'derivation', bloc: 'analyse', titre: 'Dérivation',
+  resume: 'Nombre dérivé, tangente, dérivées usuelles et opérations.',
+  capacites: [
+    'Calculer un taux de variation et un nombre dérivé.',
+    'Déterminer l\u2019équation de la tangente en un point.',
+    'Calculer la dérivée des fonctions usuelles et de leurs sommes, produits, quotients.',
+    'Interpréter le nombre dérivé comme vitesse ou coût marginal.'
+  ],
+  cours: [
+    { k: 'def', t: 'Taux de variation et nombre dérivé', c:
+      '<p>Taux de variation de ' + M('f') + ' entre ' + M('a') + ' et ' + M('a + h') + ' :</p>' +
+      Mc('frac{f(a + h) - f(a)}{h}') +
+      '<p>Quand ' + M('h') + ' devient très proche de 0, ce taux tend vers le <b>nombre dérivé</b> ' + M('f\u2032(a)') +
+      ', qui est le <b>coefficient directeur de la tangente</b> à la courbe au point d\u2019abscisse ' + M('a') + '.</p>' },
+    { k: 'prop', t: 'Équation de la tangente', c:
+      Mc('y = f\u2032(a)(x - a) + f(a)') },
+    { k: 'prop', t: 'Dérivées des fonctions usuelles', c:
+      '<ul>' +
+      '<li>' + M('f(x) = k') + ' \u2192 ' + M('f\u2032(x) = 0') + '</li>' +
+      '<li>' + M('f(x) = x') + ' \u2192 ' + M('f\u2032(x) = 1') + '</li>' +
+      '<li>' + M('f(x) = x^{n}') + ' \u2192 ' + M('f\u2032(x) = n x^{n-1}') + '</li>' +
+      '<li>' + M('f(x) = frac{1}{x}') + ' \u2192 ' + M('f\u2032(x) = frac{-1}{x^{2}}') + '</li>' +
+      '<li>' + M('f(x) = sqrt{x}') + ' \u2192 ' + M('f\u2032(x) = frac{1}{2sqrt{x}}') + '</li>' +
+      '</ul>' },
+    { k: 'prop', t: 'Opérations', c:
+      '<ul>' +
+      '<li>' + M('(u + v)\u2032 = u\u2032 + v\u2032') + '</li>' +
+      '<li>' + M('(ku)\u2032 = k u\u2032') + '</li>' +
+      '<li>' + M('(uv)\u2032 = u\u2032v + uv\u2032') + '</li>' +
+      '<li>' + M('(frac{1}{v})\u2032 = frac{-v\u2032}{v^{2}}') + '</li>' +
+      '<li>' + M('(frac{u}{v})\u2032 = frac{u\u2032v - uv\u2032}{v^{2}}') + '</li>' +
+      '</ul>' },
+    { k: 'piege', t: 'Erreurs classiques', c:
+      '<ul><li>' + M('(uv)\u2032 \u2260 u\u2032v\u2032') + ' : il faut les deux termes.</li>' +
+      '<li>Dans le quotient, c\u2019est ' + M('u\u2032v - uv\u2032') + ' au numérateur : <b>l\u2019ordre compte</b>.</li>' +
+      '<li>' + M('sqrt{x}') + ' n\u2019est pas dérivable en 0.</li></ul>' }
+  ]
+},
+{
+  id: 'variations', bloc: 'analyse', titre: 'Variations et optimisation',
+  resume: 'Signe de la dérivée, tableau de variations, extremums.',
+  capacites: [
+    'Étudier les variations d\u2019une fonction à partir du signe de sa dérivée.',
+    'Dresser un tableau de variations complet.',
+    'Déterminer les extremums d\u2019une fonction.',
+    'Résoudre un problème d\u2019optimisation.'
+  ],
+  cours: [
+    { k: 'prop', t: 'Lien dérivée / variations', c:
+      '<p>Sur un intervalle ' + M('I') + ' :</p>' +
+      '<ul><li>' + M('f\u2032(x) > 0') + ' sur ' + M('I') + ' \u2192 ' + M('f') + ' est <b>strictement croissante</b> sur ' + M('I') + '</li>' +
+      '<li>' + M('f\u2032(x) < 0') + ' sur ' + M('I') + ' \u2192 ' + M('f') + ' est <b>strictement décroissante</b> sur ' + M('I') + '</li>' +
+      '<li>' + M('f\u2032(x) = 0') + ' sur ' + M('I') + ' \u2192 ' + M('f') + ' est <b>constante</b> sur ' + M('I') + '</li></ul>' },
+    { k: 'meth', t: 'Méthode : étudier les variations', c:
+      '<ul><li>1. Calculer ' + M('f\u2032(x)') + '.</li>' +
+      '<li>2. Étudier le <b>signe</b> de ' + M('f\u2032(x)') + ' (souvent un trinôme : on cherche ses racines).</li>' +
+      '<li>3. Dresser le tableau de variations, en plaçant les valeurs de ' + M('f') + ' aux bornes et aux racines.</li>' +
+      '<li>4. Conclure.</li></ul>' },
+    { k: 'def', t: 'Extremum local', c:
+      '<p>Si ' + M('f\u2032') + ' <b>s\u2019annule en changeant de signe</b> en ' + M('x_0') + ', alors ' + M('f') + ' admet un extremum local en ' + M('x_0') + ' :</p>' +
+      '<ul><li>' + M('+') + ' puis ' + M('-') + ' \u2192 <b>maximum</b> local ;</li>' +
+      '<li>' + M('-') + ' puis ' + M('+') + ' \u2192 <b>minimum</b> local.</li></ul>' },
+    { k: 'meth', t: 'Problème d\u2019optimisation', c:
+      '<p>Toujours la même trame : choisir l\u2019inconnue ' + M('x') + ', exprimer la quantité à optimiser en fonction de ' + M('x') +
+      ', préciser l\u2019<b>intervalle de validité</b>, dériver, étudier le signe, conclure par une phrase.</p>' },
+    { k: 'piege', t: 'Erreurs classiques', c:
+      '<ul><li>' + M('f\u2032(x_0) = 0') + ' ne suffit pas : il faut un <b>changement de signe</b> (contre-exemple : ' + M('f(x) = x^{3}') + ' en 0).</li>' +
+      '<li>Oublier de préciser l\u2019intervalle d\u2019étude dans un problème concret (une longueur est positive !).</li></ul>' }
+  ]
+},
+{
+  id: 'exponentielle', bloc: 'analyse', titre: 'Fonction exponentielle',
+  resume: 'Définition, propriétés algébriques, dérivée, variations.',
+  capacites: [
+    'Transformer une expression avec la relation fonctionnelle.',
+    'Calculer la dérivée de ' + M('x \u21A6 @e^{ax}') + '.',
+    'Étudier les variations, résoudre équations et inéquations.',
+    'Modéliser une croissance ou une décroissance exponentielle.'
+  ],
+  cours: [
+    { k: 'def', t: 'Définition', c:
+      '<p>La fonction exponentielle est l\u2019<b>unique</b> fonction ' + M('f') + ' dérivable sur ' + M('\u211D') + ' telle que</p>' +
+      Mc('f\u2032 = f \u00A0\u00A0 et \u00A0\u00A0 f(0) = 1') +
+      '<p>On la note ' + M('@exp(x)') + ' ou ' + M('@e^{x}') + ', avec ' + M('@e \u2248 2,718') + '.</p>' },
+    { k: 'prop', t: 'Relation fonctionnelle', c:
+      '<ul>' +
+      '<li>' + M('@e^{a+b} = @e^{a} \u00D7 @e^{b}') + '</li>' +
+      '<li>' + M('@e^{-a} = frac{1}{@e^{a}}') + '</li>' +
+      '<li>' + M('@e^{a-b} = frac{@e^{a}}{@e^{b}}') + '</li>' +
+      '<li>' + M('(@e^{a})^{n} = @e^{na}') + '</li></ul>' },
+    { k: 'prop', t: 'Signe, variations, dérivée', c:
+      '<ul><li>' + M('@e^{x} > 0') + ' pour tout réel ' + M('x') + ' : l\u2019exponentielle ne s\u2019annule <b>jamais</b>.</li>' +
+      '<li>Elle est strictement <b>croissante</b> sur ' + M('\u211D') + '.</li>' +
+      '<li>' + M('(@e^{ax})\u2032 = a\u00A0@e^{ax}') + ', et plus généralement ' + M('(@e^{u})\u2032 = u\u2032\u00A0@e^{u}') + '.</li></ul>' },
+    { k: 'prop', t: 'Équations et inéquations', c:
+      '<ul><li>' + M('@e^{x} = @e^{y} \u21D4 x = y') + '</li>' +
+      '<li>' + M('@e^{x} < @e^{y} \u21D4 x < y') + ' (la croissance conserve l\u2019ordre)</li></ul>' },
+    { k: 'piege', t: 'Erreurs classiques', c:
+      '<ul><li>' + M('@e^{a} + @e^{b} \u2260 @e^{a+b}') + '</li>' +
+      '<li>Une équation ' + M('@e^{x} = -3') + ' n\u2019a <b>aucune</b> solution.</li>' +
+      '<li>' + M('(@e^{3x})\u2032 = 3@e^{3x}') + ' et non ' + M('@e^{3x}') + '.</li></ul>' }
+  ]
+},
+{
+  id: 'trigonometrie', bloc: 'analyse', titre: 'Fonctions trigonométriques',
+  resume: 'Cercle trigonométrique, radian, cosinus et sinus.',
+  capacites: [
+    'Placer un point image sur le cercle trigonométrique, convertir degrés / radians.',
+    'Utiliser les valeurs remarquables de cosinus et sinus.',
+    'Utiliser la périodicité et la parité.',
+    'Dériver les fonctions cosinus et sinus.'
+  ],
+  cours: [
+    { k: 'def', t: 'Radian et cercle trigonométrique', c:
+      '<p>Le radian mesure la longueur de l\u2019arc parcouru sur le cercle de rayon 1 :</p>' +
+      Mc('\u03C0 rad = 180\u00B0') +
+      '<p>Enroulement de la droite numérique : à tout réel ' + M('x') + ' correspond un point ' + M('N') + ' du cercle.</p>' },
+    { k: 'def', t: 'Cosinus et sinus', c:
+      '<p>' + M('@cos(x)') + ' et ' + M('@sin(x)') + ' sont l\u2019abscisse et l\u2019ordonnée du point image de ' + M('x') + ' sur le cercle trigonométrique.</p>' },
+    { k: 'prop', t: 'Valeurs remarquables', c:
+      '<ul>' +
+      '<li>' + M('@cos(0) = 1') + ', ' + M('@sin(0) = 0') + '</li>' +
+      '<li>' + M('@cos(frac{\u03C0}{6}) = frac{sqrt{3}}{2}') + ', ' + M('@sin(frac{\u03C0}{6}) = frac{1}{2}') + '</li>' +
+      '<li>' + M('@cos(frac{\u03C0}{4}) = @sin(frac{\u03C0}{4}) = frac{sqrt{2}}{2}') + '</li>' +
+      '<li>' + M('@cos(frac{\u03C0}{3}) = frac{1}{2}') + ', ' + M('@sin(frac{\u03C0}{3}) = frac{sqrt{3}}{2}') + '</li>' +
+      '<li>' + M('@cos(frac{\u03C0}{2}) = 0') + ', ' + M('@sin(frac{\u03C0}{2}) = 1') + '</li></ul>' },
+    { k: 'prop', t: 'Propriétés', c:
+      '<ul><li>' + M('@cos^{2}(x) + @sin^{2}(x) = 1') + '</li>' +
+      '<li>' + M('-1 \u2264 @cos(x) \u2264 1') + ' et ' + M('-1 \u2264 @sin(x) \u2264 1') + '</li>' +
+      '<li>Périodicité : ' + M('@cos(x + 2\u03C0) = @cos(x)') + '</li>' +
+      '<li>Parité : ' + M('@cos(-x) = @cos(x)') + ' (paire), ' + M('@sin(-x) = -@sin(x)') + ' (impaire)</li>' +
+      '<li>' + M('@cos(\u03C0 - x) = -@cos(x)') + ', ' + M('@sin(\u03C0 - x) = @sin(x)') + '</li></ul>' },
+    { k: 'prop', t: 'Dérivées', c:
+      '<ul><li>' + M('(@cos)\u2032 = -@sin') + '</li><li>' + M('(@sin)\u2032 = @cos') + '</li></ul>' }
+  ]
+},
+{
+  id: 'produit-scalaire', bloc: 'geometrie', titre: 'Produit scalaire',
+  resume: 'Quatre expressions, orthogonalité, Al-Kashi.',
+  capacites: [
+    'Calculer un produit scalaire avec les coordonnées, les normes et l\u2019angle, ou une projection.',
+    'Démontrer une orthogonalité.',
+    'Utiliser le théorème d\u2019Al-Kashi.',
+    'Calculer longueurs et angles dans un triangle.'
+  ],
+  cours: [
+    { k: 'def', t: 'Définition avec l\u2019angle', c:
+      '<p>Pour deux vecteurs non nuls formant un angle ' + M('\u03B8') + ' :</p>' +
+      Mc('vec{u} \u00B7 vec{v} = \u2016vec{u}\u2016 \u00D7 \u2016vec{v}\u2016 \u00D7 @cos(\u03B8)') +
+      '<p>Le résultat est un <b>nombre</b>, pas un vecteur.</p>' },
+    { k: 'prop', t: 'Avec les coordonnées', c:
+      '<p>Dans un repère <b>orthonormé</b>, si ' + M('vec{u}(x ; y)') + ' et ' + M('vec{v}(x\u2032 ; y\u2032)') + ' :</p>' +
+      Mc('vec{u} \u00B7 vec{v} = xx\u2032 + yy\u2032') +
+      '<p>et ' + M('\u2016vec{u}\u2016 = sqrt{x^{2} + y^{2}}') + '.</p>' },
+    { k: 'prop', t: 'Avec les normes', c:
+      Mc('vec{u} \u00B7 vec{v} = frac{1}{2}(\u2016vec{u} + vec{v}\u2016^{2} - \u2016vec{u}\u2016^{2} - \u2016vec{v}\u2016^{2})') +
+      '<p>et ' + M('\u2016vec{u} + vec{v}\u2016^{2} = \u2016vec{u}\u2016^{2} + 2\u00A0vec{u} \u00B7 vec{v} + \u2016vec{v}\u2016^{2}') + '.</p>' },
+    { k: 'prop', t: 'Orthogonalité', c:
+      Mc('vec{u} \u00B7 vec{v} = 0 \u21D4 vec{u} \u22A5 vec{v}') +
+      '<p>C\u2019est l\u2019outil n\u00B01 pour démontrer qu\u2019un triangle est rectangle ou que deux droites sont perpendiculaires.</p>' },
+    { k: 'prop', t: 'Théorème d\u2019Al-Kashi', c:
+      '<p>Dans un triangle ' + M('ABC') + ', en notant ' + M('a = BC') + ', ' + M('b = AC') + ', ' + M('c = AB') + ' :</p>' +
+      Mc('a^{2} = b^{2} + c^{2} - 2bc\u00A0@cos(\u00C2)') +
+      '<p>C\u2019est la généralisation du théorème de Pythagore (' + M('\u00C2 = 90\u00B0') + ' donne ' + M('@cos(\u00C2) = 0') + ').</p>' },
+    { k: 'piege', t: 'Erreurs classiques', c:
+      '<ul><li>La formule avec les coordonnées n\u2019est valable que dans un repère <b>orthonormé</b>.</li>' +
+      '<li>Un angle <b>obtus</b> donne un produit scalaire <b>négatif</b>.</li>' +
+      '<li>Ne pas confondre ' + M('vec{u} \u00B7 vec{v}') + ' (un nombre) et ' + M('\u2016vec{u}\u2016') + ' (une longueur).</li></ul>' }
+  ]
+},
+{
+  id: 'geometrie-reperee', bloc: 'geometrie', titre: 'Géométrie repérée',
+  resume: 'Équations de droites, vecteur normal, équation de cercle.',
+  capacites: [
+    'Déterminer une équation cartésienne de droite à partir d\u2019un point et d\u2019un vecteur normal ou directeur.',
+    'Déterminer une équation de cercle.',
+    'Étudier positions relatives et intersections.'
+  ],
+  cours: [
+    { k: 'prop', t: 'Équation cartésienne d\u2019une droite', c:
+      '<p>Toute droite admet une équation ' + M('ax + by + c = 0') + ' avec ' + M('(a ; b) \u2260 (0 ; 0)') + '.</p>' +
+      '<ul><li>' + M('vec{u}(-b ; a)') + ' est un <b>vecteur directeur</b> ;</li>' +
+      '<li>' + M('vec{n}(a ; b)') + ' est un <b>vecteur normal</b> (perpendiculaire à la droite).</li></ul>' },
+    { k: 'meth', t: 'Droite par un point et un vecteur normal', c:
+      '<p>La droite passant par ' + M('A(x_A ; y_A)') + ' et de vecteur normal ' + M('vec{n}(a ; b)') + ' a pour équation :</p>' +
+      Mc('a(x - x_A) + b(y - y_A) = 0') +
+      '<p>Démonstration : ' + M('M(x ; y)') + ' appartient à la droite ' + M('\u21D4 vec{AM} \u00B7 vec{n} = 0') + '.</p>' },
+    { k: 'prop', t: 'Équation d\u2019un cercle', c:
+      '<p>Cercle de centre ' + M('\u03A9(\u03B1 ; \u03B2)') + ' et de rayon ' + M('r') + ' :</p>' +
+      Mc('(x - \u03B1)^{2} + (y - \u03B2)^{2} = r^{2}') },
+    { k: 'prop', t: 'Cercle de diamètre [AB]', c:
+      '<p>' + M('M') + ' appartient au cercle de diamètre ' + M('[AB]') + ' si et seulement si ' + M('vec{MA} \u00B7 vec{MB} = 0') + '.</p>' },
+    { k: 'piege', t: 'Erreurs classiques', c:
+      '<ul><li>Une équation de droite n\u2019est <b>pas unique</b> : ' + M('2x + 4y - 6 = 0') + ' et ' + M('x + 2y - 3 = 0') + ' décrivent la même droite.</li>' +
+      '<li>Dans l\u2019équation du cercle, le rayon apparaît <b>au carré</b>.</li></ul>' }
+  ]
+},
+{
+  id: 'probas-conditionnelles', bloc: 'probas', titre: 'Probabilités conditionnelles',
+  resume: 'Arbres pondérés, probabilités totales, indépendance.',
+  capacites: [
+    'Construire et exploiter un arbre pondéré ou un tableau croisé.',
+    'Utiliser la formule des probabilités totales.',
+    'Démontrer ou exploiter l\u2019indépendance de deux événements.'
+  ],
+  cours: [
+    { k: 'def', t: 'Probabilité conditionnelle', c:
+      '<p>Probabilité de ' + M('B') + ' sachant que ' + M('A') + ' est réalisé (avec ' + M('P(A) \u2260 0') + ') :</p>' +
+      Mc('P_A(B) = frac{P(A \u2229 B)}{P(A)}') +
+      '<p>d\u2019où ' + M('P(A \u2229 B) = P(A) \u00D7 P_A(B)') + '.</p>' },
+    { k: 'meth', t: 'Arbre pondéré', c:
+      '<ul><li>La somme des probabilités des branches issues d\u2019un même n\u0153ud vaut <b>1</b>.</li>' +
+      '<li>La probabilité d\u2019un <b>chemin</b> est le <b>produit</b> des probabilités rencontrées.</li>' +
+      '<li>La probabilité d\u2019un événement est la <b>somme</b> des probabilités des chemins qui y mènent.</li></ul>' },
+    { k: 'prop', t: 'Formule des probabilités totales', c:
+      '<p>Si ' + M('A') + ' et ' + M('\u0100') + ' forment une partition de l\u2019univers :</p>' +
+      Mc('P(B) = P(A \u2229 B) + P(\u0100 \u2229 B)') +
+      Mc('P(B) = P(A) \u00D7 P_A(B) + P(\u0100) \u00D7 P_{\u0100}(B)') },
+    { k: 'def', t: 'Indépendance', c:
+      '<p>' + M('A') + ' et ' + M('B') + ' sont indépendants si</p>' +
+      Mc('P(A \u2229 B) = P(A) \u00D7 P(B)') +
+      '<p>ce qui équivaut à ' + M('P_A(B) = P(B)') + ' : savoir que ' + M('A') + ' est réalisé ne change rien.</p>' },
+    { k: 'piege', t: 'Erreurs classiques', c:
+      '<ul><li>' + M('P_A(B) \u2260 P_B(A)') + ' : l\u2019ordre du conditionnement change tout.</li>' +
+      '<li>Indépendant \u2260 incompatible. Deux événements incompatibles de probabilité non nulle ne sont <b>jamais</b> indépendants.</li></ul>' }
+  ]
+},
+{
+  id: 'variables-aleatoires', bloc: 'probas', titre: 'Variables aléatoires',
+  resume: 'Loi, espérance, variance, écart-type.',
+  capacites: [
+    'Déterminer la loi de probabilité d\u2019une variable aléatoire.',
+    'Calculer espérance, variance et écart-type.',
+    'Interpréter l\u2019espérance comme moyenne sur un grand nombre de répétitions.',
+    'Simuler une expérience aléatoire et observer la fluctuation d\u2019échantillonnage.'
+  ],
+  cours: [
+    { k: 'def', t: 'Loi de probabilité', c:
+      '<p>Une variable aléatoire ' + M('X') + ' associe un nombre à chaque issue. Sa <b>loi</b> est le tableau des ' + M('P(X = x_i') + ')</p>' +
+      '<p>La somme de toutes ces probabilités vaut <b>1</b>.</p>' },
+    { k: 'def', t: 'Espérance, variance, écart-type', c:
+      Mc('E(X) = x_1 p_1 + x_2 p_2 + \u2026 + x_n p_n') +
+      Mc('V(X) = p_1 x_1^{2} + \u2026 + p_n x_n^{2} - E(X)^{2}') +
+      Mc('\u03C3(X) = sqrt{V(X)}') },
+    { k: 'prop', t: 'Transformation affine', c:
+      '<ul><li>' + M('E(aX + b) = a\u00A0E(X) + b') + '</li>' +
+      '<li>' + M('V(aX + b) = a^{2}\u00A0V(X)') + '</li>' +
+      '<li>' + M('\u03C3(aX + b) = |a|\u00A0\u03C3(X)') + '</li></ul>' },
+    { k: 'meth', t: 'Interprétation', c:
+      '<p>L\u2019espérance est le gain moyen que l\u2019on obtiendrait en répétant l\u2019expérience un très grand nombre de fois (loi des grands nombres).</p>' +
+      '<p>Un jeu est <b>équitable</b> lorsque ' + M('E(X) = 0') + '.</p>' +
+      '<p>L\u2019écart-type mesure la <b>dispersion</b> autour de l\u2019espérance.</p>' },
+    { k: 'piege', t: 'Erreurs classiques', c:
+      '<ul><li>Oublier de vérifier que la somme des probabilités vaut 1.</li>' +
+      '<li>Dans ' + M('V(aX+b)') + ', le ' + M('b') + ' <b>disparaît</b> et le ' + M('a') + ' est <b>au carré</b>.</li></ul>' }
+  ]
+},
+{
+  id: 'algorithmique', bloc: 'transverse', titre: 'Algorithmique et programmation',
+  resume: 'Fonctions, boucles, listes, seuils, simulation (Python).',
+  capacites: [
+    'Écrire ou adapter une fonction Python.',
+    'Utiliser boucles bornées (for) et non bornées (while).',
+    'Manipuler des listes, calculer des sommes.',
+    'Simuler une expérience aléatoire.'
+  ],
+  cours: [
+    { k: 'meth', t: 'Écrire une fonction', c:
+      '<pre class="code">def f(x):\n    return 3*x**2 - 5*x + 2\n\nprint(f(4))   # affiche 30</pre>' },
+    { k: 'meth', t: 'Boucle bornée : termes d\u2019une suite', c:
+      '<pre class="code">def terme(n):\n    u = 200          # u0\n    for i in range(n):\n        u = 1.05 * u  # relation de récurrence\n    return u</pre>' },
+    { k: 'meth', t: 'Boucle non bornée : recherche de seuil', c:
+      '<pre class="code">def seuil(S):\n    u = 200\n    n = 0\n    while u &lt;= S:\n        u = 1.05 * u\n        n = n + 1\n    return n</pre>' +
+      '<p>À retenir : on incrémente ' + M('n') + ' <b>dans</b> la boucle, et la condition porte sur la valeur <b>courante</b>.</p>' },
+    { k: 'meth', t: 'Listes et sommes', c:
+      '<pre class="code">L = [2, 5, 9, 4]\ns = 0\nfor v in L:\n    s = s + v\nmoyenne = s / len(L)</pre>' },
+    { k: 'meth', t: 'Simuler une expérience aléatoire', c:
+      '<pre class="code">from random import random\n\ndef frequence(n):\n    succes = 0\n    for i in range(n):\n        if random() &lt; 0.3:\n            succes = succes + 1\n    return succes / n</pre>' +
+      '<p>Plus ' + M('n') + ' est grand, plus la fréquence observée se rapproche de la probabilité théorique.</p>' }
+  ]
+},
+{
+  id: 'logique', bloc: 'transverse', titre: 'Vocabulaire ensembliste et logique',
+  resume: 'Ensembles, quantificateurs, implication, raisonnements.',
+  capacites: [
+    'Utiliser les symboles ' + M('\u2208, \u2282, \u222A, \u2229') + ' et les intervalles.',
+    'Employer correctement les quantificateurs.',
+    'Formuler une implication, sa réciproque, sa contraposée.',
+    'Raisonner par contre-exemple, par disjonction de cas, par l\u2019absurde.'
+  ],
+  cours: [
+    { k: 'def', t: 'Ensembles', c:
+      '<ul><li>' + M('x \u2208 A') + ' : ' + M('x') + ' <b>appartient</b> à ' + M('A') + ' (élément / ensemble).</li>' +
+      '<li>' + M('A \u2282 B') + ' : ' + M('A') + ' est <b>inclus</b> dans ' + M('B') + ' (ensemble / ensemble).</li>' +
+      '<li>' + M('A \u222A B') + ' : réunion (« ou »). ' + M('A \u2229 B') + ' : intersection (« et »).</li>' +
+      '<li>Ensembles de nombres : ' + M('\u2115 \u2282 \u2124 \u2282 \u211A \u2282 \u211D') + '.</li></ul>' },
+    { k: 'def', t: 'Quantificateurs', c:
+      '<ul><li>« Pour tout ' + M('x') + ' de ' + M('I') + ', … » : la propriété est vraie <b>partout</b>.</li>' +
+      '<li>« Il existe ' + M('x') + ' de ' + M('I') + ' tel que … » : il suffit d\u2019<b>un seul</b> exemple.</li></ul>' +
+      '<p>L\u2019ordre des quantificateurs change le sens de la phrase.</p>' },
+    { k: 'def', t: 'Implication, réciproque, contraposée', c:
+      '<ul><li>Implication : ' + M('P \u21D2 Q') + ' — si ' + M('P') + ' est vraie alors ' + M('Q') + ' l\u2019est.</li>' +
+      '<li>Réciproque : ' + M('Q \u21D2 P') + ' — elle peut être <b>fausse</b> alors que l\u2019implication est vraie.</li>' +
+      '<li>Contraposée : ' + M('non\u00A0Q \u21D2 non\u00A0P') + ' — elle a <b>toujours</b> la même valeur de vérité que l\u2019implication.</li>' +
+      '<li>Équivalence ' + M('P \u21D4 Q') + ' : les deux implications sont vraies.</li></ul>' },
+    { k: 'meth', t: 'Types de raisonnement', c:
+      '<ul><li><b>Contre-exemple</b> : pour montrer qu\u2019une propriété « pour tout » est fausse, un seul exemple suffit.</li>' +
+      '<li><b>Disjonction de cas</b> : on traite séparément ' + M('x \u2265 0') + ' et ' + M('x < 0') + ', par exemple.</li>' +
+      '<li><b>Par l\u2019absurde</b> : on suppose le contraire et on aboutit à une contradiction.</li>' +
+      '<li><b>Par contraposée</b> : on démontre ' + M('non\u00A0Q \u21D2 non\u00A0P') + ' à la place de ' + M('P \u21D2 Q') + '.</li></ul>' },
+    { k: 'piege', t: 'Erreurs classiques', c:
+      '<ul><li>Confondre ' + M('\u2208') + ' et ' + M('\u2282') + '.</li>' +
+      '<li>Confondre réciproque et contraposée.</li>' +
+      '<li>Croire qu\u2019un exemple démontre une propriété « pour tout » : un exemple n\u2019est <b>pas</b> une preuve.</li></ul>' }
+  ]
+}
+];
+
+const CHAP = {};
+CHAPITRES.forEach(c => { c.gens = []; CHAP[c.id] = c; });
+const METHODE = {};
+/* =========================================================================
+   Générateurs d'exercices.
+   Chaque générateur tire des valeurs au hasard ET calcule la solution exacte
+   en même temps : les exercices sont illimités et la correction est juste.
+   niveau : 'app' (application) | 'ent' (entraînement) | 'ds' (type DS)
+   ========================================================================= */
+
+const NIVEAUX = { app: 'Application', ent: 'Entraînement', ds: 'Type DS', exp: 'Approfondissement' };
+const ORDRE_NIVEAUX = ['app', 'ent', 'ds', 'exp'];
+
+function G(chap, id, label, niveau, fn){
+  const g = { id, label, niveau, chap, fn };
+  CHAP[chap].gens.push(g);
+  METHODE[id] = g;
+}
+/* écrit (x - r) en gérant le signe */
+function fact(r, v){ v = v || 'x'; return r === 0 ? '(' + v + ')' : '(' + v + (r < 0 ? ' + ' + (-r) : ' - ' + r) + ')'; }
+function coef(a){ return a === 1 ? '' : (a === -1 ? '-' : nf(a)); }
+
+/* =================== SECOND DEGRÉ =================== */
+
+G('second-degre', 'sd-canonique', 'Forme canonique', 'app', function(){
+  const a = R.pick([1, -1, 2, -2, 3]);
+  const al = R.nz(-4, 4), be = R.int(-8, 8);
+  const b = -2 * a * al, c = be + a * al * al;
+  return {
+    enonce: '<p>Soit ' + M('f(x) = ' + trinome(a, b, c)) + '.</p>' +
+            '<p>Écris ' + M('f') + ' sous forme canonique ' + M('f(x) = a(x - α)^{2} + β') + '.</p>',
+    champs: [
+      { type: 'num', label: 'α =', bon: al, tol: 1e-6 },
+      { type: 'num', label: 'β =', bon: be, tol: 1e-6 }
+    ],
+    etapes: [
+      'On identifie ' + M('a = ' + nf(a)) + ', ' + M('b = ' + nf(b)) + ', ' + M('c = ' + nf(c)) + '.',
+      M('α = frac{-b}{2a} = frac{' + nf(-b) + '}{' + nf(2 * a) + '} = ' + nf(al)),
+      M('β = f(α) = ' + nf(a) + ' × (' + nf(al) + ')^{2} ' + sgn(b, '') + ' × (' + nf(al) + ') ' + sgn(c, '') + ' = ' + nf(be)),
+      'Conclusion : ' + M('f(x) = ' + coef(a) + fact(al) + '^{2} ' + (be === 0 ? '' : sgn(be, ''))) +
+        '. Le sommet de la parabole est ' + M('S(' + nf(al) + ' ; ' + nf(be) + ')') + '.'
+    ]
+  };
+});
+
+G('second-degre', 'sd-discriminant', 'Discriminant et nombre de solutions', 'app', function(){
+  const a = R.nz(-3, 3), b = R.int(-7, 7), c = R.int(-6, 6);
+  const D = b * b - 4 * a * c;
+  const nb = D > 0 ? 2 : (D === 0 ? 1 : 0);
+  return {
+    enonce: '<p>On considère l’équation ' + M(trinome(a, b, c) + ' = 0') + '.</p>' +
+            '<p>Calcule le discriminant, puis donne le nombre de solutions réelles.</p>',
+    champs: [
+      { type: 'num', label: 'Δ =', bon: D, tol: 1e-6 },
+      { type: 'choix', label: 'Nombre de solutions', options: ['0', '1', '2'], bon: nb }
+    ],
+    etapes: [
+      'On identifie ' + M('a = ' + nf(a)) + ', ' + M('b = ' + nf(b)) + ', ' + M('c = ' + nf(c)) + '.',
+      M('Δ = b^{2} - 4ac = (' + nf(b) + ')^{2} - 4 × (' + nf(a) + ') × (' + nf(c) + ') = ' + nf(b * b) + sgn(-4 * a * c, '') + ' = ' + nf(D)),
+      D > 0 ? M('Δ > 0') + ' donc l’équation admet <b>deux solutions</b> distinctes.'
+            : (D === 0 ? M('Δ = 0') + ' donc l’équation admet <b>une solution double</b>.'
+                       : M('Δ &lt; 0') + ' donc l’équation n’admet <b>aucune solution réelle</b>.')
+    ]
+  };
+});
+
+G('second-degre', 'sd-racines', 'Résoudre une équation du second degré', 'ent', function(){
+  let x1 = R.int(-6, 6), x2 = R.int(-6, 6);
+  while (x2 === x1) x2 = R.int(-6, 6);
+  if (x1 > x2){ const t = x1; x1 = x2; x2 = t; }
+  const a = R.pick([1, 1, -1, 2]);
+  const b = -a * (x1 + x2), c = a * x1 * x2;
+  const D = b * b - 4 * a * c, rD = Math.sqrt(D);
+  return {
+    enonce: '<p>Résous dans ' + M('ℝ') + ' l’équation</p>' + Mc(trinome(a, b, c) + ' = 0'),
+    champs: [
+      { type: 'num', label: 'plus petite solution', bon: x1, tol: 1e-6 },
+      { type: 'num', label: 'plus grande solution', bon: x2, tol: 1e-6 }
+    ],
+    etapes: [
+      M('a = ' + nf(a)) + ', ' + M('b = ' + nf(b)) + ', ' + M('c = ' + nf(c)) + '.',
+      M('Δ = b^{2} - 4ac = ' + nf(b * b) + sgn(-4 * a * c, '') + ' = ' + nf(D)) + ' — ' + M('Δ > 0') + ', il y a deux solutions.',
+      M('sqrt{Δ} = ' + nf(rD)),
+      M('x_1 = frac{' + nf(-b) + ' - ' + nf(rD) + '}{' + nf(2 * a) + '} = ' + nf(a > 0 ? x1 : x2)) + '   et   ' +
+        M('x_2 = frac{' + nf(-b) + ' + ' + nf(rD) + '}{' + nf(2 * a) + '} = ' + nf(a > 0 ? x2 : x1)),
+      'Les solutions sont ' + M(nf(x1)) + ' et ' + M(nf(x2)) + '. Vérification : ' +
+        M('x_1 + x_2 = frac{-b}{a} = ' + nf(-b / a)) + ' et ' + M('x_1 x_2 = frac{c}{a} = ' + nf(c / a)) + '.'
+    ]
+  };
+});
+
+G('second-degre', 'sd-factorisation', 'Factoriser un trinôme', 'ent', function(){
+  let x1 = R.nz(-5, 5), x2 = R.nz(-5, 5);
+  while (x2 === x1 || x2 === -x1) x2 = R.nz(-5, 5);
+  if (x1 > x2){ const t = x1; x1 = x2; x2 = t; }
+  const a = R.pick([2, -2, 3, -3]);
+  const b = -a * (x1 + x2), c = a * x1 * x2;
+  const bon = M(nf(a) + fact(x1) + fact(x2));
+  return {
+    enonce: '<p>Factorise le trinôme</p>' + Mc('f(x) = ' + trinome(a, b, c)),
+    qcm: {
+      options: [bon,
+        M(fact(x1) + fact(x2)),
+        M(nf(a) + fact(-x1) + fact(-x2)),
+        M(nf(a) + fact(x1) + fact(-x2))],
+      bon: 0
+    },
+    etapes: [
+      M('Δ = ' + nf(b) + '^{2} - 4 × ' + nf(a) + ' × ' + nf(c) + ' = ' + nf(b * b - 4 * a * c)) + ' — deux racines.',
+      'Les racines sont ' + M('x_1 = ' + nf(x1)) + ' et ' + M('x_2 = ' + nf(x2)) + '.',
+      'La forme factorisée est ' + M('f(x) = a(x - x_1)(x - x_2)') + ', donc ' + bon + '.',
+      '<b>Ne jamais oublier le coefficient ' + M('a') + '</b> : sans lui, on ne retrouve pas le même trinôme en développant.'
+    ]
+  };
+});
+
+G('second-degre', 'sd-signe', 'Signe d’un trinôme', 'ent', function(){
+  const negatif = Math.random() < 0.5;          // on demande f(x) < 0 ou f(x) > 0
+  const sansRacine = Math.random() < 0.28;
+  const a = R.pick([1, 2, -1, -2]);
+  let b, c, x1, x2, D;
+  if (sansRacine){
+    do { b = R.int(-4, 4); c = R.int(-6, 6); D = b * b - 4 * a * c; } while (D >= 0);
+  } else {
+    x1 = R.int(-5, 4); x2 = x1 + R.int(1, 5);
+    b = -a * (x1 + x2); c = a * x1 * x2; D = b * b - 4 * a * c;
+  }
+  const optEntre = sansRacine ? null : M('] ' + nf(x1) + ' ; ' + nf(x2) + ' [');
+  const optDehors = sansRacine ? null : M('] -∞ ; ' + nf(x1) + ' [ ∪ ] ' + nf(x2) + ' ; +∞ [');
+  const optTout = 'Pour tout réel ' + M('x');
+  const optAucun = 'Aucune valeur de ' + M('x');
+  let options, bon;
+  if (sansRacine){
+    options = [optTout, optAucun, M('] -∞ ; 0 [') , M('] 0 ; +∞ [')];
+    // Δ<0 : f garde le signe de a
+    const signePositif = a > 0;
+    bon = (negatif ? (signePositif ? 1 : 0) : (signePositif ? 0 : 1));
+  } else {
+    options = [optEntre, optDehors, optTout, optAucun];
+    // a>0 : négatif entre les racines ; a<0 : positif entre les racines
+    bon = negatif ? (a > 0 ? 0 : 1) : (a > 0 ? 1 : 0);
+  }
+  return {
+    enonce: '<p>Soit ' + M('f(x) = ' + trinome(a, b, c)) + '.</p>' +
+            '<p>Pour quelles valeurs de ' + M('x') + ' a-t-on ' + M('f(x) ' + (negatif ? '&lt;' : '>') + ' 0') + ' ?</p>',
+    qcm: { options: options, bon: bon },
+    etapes: sansRacine ? [
+      M('Δ = ' + nf(b) + '^{2} - 4 × ' + nf(a) + ' × ' + nf(c) + ' = ' + nf(D)) + ' : ' + M('Δ &lt; 0') + ', il n’y a <b>pas de racine</b>.',
+      'Le trinôme garde donc <b>toujours le signe de ' + M('a') + '</b>, ici ' + M('a = ' + nf(a)) + ' donc ' + M('f(x) ' + (a > 0 ? '> 0' : '&lt; 0')) + ' pour tout réel.',
+      'Réponse : ' + (bon === 0 ? optTout : optAucun) + '.'
+    ] : [
+      M('Δ = ' + nf(D) + ' > 0') + ' : deux racines ' + M('x_1 = ' + nf(x1)) + ' et ' + M('x_2 = ' + nf(x2)) + '.',
+      'Règle : ' + M('f(x)') + ' est du <b>signe de ' + M('a') + '</b> à l’extérieur des racines, et du <b>signe contraire</b> entre les racines.',
+      'Ici ' + M('a = ' + nf(a)) + ' : ' + M('f(x)') + ' est ' + (a > 0 ? 'positif' : 'négatif') + ' à l’extérieur et ' +
+        (a > 0 ? 'négatif' : 'positif') + ' sur ' + optEntre + '.',
+      'Réponse : ' + options[bon] + '.'
+    ]
+  };
+});
+
+G('second-degre', 'sd-optim', 'Problème d’optimisation', 'ds', function(){
+  if (Math.random() < 0.5){
+    const L = R.pick([40, 60, 80, 100, 120]);
+    const x = L / 4, A = L * L / 8;
+    return {
+      enonce: '<p>Un éleveur dispose de <b>' + L + ' m</b> de grillage pour clôturer un enclos <b>rectangulaire adossé à un mur</b> ' +
+              '(seuls trois côtés sont à clôturer : deux largeurs ' + M('x') + ' et une longueur).</p>' +
+              '<p>Quelle largeur ' + M('x') + ' rend l’aire maximale, et combien vaut cette aire ?</p>',
+      champs: [
+        { type: 'num', label: 'x (en m)', bon: x, tol: 1e-6 },
+        { type: 'num', label: 'aire max (en m²)', bon: A, tol: 1e-6 }
+      ],
+      etapes: [
+        'La longueur vaut ' + M(L + ' - 2x') + ', donc l’aire est ' + M('A(x) = x(' + L + ' - 2x) = -2x^{2} + ' + L + 'x') + ', avec ' + M('x ∈ ] 0 ; ' + (L / 2) + ' [') + '.',
+        'C’est un trinôme avec ' + M('a = -2 &lt; 0') + ' : la parabole est tournée vers le bas, le <b>sommet est un maximum</b>.',
+        M('α = frac{-b}{2a} = frac{-' + L + '}{-4} = ' + nf(x)),
+        M('A(' + nf(x) + ') = ' + nf(x) + ' × (' + L + ' - ' + nf(2 * x) + ') = ' + nf(x) + ' × ' + nf(L - 2 * x) + ' = ' + nf(A)),
+        'L’aire est maximale pour ' + M('x = ' + nf(x)) + ' m et vaut ' + M(nf(A)) + ' m².'
+      ]
+    };
+  }
+  const v = R.pick([20, 30, 40, 50]);
+  const h0 = R.pick([0, 1, 2, 5]);
+  const t = v / 10, h = v * v / 20 + h0;
+  return {
+    enonce: '<p>Un objet est lancé vers le haut. Sa hauteur, en mètres, après ' + M('t') + ' secondes est</p>' +
+            Mc('h(t) = -5t^{2} + ' + v + 't' + (h0 ? ' + ' + h0 : '')) +
+            '<p>À quel instant la hauteur est-elle maximale, et quelle est cette hauteur ?</p>',
+    champs: [
+      { type: 'num', label: 't (en s)', bon: t, tol: 1e-6 },
+      { type: 'num', label: 'hauteur max (en m)', bon: h, tol: 1e-6 }
+    ],
+    etapes: [
+      'Trinôme avec ' + M('a = -5 &lt; 0') + ' : le sommet est un <b>maximum</b>.',
+      M('α = frac{-b}{2a} = frac{-' + v + '}{-10} = ' + nf(t)) + ' seconde(s).',
+      M('h(' + nf(t) + ') = -5 × ' + nf(t * t) + ' + ' + v + ' × ' + nf(t) + (h0 ? ' + ' + h0 : '') + ' = ' + nf(h)) + ' mètres.',
+      'La hauteur maximale est ' + M(nf(h)) + ' m, atteinte au bout de ' + M(nf(t)) + ' s.'
+    ]
+  };
+});
+
+/* =================== SUITES =================== */
+
+G('suites', 'su-nature', 'Reconnaître la nature d’une suite', 'app', function(){
+  const arith = Math.random() < 0.5;
+  const explicite = Math.random() < 0.5;
+  let enonce, raison, etapes;
+  if (arith){
+    const u0 = R.int(-10, 20), r = R.nz(-7, 9);
+    raison = r;
+    if (explicite){
+      enonce = M('u_n = ' + lead(r, 'n') + (u0 ? sgn(u0, '') : ''));
+      etapes = [
+        'On calcule ' + M('u_{n+1} - u_n') + ' : ' + M('u_{n+1} = ' + nf(r) + '(n + 1) ' + (u0 ? sgn(u0, '') : '') + ' = ' + lead(r, 'n') + sgn(r + u0, '')) + '.',
+        M('u_{n+1} - u_n = ' + nf(r)) + ' : c’est une <b>constante</b>.',
+        'La suite est donc <b>arithmétique</b> de raison ' + M('r = ' + nf(r)) + '.'
+      ];
+    } else {
+      enonce = M('u_0 = ' + nf(u0)) + ' et ' + M('u_{n+1} = u_n ' + sgn(r, ''));
+      etapes = [
+        'On passe d’un terme au suivant en <b>ajoutant</b> toujours ' + M(nf(r)) + '.',
+        'La suite est <b>arithmétique</b> de raison ' + M('r = ' + nf(r)) + '.',
+        'Son terme général est ' + M('u_n = u_0 + nr = ' + nf(u0) + sgn(r, 'n'))
+      ];
+    }
+  } else {
+    const u0 = R.pick([1, 2, 3, 5, 8, 10, 100]), q = R.pick([2, 3, 5, 0.5, 1.5, -2, 0.8]);
+    raison = q;
+    if (explicite){
+      enonce = M('u_n = ' + (u0 === 1 ? '' : nf(u0) + ' × ') + '(' + nf(q) + ')^{n}');
+      etapes = [
+        'On calcule ' + M('frac{u_{n+1}}{u_n}') + '.',
+        M('frac{u_{n+1}}{u_n} = frac{' + nf(u0) + ' × (' + nf(q) + ')^{n+1}}{' + nf(u0) + ' × (' + nf(q) + ')^{n}} = ' + nf(q)) + ' : constante.',
+        'La suite est <b>géométrique</b> de raison ' + M('q = ' + nf(q)) + '.'
+      ];
+    } else {
+      enonce = M('u_0 = ' + nf(u0)) + ' et ' + M('u_{n+1} = ' + nf(q) + ' × u_n');
+      etapes = [
+        'On passe d’un terme au suivant en <b>multipliant</b> toujours par ' + M(nf(q)) + '.',
+        'La suite est <b>géométrique</b> de raison ' + M('q = ' + nf(q)) + '.',
+        'Son terme général est ' + M('u_n = u_0 q^{n} = ' + nf(u0) + ' × (' + nf(q) + ')^{n}')
+      ];
+    }
+  }
+  return {
+    enonce: '<p>On considère la suite définie par</p>' + '<div class="center">' + enonce + '</div>' +
+            '<p>Quelle est sa nature, et quelle est sa raison ?</p>',
+    champs: [
+      { type: 'choix', label: 'Nature', options: ['Arithmétique', 'Géométrique', 'Ni l’une ni l’autre'], bon: arith ? 0 : 1 },
+      { type: 'num', label: 'Raison', bon: raison, tol: 1e-6 }
+    ],
+    etapes: etapes
+  };
+});
+
+G('suites', 'su-terme', 'Calculer des termes', 'app', function(){
+  const u0 = R.int(-4, 9), a = R.pick([2, 3, -2]), b = R.int(-6, 6);
+  const u1 = a * u0 + b, u2 = a * u1 + b, u3 = a * u2 + b;
+  return {
+    enonce: '<p>Soit la suite définie par ' + M('u_0 = ' + nf(u0)) + ' et ' + M('u_{n+1} = ' + lead(a, 'u_n') + (b ? sgn(b, '') : '')) + '.</p>' +
+            '<p>Calcule ' + M('u_3') + '.</p>',
+    champs: [{ type: 'num', label: 'u₃ =', bon: u3, tol: 1e-6 }],
+    etapes: [
+      M('u_1 = ' + nf(a) + ' × ' + nf(u0) + (b ? sgn(b, '') : '') + ' = ' + nf(u1)),
+      M('u_2 = ' + nf(a) + ' × ' + nf(u1) + (b ? sgn(b, '') : '') + ' = ' + nf(u2)),
+      M('u_3 = ' + nf(a) + ' × ' + nf(u2) + (b ? sgn(b, '') : '') + ' = ' + nf(u3)),
+      'Attention : la suite est définie <b>par récurrence</b>, il faut calculer tous les termes intermédiaires.'
+    ]
+  };
+});
+
+G('suites', 'su-explicite', 'Terme général', 'ent', function(){
+  const arith = Math.random() < 0.5;
+  if (arith){
+    const u0 = R.int(-8, 15), r = R.nz(-6, 8);
+    return {
+      enonce: '<p>Soit ' + M('u_0 = ' + nf(u0)) + ' et ' + M('u_{n+1} = u_n ' + sgn(r, '')) + '.</p><p>Quel est le terme général ' + M('u_n') + ' ?</p>',
+      qcm: {
+        options: [
+          M('u_n = ' + nf(u0) + sgn(r, 'n')),
+          M('u_n = ' + nf(u0) + ' ' + (r < 0 ? '-' : '+') + ' ' + Math.abs(r) + '(n - 1)'),
+          M('u_n = ' + nf(u0) + ' × ' + nf(r) + '^{n}'),
+          M('u_n = ' + lead(u0, 'n') + sgn(r, ''))
+        ], bon: 0
+      },
+      etapes: [
+        'La suite est <b>arithmétique</b> de raison ' + M('r = ' + nf(r)) + ', et le premier terme est ' + M('u_0') + '.',
+        'Formule du cours : ' + M('u_n = u_0 + n × r') + '.',
+        'Donc ' + M('u_n = ' + nf(u0) + sgn(r, 'n')) + '.',
+        '<b>Piège</b> : ' + M('u_n = u_0 + nr') + ' quand on part de ' + M('u_0') + ', mais ' + M('u_n = u_1 + (n-1)r') + ' quand on part de ' + M('u_1') + '.'
+      ]
+    };
+  }
+  const u0 = R.pick([2, 3, 5, 10, 50]), q = R.pick([2, 3, 0.5, 1.5]);
+  return {
+    enonce: '<p>Soit ' + M('u_0 = ' + nf(u0)) + ' et ' + M('u_{n+1} = ' + nf(q) + ' × u_n') + '.</p><p>Quel est le terme général ' + M('u_n') + ' ?</p>',
+    qcm: {
+      options: [
+        M('u_n = ' + nf(u0) + ' × ' + nf(q) + '^{n}'),
+        M('u_n = ' + nf(u0) + ' × ' + nf(q) + '^{n-1}'),
+        M('u_n = ' + nf(u0) + ' + ' + nf(q) + 'n'),
+        M('u_n = ' + nf(u0 * q) + ' × ' + nf(q) + '^{n}')
+      ], bon: 0
+    },
+    etapes: [
+      'La suite est <b>géométrique</b> de raison ' + M('q = ' + nf(q)) + ', premier terme ' + M('u_0 = ' + nf(u0)) + '.',
+      'Formule du cours : ' + M('u_n = u_0 × q^{n}') + '.',
+      'Vérification : ' + M('u_0 = ' + nf(u0) + ' × ' + nf(q) + '^{0} = ' + nf(u0)) + ' ✓'
+    ]
+  };
+});
+
+G('suites', 'su-somme', 'Somme de termes', 'ent', function(){
+  const v = R.int(1, 3);
+  if (v === 1){
+    const n = R.int(18, 60), S = n * (n + 1) / 2;
+    return {
+      enonce: '<p>Calcule la somme des entiers de 1 à ' + n + ' :</p>' + Mc('S = 1 + 2 + 3 + … + ' + n),
+      champs: [{ type: 'num', label: 'S =', bon: S, tol: 1e-6 }],
+      etapes: [
+        'Formule du cours : ' + M('1 + 2 + … + n = frac{n(n+1)}{2}') + '.',
+        M('S = frac{' + n + ' × ' + (n + 1) + '}{2} = frac{' + (n * (n + 1)) + '}{2} = ' + nf(S))
+      ]
+    };
+  }
+  if (v === 2){
+    const u0 = R.int(-5, 12), r = R.nz(-5, 7), n = R.int(8, 25);
+    const un = u0 + n * r, S = (n + 1) * (u0 + un) / 2;
+    return {
+      enonce: '<p>' + M('(u_n)') + ' est arithmétique de premier terme ' + M('u_0 = ' + nf(u0)) + ' et de raison ' + M('r = ' + nf(r)) + '.</p>' +
+              '<p>Calcule ' + M('S = u_0 + u_1 + … + u_{' + n + '}') + '.</p>',
+      champs: [{ type: 'num', label: 'S =', bon: S, tol: 1e-6 }],
+      etapes: [
+        M('u_{' + n + '} = u_0 + ' + n + 'r = ' + nf(u0) + ' + ' + n + ' × (' + nf(r) + ') = ' + nf(un)),
+        'Il y a ' + M(nf(n + 1)) + ' termes (de ' + M('u_0') + ' à ' + M('u_{' + n + '}') + ').',
+        'Formule : ' + M('S = frac{(nombre de termes) × (premier + dernier)}{2}'),
+        M('S = frac{' + (n + 1) + ' × (' + nf(u0) + ' + ' + nf(un) + ')}{2} = ' + nf(S))
+      ]
+    };
+  }
+  const n = R.int(5, 12), S = Math.pow(2, n + 1) - 1;
+  return {
+    enonce: '<p>Calcule</p>' + Mc('S = 1 + 2 + 2^{2} + 2^{3} + … + 2^{' + n + '}'),
+    champs: [{ type: 'num', label: 'S =', bon: S, tol: 1e-6 }],
+    etapes: [
+      'Formule du cours : ' + M('1 + q + … + q^{n} = frac{1 - q^{n+1}}{1 - q}') + ' avec ' + M('q = 2') + '.',
+      M('S = frac{1 - 2^{' + (n + 1) + '}}{1 - 2} = frac{1 - ' + nf(Math.pow(2, n + 1)) + '}{-1} = ' + nf(S)),
+      'Astuce de vérification : cette somme vaut toujours ' + M('2^{n+1} - 1') + '.'
+    ]
+  };
+});
+
+G('suites', 'su-variation', 'Sens de variation', 'ent', function(){
+  const cas = R.int(1, 4);
+  let enonce, bon, expl;
+  if (cas === 1){
+    const u0 = R.int(-5, 10), r = R.nz(-6, 6);
+    enonce = M('u_0 = ' + nf(u0)) + ' et ' + M('u_{n+1} = u_n ' + sgn(r, ''));
+    bon = r > 0 ? 0 : 1;
+    expl = 'Suite <b>arithmétique</b> de raison ' + M('r = ' + nf(r)) + '. Comme ' + M('r ' + (r > 0 ? '> 0' : '&lt; 0')) +
+           ', la suite est <b>' + (r > 0 ? 'croissante' : 'décroissante') + '</b>.';
+  } else if (cas === 2){
+    const u0 = R.pick([2, 5, 10, 100]), q = R.pick([1.5, 2, 3]);
+    enonce = M('u_0 = ' + nf(u0)) + ' et ' + M('u_{n+1} = ' + nf(q) + ' × u_n');
+    bon = 0;
+    expl = 'Suite <b>géométrique</b> de raison ' + M('q = ' + nf(q) + ' > 1') + ' avec ' + M('u_0 > 0') + ' : elle est <b>croissante</b>.';
+  } else if (cas === 3){
+    const u0 = R.pick([80, 100, 200, 1000]), q = R.pick([0.5, 0.8, 0.9]);
+    enonce = M('u_0 = ' + nf(u0)) + ' et ' + M('u_{n+1} = ' + nf(q) + ' × u_n');
+    bon = 1;
+    expl = 'Suite <b>géométrique</b> de raison ' + M('0 &lt; q = ' + nf(q) + ' &lt; 1') + ' avec ' + M('u_0 > 0') + ' : elle est <b>décroissante</b>.';
+  } else {
+    const u0 = R.pick([1, 2, 3]), q = R.pick([-2, -3, -0.5]);
+    enonce = M('u_0 = ' + nf(u0)) + ' et ' + M('u_{n+1} = ' + nf(q) + ' × u_n');
+    bon = 2;
+    expl = 'La raison est <b>négative</b> (' + M('q = ' + nf(q)) + ') : les termes changent de signe alternativement, la suite n’est <b>pas monotone</b>.';
+  }
+  return {
+    enonce: '<p>Étudie le sens de variation de la suite définie par</p><div class="center">' + enonce + '</div>',
+    qcm: { options: ['Croissante', 'Décroissante', 'Ni croissante ni décroissante', 'Constante'], bon: bon },
+    etapes: [expl, 'Rappel : pour une suite géométrique, le sens de variation dépend <b>à la fois</b> du signe de ' + M('u_0') + ' et de la valeur de ' + M('q') + '.']
+  };
+});
+
+G('suites', 'su-seuil', 'Recherche de seuil', 'ds', function(){
+  const croissante = Math.random() < 0.7;
+  const u0 = R.pick([200, 500, 1000, 1500, 2500]);
+  const p = croissante ? R.pick([2, 3, 4, 5, 8, 10]) : R.pick([10, 15, 20]);
+  const q = croissante ? 1 + p / 100 : 1 - p / 100;
+  const k = R.int(6, 20);
+  let S = u0 * Math.pow(q, k);
+  S = croissante ? Math.round(S / 100) * 100 : Math.round(S / 10) * 10;
+  if (croissante && S <= u0) S = u0 + 100;
+  if (!croissante && S < 10) S = 10;
+  let u = u0, n = 0, trace = [];
+  while (croissante ? u <= S : u >= S){ u = u * q; n++; if (n <= 3) trace.push(n); if (n > 4000) break; }
+  const suiteTxt = croissante ? 'augmente de ' + p + ' % par an' : 'diminue de ' + p + ' % par an';
+  return {
+    enonce: '<p>Une population de <b>' + nf(u0) + '</b> individus ' + suiteTxt + '. On note ' + M('u_n') +
+            ' l’effectif au bout de ' + M('n') + ' années.</p>' +
+            '<p>À partir de quelle année l’effectif ' + (croissante ? 'dépasse-t-il' : 'passe-t-il en dessous de') +
+            ' <b>' + nf(S) + '</b> ? (donne le plus petit entier ' + M('n') + ')</p>',
+    champs: [{ type: 'num', label: 'n =', bon: n, tol: 1e-9 }],
+    etapes: [
+      (croissante ? 'Une hausse' : 'Une baisse') + ' de ' + p + ' % correspond à un coefficient multiplicateur ' + M('q = ' + nf(q)) +
+        ' : la suite est <b>géométrique</b>, ' + M('u_n = ' + nf(u0) + ' × ' + nf(q) + '^{n}') + '.',
+      'On calcule les termes jusqu’à ' + (croissante ? 'dépasser' : 'descendre sous') + ' ' + M(nf(S)) + ' : ' +
+        trace.map(i => M('u_{' + i + '} ≈ ' + nf(u0 * Math.pow(q, i), 1))).join(', ') + ', …',
+      'On obtient ' + M('u_{' + n + '} ≈ ' + nf(u0 * Math.pow(q, n), 1)) + ' et ' + M('u_{' + (n - 1) + '} ≈ ' + nf(u0 * Math.pow(q, n - 1), 1)) +
+        ' : le seuil est franchi pour ' + M('n = ' + n) + '.',
+      'Algorithme correspondant :<pre class="code">def seuil():\n    u = ' + u0 + '\n    n = 0\n    while u ' + (croissante ? '&lt;=' : '&gt;=') + ' ' + S +
+        ':\n        u = u * ' + String(q) + '\n        n = n + 1\n    return n</pre>'
+    ]
+  };
+});
+
+/* =================== DÉRIVATION =================== */
+
+G('derivation', 'de-polynome', 'Dériver un polynôme', 'app', function(){
+  const a = R.nz(-4, 4), b = R.nz(-6, 6), c = R.nz(-8, 8), d = R.int(-9, 9);
+  const f = lead(a, 'x^{3}') + sgn(b, 'x^{2}') + sgn(c, 'x') + (d ? sgn(d, '') : '');
+  return {
+    enonce: '<p>Calcule la dérivée de</p>' + Mc('f(x) = ' + f),
+    qcm: {
+      options: [
+        M('f′(x) = ' + lead(3 * a, 'x^{2}') + sgn(2 * b, 'x') + sgn(c, '')),
+        M('f′(x) = ' + lead(3 * a, 'x^{2}') + sgn(2 * b, 'x') + sgn(c, '') + (d ? sgn(d, '') : ' + 1')),
+        M('f′(x) = ' + lead(a, 'x^{2}') + sgn(b, 'x') + sgn(c, '')),
+        M('f′(x) = ' + lead(3 * a, 'x^{2}') + sgn(b, 'x') + sgn(c, ''))
+      ], bon: 0
+    },
+    etapes: [
+      'On dérive terme par terme avec ' + M('(x^{n})′ = n x^{n-1}') + '.',
+      M('(' + lead(a, 'x^{3}') + ')′ = ' + lead(3 * a, 'x^{2}')) + ', ' +
+        M('(' + lead(b, 'x^{2}') + ')′ = ' + lead(2 * b, 'x')) + ', ' +
+        M('(' + lead(c, 'x') + ')′ = ' + nf(c)) + ', et la dérivée de la constante ' + M(nf(d)) + ' est <b>0</b>.',
+      M('f′(x) = ' + lead(3 * a, 'x^{2}') + sgn(2 * b, 'x') + sgn(c, ''))
+    ]
+  };
+});
+
+G('derivation', 'de-nombre-derive', 'Nombre dérivé', 'app', function(){
+  const a = R.nz(-4, 4), b = R.nz(-7, 7), c = R.int(-8, 8), k = R.nz(-4, 4);
+  const v = 2 * a * k + b;
+  return {
+    enonce: '<p>Soit ' + M('f(x) = ' + trinome(a, b, c)) + '.</p><p>Calcule ' + M('f′(' + nf(k) + ')') + '.</p>',
+    champs: [{ type: 'num', label: 'f′(' + nf(k) + ') =', bon: v, tol: 1e-6 }],
+    etapes: [
+      M('f′(x) = ' + lead(2 * a, 'x') + sgn(b, '')),
+      M('f′(' + nf(k) + ') = ' + nf(2 * a) + ' × (' + nf(k) + ') ' + sgn(b, '') + ' = ' + nf(v)),
+      'Interprétation : ' + M(nf(v)) + ' est le <b>coefficient directeur de la tangente</b> à la courbe au point d’abscisse ' + M(nf(k)) + '.'
+    ]
+  };
+});
+
+G('derivation', 'de-tangente', 'Équation de la tangente', 'ent', function(){
+  const a = R.pick([1, -1, 2, -2]), b = R.nz(-6, 6), c = R.int(-8, 8), k = R.nz(-3, 3);
+  const m = 2 * a * k + b, y0 = a * k * k + b * k + c, p = y0 - m * k;
+  return {
+    enonce: '<p>Soit ' + M('f(x) = ' + trinome(a, b, c)) + '.</p>' +
+            '<p>Détermine l’équation ' + M('y = mx + p') + ' de la tangente à la courbe au point d’abscisse ' + M('a = ' + nf(k)) + '.</p>',
+    champs: [
+      { type: 'num', label: 'm =', bon: m, tol: 1e-6 },
+      { type: 'num', label: 'p =', bon: p, tol: 1e-6 }
+    ],
+    etapes: [
+      M('f(' + nf(k) + ') = ' + nf(y0)) + ' et ' + M('f′(x) = ' + lead(2 * a, 'x') + sgn(b, '')) + ' donc ' + M('f′(' + nf(k) + ') = ' + nf(m)) + '.',
+      'Formule : ' + M('y = f′(a)(x - a) + f(a)') + ', ici ' + M('y = ' + nf(m) + '(x ' + (k < 0 ? '+ ' + (-k) : '- ' + k) + ')' + sgn(y0, '')) + '.',
+      'On développe : ' + M('y = ' + lead(m, 'x') + ' ' + sgn(-m * k, '') + ' ' + sgn(y0, '')) + ' soit ' + M('y = ' + lead(m, 'x') + sgn(p, '')) + '.',
+      'Donc ' + M('m = ' + nf(m)) + ' et ' + M('p = ' + nf(p)) + '.'
+    ]
+  };
+});
+
+G('derivation', 'de-usuelles', 'Dériver racine et inverse', 'ent', function(){
+  const a = R.nz(-5, 5), b = R.nz(-6, 6), c = R.int(-5, 5);
+  /* f(x) = a√x + b/x + cx   →   f'(x) = a/(2√x) - b/x² + c */
+  const fr = (p, q) => (p < 0 ? ' - ' : ' + ') + 'frac{' + Math.abs(p) + '}{' + q + '}';
+  const f = lead(a, 'sqrt{x}') + fr(b, 'x') + (c ? sgn(c, 'x') : '');
+  const bonne = 'f′(x) = frac{' + nf(a) + '}{2sqrt{x}}' + fr(-b, 'x^{2}') + (c ? sgn(c, '') : '');
+  return {
+    enonce: '<p>Calcule la dérivée, sur ' + M('] 0 ; +∞ [') + ', de</p>' + Mc('f(x) = ' + f),
+    qcm: {
+      options: [
+        M(bonne),
+        M('f′(x) = frac{' + nf(a) + '}{2sqrt{x}}' + fr(b, 'x^{2}') + (c ? sgn(c, '') : '')),
+        M('f′(x) = frac{' + nf(a) + '}{sqrt{x}}' + fr(-b, 'x^{2}') + (c ? sgn(c, '') : '')),
+        M('f′(x) = ' + lead(2 * a, 'sqrt{x}') + fr(-b, 'x') + (c ? sgn(c, '') : ''))
+      ], bon: 0
+    },
+    etapes: [
+      'Dérivées du cours : ' + M('(sqrt{x})′ = frac{1}{2sqrt{x}}') + ' et ' + M('(frac{1}{x})′ = frac{-1}{x^{2}}') + '.',
+      'Terme par terme : ' + M('(' + lead(a, 'sqrt{x}') + ')′ = frac{' + nf(a) + '}{2sqrt{x}}') + ', ' +
+        M('(frac{' + nf(b) + '}{x})′ = frac{' + nf(-b) + '}{x^{2}}') + (c ? ', et ' + M('(' + lead(c, 'x') + ')′ = ' + nf(c)) : '') + '.',
+      M(bonne),
+      '<b>Attention au signe</b> : dériver ' + M('frac{1}{x}') + ' fait apparaître un signe moins.'
+    ]
+  };
+});
+
+G('derivation', 'de-produit-quotient', 'Produit et quotient', 'ent', function(){
+  if (Math.random() < 0.5){
+    const a = R.nz(-4, 4), b = R.nz(-6, 6), c = R.nz(-4, 4), d = R.nz(-6, 6);
+    return {
+      enonce: '<p>Calcule la dérivée de</p>' + Mc('f(x) = (' + lead(a, 'x') + sgn(b, '') + ')(' + lead(c, 'x') + sgn(d, '') + ')'),
+      qcm: {
+        options: [
+          M('f′(x) = ' + lead(2 * a * c, 'x') + sgn(a * d + b * c, '')),
+          M('f′(x) = ' + nf(a * c)),
+          M('f′(x) = ' + lead(a * c, 'x') + sgn(a * d + b * c, '')),
+          M('f′(x) = ' + lead(2 * a * c, 'x') + sgn(a * d - b * c, ''))
+        ], bon: 0
+      },
+      etapes: [
+        'On pose ' + M('u(x) = ' + lead(a, 'x') + sgn(b, '')) + ' et ' + M('v(x) = ' + lead(c, 'x') + sgn(d, '')) + ', donc ' +
+          M('u′(x) = ' + nf(a)) + ' et ' + M('v′(x) = ' + nf(c)) + '.',
+        'Formule : ' + M('(uv)′ = u′v + uv′') + '.',
+        M('f′(x) = ' + nf(a) + '(' + lead(c, 'x') + sgn(d, '') + ') + (' + lead(a, 'x') + sgn(b, '') + ') × ' + nf(c)),
+        'On développe : ' + M('f′(x) = ' + lead(2 * a * c, 'x') + sgn(a * d + b * c, '')) + '.'
+      ]
+    };
+  }
+  let a, b, c, d, num;
+  do {
+    a = R.nz(-4, 4); b = R.nz(-6, 6); c = R.pick([1, 2, -1, -2]); d = R.nz(-5, 5);
+    num = a * d - b * c;
+  } while (num === 0);
+  return {
+    enonce: '<p>Calcule la dérivée de</p>' + Mc('f(x) = frac{' + lead(a, 'x') + sgn(b, '') + '}{' + lead(c, 'x') + sgn(d, '') + '}'),
+    qcm: {
+      options: [
+        M('f′(x) = frac{' + nf(num) + '}{(' + lead(c, 'x') + sgn(d, '') + ')^{2}}'),
+        M('f′(x) = frac{' + nf(b * c - a * d) + '}{(' + lead(c, 'x') + sgn(d, '') + ')^{2}}'),
+        M('f′(x) = frac{' + nf(a) + '}{' + nf(c) + '}'),
+        M('f′(x) = frac{' + nf(num) + '}{' + lead(c, 'x') + sgn(d, '') + '}')
+      ], bon: 0
+    },
+    etapes: [
+      M('u(x) = ' + lead(a, 'x') + sgn(b, '')) + ', ' + M('u′(x) = ' + nf(a)) + ' ; ' +
+        M('v(x) = ' + lead(c, 'x') + sgn(d, '')) + ', ' + M('v′(x) = ' + nf(c)) + '.',
+      'Formule : ' + M('(frac{u}{v})′ = frac{u′v - uv′}{v^{2}}') + ' — <b>l’ordre compte</b>.',
+      M('u′v - uv′ = ' + nf(a) + '(' + lead(c, 'x') + sgn(d, '') + ') - (' + lead(a, 'x') + sgn(b, '') + ') × (' + nf(c) + ') = ' + nf(num)),
+      'Les termes en ' + M('x') + ' se simplifient : ' + M('f′(x) = frac{' + nf(num) + '}{(' + lead(c, 'x') + sgn(d, '') + ')^{2}}') + '.'
+    ]
+  };
+});
+
+G('derivation', 'de-variations', 'Extremums d’un polynôme de degré 3', 'ds', function(){
+  let r1, r2;
+  do { r1 = R.int(-4, 3); r2 = r1 + R.int(1, 4); } while ((r1 + r2) % 2 !== 0);
+  const b = -3 * (r1 + r2) / 2, c = 3 * r1 * r2, d = R.int(-5, 5);
+  const f = 'x^{3}' + (b ? sgn(b, 'x^{2}') : '') + (c ? sgn(c, 'x') : '') + (d ? sgn(d, '') : '');
+  return {
+    enonce: '<p>Soit ' + M('f(x) = ' + f) + ' définie sur ' + M('ℝ') + '.</p>' +
+            '<p>Donne l’abscisse du <b>maximum local</b> puis celle du <b>minimum local</b>.</p>',
+    champs: [
+      { type: 'num', label: 'x du maximum local', bon: r1, tol: 1e-6 },
+      { type: 'num', label: 'x du minimum local', bon: r2, tol: 1e-6 }
+    ],
+    etapes: [
+      M('f′(x) = 3x^{2}' + (b ? sgn(2 * b, 'x') : '') + (c ? sgn(c, '') : '')),
+      M('Δ = (' + nf(2 * b) + ')^{2} - 4 × 3 × (' + nf(c) + ') = ' + nf(4 * b * b - 12 * c)) + ' > 0 : deux racines ' +
+        M('x_1 = ' + nf(r1)) + ' et ' + M('x_2 = ' + nf(r2)) + '.',
+      'Le coefficient de ' + M('x^{2}') + ' dans ' + M('f′') + ' est ' + M('3 > 0') + ' : ' + M('f′') + ' est <b>positive à l’extérieur</b> des racines et <b>négative entre</b> les deux.',
+      M('f') + ' est donc croissante sur ' + M('] -∞ ; ' + nf(r1) + ' ]') + ', décroissante sur ' + M('[ ' + nf(r1) + ' ; ' + nf(r2) + ' ]') +
+        ', puis croissante sur ' + M('[ ' + nf(r2) + ' ; +∞ [') + '.',
+      'Maximum local en ' + M('x = ' + nf(r1)) + ' (valeur ' + M(nf(r1 * r1 * r1 + b * r1 * r1 + c * r1 + d)) + '), minimum local en ' +
+        M('x = ' + nf(r2)) + ' (valeur ' + M(nf(r2 * r2 * r2 + b * r2 * r2 + c * r2 + d)) + ').'
+    ]
+  };
+});
+
+/* =================== PRODUIT SCALAIRE =================== */
+
+G('produit-scalaire', 'ps-coord', 'Produit scalaire avec les coordonnées', 'app', function(){
+  const x = R.nz(-7, 7), y = R.nz(-7, 7), xp = R.nz(-7, 7), yp = R.nz(-7, 7);
+  const ps = x * xp + y * yp;
+  return {
+    enonce: '<p>Dans un repère orthonormé, ' + M('vec{u}(' + nf(x) + ' ; ' + nf(y) + ')') + ' et ' + M('vec{v}(' + nf(xp) + ' ; ' + nf(yp) + ')') + '.</p>' +
+            '<p>Calcule ' + M('vec{u} · vec{v}') + '.</p>',
+    champs: [{ type: 'num', label: 'u⃗ · v⃗ =', bon: ps, tol: 1e-6 }],
+    etapes: [
+      'Formule : ' + M('vec{u} · vec{v} = xx′ + yy′') + '.',
+      M('vec{u} · vec{v} = (' + nf(x) + ') × (' + nf(xp) + ') + (' + nf(y) + ') × (' + nf(yp) + ') = ' + nf(x * xp) + sgn(y * yp, '') + ' = ' + nf(ps)),
+      ps === 0 ? 'Le produit scalaire est nul : les vecteurs sont <b>orthogonaux</b>.'
+               : 'Le produit scalaire est ' + (ps > 0 ? 'positif : l’angle entre les vecteurs est <b>aigu</b>.' : 'négatif : l’angle est <b>obtus</b>.')
+    ]
+  };
+});
+
+G('produit-scalaire', 'ps-norme', 'Norme d’un vecteur', 'app', function(){
+  const p = R.pick([[3, 4, 5], [6, 8, 10], [5, 12, 13], [8, 15, 17], [9, 12, 15], [7, 24, 25], [20, 21, 29], [12, 16, 20]]);
+  const x = p[0] * R.sign(), y = p[1] * R.sign();
+  return {
+    enonce: '<p>Dans un repère orthonormé, ' + M('vec{u}(' + nf(x) + ' ; ' + nf(y) + ')') + '.</p><p>Calcule sa norme ' + M('‖vec{u}‖') + '.</p>',
+    champs: [{ type: 'num', label: '‖u⃗‖ =', bon: p[2], tol: 1e-6 }],
+    etapes: [
+      'Formule : ' + M('‖vec{u}‖ = sqrt{x^{2} + y^{2}}') + '.',
+      M('‖vec{u}‖ = sqrt{(' + nf(x) + ')^{2} + (' + nf(y) + ')^{2}} = sqrt{' + (p[0] * p[0]) + ' + ' + (p[1] * p[1]) + '} = sqrt{' + (p[2] * p[2]) + '} = ' + p[2]),
+      'Une norme est toujours <b>positive</b>, même si les coordonnées sont négatives.'
+    ]
+  };
+});
+
+G('produit-scalaire', 'ps-orthogonal', 'Trouver une valeur qui rend deux vecteurs orthogonaux', 'ent', function(){
+  const x = R.pick([1, 2, 3, 4]), y = R.nz(-6, 6), t = R.nz(-4, 4);
+  const yp = x * t, k = -y * t;
+  return {
+    enonce: '<p>On donne ' + M('vec{u}(' + nf(x) + ' ; ' + nf(y) + ')') + ' et ' + M('vec{v}(k ; ' + nf(yp) + ')') + ' dans un repère orthonormé.</p>' +
+            '<p>Pour quelle valeur de ' + M('k') + ' ces deux vecteurs sont-ils orthogonaux ?</p>',
+    champs: [{ type: 'num', label: 'k =', bon: k, tol: 1e-6 }],
+    etapes: [
+      'Deux vecteurs sont orthogonaux si et seulement si leur produit scalaire est <b>nul</b>.',
+      M('vec{u} · vec{v} = ' + nf(x) + 'k + (' + nf(y) + ') × (' + nf(yp) + ') = ' + nf(x) + 'k ' + sgn(y * yp, '')),
+      'On résout ' + M(nf(x) + 'k ' + sgn(y * yp, '') + ' = 0') + ' soit ' + M('k = frac{' + nf(-y * yp) + '}{' + nf(x) + '} = ' + nf(k)) + '.',
+      'Vérification : ' + M('(' + nf(x) + ') × (' + nf(k) + ') + (' + nf(y) + ') × (' + nf(yp) + ') = 0') + ' ✓'
+    ]
+  };
+});
+
+G('produit-scalaire', 'ps-angle', 'Produit scalaire avec un angle', 'ent', function(){
+  const ang = R.pick([0, 60, 90, 120, 180]);
+  const cosv = { 0: 1, 60: 0.5, 90: 0, 120: -0.5, 180: -1 }[ang];
+  let n1 = R.int(2, 12), n2 = R.int(2, 12);
+  if ((ang === 60 || ang === 120) && (n1 * n2) % 2 !== 0) n2 = n2 + 1;
+  const ps = n1 * n2 * cosv;
+  const cosTxt = { 0: '1', 60: 'frac{1}{2}', 90: '0', 120: '-frac{1}{2}', 180: '-1' }[ang];
+  return {
+    enonce: '<p>Deux vecteurs vérifient ' + M('‖vec{u}‖ = ' + n1) + ', ' + M('‖vec{v}‖ = ' + n2) +
+            ' et forment un angle de <b>' + ang + '°</b>.</p><p>Calcule ' + M('vec{u} · vec{v}') + '.</p>',
+    champs: [{ type: 'num', label: 'u⃗ · v⃗ =', bon: ps, tol: 1e-6 }],
+    etapes: [
+      'Formule : ' + M('vec{u} · vec{v} = ‖vec{u}‖ × ‖vec{v}‖ × @cos(θ)') + '.',
+      M('@cos(' + ang + '°) = ' + cosTxt),
+      M('vec{u} · vec{v} = ' + n1 + ' × ' + n2 + ' × ' + (cosv < 0 ? '(' + nf(cosv) + ')' : nf(cosv)) + ' = ' + nf(ps)),
+      ang === 90 ? 'Un angle droit donne toujours un produit scalaire <b>nul</b>.'
+                 : (ang > 90 ? 'Angle <b>obtus</b> : le produit scalaire est <b>négatif</b>.' : 'Angle <b>aigu</b> (ou nul) : le produit scalaire est <b>positif</b>.')
+    ]
+  };
+});
+
+G('produit-scalaire', 'ps-alkashi', 'Théorème d’Al-Kashi', 'ent', function(){
+  const ang = R.pick([60, 90, 120]);
+  const cosv = { 60: 0.5, 90: 0, 120: -0.5 }[ang];
+  const b = R.int(3, 12), c = R.int(3, 12);
+  const a2 = b * b + c * c - 2 * b * c * cosv;
+  const a = Math.sqrt(a2);
+  const cosTxt = { 60: 'frac{1}{2}', 90: '0', 120: '-frac{1}{2}' }[ang];
+  return {
+    enonce: '<p>Dans un triangle ' + M('ABC') + ' : ' + M('AB = ' + c) + ', ' + M('AC = ' + b) +
+            ' et l’angle ' + M('Â') + ' mesure <b>' + ang + '°</b>.</p>' +
+            '<p>Calcule ' + M('BC^{2}') + ' puis ' + M('BC') + ' (arrondi au dixième).</p>',
+    champs: [
+      { type: 'num', label: 'BC² =', bon: a2, tol: 1e-6 },
+      { type: 'num', label: 'BC ≈', bon: Math.round(a * 10) / 10, tol: 0.051 }
+    ],
+    etapes: [
+      'Al-Kashi : ' + M('BC^{2} = AB^{2} + AC^{2} - 2 × AB × AC × @cos(Â)') + '.',
+      M('@cos(' + ang + '°) = ' + cosTxt),
+      M('BC^{2} = ' + (c * c) + ' + ' + (b * b) + ' - 2 × ' + c + ' × ' + b + ' × ' + (cosv < 0 ? '(' + nf(cosv) + ')' : nf(cosv)) + ' = ' + nf(a2)),
+      M('BC = sqrt{' + nf(a2) + '} ≈ ' + nf(Math.round(a * 100) / 100)) + ', soit ' + M(nf(Math.round(a * 10) / 10)) + ' au dixième.',
+      ang === 90 ? 'Avec un angle droit, Al-Kashi redonne exactement le <b>théorème de Pythagore</b>.'
+        : (ang > 90 ? 'Angle <b>obtus</b> : le cosinus est négatif, le terme ' + M('-2bc @cos(Â)') + ' devient positif et <b>allonge</b> le côté opposé.'
+                    : 'Angle <b>aigu</b> : le cosinus est positif, le côté opposé est plus <b>court</b> que dans le cas rectangle.')
+    ]
+  };
+});
+
+G('produit-scalaire', 'ps-rectangle', 'Démontrer qu’un triangle est rectangle', 'ds', function(){
+  const ortho = Math.random() < 0.5;
+  const ax = R.int(-4, 4), ay = R.int(-4, 4);
+  const p = R.nz(-4, 4), q = R.nz(-4, 4);
+  const bx = ax + p, by = ay + q;
+  let cx, cy;
+  if (ortho){ const t = R.pick([1, -1, 2, -2]); cx = ax - q * t; cy = ay + p * t; }
+  else { let u = R.nz(-4, 4), v = R.nz(-4, 4); while (p * u + q * v === 0){ u = R.nz(-4, 4); v = R.nz(-4, 4); } cx = ax + u; cy = ay + v; }
+  const abx = bx - ax, aby = by - ay, acx = cx - ax, acy = cy - ay;
+  const ps = abx * acx + aby * acy;
+  return {
+    enonce: '<p>Dans un repère orthonormé : ' + M('A(' + nf(ax) + ' ; ' + nf(ay) + ')') + ', ' + M('B(' + nf(bx) + ' ; ' + nf(by) + ')') +
+            ', ' + M('C(' + nf(cx) + ' ; ' + nf(cy) + ')') + '.</p>' +
+            '<p>Calcule ' + M('vec{AB} · vec{AC}') + ', puis dis si le triangle ' + M('ABC') + ' est rectangle en ' + M('A') + '.</p>',
+    champs: [
+      { type: 'num', label: 'AB⃗ · AC⃗ =', bon: ps, tol: 1e-6 },
+      { type: 'choix', label: 'Rectangle en A ?', options: ['Oui', 'Non'], bon: ps === 0 ? 0 : 1 }
+    ],
+    etapes: [
+      'Coordonnées des vecteurs : ' + M('vec{AB}(x_B - x_A ; y_B - y_A) = vec{AB}(' + nf(abx) + ' ; ' + nf(aby) + ')') + ' et ' +
+        M('vec{AC}(' + nf(acx) + ' ; ' + nf(acy) + ')') + '.',
+      M('vec{AB} · vec{AC} = (' + nf(abx) + ') × (' + nf(acx) + ') + (' + nf(aby) + ') × (' + nf(acy) + ') = ' + nf(abx * acx) + sgn(aby * acy, '') + ' = ' + nf(ps)),
+      ps === 0
+        ? 'Le produit scalaire est <b>nul</b>, donc ' + M('vec{AB} ⊥ vec{AC}') + ' : le triangle <b>est rectangle en ' + M('A') + '</b>.'
+        : 'Le produit scalaire <b>n’est pas nul</b> (' + M(nf(ps)) + '), donc les vecteurs ne sont pas orthogonaux : le triangle <b>n’est pas rectangle en ' + M('A') + '</b>.',
+      'Rédaction attendue : calcul des coordonnées, calcul du produit scalaire, puis conclusion explicite avec le critère ' + M('vec{u} · vec{v} = 0 ⇔ vec{u} ⊥ vec{v}') + '.'
+    ]
+  };
+});
+/* =========================================================================
+   Niveau « Approfondissement » — calibré sur une évaluation exigeante :
+   paramètre littéral, changement de variable, discussion selon les cas,
+   position relative courbe / tangente, optimisation à deux étapes.
+   ========================================================================= */
+
+/* =================== SECOND DEGRÉ =================== */
+
+G('second-degre', 'sd-parametre', 'Paramètre : racine double', 'exp', function(){
+  const a = R.pick([1, 2, -1, -2]);
+  const b = 2 * R.nz(-5, 5);
+  const m = b * b / (4 * a);
+  return {
+    enonce: '<p>On considère l\u2019équation, d\u2019inconnue ' + M('x') + ' et de paramètre réel ' + M('m') + ' :</p>' +
+            Mc(lead(a, 'x^{2}') + sgn(b, 'x') + ' + m = 0') +
+            '<p>Pour quelle valeur de ' + M('m') + ' cette équation admet-elle une <b>racine double</b> ?</p>',
+    champs: [{ type: 'num', label: 'm =', bon: m, tol: 1e-6 }],
+    etapes: [
+      'Une racine double correspond exactement à ' + M('\u0394 = 0') + '.',
+      M('\u0394 = b^{2} - 4ac = (' + nf(b) + ')^{2} - 4 \u00D7 (' + nf(a) + ') \u00D7 m = ' + nf(b * b) + sgn(-4 * a, 'm')),
+      'On résout ' + M(nf(b * b) + sgn(-4 * a, 'm') + ' = 0') + ' soit ' + M('m = frac{' + nf(b * b) + '}{' + nf(4 * a) + '} = ' + nf(m)) + '.',
+      'La racine double vaut alors ' + M('x_0 = frac{-b}{2a} = ' + nf(-b / (2 * a))) + '.',
+      '<b>Réflexe</b> : dès qu\u2019un paramètre apparaît, la question porte presque toujours sur le <b>signe de ' + M('\u0394') + '</b>.'
+    ]
+  };
+});
+
+G('second-degre', 'sd-toujours-positif', 'Paramètre : signe constant', 'exp', function(){
+  const b = 2 * R.nz(-5, 5);
+  const seuil = b * b / 4;
+  const strictPos = Math.random() < 0.5;   // positif pour tout x, ou négatif pour tout x
+  const a = strictPos ? 1 : -1;
+  return {
+    enonce: '<p>Soit ' + M('f(x) = ' + lead(a, 'x^{2}') + sgn(a * b, 'x') + ' ' + (a > 0 ? '+ m' : '- m')) + ', où ' + M('m') + ' est un paramètre réel.</p>' +
+            '<p>Pour quelles valeurs de ' + M('m') + ' a-t-on ' + M('f(x) ' + (strictPos ? '> 0' : '&lt; 0')) + ' <b>pour tout réel ' + M('x') + '</b> ?</p>',
+    qcm: {
+      options: [
+        M('m > ' + nf(seuil)),
+        M('m \u2265 ' + nf(seuil)),
+        M('m &lt; ' + nf(seuil)),
+        'Pour tout réel ' + M('m')
+      ], bon: 0
+    },
+    etapes: [
+      'Le coefficient dominant est ' + M('a = ' + nf(a)) + ' : le trinôme est ' + (strictPos ? 'positif' : 'négatif') +
+        ' partout <b>si et seulement si</b> il n\u2019a <b>aucune racine</b>, c\u2019est-à-dire ' + M('\u0394 &lt; 0') + '.',
+      M('\u0394 = (' + nf(a * b) + ')^{2} - 4 \u00D7 (' + nf(a) + ') \u00D7 (' + (a > 0 ? 'm' : '-m') + ') = ' + nf(b * b) + ' - 4m'),
+      'On résout ' + M('' + nf(b * b) + ' - 4m &lt; 0') + ' soit ' + M('m > frac{' + nf(b * b) + '}{4} = ' + nf(seuil)) + '.',
+      '<b>Piège classique</b> : avec ' + M('\u0394 = 0') + ' le trinôme s\u2019annule en un point — il ne serait plus <b>strictement</b> ' +
+        (strictPos ? 'positif' : 'négatif') + '. L\u2019inégalité sur ' + M('m') + ' est donc <b>stricte</b>.'
+    ]
+  };
+});
+
+G('second-degre', 'sd-bicarree', 'Équation bicarrée (changement de variable)', 'exp', function(){
+  const k1 = R.int(1, 5);
+  const deuxRacines = Math.random() < 0.65;
+  const X1 = k1 * k1;
+  const X2 = deuxRacines ? R.pick([4, 9, 16, 25, 36]) : -R.int(1, 9);
+  const b = -(X1 + X2), c = X1 * X2;
+  const sols = deuxRacines ? 4 : 2;
+  const plusGrande = deuxRacines ? Math.max(k1, Math.sqrt(X2)) : k1;
+  return {
+    enonce: '<p>Résous dans ' + M('\u211D') + ' l\u2019équation</p>' + Mc('x^{4}' + sgn(b, 'x^{2}') + sgn(c, '') + ' = 0') +
+            '<p>Combien y a-t-il de solutions, et quelle est la plus grande ?</p>',
+    champs: [
+      { type: 'choix', label: 'Nombre de solutions', options: ['0', '2', '3', '4'], bon: sols === 4 ? 3 : 1 },
+      { type: 'num', label: 'plus grande solution', bon: plusGrande, tol: 1e-6 }
+    ],
+    etapes: [
+      'On pose ' + M('X = x^{2}') + ' (avec nécessairement ' + M('X \u2265 0') + ') : l\u2019équation devient ' + M('X^{2}' + sgn(b, 'X') + sgn(c, '') + ' = 0') + '.',
+      M('\u0394 = (' + nf(b) + ')^{2} - 4 \u00D7 ' + nf(c) + ' = ' + nf(b * b - 4 * c)) + ', donc ' + M('X_1 = ' + nf(X1)) + ' et ' + M('X_2 = ' + nf(X2)) + '.',
+      deuxRacines
+        ? 'Les deux valeurs sont <b>positives</b> : chacune donne deux solutions en ' + M('x') + ', à savoir ' +
+          M('x = \u00B1sqrt{' + nf(X1) + '} = \u00B1' + nf(k1)) + ' et ' + M('x = \u00B1sqrt{' + nf(X2) + '} = \u00B1' + nf(Math.sqrt(X2))) + '.'
+        : M('X_2 = ' + nf(X2) + ' &lt; 0') + ' est à <b>rejeter</b> : un carré ne peut pas être négatif. Seule ' + M('X_1 = ' + nf(X1)) +
+          ' convient, d\u2019où ' + M('x = \u00B1' + nf(k1)) + '.',
+      'Il y a donc <b>' + sols + ' solutions</b>, la plus grande étant ' + M(nf(plusGrande)) + '.',
+      '<b>C\u2019est là que le piège se joue</b> : ne jamais oublier de vérifier le signe de chaque ' + M('X') + ' avant de revenir à ' + M('x') + '.'
+    ]
+  };
+});
+
+G('second-degre', 'sd-inequation', 'Inéquation à ramener au second degré', 'exp', function(){
+  let x1 = R.nz(-5, 4), x2 = x1 + R.int(1, 5);
+  if (x2 === 0) x2 = x1 + R.int(1, 5) + 1;
+  const a = R.pick([1, 2, -1]);
+  const b = -a * (x1 + x2), c = a * x1 * x2;
+  const d = R.nz(-5, 5), e = R.int(-6, 6);      // membre de droite : dx + e
+  const superieur = Math.random() < 0.5;
+  /* inéquation posée :  a x² + (b+d) x + (c+e)  ≥/≤  dx + e   ⇔  a x² + bx + c ≥/≤ 0 */
+  const gaucheB = b + d, gaucheC = c + e;
+  const dedans = M('[ ' + nf(x1) + ' ; ' + nf(x2) + ' ]');
+  const dehors = M('] -\u221E ; ' + nf(x1) + ' ] \u222A [ ' + nf(x2) + ' ; +\u221E [');
+  /* a>0 : trinôme ≥ 0 à l'extérieur ; a<0 : ≥ 0 entre les racines */
+  const bonEstDehors = superieur ? (a > 0) : (a < 0);
+  return {
+    enonce: '<p>Résous dans ' + M('\u211D') + ' l\u2019inéquation</p>' +
+            Mc(trinome(a, gaucheB, gaucheC) + (superieur ? ' \u2265 ' : ' \u2264 ') + lead(d, 'x') + (e ? sgn(e, '') : '')),
+    qcm: {
+      options: [dedans, dehors, 'Aucune solution', 'Tous les réels'],
+      bon: bonEstDehors ? 1 : 0
+    },
+    etapes: [
+      '<b>Étape 1</b> — tout ramener d\u2019un même côté : ' +
+        M(trinome(a, gaucheB, gaucheC) + ' - (' + lead(d, 'x') + (e ? sgn(e, '') : '') + ')' + (superieur ? ' \u2265 ' : ' \u2264 ') + '0') +
+        ' soit ' + M(trinome(a, b, c) + (superieur ? ' \u2265 ' : ' \u2264 ') + '0') + '.',
+      '<b>Étape 2</b> — racines du trinôme : ' + M('\u0394 = ' + nf(b * b - 4 * a * c) + ' > 0') + ', ' +
+        M('x_1 = ' + nf(x1)) + ' et ' + M('x_2 = ' + nf(x2)) + '.',
+      '<b>Étape 3</b> — signe : ' + M('a = ' + nf(a)) + ', donc le trinôme est ' + (a > 0 ? 'positif' : 'négatif') +
+        ' à l\u2019extérieur des racines et ' + (a > 0 ? 'négatif' : 'positif') + ' entre les deux.',
+      '<b>Conclusion</b> : ' + (bonEstDehors ? dehors : dedans) + '. Les crochets sont <b>fermés</b> car l\u2019inégalité est large.',
+      'Erreur fréquente : résoudre sans tout ramener à gauche, ou garder des crochets ouverts avec un ' + M('\u2265') + '.'
+    ]
+  };
+});
+
+/* =================== SUITES =================== */
+
+G('suites', 'su-arithmetico', 'Suite arithmético-géométrique', 'exp', function(){
+  const cas = R.pick([[0.5, 4, 8], [0.5, -3, -6], [3, -4, 2], [2, -6, 6], [0.8, 10, 50], [1.5, -5, 10], [0.25, 6, 8], [-0.5, 9, 6]]);
+  const a = cas[0], b = cas[1], L = cas[2];
+  const u0 = R.int(1, 20);
+  const um = Math.round((1 - a) * 1e6) / 1e6;   /* 1 - a sans bruit de virgule flottante */
+  return {
+    enonce: '<p>Soit ' + M('u_0 = ' + nf(u0)) + ' et, pour tout ' + M('n') + ', ' + M('u_{n+1} = ' + lead(a, 'u_n') + sgn(b, '')) + '.</p>' +
+            '<p>On cherche le réel ' + M('L') + ' tel que la suite ' + M('v_n = u_n - L') + ' soit <b>géométrique</b>.</p>' +
+            '<p>Donne ' + M('L') + ', puis la raison de ' + M('(v_n)') + '.</p>',
+    champs: [
+      { type: 'num', label: 'L =', bon: L, tol: 1e-6 },
+      { type: 'num', label: 'raison de (vₙ)', bon: a, tol: 1e-6 }
+    ],
+    etapes: [
+      M('L') + ' est le <b>point fixe</b> de la relation : on résout ' + M('L = ' + lead(a, 'L') + sgn(b, '')) + '.',
+      M('L - ' + lead(a, 'L') + ' = ' + nf(b)) + ' soit ' + M(nf(um) + 'L = ' + nf(b)) + ', donc ' + M('L = frac{' + nf(b) + '}{' + nf(um) + '} = ' + nf(L)) + '.',
+      'On vérifie : ' + M('v_{n+1} = u_{n+1} - L = ' + lead(a, 'u_n') + sgn(b, '') + ' - ' + nf(L) + ' = ' + lead(a, '(v_n + ' + nf(L) + ')') + sgn(b, '') + ' - ' + nf(L)),
+      'Les constantes se compensent (' + M(nf(a) + ' \u00D7 ' + nf(L) + sgn(b, '') + ' - ' + nf(L) + ' = 0') + '), il reste ' + M('v_{n+1} = ' + lead(a, 'v_n')) +
+        ' : ' + M('(v_n)') + ' est géométrique de raison ' + M('q = ' + nf(a)) + '.',
+      'On en déduit ' + M('v_n = (' + nf(u0 - L) + ') \u00D7 ' + nf(a) + '^{n}') + ' puis ' + M('u_n = v_n + ' + nf(L) + ' = (' + nf(u0 - L) + ') \u00D7 ' + nf(a) + '^{n} + ' + nf(L)) + '.'
+    ]
+  };
+});
+
+G('suites', 'su-somme-decalee', 'Somme entre deux indices', 'exp', function(){
+  const u0 = R.int(-6, 15), r = R.nz(-6, 8);
+  const p = R.int(5, 14), n = p + R.int(6, 16);
+  const up = u0 + p * r, un = u0 + n * r;
+  const nb = n - p + 1, S = nb * (up + un) / 2;
+  return {
+    enonce: '<p>' + M('(u_n)') + ' est arithmétique, ' + M('u_0 = ' + nf(u0)) + ', de raison ' + M('r = ' + nf(r)) + '.</p>' +
+            '<p>Calcule ' + M('S = u_{' + p + '} + u_{' + (p + 1) + '} + \u2026 + u_{' + n + '}') + '.</p>',
+    champs: [{ type: 'num', label: 'S =', bon: S, tol: 1e-6 }],
+    etapes: [
+      M('u_{' + p + '} = ' + nf(u0) + ' + ' + p + ' \u00D7 (' + nf(r) + ') = ' + nf(up)) + ' et ' + M('u_{' + n + '} = ' + nf(u0) + ' + ' + n + ' \u00D7 (' + nf(r) + ') = ' + nf(un)) + '.',
+      '<b>Le point qui coûte des points</b> : le nombre de termes est ' + M(n + ' - ' + p + ' + 1 = ' + nb) + ', et non ' + M(n + ' - ' + p) + '.',
+      'Formule : ' + M('S = frac{(nombre de termes) \u00D7 (premier + dernier)}{2}') + '.',
+      M('S = frac{' + nb + ' \u00D7 (' + nf(up) + ' + ' + nf(un) + ')}{2} = ' + nf(S))
+    ]
+  };
+});
+
+G('suites', 'su-deux-suites', 'Comparer deux modèles', 'exp', function(){
+  const a0 = R.pick([1200, 1500, 1800, 2000]);
+  const r = R.pick([60, 80, 100, 120]);
+  const b0 = R.pick([900, 1000, 1100]);
+  const p = R.pick([6, 7, 8, 10]);
+  const q = 1 + p / 100;
+  let n = 0, A = a0, B = b0;
+  while (B <= A && n < 500){ n++; A = a0 + n * r; B = b0 * Math.pow(q, n); }
+  return {
+    enonce: '<p>Deux offres pour un même service, sur ' + M('n') + ' années :</p>' +
+            '<ul style="margin:8px 0 0;padding-left:20px"><li>Offre A : ' + nf(a0) + ' \u20AC la première année, puis <b>+ ' + r + ' \u20AC par an</b> ;</li>' +
+            '<li>Offre B : ' + nf(b0) + ' \u20AC la première année, puis <b>+ ' + p + ' % par an</b>.</li></ul>' +
+            '<p style="margin-top:10px">À partir de quelle année ' + M('n') + ' l\u2019offre B devient-elle <b>plus chère</b> que l\u2019offre A ?</p>',
+    champs: [{ type: 'num', label: 'n =', bon: n, tol: 1e-9 }],
+    etapes: [
+      'Offre A : suite <b>arithmétique</b>, ' + M('a_n = ' + nf(a0) + ' + ' + r + 'n') + '. Offre B : suite <b>géométrique</b>, ' +
+        M('b_n = ' + nf(b0) + ' \u00D7 ' + nf(q) + '^{n}') + '.',
+      'Une suite géométrique de raison ' + M('q > 1') + ' finit <b>toujours</b> par dépasser une suite arithmétique : la question est « à partir de quand ».',
+      'On compare année par année : ' + M('a_{' + n + '} = ' + nf(a0 + n * r)) + ' et ' + M('b_{' + n + '} \u2248 ' + nf(b0 * Math.pow(q, n), 1)) +
+        ', alors qu\u2019à l\u2019année précédente ' + M('a_{' + (n - 1) + '} = ' + nf(a0 + (n - 1) * r)) + ' et ' + M('b_{' + (n - 1) + '} \u2248 ' + nf(b0 * Math.pow(q, n - 1), 1)) + '.',
+      'C\u2019est donc à partir de ' + M('n = ' + n) + ' que B dépasse A.',
+      'Algorithme :<pre class="code">n = 0\nA = ' + a0 + '\nB = ' + b0 + '\nwhile B &lt;= A:\n    n = n + 1\n    A = ' + a0 + ' + ' + r + '*n\n    B = ' + b0 + ' * ' + String(q) + '**n\nprint(n)</pre>'
+    ]
+  };
+});
+
+G('suites', 'su-algo-trace', 'Lire un algorithme', 'exp', function(){
+  const u0 = R.int(2, 9), a = R.pick([2, 3]), b = R.nz(-5, 5), N = R.int(3, 6);
+  let u = u0, s = u0;
+  for (let i = 0; i < N; i++){ u = a * u + b; s += u; }
+  const sommeDemandee = Math.random() < 0.5;
+  return {
+    enonce: '<p>On exécute ce programme :</p>' +
+            '<pre class="code">u = ' + u0 + '\ns = u\nfor i in range(' + N + '):\n    u = ' + a + '*u ' + (b < 0 ? '- ' + (-b) : '+ ' + b) + '\n    s = s + u\n' +
+            'print(' + (sommeDemandee ? 's' : 'u') + ')</pre>' +
+            '<p>Qu\u2019affiche-t-il ?</p>',
+    champs: [{ type: 'num', label: 'Valeur affichée', bon: sommeDemandee ? s : u, tol: 1e-9 }],
+    etapes: [
+      'La boucle tourne <b>' + N + ' fois</b> (' + M('i') + ' va de 0 à ' + (N - 1) + ') : il faut dérouler les ' + N + ' étapes.',
+      (function(){
+        let uu = u0, ss = u0, t = [];
+        for (let i = 0; i < N; i++){ uu = a * uu + b; ss += uu; t.push(M('u = ' + nf(uu)) + ' (s = ' + nf(ss) + ')'); }
+        return 'Déroulé : ' + M('u = ' + nf(u0)) + ' (s = ' + nf(u0) + '), puis ' + t.join(', ') + '.';
+      })(),
+      'Le programme affiche ' + M(nf(sommeDemandee ? s : u)) + '.',
+      '<b>Attention</b> : ' + M('s') + ' est initialisée <b>avant</b> la boucle avec ' + M('u_0') + ', donc le premier terme est bien compté.'
+    ]
+  };
+});
+
+/* =================== DÉRIVATION =================== */
+
+G('derivation', 'de-tangente-parallele', 'Tangentes parallèles à une droite', 'exp', function(){
+  let r1, r2;
+  do { r1 = R.int(-4, 3); r2 = r1 + R.int(1, 4); } while ((r1 + r2) % 2 !== 0);
+  const b = -3 * (r1 + r2) / 2;
+  const d = R.int(-5, 5);
+  const m = R.pick([-12, -9, -6, -3, 0, 3, 6, 9, 12]);
+  const c = m + 3 * r1 * r2;
+  const f = 'x^{3}' + (b ? sgn(b, 'x^{2}') : '') + (c ? sgn(c, 'x') : '') + (d ? sgn(d, '') : '');
+  return {
+    enonce: '<p>Soit ' + M('f(x) = ' + f) + ' et la droite ' + M('d : y = ' + lead(m, 'x') + ' + 7') + '.</p>' +
+            '<p>En quels points la tangente à la courbe de ' + M('f') + ' est-elle <b>parallèle</b> à ' + M('d') + ' ? ' +
+            'Donne les deux abscisses, dans l\u2019ordre croissant.</p>',
+    champs: [
+      { type: 'num', label: 'x₁ =', bon: r1, tol: 1e-6 },
+      { type: 'num', label: 'x₂ =', bon: r2, tol: 1e-6 }
+    ],
+    etapes: [
+      'Deux droites sont parallèles lorsqu\u2019elles ont le <b>même coefficient directeur</b>. Celui de la tangente en ' + M('a') + ' est ' + M('f\u2032(a)') + '.',
+      'On résout donc ' + M('f\u2032(x) = ' + nf(m)) + ', avec ' + M('f\u2032(x) = 3x^{2}' + (b ? sgn(2 * b, 'x') : '') + (c ? sgn(c, '') : '')) + '.',
+      M('3x^{2}' + (b ? sgn(2 * b, 'x') : '') + sgn(c - m, '') + ' = 0') + ', ' + M('\u0394 = ' + nf(4 * b * b - 12 * (c - m)) + ' > 0') + '.',
+      'Les solutions sont ' + M('x_1 = ' + nf(r1)) + ' et ' + M('x_2 = ' + nf(r2)) + ' : il y a <b>deux</b> points où la tangente est parallèle à ' + M('d') + '.',
+      'Remarque : l\u2019ordonnée à l\u2019origine de ' + M('d') + ' (ici 7) <b>ne sert à rien</b> — seul le coefficient directeur compte.'
+    ]
+  };
+});
+
+G('derivation', 'de-position-tangente', 'Position de la courbe et de sa tangente', 'exp', function(){
+  const a = R.nz(-3, 3);
+  const p = R.int(-5, 5), q = R.int(-5, 5);
+  const f = 'x^{3}' + (p ? sgn(p, 'x') : '') + (q ? sgn(q, '') : '');
+  const seuil = -2 * a;
+  const au = M('] ' + nf(seuil) + ' ; +\u221E [');
+  const sous = M('] -\u221E ; ' + nf(seuil) + ' [');
+  return {
+    enonce: '<p>Soit ' + M('f(x) = ' + f) + ' et ' + M('T') + ' la tangente à sa courbe au point d\u2019abscisse ' + M('a = ' + nf(a)) + '.</p>' +
+            '<p>Sur quel intervalle la courbe de ' + M('f') + ' est-elle <b>au-dessus</b> de ' + M('T') + ' ?</p>',
+    qcm: {
+      options: [au, sous, 'Partout sauf en ' + M('x = ' + nf(a)), 'Nulle part'],
+      bon: 0
+    },
+    etapes: [
+      'On étudie le <b>signe de la différence</b> ' + M('f(x) - T(x)') + ' : c\u2019est toujours ainsi qu\u2019on compare une courbe et une droite.',
+      'Avec ' + M('T(x) = f\u2032(' + nf(a) + ')' + fact(a) + ' + f(' + nf(a) + ')') + ', les termes en ' + M('x') + ' et les constantes se simplifient et il reste :',
+      Mc('f(x) - T(x) = x^{3} - 3a^{2}x + 2a^{3} = (x - a)^{2}(x + 2a)') +
+        '<p class="tiny" style="text-align:center">soit ici ' + M(fact(a) + '^{2}' + fact(-2 * a)) + '</p>',
+      M(fact(a) + '^{2} ≥ 0') + ' toujours : le signe de la différence est donc <b>celui de ' + M(fact(-2 * a)) + '</b>, ' +
+        'qui est positif pour ' + M('x > ' + nf(seuil)) + '.',
+      'La courbe est donc au-dessus de ' + M('T') + ' sur ' + au + ' et en dessous sur ' + sous + ' (avec contact en ' + M('x = ' + nf(a)) + ').'
+    ]
+  };
+});
+
+G('derivation', 'de-quotient-extremum', 'Extremum d\u2019un quotient', 'exp', function(){
+  const k = R.int(2, 9), c = k * k;
+  return {
+    enonce: '<p>Soit ' + M('f(x) = frac{x^{2} + ' + c + '}{x}') + ' définie sur ' + M('] 0 ; +\u221E [') + '.</p>' +
+            '<p>Détermine l\u2019abscisse du minimum de ' + M('f') + ' sur cet intervalle, puis la valeur de ce minimum.</p>',
+    champs: [
+      { type: 'num', label: 'x du minimum', bon: k, tol: 1e-6 },
+      { type: 'num', label: 'minimum', bon: 2 * k, tol: 1e-6 }
+    ],
+    etapes: [
+      'On dérive avec ' + M('(frac{u}{v})\u2032 = frac{u\u2032v - uv\u2032}{v^{2}}') + ', ' + M('u(x) = x^{2} + ' + c) + ' et ' + M('v(x) = x') + ' :',
+      Mc('f\u2032(x) = frac{2x \u00D7 x - (x^{2} + ' + c + ') \u00D7 1}{x^{2}} = frac{x^{2} - ' + c + '}{x^{2}}'),
+      'Sur ' + M('] 0 ; +\u221E [') + ', ' + M('x^{2} > 0') + ' : le signe de ' + M('f\u2032(x)') + ' est celui de ' + M('x^{2} - ' + c) +
+        ', qui s\u2019annule en ' + M('x = ' + k) + ' (la racine ' + M('-' + k) + ' est hors de l\u2019intervalle).',
+      M('f\u2032') + ' est <b>négative</b> sur ' + M('] 0 ; ' + k + ' [') + ' puis <b>positive</b> sur ' + M('] ' + k + ' ; +\u221E [') +
+        ' : ' + M('f') + ' décroît puis croît, il y a donc un <b>minimum</b> en ' + M('x = ' + k) + '.',
+      M('f(' + k + ') = frac{' + (c + c) + '}{' + k + '} = ' + nf(2 * k)) + '. Le minimum vaut ' + M(nf(2 * k)) + '.'
+    ]
+  };
+});
+
+G('derivation', 'de-optim-boite', 'Optimisation : volume d\u2019une boîte', 'exp', function(){
+  const L = R.pick([12, 18, 24, 30, 36]);
+  const x = L / 6, V = x * (L - 2 * x) * (L - 2 * x);
+  return {
+    enonce: '<p>Dans une plaque carrée de <b>' + L + ' cm</b> de côté, on découpe un carré de côté ' + M('x') +
+            ' à chaque coin, puis on relève les bords pour former une boîte <b>sans couvercle</b>.</p>' +
+            '<p>Pour quelle valeur de ' + M('x') + ' le volume est-il maximal, et combien vaut ce volume ?</p>',
+    champs: [
+      { type: 'num', label: 'x (en cm)', bon: x, tol: 1e-6 },
+      { type: 'num', label: 'volume max (en cm³)', bon: V, tol: 1e-6 }
+    ],
+    etapes: [
+      'La base est un carré de côté ' + M(L + ' - 2x') + ' et la hauteur vaut ' + M('x') + ', donc ' +
+        M('V(x) = x(' + L + ' - 2x)^{2}') + ', avec ' + M('x \u2208 ] 0 ; ' + (L / 2) + ' [') + '.',
+      'On développe puis on dérive : ' + M('V(x) = 4x^{3} - ' + (4 * L) + 'x^{2} + ' + (L * L) + 'x') + ', donc ' +
+        M('V\u2032(x) = 12x^{2} - ' + (8 * L) + 'x + ' + (L * L)) + '.',
+      M('\u0394 = ' + nf(64 * L * L - 48 * L * L) + ' > 0') + ' : les racines sont ' + M('x = ' + nf(L / 6)) + ' et ' + M('x = ' + nf(L / 2)) +
+        '. Seule ' + M('x = ' + nf(L / 6)) + ' appartient à l\u2019intervalle.',
+      M('V\u2032') + ' est positive avant ' + M(nf(x)) + ' et négative après : le volume est <b>maximal</b> en ' + M('x = ' + nf(x)) + ' cm.',
+      M('V(' + nf(x) + ') = ' + nf(x) + ' \u00D7 ' + nf(L - 2 * x) + '^{2} = ' + nf(V)) + ' cm³.',
+      '<b>Réflexe de DS</b> : toujours vérifier que la racine trouvée est bien <b>dans l\u2019intervalle de validité</b>.'
+    ]
+  };
+});
+
+/* =================== PRODUIT SCALAIRE =================== */
+
+G('produit-scalaire', 'ps-ensemble-points', 'Ensemble de points', 'exp', function(){
+  const ax = 2 * R.int(-4, 4), ay = 2 * R.int(-4, 4);
+  const p = R.pick([[3, 4, 5], [6, 8, 10], [5, 12, 13], [8, 15, 17]]);
+  const s1 = R.sign(), s2 = R.sign();
+  const bx = ax + 2 * p[0] * s1, by = ay + 2 * p[1] * s2;
+  const cx = (ax + bx) / 2, cy = (ay + by) / 2, r = p[2];
+  return {
+    enonce: '<p>Dans un repère orthonormé, ' + M('A(' + nf(ax) + ' ; ' + nf(ay) + ')') + ' et ' + M('B(' + nf(bx) + ' ; ' + nf(by) + ')') + '.</p>' +
+            '<p>On cherche l\u2019ensemble des points ' + M('M') + ' du plan tels que ' + M('vec{MA} \u00B7 vec{MB} = 0') + '.</p>' +
+            '<p>C\u2019est un cercle : donne les coordonnées de son centre et son rayon.</p>',
+    champs: [
+      { type: 'num', label: 'abscisse du centre', bon: cx, tol: 1e-6 },
+      { type: 'num', label: 'ordonnée du centre', bon: cy, tol: 1e-6 },
+      { type: 'num', label: 'rayon', bon: r, tol: 1e-6 }
+    ],
+    etapes: [
+      'Propriété du cours : ' + M('vec{MA} \u00B7 vec{MB} = 0') + ' signifie que ' + M('M') + ' voit ' + M('[AB]') +
+        ' sous un angle droit — c\u2019est le <b>cercle de diamètre ' + M('[AB]') + '</b>.',
+      'Son centre est le <b>milieu</b> de ' + M('[AB]') + ' : ' + M('\u03A9(frac{' + nf(ax) + ' + ' + nf(bx) + '}{2} ; frac{' + nf(ay) + ' + ' + nf(by) + '}{2}) = \u03A9(' + nf(cx) + ' ; ' + nf(cy) + ')') + '.',
+      M('AB = sqrt{(' + nf(bx - ax) + ')^{2} + (' + nf(by - ay) + ')^{2}} = sqrt{' + nf((bx - ax) * (bx - ax) + (by - ay) * (by - ay)) + '} = ' + nf(2 * r)) +
+        ', donc le rayon vaut ' + M('frac{AB}{2} = ' + nf(r)) + '.',
+      'Équation du cercle : ' + M('(x ' + (cx < 0 ? '+ ' + (-cx) : '- ' + cx) + ')^{2} + (y ' + (cy < 0 ? '+ ' + (-cy) : '- ' + cy) + ')^{2} = ' + nf(r * r)) + '.',
+      'Attention : ' + M('A') + ' et ' + M('B') + ' appartiennent à cet ensemble (le produit scalaire y est nul car un des vecteurs est nul).'
+    ]
+  };
+});
+
+G('produit-scalaire', 'ps-angle-coord', 'Calculer un angle par les coordonnées', 'exp', function(){
+  const ax = R.int(-3, 3), ay = R.int(-3, 3);
+  let pa, pb, ux, uy, vx, vy, ps, nu, nv, cosv;
+  do {
+    pa = R.pick([[3, 4, 5], [6, 8, 10], [5, 12, 13], [4, 3, 5], [8, 6, 10]]);
+    pb = R.pick([[3, 4, 5], [5, 12, 13], [8, 15, 17], [4, 3, 5], [12, 5, 13]]);
+    ux = pa[0] * R.sign(); uy = pa[1] * R.sign();
+    vx = pb[0] * R.sign(); vy = pb[1] * R.sign();
+    ps = ux * vx + uy * vy;
+    nu = pa[2]; nv = pb[2];
+    cosv = ps / (nu * nv);
+  } while (Math.abs(cosv) > 0.985);
+  const ang = Math.acos(cosv) * 180 / Math.PI;
+  return {
+    enonce: '<p>Dans un repère orthonormé : ' + M('A(' + nf(ax) + ' ; ' + nf(ay) + ')') + ', ' +
+            M('B(' + nf(ax + ux) + ' ; ' + nf(ay + uy) + ')') + ', ' + M('C(' + nf(ax + vx) + ' ; ' + nf(ay + vy) + ')') + '.</p>' +
+            '<p>Calcule ' + M('@cos(\u00C2)') + ' (arrondi au centième) puis l\u2019angle ' + M('\u00C2') + ' en degrés (arrondi au degré).</p>',
+    champs: [
+      { type: 'num', label: 'cos Â ≈', bon: Math.round(cosv * 100) / 100, tol: 0.011 },
+      { type: 'num', label: 'Â ≈ (en degrés)', bon: Math.round(ang), tol: 1.01 }
+    ],
+    etapes: [
+      M('vec{AB}(' + nf(ux) + ' ; ' + nf(uy) + ')') + ' et ' + M('vec{AC}(' + nf(vx) + ' ; ' + nf(vy) + ')') + '.',
+      M('vec{AB} \u00B7 vec{AC} = ' + nf(ux * vx) + sgn(uy * vy, '') + ' = ' + nf(ps)) + ', ' +
+        M('AB = sqrt{' + (pa[0] * pa[0] + pa[1] * pa[1]) + '} = ' + nu) + ', ' + M('AC = sqrt{' + (pb[0] * pb[0] + pb[1] * pb[1]) + '} = ' + nv) + '.',
+      'On isole le cosinus dans ' + M('vec{AB} \u00B7 vec{AC} = AB \u00D7 AC \u00D7 @cos(\u00C2)') + ' :',
+      Mc('@cos(\u00C2) = frac{' + nf(ps) + '}{' + nu + ' \u00D7 ' + nv + '} = frac{' + nf(ps) + '}{' + (nu * nv) + '} \u2248 ' + nf(Math.round(cosv * 1000) / 1000)),
+      'À la calculatrice (touche ' + M('@cos^{-1}') + ' ou ' + M('@arccos') + ', en mode <b>degrés</b>) : ' + M('\u00C2 \u2248 ' + nf(Math.round(ang * 10) / 10) + '\u00B0') +
+        ', soit ' + M(Math.round(ang) + '\u00B0') + ' au degré près.'
+    ]
+  };
+});
+
+G('produit-scalaire', 'ps-alkashi-angle', 'Al-Kashi : retrouver un angle', 'exp', function(){
+  let a, b, c;
+  do {
+    b = R.int(4, 12); c = R.int(4, 12); a = R.int(Math.abs(b - c) + 1, b + c - 1);
+  } while (Math.abs((b * b + c * c - a * a) / (2 * b * c)) > 0.985);
+  const cosv = (b * b + c * c - a * a) / (2 * b * c);
+  const ang = Math.acos(cosv) * 180 / Math.PI;
+  return {
+    enonce: '<p>Dans un triangle ' + M('ABC') + ' : ' + M('BC = ' + a) + ', ' + M('AC = ' + b) + ', ' + M('AB = ' + c) + '.</p>' +
+            '<p>Calcule ' + M('@cos(\u00C2)') + ' (arrondi au centième), puis l\u2019angle ' + M('\u00C2') + ' (arrondi au degré).</p>',
+    champs: [
+      { type: 'num', label: 'cos Â ≈', bon: Math.round(cosv * 100) / 100, tol: 0.011 },
+      { type: 'num', label: 'Â ≈ (en degrés)', bon: Math.round(ang), tol: 1.01 }
+    ],
+    etapes: [
+      'On part d\u2019Al-Kashi : ' + M('a^{2} = b^{2} + c^{2} - 2bc\u00A0@cos(\u00C2)') + ', puis on <b>isole le cosinus</b> :',
+      Mc('@cos(\u00C2) = frac{b^{2} + c^{2} - a^{2}}{2bc}'),
+      M('@cos(\u00C2) = frac{' + (b * b) + ' + ' + (c * c) + ' - ' + (a * a) + '}{2 \u00D7 ' + b + ' \u00D7 ' + c + '} = frac{' + nf(b * b + c * c - a * a) + '}{' + (2 * b * c) + '} \u2248 ' + nf(Math.round(cosv * 1000) / 1000)),
+      M('\u00C2 \u2248 ' + nf(Math.round(ang * 10) / 10) + '\u00B0') + ', soit ' + M(Math.round(ang) + '\u00B0') + '.',
+      cosv < 0 ? 'Cosinus <b>négatif</b> : l\u2019angle est <b>obtus</b>, ce qui est cohérent avec ' + M('a^{2} > b^{2} + c^{2}') + '.'
+               : 'Cosinus <b>positif</b> : l\u2019angle est <b>aigu</b>.'
+    ]
+  };
+});
+
+G('produit-scalaire', 'ps-norme-somme', 'Norme d\u2019une somme de vecteurs', 'exp', function(){
+  let nu, nv, ps, n2;
+  do {
+    nu = R.int(2, 10); nv = R.int(2, 10);
+    ps = R.int(-nu * nv, nu * nv);
+    n2 = nu * nu + nv * nv + 2 * ps;
+  } while (n2 <= 0 || Math.sqrt(n2) % 1 !== 0);
+  const n = Math.sqrt(n2);
+  return {
+    enonce: '<p>Deux vecteurs vérifient ' + M('\u2016vec{u}\u2016 = ' + nu) + ', ' + M('\u2016vec{v}\u2016 = ' + nv) + ' et ' + M('vec{u} \u00B7 vec{v} = ' + nf(ps)) + '.</p>' +
+            '<p>Calcule ' + M('\u2016vec{u} + vec{v}\u2016') + '.</p>',
+    champs: [{ type: 'num', label: '‖u⃗ + v⃗‖ =', bon: n, tol: 1e-6 }],
+    etapes: [
+      'On développe le carré de la norme, exactement comme une identité remarquable :',
+      Mc('\u2016vec{u} + vec{v}\u2016^{2} = \u2016vec{u}\u2016^{2} + 2\u00A0vec{u} \u00B7 vec{v} + \u2016vec{v}\u2016^{2}'),
+      M('\u2016vec{u} + vec{v}\u2016^{2} = ' + (nu * nu) + ' + 2 \u00D7 (' + nf(ps) + ') + ' + (nv * nv) + ' = ' + nf(n2)),
+      M('\u2016vec{u} + vec{v}\u2016 = sqrt{' + nf(n2) + '} = ' + nf(n)),
+      '<b>Ne jamais écrire</b> ' + M('\u2016vec{u} + vec{v}\u2016 = \u2016vec{u}\u2016 + \u2016vec{v}\u2016') + ' : ce serait ' + M(nf(nu + nv)) +
+        ', ce qui est faux (l\u2019égalité n\u2019a lieu que si les vecteurs sont colinéaires et de même sens).'
+    ]
+  };
+});
+/* =========================================================================
+   Interface : navigation, fiches de cours, séries d'exercices, progression.
+   ========================================================================= */
+
+const elMain = document.getElementById('main');
+const elNav = document.getElementById('nav');
+const elSide = document.getElementById('side');
+const elTop = document.getElementById('topttl');
+let vue = { nom: 'accueil' };
+let serie = null, tickChrono = null;
+
+const STATUTS = [
+  { id: 'neuf', court: 'À voir', long: 'Pas encore vu' },
+  { id: 'encours', court: 'En cours', long: 'En cours' },
+  { id: 'fini', court: 'Vu', long: 'Terminé' }
+];
+
+function esc(s){ return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+function aller(v){ vue = v; fermerMenu(); window.scrollTo(0, 0); rendre(); }
+function fermerMenu(){ elSide.classList.remove('open'); const s = document.querySelector('.scrim'); if (s) s.remove(); }
+
+/* ---------------- navigation latérale ---------------- */
+function rendreNav(){
+  const xpg = xpTotal(), rgg = rang(xpg, RANGS);
+  let h = '<div class="side-rank"><div class="sr-top"><b>' + rgg.nom + '</b><span>' + xpg + ' pts</span></div>' +
+          '<div class="bar"><span style="width:' + rgg.pc + '%"></span></div></div>';
+  h += '<button class="' + (vue.nom === 'accueil' ? 'on' : '') + '" data-go="accueil">Accueil</button>';
+  h += '<button class="' + (vue.nom === 'serie' && serie && serie.mode === 'revision' ? 'on' : '') + '" data-go="revision">Réviser</button>';
+  h += '<button class="' + (vue.nom === 'serie' && serie && serie.mode === 'chrono' ? 'on' : '') + '" data-go="chrono">Interro chrono</button>';
+  BLOCS.forEach(b => {
+    h += '<div class="grp">' + b.nom + '</div>';
+    CHAPITRES.filter(c => c.bloc === b.id).forEach(c => {
+      const st = statutChap(c.id), sc = scoreChap(c.id);
+      h += '<button class="' + (vue.nom === 'chapitre' && vue.id === c.id ? 'on' : '') + '" data-chap="' + c.id + '">' +
+           '<span class="dot ' + (st === 'encours' ? 'vu' : (st === 'fini' ? 'fini' : '')) + '"></span>' +
+           '<span>' + c.titre + '</span>' +
+           (sc.pc !== null ? '<span class="meta">' + sc.pc + ' %</span>' : (c.gens.length ? '' : '<span class="meta">cours</span>')) +
+           '</button>';
+    });
+  });
+  elNav.innerHTML = h;
+}
+
+/* ---------------- accueil ---------------- */
+function vueAccueil(){
+  const g = scoreGlobal(), rev = aRevoir();
+  const cur = S.courant && CHAP[S.courant] ? CHAP[S.courant] : null;
+  const travailles = CHAPITRES.filter(c => statutChap(c.id) !== 'neuf').length;
+  let h = '';
+  h += '<div class="home-head"><div>' +
+       '<div class="eyebrow">Spécialité mathématiques &middot; Première générale</div>' +
+       '<h2 style="font-size:31px">Tout le programme, et des exercices qui vont avec</h2>' +
+       '<p class="lede" style="margin-top:8px">Choisis le chapitre sur lequel tu travailles : les exercices sont tirés au sort à chaque fois, ' +
+       'avec la correction détaillée étape par étape.</p></div></div>';
+
+  const xp = xpTotal(), rg = rang(xp, RANGS);
+  h += '<div class="rank"><div class="rank-top">' +
+       '<div><div class="eyebrow" style="margin-bottom:2px">Niveau ' + (rg.index + 1) + ' sur ' + RANGS.length + '</div>' +
+       '<h3 class="rank-nom">' + rg.nom + '</h3></div>' +
+       '<div class="rank-xp">' + xp + '<span> pts</span></div></div>' +
+       '<div class="bar" style="height:8px"><span style="width:' + rg.pc + '%"></span></div>' +
+       '<div class="rank-foot"><span>' + (rg.prochain ? (rg.prochain.min - xp) + ' points avant <b>' + rg.prochain.nom + '</b>' : 'Rang maximal atteint') + '</span>' +
+       '<span>' + Object.keys(POINTS).map(n => NIVEAUX[n] + ' ' + POINTS[n] + ' pts').join(' &middot; ') + '</span></div></div>';
+
+  h += '<div class="stats">' +
+       '<div class="stat"><div class="v">' + g.tot + '</div><div class="k">exercices faits</div></div>' +
+       '<div class="stat"><div class="v">' + (g.pc === null ? '—' : g.pc + ' %') + '</div><div class="k">de réussite</div></div>' +
+       '<div class="stat"><div class="v">' + (S.record || 0) + '</div><div class="k">meilleure série</div></div>' +
+       '<div class="stat"><div class="v">' + travailles + '<span style="font-size:17px;color:var(--ink-3)"> / ' + CHAPITRES.length + '</span></div><div class="k">chapitres entamés</div></div>' +
+       '<div class="stat"><div class="v">' + rev.length + '</div><div class="k">notions à revoir</div></div>' +
+       '</div>';
+
+  if (cur){
+    const sc = scoreChap(cur.id);
+    h += '<div class="encours"><div>' +
+         '<div class="eyebrow" style="margin-bottom:4px">Chapitre en cours</div>' +
+         '<h3 style="font-size:21px">' + cur.titre + '</h3>' +
+         '<p class="tiny" style="margin-top:4px">' + cur.resume + (sc.tot ? ' &middot; ' + sc.ok + '/' + sc.tot + ' réussis' : '') + '</p></div>' +
+         '<div style="display:flex;gap:8px;flex-wrap:wrap">' +
+         (cur.gens.length ? '<button class="btn primary" data-serie="' + cur.id + '|mixte">S’entraîner</button>' : '') +
+         '<button class="btn" data-chap="' + cur.id + '">Ouvrir</button></div></div>';
+  } else {
+    h += '<div class="encours"><div><h3 style="font-size:19px">Sur quoi travailles-tu en ce moment ?</h3>' +
+         '<p class="tiny" style="margin-top:4px">Ouvre un chapitre et marque-le « En cours » : il apparaîtra ici, et les révisions se concentreront dessus.</p></div>' +
+         '<div><button class="btn" data-chap="second-degre">Voir un chapitre</button></div></div>';
+  }
+
+  h += '<div class="modes" style="margin-top:14px">' +
+       '<button class="mode" data-go="revision"' + (poolRevision().length ? '' : ' disabled') + '><b>Réviser</b>' +
+       '<span>Un mélange tiré dans les chapitres déjà vus, en commençant par ce qui a été raté.</span></button>' +
+       '<button class="mode" data-go="chrono"' + (poolRevision().length ? '' : ' disabled') + '><b>Interro chrono</b>' +
+       '<span>10 questions en 15 minutes, comme un devoir surveillé.</span></button>' +
+       '<button class="mode" data-go="programme"><b>Le programme officiel</b>' +
+       '<span>Les 12 chapitres du BO et les capacités attendues pour chacun.</span></button>' +
+       '</div>';
+
+  if (rev.length){
+    h += '<h3 style="font-size:13px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-3);font-family:var(--sans);font-weight:700;margin-bottom:10px">À revoir en priorité</h3>' +
+         '<div class="revue" style="margin-bottom:30px">' +
+         rev.slice(0, 5).map(r => '<div class="rev"><span>' + esc(r.meta.label) + '</span>' +
+           '<span class="ch">' + CHAP[r.meta.chap].titre + ' &middot; ' + r.st.ko + ' erreur' + (r.st.ko > 1 ? 's' : '') + '</span></div>').join('') +
+         '</div>';
+  }
+
+  h += '<div class="blocs">';
+  BLOCS.forEach(b => {
+    h += '<div class="bloc"><h3>' + b.nom + '</h3><div class="chaps">';
+    CHAPITRES.filter(c => c.bloc === b.id).forEach(c => {
+      const st = statutChap(c.id), sc = scoreChap(c.id);
+      const info = STATUTS.find(x => x.id === st);
+      const cxp = xpChap(c.id), crg = rang(cxp, RANGS_CHAP);
+      h += '<button class="chap" data-chap="' + c.id + '">' +
+           '<div class="t">' + c.titre + '</div>' +
+           '<div class="tiny" style="line-height:1.4">' + c.resume + '</div>' +
+           (c.gens.length && cxp ? '<div class="chap-rank"><span class="niv-dots">' +
+              RANGS_CHAP.map((_, i) => '<i class="' + (i <= crg.index ? 'on' : '') + '"></i>').join('') +
+              '</span><span>' + crg.nom + ' &middot; ' + cxp + ' pts</span></div>' : '') +
+           '<div class="row"><span class="pill ' + (st === 'encours' ? 'vu' : (st === 'fini' ? 'fini' : 'neuf')) + '">' + info.court + '</span>' +
+           (c.gens.length
+             ? (sc.tot ? '<span class="tiny">' + sc.ok + '/' + sc.tot + ' &middot; ' + sc.pc + ' %</span>' : '<span class="tiny">' + c.gens.length + ' types d’exercices</span>')
+             : '<span class="pill soon">fiche de cours</span>') +
+           '</div></button>';
+    });
+    h += '</div></div>';
+  });
+  h += '</div>';
+  elMain.innerHTML = h;
+  elTop.textContent = 'Cahier de spé maths';
+}
+
+/* ---------------- programme officiel ---------------- */
+function vueProgramme(){
+  let h = '<div class="eyebrow">Arrêté du 17 janvier 2019 &middot; BO spécial n°1 du 22 janvier 2019</div>' +
+          '<h2 style="font-size:28px">Le programme de spécialité</h2>' +
+          '<p class="lede" style="margin:8px 0 24px">Cinq grandes parties, douze chapitres. Pour chacun, les <b>capacités attendues</b> : ' +
+          'ce sont elles qui servent de base aux devoirs surveillés.</p><div class="blocs">';
+  BLOCS.forEach(b => {
+    h += '<div class="bloc"><h3>' + b.nom + '</h3><div class="cours">';
+    CHAPITRES.filter(c => c.bloc === b.id).forEach(c => {
+      h += '<div class="blk def"><div class="h"><span class="k">' + c.titre + '</span></div>' +
+           '<div class="body"><ul>' + c.capacites.map(x => '<li>' + x + '</li>').join('') + '</ul>' +
+           '<div style="margin-top:6px"><button class="btn sm" data-chap="' + c.id + '">Ouvrir le chapitre</button></div></div></div>';
+    });
+    h += '</div></div>';
+  });
+  h += '</div>';
+  elMain.innerHTML = h;
+  elTop.textContent = 'Le programme';
+}
+
+/* ---------------- chapitre ---------------- */
+function vueChapitre(){
+  const c = CHAP[vue.id];
+  const onglet = vue.onglet || 'cours';
+  const st = statutChap(c.id), sc = scoreChap(c.id);
+  const cxp = xpChap(c.id), crg = rang(cxp, RANGS_CHAP);
+  let h = '<div class="chead">' +
+    '<div class="eyebrow">' + BLOCS.find(b => b.id === c.bloc).nom + '</div>' +
+    '<h2>' + c.titre + '</h2>' +
+    '<p class="lede">' + c.resume + '</p>' +
+    (c.gens.length ? '<div class="chap-rank big"><span class="niv-dots">' +
+       RANGS_CHAP.map((_, i) => '<i class="' + (i <= crg.index ? 'on' : '') + '"></i>').join('') + '</span>' +
+       '<b>' + crg.nom + '</b><span>' + cxp + ' pts' +
+       (crg.prochain ? ' &middot; encore ' + (crg.prochain.min - cxp) + ' pour ' + crg.prochain.nom : '') + '</span></div>' : '') +
+    '<div class="toolbar" style="margin-top:16px">' +
+    '<span class="tiny">Où en es-tu ?</span><div class="seg">' +
+    STATUTS.map(s => '<button class="' + (st === s.id ? 'on' : '') + '" data-statut="' + s.id + '">' + s.long + '</button>').join('') +
+    '</div>' + (sc.tot ? '<span class="tiny">' + sc.ok + ' / ' + sc.tot + ' exercices réussis (' + sc.pc + ' %)</span>' : '') +
+    '</div></div>';
+
+  h += '<div class="tabs">' +
+    '<button class="' + (onglet === 'cours' ? 'on' : '') + '" data-onglet="cours">Cours</button>' +
+    '<button class="' + (onglet === 'exos' ? 'on' : '') + '" data-onglet="exos">S’entraîner</button>' +
+    '<button class="' + (onglet === 'res' ? 'on' : '') + '" data-onglet="res">Mes résultats</button>' +
+    '</div>';
+
+  if (onglet === 'cours'){
+    h += '<div class="capa"><div class="eyebrow" style="margin-bottom:2px">Capacités attendues</div><ul>' +
+         c.capacites.map(x => '<li>' + x + '</li>').join('') + '</ul></div>';
+    h += '<div class="cours">' + c.cours.map(b => {
+      const k = { def: 'Définition', prop: 'Propriété', meth: 'Méthode', piege: 'À éviter' }[b.k];
+      return '<div class="blk ' + b.k + '"><div class="h"><span class="k">' + k + '</span><b>' + b.t + '</b></div><div class="body">' + b.c + '</div></div>';
+    }).join('') + '</div>';
+    if (c.gens.length){
+      h += '<div style="margin-top:22px"><button class="btn primary" data-onglet="exos">Passer aux exercices</button></div>';
+    }
+  }
+
+  if (onglet === 'exos'){
+    if (!c.gens.length){
+      h += '<div class="empty"><h3 style="font-size:19px;margin-bottom:8px">Fiche de cours disponible</h3>' +
+           '<p style="max-width:52ch;margin:0 auto">Les exercices générés pour ce chapitre arrivent dans une prochaine version. ' +
+           'En attendant, le cours et les capacités attendues sont complets dans l’onglet « Cours ».</p></div>';
+    } else {
+      const parNiveau = { app: [], ent: [], ds: [], exp: [] };
+      c.gens.forEach(g => parNiveau[g.niveau].push(g));
+      h += '<p class="lede" style="margin-bottom:16px">Choisis un niveau. Chaque série comporte 8 questions tirées au sort ' +
+           '(les valeurs changent à chaque fois), et rapporte des points selon la difficulté.</p><div class="niveaux">';
+      h += '<button class="niv" data-serie="' + c.id + '|mixte"><b>Série mixte</b>' +
+           '<span>Les ' + c.gens.length + ' types d’exercices du chapitre, mélangés.</span></button>';
+      ORDRE_NIVEAUX.forEach(n => {
+        if (!parNiveau[n].length) return;
+        h += '<button class="niv' + (n === 'exp' ? ' dur' : '') + '" data-serie="' + c.id + '|' + n + '">' +
+             '<b>' + NIVEAUX[n] + '<span class="pts">' + POINTS[n] + ' pts</span></b>' +
+             (n === 'exp' ? '<span class="avert">Niveau évaluation exigeante</span>' : '') +
+             '<span>' + parNiveau[n].map(g => g.label).join(' &middot; ') + '</span></button>';
+      });
+      h += '</div>';
+    }
+  }
+
+  if (onglet === 'res'){
+    if (!c.gens.length){
+      h += '<div class="empty">Ce chapitre n’a pas encore d’exercices.</div>';
+    } else {
+      h += '<div class="methods">' + c.gens.map(g => {
+        const m = S.methodes[g.id];
+        const tot = m ? m.ok + m.ko : 0;
+        const pc = tot ? Math.round(100 * m.ok / tot) : null;
+        return '<div class="mrow"><div class="lbl">' + esc(g.label) + '<div class="tiny">' + NIVEAUX[g.niveau] + '</div></div>' +
+               '<div class="sc">' + (tot ? m.ok + ' / ' + tot : '—') + '</div>' +
+               '<div class="bar' + (pc !== null && pc >= 70 ? ' g' : '') + '"><span style="width:' + (pc === null ? 0 : pc) + '%"></span></div></div>';
+      }).join('') + '</div>' +
+      '<p class="tiny" style="margin-top:12px">Une notion ratée est automatiquement reproposée dans « Réviser » quelques jours plus tard.</p>';
+    }
+  }
+  elMain.innerHTML = h;
+  elTop.textContent = c.titre;
+}
+
+/* ---------------- constitution des séries ---------------- */
+function poolRevision(){
+  const out = [];
+  CHAPITRES.forEach(c => { if (statutChap(c.id) !== 'neuf') c.gens.forEach(g => out.push(g)); });
+  return out;
+}
+function tirer(pool, n){
+  if (!pool.length) return [];
+  const now = Date.now();
+  const prio = pool.filter(g => { const m = S.methodes[g.id]; return m && m.ko > 0 && m.due <= now; });
+  const neufs = pool.filter(g => !S.methodes[g.id]);
+  const autres = pool.filter(g => prio.indexOf(g) < 0 && neufs.indexOf(g) < 0);
+  let liste = R.shuffle(prio).concat(R.shuffle(neufs)).concat(R.shuffle(autres));
+  while (liste.length < n) liste = liste.concat(R.shuffle(pool));
+  return liste.slice(0, n);
+}
+function lancerSerie(pool, n, mode, titre, secondes){
+  if (!pool.length) return;
+  serie = {
+    gens: tirer(pool, n), idx: 0, mode: mode, titre: titre,
+    resultats: [], q: null, valide: false, reste: secondes || 0, debut: Date.now()
+  };
+  clearInterval(tickChrono);
+  if (secondes){
+    tickChrono = setInterval(() => {
+      if (!serie){ clearInterval(tickChrono); return; }
+      serie.reste--;
+      const el = document.getElementById('chrono');
+      if (el){ el.textContent = mmss(serie.reste); el.classList.toggle('warn', serie.reste <= 60); }
+      if (serie.reste <= 0){ clearInterval(tickChrono); aller({ nom: 'bilan' }); }
+    }, 1000);
+  }
+  prochaine();
+  aller({ nom: 'serie' });
+}
+function mmss(s){ s = Math.max(0, s); return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); }
+function prochaine(){
+  const g = serie.gens[serie.idx];
+  const q = g.fn();
+  q.gen = g;
+  if (q.qcm){
+    const idx = R.shuffle(q.qcm.options.map((o, i) => i));
+    q.qcm.options = idx.map(i => q.qcm.options[i]);
+    q.qcm.bon = idx.indexOf(q.qcm.bon);
+  }
+  q.choix = null;
+  serie.q = q;
+  serie.valide = false;
+  serie.juste = null;
+}
+
+/* ---------------- déroulé d'une série ---------------- */
+function vueSerie(){
+  const q = serie.q, g = q.gen;
+  let h = '<div class="run">';
+  h += '<div class="runtop"><div><div class="eyebrow" style="margin-bottom:2px">' + esc(serie.titre) + '</div>' +
+       '<div class="dots">' + serie.gens.map((_, i) => {
+         const r = serie.resultats[i];
+         return '<i class="' + (i === serie.idx ? 'now' : (r === true ? 'ok' : (r === false ? 'ko' : ''))) + '"></i>';
+       }).join('') + '</div></div>' +
+       '<div style="display:flex;align-items:center;gap:10px">' +
+       (S.serie >= 2 ? '<span class="streak">série ×' + S.serie + '</span>' : '') +
+       (serie.mode === 'chrono' ? '<span class="timer" id="chrono">' + mmss(serie.reste) + '</span>' : '') +
+       '<button class="btn sm ghost" data-quitter="1">Quitter</button></div></div>';
+
+  h += '<div class="qcard">';
+  h += '<div class="qmeta"><span class="pill neuf">' + NIVEAUX[g.niveau] + '</span>' +
+       '<span class="tiny">' + CHAP[g.chap].titre + ' &middot; ' + esc(g.label) + '</span>' +
+       '<span class="tiny" style="margin-left:auto">Question ' + (serie.idx + 1) + ' / ' + serie.gens.length + '</span></div>';
+  h += '<div class="qtext">' + q.enonce + '</div>';
+
+  if (q.qcm){
+    h += '<div class="choices">' + q.qcm.options.map((o, i) => {
+      let cl = 'choice' + (q.choix === i ? ' sel' : '');
+      if (serie.valide){
+        if (i === q.qcm.bon) cl += ' good';
+        else if (q.choix === i) cl += ' bad';
+      }
+      return '<button class="' + cl + '" data-choix="' + i + '"' + (serie.valide ? ' disabled' : '') + '>' +
+             '<span class="k">' + 'ABCD'[i] + '</span><span>' + o + '</span></button>';
+    }).join('') + '</div>';
+  } else {
+    h += '<div class="fields">' + q.champs.map((f, i) => {
+      if (f.type === 'choix'){
+        return '<div class="field"><label>' + f.label + '</label><div class="seg">' +
+          f.options.map((o, j) => '<button class="' + (f.saisie === j ? 'on' : '') + '" data-champ="' + i + '" data-val="' + j + '"' +
+            (serie.valide ? ' disabled' : '') + '>' + o + '</button>').join('') + '</div>' +
+          (serie.valide ? verdictChamp(f, f.saisie === f.bon) : '') + '</div>';
+      }
+      return '<div class="field"><label for="f' + i + '">' + f.label + '</label>' +
+        '<input id="f' + i + '" type="text" inputmode="decimal" autocomplete="off" value="' + (f.saisie === undefined ? '' : esc(f.saisie)) + '"' +
+        (serie.valide ? ' disabled' : '') + '>' +
+        (serie.valide ? verdictChamp(f, champOk(f)) : '') + '</div>';
+    }).join('') + '</div>';
+  }
+
+  if (!serie.valide){
+    h += '<div class="actions"><button class="btn primary" data-verifier="1">Vérifier</button>' +
+         '<button class="btn ghost" data-sechapper="1">Je ne sais pas</button></div>';
+  } else {
+    h += '<div class="verdict ' + (serie.juste ? 'ok' : 'ko') + '">' +
+         '<div class="vh">' + (serie.juste ? '✓ Juste' : (serie.abandon ? 'Correction' : '✗ Pas tout à fait')) +
+         (serie.juste && serie.gain ? '<span class="gain">+' + serie.gain + ' pts</span>' : '') + '</div>' +
+         '<div class="vb">' + (serie.juste
+            ? (serie.gain > POINTS[g.niveau] ? 'Bien joué — bonus de série inclus.' : 'Bien joué — enchaîne.')
+            : 'Regarde la correction pas à pas, puis continue : cette notion te sera reproposée plus tard.') + '</div></div>';
+    h += '<div class="sol"><h4>Correction détaillée</h4><div class="steps">' +
+         q.etapes.map(s => '<div class="step"><div>' + s + '</div></div>').join('') + '</div></div>';
+    h += '<div class="actions"><button class="btn primary" data-suivante="1">' +
+         (serie.idx + 1 >= serie.gens.length ? 'Voir le bilan' : 'Question suivante') + '</button></div>';
+  }
+  h += '</div></div>';
+  elMain.innerHTML = h;
+  elTop.textContent = serie.titre;
+  const first = document.getElementById('f0');
+  if (first && !serie.valide) first.focus();
+}
+function verdictChamp(f, ok){
+  if (ok) return '<span class="tiny" style="color:var(--juste);font-weight:700">✓</span>';
+  const att = f.type === 'choix' ? f.options[f.bon] : nf(f.bon);
+  return '<span class="tiny" style="color:var(--faux);font-weight:700">✗ attendu : ' + att + '</span>';
+}
+function champOk(f){
+  if (f.type === 'choix') return f.saisie === f.bon;
+  const v = String(f.saisie === undefined ? '' : f.saisie).trim().replace(/\s/g, '').replace(',', '.');
+  if (v === '') return false;
+  const x = Number(v);
+  if (!isFinite(x)) return false;
+  return Math.abs(x - f.bon) <= (f.tol === undefined ? 1e-6 : f.tol);
+}
+function lireChamps(){
+  const q = serie.q;
+  if (q.qcm) return;
+  q.champs.forEach((f, i) => {
+    if (f.type === 'choix') return;
+    const el = document.getElementById('f' + i);
+    if (el) f.saisie = el.value;
+  });
+}
+function verifier(abandon){
+  const q = serie.q;
+  lireChamps();
+  let juste;
+  if (q.qcm) juste = (q.choix === q.qcm.bon);
+  else juste = q.champs.every(champOk);
+  if (abandon) juste = false;
+  serie.abandon = !!abandon;
+  serie.valide = true;
+  serie.juste = juste;
+  serie.resultats[serie.idx] = juste;
+  serie.gain = enregistrer(q.gen.id, juste);
+  serie.gains = (serie.gains || 0) + serie.gain;
+  rendre();
+}
+function suivante(){
+  if (serie.idx + 1 >= serie.gens.length){ aller({ nom: 'bilan' }); return; }
+  serie.idx++;
+  prochaine();
+  rendre();
+  window.scrollTo(0, 0);
+}
+
+/* ---------------- bilan ---------------- */
+function vueBilan(){
+  clearInterval(tickChrono);
+  const ok = serie.resultats.filter(r => r === true).length;
+  const tot = serie.gens.length;
+  const faits = serie.resultats.filter(r => r !== undefined).length;
+  const duree = Math.round((Date.now() - serie.debut) / 1000);
+  const rates = serie.gens.filter((g, i) => serie.resultats[i] === false);
+  const pc = faits ? Math.round(100 * ok / faits) : 0;
+  const mot = pc >= 90 ? 'Excellent.' : pc >= 70 ? 'Solide — encore un peu d’entraînement.' : pc >= 40 ? 'Il y a de la marge : reprends la correction des erreurs.' : 'Relis le cours avant de refaire une série.';
+  const xp = xpTotal(), rg = rang(xp, RANGS);
+  let h = '<div class="run"><div class="card bilan">' +
+    '<div class="eyebrow">' + esc(serie.titre) + '</div>' +
+    '<div class="score">' + ok + '<span class="sur"> / ' + tot + '</span></div>' +
+    '<div class="gain-total">+ ' + (serie.gains || 0) + ' points</div>' +
+    '<p class="lede" style="margin:12px auto 0;text-align:center">' + mot + '</p>' +
+    '<p class="tiny" style="margin-top:6px">Durée : ' + mmss(duree) + (faits < tot ? ' &middot; ' + (tot - faits) + ' question(s) non traitée(s)' : '') + '</p>' +
+    '<div class="bilan-rank"><div class="rank-top" style="margin-bottom:6px"><b>' + rg.nom + '</b><span class="tiny">' + xp + ' pts</span></div>' +
+    '<div class="bar" style="height:7px"><span style="width:' + rg.pc + '%"></span></div>' +
+    '<p class="tiny" style="margin-top:6px">' + (rg.prochain ? (rg.prochain.min - xp) + ' points avant le rang ' + rg.prochain.nom : 'Rang maximal atteint') + '</p></div>';
+  if (rates.length){
+    const uniques = [];
+    rates.forEach(g => { if (uniques.indexOf(g) < 0) uniques.push(g); });
+    h += '<div class="revue" style="margin-top:22px;text-align:left">' +
+      uniques.map(g => '<div class="rev"><span>' + esc(g.label) + '</span><span class="ch">' + CHAP[g.chap].titre + '</span></div>').join('') +
+      '</div><p class="tiny" style="margin-top:10px">Ces notions reviendront automatiquement dans « Réviser ».</p>';
+  }
+  h += '<div class="actions" style="justify-content:center;margin-top:24px">' +
+    '<button class="btn primary" data-refaire="1">Refaire une série</button>' +
+    '<button class="btn" data-go="accueil">Retour à l’accueil</button></div>';
+  h += '</div></div>';
+  elMain.innerHTML = h;
+  elTop.textContent = 'Bilan';
+}
+
+/* ---------------- rendu global + événements ---------------- */
+function rendre(){
+  if (vue.nom === 'accueil') vueAccueil();
+  else if (vue.nom === 'programme') vueProgramme();
+  else if (vue.nom === 'chapitre') vueChapitre();
+  else if (vue.nom === 'serie') vueSerie();
+  else if (vue.nom === 'bilan') vueBilan();
+  rendreNav();
+}
+
+document.addEventListener('click', function(e){
+  const t = e.target.closest('[data-go],[data-chap],[data-onglet],[data-statut],[data-serie],[data-choix],[data-champ],[data-verifier],[data-sechapper],[data-suivante],[data-quitter],[data-refaire]');
+  if (e.target.closest('#burger')){
+    elSide.classList.add('open');
+    const s = document.createElement('div'); s.className = 'scrim'; s.addEventListener('click', fermerMenu);
+    document.body.appendChild(s);
+    return;
+  }
+  if (!t) return;
+  const d = t.dataset;
+  if (d.go){
+    if (d.go === 'revision'){
+      const pool = poolRevision();
+      if (!pool.length) return;
+      lancerSerie(pool, 10, 'revision', 'Révision');
+    } else if (d.go === 'chrono'){
+      const pool = poolRevision();
+      if (!pool.length) return;
+      lancerSerie(pool, 10, 'chrono', 'Interro chrono', 900);
+    } else aller({ nom: d.go });
+    return;
+  }
+  if (d.chap){ aller({ nom: 'chapitre', id: d.chap, onglet: 'cours' }); return; }
+  if (d.onglet){ vue.onglet = d.onglet; window.scrollTo(0, 0); rendre(); return; }
+  if (d.statut){
+    const id = vue.id;
+    S.statuts[id] = d.statut;
+    if (d.statut === 'encours') S.courant = id;
+    else if (S.courant === id && d.statut === 'neuf') S.courant = null;
+    sauver(); rendre(); return;
+  }
+  if (d.serie){
+    const p = d.serie.split('|'), c = CHAP[p[0]];
+    const pool = p[1] === 'mixte' ? c.gens : c.gens.filter(g => g.niveau === p[1]);
+    lancerSerie(pool, 8, 'chapitre', c.titre + (p[1] === 'mixte' ? '' : ' — ' + NIVEAUX[p[1]]));
+    return;
+  }
+  if (d.choix !== undefined){ if (!serie.valide){ serie.q.choix = +d.choix; rendre(); } return; }
+  if (d.champ !== undefined){
+    if (!serie.valide){ lireChamps(); serie.q.champs[+d.champ].saisie = +d.val; rendre(); }
+    return;
+  }
+  if (d.verifier){ verifier(false); return; }
+  if (d.sechapper){ verifier(true); return; }
+  if (d.suivante){ suivante(); return; }
+  if (d.quitter){ clearInterval(tickChrono); aller({ nom: 'bilan' }); return; }
+  if (d.refaire){
+    const pool = serie.mode === 'chapitre' ? serie.gens.slice() : poolRevision();
+    lancerSerie(pool, serie.gens.length, serie.mode, serie.titre, serie.mode === 'chrono' ? 900 : 0);
+    return;
+  }
+});
+document.addEventListener('keydown', function(e){
+  if (e.key !== 'Enter' || vue.nom !== 'serie' || !serie) return;
+  e.preventDefault();
+  if (serie.valide) suivante(); else verifier(false);
+});
+
+rendre();
+initStore();
+</script>
+
+<script>
+if ('serviceWorker' in navigator){
+  window.addEventListener('load', function(){
+    navigator.serviceWorker.register('sw.js').catch(function(){});
+  });
+}
+</script>
+</body>
+</html>
