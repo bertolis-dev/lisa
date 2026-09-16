@@ -226,18 +226,16 @@ def vignette():
         d.line([(i * 50, 0), (i * 50, H)], fill=(255, 255, 255, 20), width=2)
     for i in range(1, 13):
         d.line([(0, i * 50), (W, i * 50)], fill=(255, 255, 255, 20), width=2)
-    toque(d, W / 2, 210, 420)
+    toque(d, W / 2, 232, 470)
     img = Image.alpha_composite(img.convert('RGBA'), calque).convert('RGB')
     d = ImageDraw.Draw(img)
-    gros = police([FONTB, FONTA], 116)
+    gros = police([FONTB, FONTA], 140)
     moyen = police([FONTS, FONT], 38)
     petit = police([FONT, FONTA], 31)
     def centre(y, t, f, c):
         larg = d.textlength(t, font=f)
         d.text(((W - larg) / 2, y), t, font=f, fill=c)
-    centre(352, 'Lisa', gros, (255, 255, 255))
-    centre(492, 'Réviser le lycée, préparer le bac', moyen, (255, 255, 255))
-    centre(548, 'Des exercices corrigés pas à pas', petit, (230, 223, 255))
+    centre(392, 'Lisa', gros, (255, 255, 255))
     img.save(os.path.join(SITE, 'apercu.png'))
     return img
 

@@ -33,6 +33,12 @@
   --grid:rgba(47,69,197,.07);
   --shadow:0 1px 2px rgba(22,34,63,.05), 0 8px 24px -12px rgba(22,34,63,.18);
   --r:10px;
+  /* puces dessinees : certaines polices n'ont pas les caracteres fleche ou triangle
+     (carres vides sur iPhone) ; on passe par des masques SVG */
+  --ic-tri:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M5.5 3 L11.5 8 L5.5 13 Z' fill='%23000'/%3E%3C/svg%3E");
+  --ic-fleche:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M2 8 H12.4 M8.6 4.2 L12.8 8 L8.6 11.8' stroke='%23000' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  --ic-croix:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 4 L12 12 M12 4 L4 12' stroke='%23000' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E");
+  --ic-check:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8.5 L6.5 12 L13 4.5' stroke='%23000' stroke-width='2.2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
@@ -301,7 +307,9 @@ main{min-width:0;padding-block:34px;padding-left:40px;padding-right:40px;max-wid
 .matcard .me{font-size:24px;line-height:1;flex:0 0 auto}
 .matcard .mn{display:flex;flex-direction:column;gap:1px;min-width:0}
 .matcard .mn b{font-family:var(--serif);font-size:15px;font-weight:600;line-height:1.25}
-.matcard .mk{margin-left:auto;font-weight:700;color:var(--juste);font-size:16px;flex:0 0 auto}
+.matcard .mk{margin-left:auto;flex:0 0 auto;width:17px;height:17px}
+.matcard.prise .mk{background-color:var(--juste);
+  -webkit-mask:var(--ic-check) center/contain no-repeat;mask:var(--ic-check) center/contain no-repeat}
 .nav-mat{font-size:12.5px;font-weight:700;color:var(--ink-2);padding:10px 10px 2px;display:flex;gap:6px;align-items:center}
 
 /* ---------- objectif du jour ---------- */
@@ -560,14 +568,20 @@ main{min-width:0;padding-block:34px;padding-left:40px;padding-right:40px;max-wid
 .blk .body p + p{margin-top:2px}
 .blk .body ul{gap:12px;padding-left:2px;list-style:none;margin:2px 0}
 .blk .body ul li{position:relative;padding-left:26px}
-.blk .body ul li::before{content:"B8";position:absolute;left:4px;top:-1px;color:var(--bc,var(--accent));font-weight:700;font-size:1.05em}
-.blk.prop .body ul li::before{color:var(--juste)}
-.blk.astuce .body ul li::before{content:"92";color:var(--amber);left:2px}
-.blk.piege .body ul li::before{content:"¹7";color:var(--faux);font-size:.95em}
-.blk.pourquoi .body ul li::before{color:#BC3B84}
+.blk .body ul li::before{content:"";position:absolute;left:3px;top:.42em;width:13px;height:13px;
+  background-color:var(--bc,var(--accent));
+  -webkit-mask:var(--ic-tri) center/contain no-repeat;mask:var(--ic-tri) center/contain no-repeat}
+.blk.prop .body ul li::before{background-color:var(--juste)}
+.blk.astuce .body ul li::before{background-color:var(--amber);width:15px;height:15px;top:.36em;
+  -webkit-mask:var(--ic-fleche) center/contain no-repeat;mask:var(--ic-fleche) center/contain no-repeat}
+.blk.piege .body ul li::before{background-color:var(--faux);width:13px;height:13px;
+  -webkit-mask:var(--ic-croix) center/contain no-repeat;mask:var(--ic-croix) center/contain no-repeat}
+.blk.pourquoi .body ul li::before{background-color:#BC3B84}
 .capa ul{list-style:none;padding-left:2px;gap:10px}
 .capa ul li{position:relative;padding-left:26px}
-.capa ul li::before{content:"92";position:absolute;left:3px;top:0;color:var(--accent);font-weight:700}
+.capa ul li::before{content:"";position:absolute;left:3px;top:.36em;width:15px;height:15px;
+  background-color:var(--accent);
+  -webkit-mask:var(--ic-fleche) center/contain no-repeat;mask:var(--ic-fleche) center/contain no-repeat}
 .center{padding:8px 0 10px}
 .blk .body .center{padding:4px 0 6px}
 .qtext{gap:13px;line-height:1.62}
@@ -591,7 +605,10 @@ main{min-width:0;padding-block:34px;padding-left:40px;padding-right:40px;max-wid
 .mat-tete .cnt{font-size:11px;font-weight:700;color:var(--ink-3);background:var(--surface-3);border-radius:999px;padding:2px 8px}
 .mat-tete .mb{font-size:9.5px;text-transform:uppercase;letter-spacing:.06em;font-weight:700;color:var(--amber);
   background:var(--amber-soft);padding:2px 7px;border-radius:999px}
-.mat-tete .chev{font-size:11px;color:var(--ink-3);width:12px;text-align:center;flex:0 0 auto}
+.mat-tete .chev{width:13px;height:13px;flex:0 0 auto;background-color:var(--ink-3);
+  -webkit-mask:var(--ic-tri) center/contain no-repeat;mask:var(--ic-tri) center/contain no-repeat;
+  transition:transform .15s}
+.mat-tete.ouverte .chev{transform:rotate(90deg);background-color:var(--accent)}
 .mat-tete.ouverte{background:var(--accent-soft);color:var(--accent-ink)}
 .mat-tete.ouverte .cnt{background:var(--surface);color:var(--accent)}
 .mat-tete.ouverte .chev{color:var(--accent)}
@@ -3625,7 +3642,7 @@ function rendreNav(){
          '<span class="me">' + m.e + '</span>' +
          '<span class="nm">' + m.court + '</span>' +
          (m.pret ? '<span class="cnt">' + chs.length + '</span>' : '<span class="mb">bient\u00f4t</span>') +
-         '<span class="chev">' + (est ? '\u25BE' : '\u25B8') + '</span></button>';
+         '<span class="chev"></span></button>';
     if (!est) return;
     h += '<div class="mat-corps">';
     blocsCourants().forEach(b => {
@@ -3908,7 +3925,7 @@ function vueMatieres(){
           '<span class="me">' + m.e + '</span>' +
           '<span class="mn"><b>' + m.nom + '</b><span class="tiny">' +
           (m.pret ? CHAPITRES.filter(c => c.matiere === m.id).length + ' chapitres \u00B7 exercices disponibles' : 'Programme a venir') +
-          '</span></span><span class="mk">' + (prise ? '\u2713' : '') + '</span></button>';
+          '</span></span><span class="mk"></span></button>';
       }).join('') + '</div></div>';
   });
   elMain.innerHTML = h;
@@ -4077,7 +4094,7 @@ function champOk(f){
 }
 function lireChamps(){
   const q = serie.q;
-  if (q.qcm) return;
+  if (q.qcm || !q.champs) return;      /* une démonstration n'a pas de champs */
   q.champs.forEach((f, i) => {
     if (f.type === 'choix') return;
     const el = document.getElementById('f' + i);
@@ -4088,6 +4105,7 @@ function verifier(abandon){
   const q = serie.q;
   lireChamps();
   let juste;
+  if (q.bareme) return;                /* une démonstration se valide par l'auto-évaluation */
   if (q.qcm) juste = (q.choix === q.qcm.bon);
   else juste = q.champs.every(champOk);
   if (abandon) juste = false;

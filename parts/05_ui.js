@@ -54,7 +54,7 @@ function rendreNav(){
          '<span class="me">' + m.e + '</span>' +
          '<span class="nm">' + m.court + '</span>' +
          (m.pret ? '<span class="cnt">' + chs.length + '</span>' : '<span class="mb">bient\u00f4t</span>') +
-         '<span class="chev">' + (est ? '\u25BE' : '\u25B8') + '</span></button>';
+         '<span class="chev"></span></button>';
     if (!est) return;
     h += '<div class="mat-corps">';
     blocsCourants().forEach(b => {
@@ -337,7 +337,7 @@ function vueMatieres(){
           '<span class="me">' + m.e + '</span>' +
           '<span class="mn"><b>' + m.nom + '</b><span class="tiny">' +
           (m.pret ? CHAPITRES.filter(c => c.matiere === m.id).length + ' chapitres \u00B7 exercices disponibles' : 'Programme a venir') +
-          '</span></span><span class="mk">' + (prise ? '\u2713' : '') + '</span></button>';
+          '</span></span><span class="mk"></span></button>';
       }).join('') + '</div></div>';
   });
   elMain.innerHTML = h;
@@ -506,7 +506,7 @@ function champOk(f){
 }
 function lireChamps(){
   const q = serie.q;
-  if (q.qcm) return;
+  if (q.qcm || !q.champs) return;      /* une démonstration n'a pas de champs */
   q.champs.forEach((f, i) => {
     if (f.type === 'choix') return;
     const el = document.getElementById('f' + i);
@@ -517,6 +517,7 @@ function verifier(abandon){
   const q = serie.q;
   lireChamps();
   let juste;
+  if (q.bareme) return;                /* une démonstration se valide par l'auto-évaluation */
   if (q.qcm) juste = (q.choix === q.qcm.bon);
   else juste = q.champs.every(champOk);
   if (abandon) juste = false;
