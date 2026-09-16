@@ -216,6 +216,8 @@ def police(chemins, taille):
     return ImageFont.load_default()
 
 def vignette():
+    """Apercu de partage. Compose au centre : les applis qui recadrent au carre
+       (partage iOS) doivent encore voir la toque et le nom."""
     W, H = 1200, 630
     img = degrade(W, H)
     calque = Image.new('RGBA', (W, H), (0, 0, 0, 0))
@@ -224,17 +226,20 @@ def vignette():
         d.line([(i * 50, 0), (i * 50, H)], fill=(255, 255, 255, 20), width=2)
     for i in range(1, 13):
         d.line([(0, i * 50), (W, i * 50)], fill=(255, 255, 255, 20), width=2)
-    toque(d, 955, 322, 520)
+    toque(d, W / 2, 210, 420)
     img = Image.alpha_composite(img.convert('RGBA'), calque).convert('RGB')
     d = ImageDraw.Draw(img)
-    gros = police([FONTB, FONTA], 132)
-    moyen = police([FONTS, FONT], 44)
-    petit = police([FONT, FONTA], 34)
-    d.text((96, 186), 'Lisa', font=gros, fill=(255, 255, 255))
-    d.text((104, 344), 'R\u00e9viser le lyc\u00e9e, pr\u00e9parer le bac', font=moyen, fill=(255, 255, 255))
-    d.text((104, 414), 'Le programme officiel, des exercices tir\u00e9s au sort,', font=petit, fill=(232, 226, 255))
-    d.text((104, 458), 'et la correction pas \u00e0 pas.', font=petit, fill=(232, 226, 255))
+    gros = police([FONTB, FONTA], 116)
+    moyen = police([FONTS, FONT], 38)
+    petit = police([FONT, FONTA], 31)
+    def centre(y, t, f, c):
+        larg = d.textlength(t, font=f)
+        d.text(((W - larg) / 2, y), t, font=f, fill=c)
+    centre(352, 'Lisa', gros, (255, 255, 255))
+    centre(492, 'Réviser le lycée, préparer le bac', moyen, (255, 255, 255))
+    centre(548, 'Des exercices corrigés pas à pas', petit, (230, 223, 255))
     img.save(os.path.join(SITE, 'apercu.png'))
+    return img
 
 vignette()
 
