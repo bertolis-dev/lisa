@@ -13,7 +13,7 @@ PARTS = os.path.join(BASE, 'parts')
 SITE = os.path.join(BASE, 'docs')
 
 CORPS = ['01_shell.html', '02_core.js', '03_programme.js', '04_generateurs.js',
-         '06_approfondissement.js', '08_demonstrations.js', '10_cours_plus.js',
+         '06_approfondissement.js', '08_demonstrations.js', '10_cours_plus.js', '11_figures.js',
          '07_fun.js', '09_evaluation.js', '05_ui.js']
 
 def lire(nom):
