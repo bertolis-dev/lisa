@@ -659,6 +659,15 @@ main{padding-bottom:calc(34px + env(safe-area-inset-bottom, 0px))}
 .version:hover{border-color:var(--accent);background:var(--surface-2)}
 .pied{display:flex;justify-content:center;margin-top:26px}
 .pied .version{width:auto;align-items:center;text-align:center;margin-top:0}
+
+/* ---------- hauteur réelle de l'écran sur iPhone ----------
+   100vh est plus grand que la zone visible quand les barres de Safari sont
+   affichées : le bas du menu passait sous le bord de l'écran. */
+.app{min-height:100dvh}
+.side{height:100dvh}
+.nav{padding-bottom:calc(34px + env(safe-area-inset-bottom, 0px))}
+.pied{margin-bottom:calc(6px + env(safe-area-inset-bottom, 0px))}
+.version{padding:12px 14px}
 </style>
 
 <div class="app">
@@ -711,7 +720,7 @@ function M(src){ return '<span class="m">' + mathHtml(src) + '</span>'; }
 function Mc(src){ return '<div class="center">' + M(src) + '</div>'; }
 
 /* version de la construction, remplacée par build.py */
-const VERSION_APP = '16/09/2026 16h02';
+const VERSION_APP = '16/09/2026 16h05';
 
 /* ---------- utilitaires numériques ---------- */
 const R = {
