@@ -657,6 +657,12 @@ main{padding-bottom:calc(34px + env(safe-area-inset-bottom, 0px))}
 .side{overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
 body.menu-ouvert{position:fixed;left:0;right:0;width:100%;overflow:hidden}
 .scrim{overscroll-behavior:contain;touch-action:none}
+
+/* ---------- tableaux d'effectifs et de lois ---------- */
+table.tab{border-collapse:collapse;margin:14px auto 4px;font-size:14.5px;font-variant-numeric:tabular-nums}
+table.tab th,table.tab td{border:1px solid var(--line);padding:7px 14px;text-align:center}
+table.tab th{background:var(--surface-2);font-weight:700;font-size:13.5px}
+table.tab tr:first-child th{background:var(--accent-soft);color:var(--accent-ink)}
 </style>
 
 <div class="app">
