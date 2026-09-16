@@ -218,7 +218,7 @@ function calculerNote(){
     enregistrer(q.gen.id, part >= 0.7, part);
   });
   d.note = Math.round(2 * 20 * obtenu / d.total) / 2;      /* au demi-point */
-  d.detail = nf(Math.round(obtenu * 10) / 10) + ' points sur ' + d.total + ' — ' +
+  d.detail = nf(Math.round(obtenu * 10) / 10) + ' points sur ' + d.total + ' · ' +
              d.questions.filter(q => pointsQuestion(q) === q.bar).length + ' exercice(s) parfaitement traité(s) sur ' + d.questions.length + '.';
   S.notes = S.notes || [];
   S.notes.push({ t: Date.now(), note: d.note, matiere: S.matiere, duree: Math.round((Date.now() - d.debut) / 1000) });

@@ -37,7 +37,7 @@ const FIGURES = {
       trace(x => -0.55 * x * x + 1.6, -2.85, 2.85, 112, 96, 26, 26) +
       pt(112, 96 - 1.6 * 26) + txt(112, 96 - 1.6 * 26 - 12, 'maximum', 'lab c') +
       txt(112, 24, 'a &lt; 0 : vers le bas', 'titre c') + '</g>';
-    return fig(460, 186, g1 + g2, 'Le signe de ' + M('a') + ' décide du sens de la parabole — et donc si le sommet est un minimum ou un maximum.');
+    return fig(460, 186, g1 + g2, 'Le signe de ' + M('a') + ' décide du sens de la parabole, et donc si le sommet est un minimum ou un maximum.');
   }},
   { apres: 'Forme canonique et sommet', f: function(){
     const ox = 150, oy = 132, ex = 30, ey = 26;
@@ -217,7 +217,7 @@ const FIGURES = {
       txt(px + 70, py - 40, 'u⃗ (-b ; a) directeur', 'lab') +
       txt(px + 44, py + 72, 'n⃗ (a ; b) normal', 'lab') +
       txt(ox + 7 * ex, oy - d(7) * ey - 12, 'ax + by + c = 0', 'lab c'),
-      'Dans ' + M('ax + by + c = 0') + ', on <b>lit directement</b> le vecteur normal ' + M('vec{n}(a ; b)') + ' — celui qui est perpendiculaire à la droite.');
+      'Dans ' + M('ax + by + c = 0') + ', on <b>lit directement</b> le vecteur normal ' + M('vec{n}(a ; b)') + ', celui qui est perpendiculaire à la droite.');
   }}
 ],
 
@@ -257,7 +257,7 @@ const FIGURES = {
       '<line class="esp" x1="' + xE + '" y1="26" x2="' + xE + '" y2="' + (oy + 6) + '"></line>' +
       txt(xE + 8, 36, 'E(X) = -0,7', 'lab') +
       txt(ox + 11 * ex, oy + 18, 'valeurs de X', 'lab r'),
-      'Chaque bâton est une valeur possible, sa hauteur est sa probabilité. L’<b>espérance</b> est le point d’équilibre — ici négatif : le jeu est perdant.');
+      'Chaque bâton est une valeur possible, sa hauteur est sa probabilité. L’<b>espérance</b> est le point d’équilibre. Ici il est négatif : le jeu est perdant.');
   }}
 ]
 

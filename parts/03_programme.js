@@ -1,6 +1,6 @@
 /* =========================================================================
    Le programme officiel : spécialité mathématiques, première générale
-   (arrêté du 17 janvier 2019 — BO spécial n°1 du 22 janvier 2019)
+   (arrêté du 17 janvier 2019 · BO spécial n°1 du 22 janvier 2019)
    5 blocs, 12 chapitres. Pour chaque chapitre : capacités attendues + cours.
    ========================================================================= */
 
@@ -98,8 +98,8 @@ const CHAPITRES = [
   cours: [
     { k: 'def', t: 'Suite et modes de génération', c:
       '<p>Une suite ' + M('(u_n)') + ' associe à chaque entier ' + M('n') + ' un nombre ' + M('u_n') + '.</p>' +
-      '<ul><li><b>Explicite</b> : ' + M('u_n = 3n + 5') + ' — on calcule directement n\u2019importe quel terme.</li>' +
-      '<li><b>Par récurrence</b> : ' + M('u_0 = 2') + ' et ' + M('u_{n+1} = 3u_n - 1') + ' — il faut calculer les termes de proche en proche.</li></ul>' },
+      '<ul><li><b>Explicite</b> : ' + M('u_n = 3n + 5') + ' → on calcule directement n\u2019importe quel terme.</li>' +
+      '<li><b>Par récurrence</b> : ' + M('u_0 = 2') + ' et ' + M('u_{n+1} = 3u_n - 1') + ' → il faut calculer les termes de proche en proche.</li></ul>' },
     { k: 'def', t: 'Suite arithmétique', c:
       '<p>On ajoute toujours la même <b>raison</b> ' + M('r') + ' : ' + M('u_{n+1} = u_n + r') + '.</p>' +
       Mc('u_n = u_0 + n \u00D7 r') +
@@ -426,9 +426,9 @@ const CHAPITRES = [
       '<li>« Il existe ' + M('x') + ' de ' + M('I') + ' tel que … » : il suffit d\u2019<b>un seul</b> exemple.</li></ul>' +
       '<p>L\u2019ordre des quantificateurs change le sens de la phrase.</p>' },
     { k: 'def', t: 'Implication, réciproque, contraposée', c:
-      '<ul><li>Implication : ' + M('P \u21D2 Q') + ' — si ' + M('P') + ' est vraie alors ' + M('Q') + ' l\u2019est.</li>' +
-      '<li>Réciproque : ' + M('Q \u21D2 P') + ' — elle peut être <b>fausse</b> alors que l\u2019implication est vraie.</li>' +
-      '<li>Contraposée : ' + M('non\u00A0Q \u21D2 non\u00A0P') + ' — elle a <b>toujours</b> la même valeur de vérité que l\u2019implication.</li>' +
+      '<ul><li>Implication : ' + M('P \u21D2 Q') + '. Si ' + M('P') + ' est vraie, alors ' + M('Q') + ' l\u2019est.</li>' +
+      '<li>Réciproque : ' + M('Q \u21D2 P') + '. Elle peut être <b>fausse</b> alors que l\u2019implication est vraie.</li>' +
+      '<li>Contraposée : ' + M('non\u00A0Q \u21D2 non\u00A0P') + '. Elle a <b>toujours</b> la même valeur de vérité que l\u2019implication.</li>' +
       '<li>Équivalence ' + M('P \u21D4 Q') + ' : les deux implications sont vraies.</li></ul>' },
     { k: 'meth', t: 'Types de raisonnement', c:
       '<ul><li><b>Contre-exemple</b> : pour montrer qu\u2019une propriété « pour tout » est fausse, un seul exemple suffit.</li>' +

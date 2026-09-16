@@ -1,6 +1,6 @@
 /* =========================================================================
    Couche motivation : encouragements, badges, confettis, objectif du jour,
-   petits sons. Tout est décoratif — rien ici ne change une correction.
+   petits sons. Tout est décoratif · rien ici ne change une correction.
    ========================================================================= */
 
 /* ---------- messages ---------- */
@@ -10,7 +10,7 @@ const MSG_JUSTE = [
 ];
 const MSG_FAUX = [
   'Presque ! Regarde la correction, elle est détaillée.',
-  'Pas grave — c’est exactement pour ça qu’on s’entraîne.',
+  'Pas grave ! C’est exactement pour ça qu’on s’entraîne.',
   'Celle-là est piégeuse. Reprends la correction tranquillement.',
   'On la remettra dans « Réviser » dans quelques jours.',
   'C’est en se trompant qu’on retient. Lis chaque étape.',
@@ -22,10 +22,10 @@ function unDe(liste){ return liste[Math.floor(Math.random() * liste.length)]; }
 
 function motDeFin(pc){
   if (pc === 100) return { e: '🏆', t: 'Sans-faute. Chapeau.' };
-  if (pc >= 85)   return { e: '🎉', t: 'Excellent — c’est du niveau DS, ça.' };
+  if (pc >= 85)   return { e: '🎉', t: 'Excellent ! C’est du niveau DS, ça.' };
   if (pc >= 70)   return { e: '💪', t: 'Solide. Encore un peu d’entraînement et c’est plié.' };
   if (pc >= 50)   return { e: '🙂', t: 'Ça avance. Reprends les erreurs, elles reviendront.' };
-  if (pc >= 25)   return { e: '🌱', t: 'Chapitre pas encore digéré — relis la fiche de cours.' };
+  if (pc >= 25)   return { e: '🌱', t: 'Chapitre pas encore digéré. Relis la fiche de cours.' };
   return { e: '📖', t: 'Relis le cours, puis reviens : ça ira beaucoup mieux.' };
 }
 
@@ -187,7 +187,7 @@ function toast(html, duree){
 function feterBadges(liste){
   liste.forEach((b, i) => {
     setTimeout(() => {
-      toast('<span class="te">' + b.e + '</span><span><b>Badge débloqué — ' + b.nom + '</b><br>' + b.desc + '</span>', 4200);
+      toast('<span class="te">' + b.e + '</span><span><b>Badge débloqué : ' + b.nom + '</b><br>' + b.desc + '</span>', 4200);
       bip('badge');
       confettis();
     }, i * 900);

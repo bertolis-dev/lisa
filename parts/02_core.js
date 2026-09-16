@@ -1,6 +1,6 @@
 <script>
 /* =========================================================================
-   Cahier de spé maths — Première générale (programme BO 22/01/2019)
+   Cahier de spé maths · Première générale (programme BO 22/01/2019)
    Noyau : rendu mathématique, stockage de la progression, utilitaires.
    ========================================================================= */
 
@@ -90,7 +90,7 @@ const JOUR = 86400000;
 /* points par exercice réussi, selon la difficulté */
 const POINTS = { app: 10, ent: 15, ds: 25, exp: 40 };
 
-/* rangs — seuils globaux et seuils par chapitre */
+/* rangs · seuils globaux et seuils par chapitre */
 const RANGS = [
   { min: 0,    nom: 'Débutant' },
   { min: 300,  nom: 'Confirmé' },

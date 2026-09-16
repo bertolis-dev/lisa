@@ -551,6 +551,55 @@ main{min-width:0;padding-block:34px;padding-left:40px;padding-right:40px;max-wid
 .fig .lab{font-size:12px}
 .fig .pv{fill:var(--juste);font-weight:700}
 .fig .c{text-anchor:middle} .fig .r{text-anchor:end}
+
+/* ---------- respiration : le regard doit séparer les éléments d'un coup ---------- */
+.cours{gap:18px}
+.blk{padding:20px 22px}
+.blk .h{margin-bottom:12px;gap:11px}
+.blk .body{gap:14px;font-size:15px;line-height:1.65}
+.blk .body p + p{margin-top:2px}
+.blk .body ul{gap:12px;padding-left:2px;list-style:none;margin:2px 0}
+.blk .body ul li{position:relative;padding-left:26px}
+.blk .body ul li::before{content:"B8";position:absolute;left:4px;top:-1px;color:var(--bc,var(--accent));font-weight:700;font-size:1.05em}
+.blk.prop .body ul li::before{color:var(--juste)}
+.blk.astuce .body ul li::before{content:"92";color:var(--amber);left:2px}
+.blk.piege .body ul li::before{content:"¹7";color:var(--faux);font-size:.95em}
+.blk.pourquoi .body ul li::before{color:#BC3B84}
+.capa ul{list-style:none;padding-left:2px;gap:10px}
+.capa ul li{position:relative;padding-left:26px}
+.capa ul li::before{content:"92";position:absolute;left:3px;top:0;color:var(--accent);font-weight:700}
+.center{padding:8px 0 10px}
+.blk .body .center{padding:4px 0 6px}
+.qtext{gap:13px;line-height:1.62}
+.fields{margin-top:24px;gap:14px}
+.choices{margin-top:22px;gap:10px}
+.sol{padding:20px 22px}
+.steps{gap:15px}
+.step{line-height:1.68}
+.ligne{padding:14px 16px}
+.autoeval{gap:9px}
+.fig{margin:18px 0 6px;gap:11px}
+.fig figcaption{line-height:1.55}
+
+/* ---------- matières dépliables dans le menu ---------- */
+.grp-mat{font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-3);font-weight:700;padding:18px 10px 8px}
+.mat-tete{display:flex;align-items:center;gap:9px;width:100%;text-align:left;padding:9px 10px;border-radius:9px;
+  font-size:14px;font-weight:600;color:var(--ink);transition:background .12s}
+.mat-tete:hover{background:var(--surface-2)}
+.mat-tete .me{font-size:16px;line-height:1;flex:0 0 auto}
+.mat-tete .nm{flex:1 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mat-tete .cnt{font-size:11px;font-weight:700;color:var(--ink-3);background:var(--surface-3);border-radius:999px;padding:2px 8px}
+.mat-tete .mb{font-size:9.5px;text-transform:uppercase;letter-spacing:.06em;font-weight:700;color:var(--amber);
+  background:var(--amber-soft);padding:2px 7px;border-radius:999px}
+.mat-tete .chev{font-size:11px;color:var(--ink-3);width:12px;text-align:center;flex:0 0 auto}
+.mat-tete.ouverte{background:var(--accent-soft);color:var(--accent-ink)}
+.mat-tete.ouverte .cnt{background:var(--surface);color:var(--accent)}
+.mat-tete.ouverte .chev{color:var(--accent)}
+.mat-tete.futur{color:var(--ink-2)}
+.mat-corps{padding:4px 0 10px 8px;margin-left:12px;border-left:2px solid var(--line-soft);display:flex;flex-direction:column;gap:1px}
+.mat-corps .grp{padding:11px 8px 4px}
+.plus-mat{margin-top:12px;color:var(--ink-3);font-weight:600}
+.plus-mat .ic{border-style:dashed;font-size:15px;font-weight:700}
 </style>
 
 <div class="app">
@@ -571,7 +620,7 @@ main{min-width:0;padding-block:34px;padding-left:40px;padding-right:40px;max-wid
 </div>
 <script>
 /* =========================================================================
-   Cahier de spé maths — Première générale (programme BO 22/01/2019)
+   Cahier de spé maths · Première générale (programme BO 22/01/2019)
    Noyau : rendu mathématique, stockage de la progression, utilitaires.
    ========================================================================= */
 
@@ -661,7 +710,7 @@ const JOUR = 86400000;
 /* points par exercice réussi, selon la difficulté */
 const POINTS = { app: 10, ent: 15, ds: 25, exp: 40 };
 
-/* rangs — seuils globaux et seuils par chapitre */
+/* rangs · seuils globaux et seuils par chapitre */
 const RANGS = [
   { min: 0,    nom: 'Débutant' },
   { min: 300,  nom: 'Confirmé' },
@@ -809,7 +858,7 @@ async function initStore(){
 }
 /* =========================================================================
    Le programme officiel : spécialité mathématiques, première générale
-   (arrêté du 17 janvier 2019 — BO spécial n°1 du 22 janvier 2019)
+   (arrêté du 17 janvier 2019 · BO spécial n°1 du 22 janvier 2019)
    5 blocs, 12 chapitres. Pour chaque chapitre : capacités attendues + cours.
    ========================================================================= */
 
@@ -907,8 +956,8 @@ const CHAPITRES = [
   cours: [
     { k: 'def', t: 'Suite et modes de génération', c:
       '<p>Une suite ' + M('(u_n)') + ' associe à chaque entier ' + M('n') + ' un nombre ' + M('u_n') + '.</p>' +
-      '<ul><li><b>Explicite</b> : ' + M('u_n = 3n + 5') + ' — on calcule directement n\u2019importe quel terme.</li>' +
-      '<li><b>Par récurrence</b> : ' + M('u_0 = 2') + ' et ' + M('u_{n+1} = 3u_n - 1') + ' — il faut calculer les termes de proche en proche.</li></ul>' },
+      '<ul><li><b>Explicite</b> : ' + M('u_n = 3n + 5') + ' → on calcule directement n\u2019importe quel terme.</li>' +
+      '<li><b>Par récurrence</b> : ' + M('u_0 = 2') + ' et ' + M('u_{n+1} = 3u_n - 1') + ' → il faut calculer les termes de proche en proche.</li></ul>' },
     { k: 'def', t: 'Suite arithmétique', c:
       '<p>On ajoute toujours la même <b>raison</b> ' + M('r') + ' : ' + M('u_{n+1} = u_n + r') + '.</p>' +
       Mc('u_n = u_0 + n \u00D7 r') +
@@ -1235,9 +1284,9 @@ const CHAPITRES = [
       '<li>« Il existe ' + M('x') + ' de ' + M('I') + ' tel que … » : il suffit d\u2019<b>un seul</b> exemple.</li></ul>' +
       '<p>L\u2019ordre des quantificateurs change le sens de la phrase.</p>' },
     { k: 'def', t: 'Implication, réciproque, contraposée', c:
-      '<ul><li>Implication : ' + M('P \u21D2 Q') + ' — si ' + M('P') + ' est vraie alors ' + M('Q') + ' l\u2019est.</li>' +
-      '<li>Réciproque : ' + M('Q \u21D2 P') + ' — elle peut être <b>fausse</b> alors que l\u2019implication est vraie.</li>' +
-      '<li>Contraposée : ' + M('non\u00A0Q \u21D2 non\u00A0P') + ' — elle a <b>toujours</b> la même valeur de vérité que l\u2019implication.</li>' +
+      '<ul><li>Implication : ' + M('P \u21D2 Q') + '. Si ' + M('P') + ' est vraie, alors ' + M('Q') + ' l\u2019est.</li>' +
+      '<li>Réciproque : ' + M('Q \u21D2 P') + '. Elle peut être <b>fausse</b> alors que l\u2019implication est vraie.</li>' +
+      '<li>Contraposée : ' + M('non\u00A0Q \u21D2 non\u00A0P') + '. Elle a <b>toujours</b> la même valeur de vérité que l\u2019implication.</li>' +
       '<li>Équivalence ' + M('P \u21D4 Q') + ' : les deux implications sont vraies.</li></ul>' },
     { k: 'meth', t: 'Types de raisonnement', c:
       '<ul><li><b>Contre-exemple</b> : pour montrer qu\u2019une propriété « pour tout » est fausse, un seul exemple suffit.</li>' +
@@ -1337,7 +1386,7 @@ G('second-degre', 'sd-racines', 'Résoudre une équation du second degré', 'ent
     ],
     etapes: [
       M('a = ' + nf(a)) + ', ' + M('b = ' + nf(b)) + ', ' + M('c = ' + nf(c)) + '.',
-      M('Δ = b^{2} - 4ac = ' + nf(b * b) + sgn(-4 * a * c, '') + ' = ' + nf(D)) + ' — ' + M('Δ > 0') + ', il y a deux solutions.',
+      M('Δ = b^{2} - 4ac = ' + nf(b * b) + sgn(-4 * a * c, '') + ' = ' + nf(D)) + '. ' + M('Δ > 0') + ' : il y a deux solutions.',
       M('sqrt{Δ} = ' + nf(rD)),
       M('x_1 = frac{' + nf(-b) + ' - ' + nf(rD) + '}{' + nf(2 * a) + '} = ' + nf(a > 0 ? x1 : x2)) + '   et   ' +
         M('x_2 = frac{' + nf(-b) + ' + ' + nf(rD) + '}{' + nf(2 * a) + '} = ' + nf(a > 0 ? x2 : x1)),
@@ -1364,7 +1413,7 @@ G('second-degre', 'sd-factorisation', 'Factoriser un trinôme', 'ent', function(
       bon: 0
     },
     etapes: [
-      M('Δ = ' + nf(b) + '^{2} - 4 × ' + nf(a) + ' × ' + nf(c) + ' = ' + nf(b * b - 4 * a * c)) + ' — deux racines.',
+      M('Δ = ' + nf(b) + '^{2} - 4 × ' + nf(a) + ' × ' + nf(c) + ' = ' + nf(b * b - 4 * a * c)) + ' → deux racines.',
       'Les racines sont ' + M('x_1 = ' + nf(x1)) + ' et ' + M('x_2 = ' + nf(x2)) + '.',
       'La forme factorisée est ' + M('f(x) = a(x - x_1)(x - x_2)') + ', donc ' + bon + '.',
       '<b>Ne jamais oublier le coefficient ' + M('a') + '</b> : sans lui, on ne retrouve pas le même trinôme en développant.'
@@ -1796,7 +1845,7 @@ G('derivation', 'de-produit-quotient', 'Produit et quotient', 'ent', function(){
     etapes: [
       M('u(x) = ' + lead(a, 'x') + sgn(b, '')) + ', ' + M('u′(x) = ' + nf(a)) + ' ; ' +
         M('v(x) = ' + lead(c, 'x') + sgn(d, '')) + ', ' + M('v′(x) = ' + nf(c)) + '.',
-      'Formule : ' + M('(frac{u}{v})′ = frac{u′v - uv′}{v^{2}}') + ' — <b>l’ordre compte</b>.',
+      'Formule : ' + M('(frac{u}{v})′ = frac{u′v - uv′}{v^{2}}') + '. <b>L’ordre compte.</b>',
       M('u′v - uv′ = ' + nf(a) + '(' + lead(c, 'x') + sgn(d, '') + ') - (' + lead(a, 'x') + sgn(b, '') + ') × (' + nf(c) + ') = ' + nf(num)),
       'Les termes en ' + M('x') + ' se simplifient : ' + M('f′(x) = frac{' + nf(num) + '}{(' + lead(c, 'x') + sgn(d, '') + ')^{2}}') + '.'
     ]
@@ -2001,7 +2050,7 @@ G('second-degre', 'sd-toujours-positif', 'Paramètre : signe constant', 'exp', f
         ' partout <b>si et seulement si</b> il n\u2019a <b>aucune racine</b>, c\u2019est-à-dire ' + M('\u0394 &lt; 0') + '.',
       M('\u0394 = (' + nf(a * b) + ')^{2} - 4 \u00D7 (' + nf(a) + ') \u00D7 (' + (a > 0 ? 'm' : '-m') + ') = ' + nf(b * b) + ' - 4m'),
       'On résout ' + M('' + nf(b * b) + ' - 4m &lt; 0') + ' soit ' + M('m > frac{' + nf(b * b) + '}{4} = ' + nf(seuil)) + '.',
-      '<b>Piège classique</b> : avec ' + M('\u0394 = 0') + ' le trinôme s\u2019annule en un point — il ne serait plus <b>strictement</b> ' +
+      '<b>Piège classique</b> : avec ' + M('\u0394 = 0') + ' le trinôme s\u2019annule en un point : il ne serait plus <b>strictement</b> ' +
         (strictPos ? 'positif' : 'négatif') + '. L\u2019inégalité sur ' + M('m') + ' est donc <b>stricte</b>.'
     ]
   };
@@ -2057,12 +2106,12 @@ G('second-degre', 'sd-inequation', 'Inéquation à ramener au second degré', 'e
       bon: bonEstDehors ? 1 : 0
     },
     etapes: [
-      '<b>Étape 1</b> — tout ramener d\u2019un même côté : ' +
+      '<b>Étape 1</b> → tout ramener d\u2019un même côté : ' +
         M(trinome(a, gaucheB, gaucheC) + ' - (' + lead(d, 'x') + (e ? sgn(e, '') : '') + ')' + (superieur ? ' \u2265 ' : ' \u2264 ') + '0') +
         ' soit ' + M(trinome(a, b, c) + (superieur ? ' \u2265 ' : ' \u2264 ') + '0') + '.',
-      '<b>Étape 2</b> — racines du trinôme : ' + M('\u0394 = ' + nf(b * b - 4 * a * c) + ' > 0') + ', ' +
+      '<b>Étape 2</b> → racines du trinôme : ' + M('\u0394 = ' + nf(b * b - 4 * a * c) + ' > 0') + ', ' +
         M('x_1 = ' + nf(x1)) + ' et ' + M('x_2 = ' + nf(x2)) + '.',
-      '<b>Étape 3</b> — signe : ' + M('a = ' + nf(a)) + ', donc le trinôme est ' + (a > 0 ? 'positif' : 'négatif') +
+      '<b>Étape 3</b> → signe : ' + M('a = ' + nf(a)) + ', donc le trinôme est ' + (a > 0 ? 'positif' : 'négatif') +
         ' à l\u2019extérieur des racines et ' + (a > 0 ? 'négatif' : 'positif') + ' entre les deux.',
       '<b>Conclusion</b> : ' + (bonEstDehors ? dehors : dedans) + '. Les crochets sont <b>fermés</b> car l\u2019inégalité est large.',
       'Erreur fréquente : résoudre sans tout ramener à gauche, ou garder des crochets ouverts avec un ' + M('\u2265') + '.'
@@ -2187,7 +2236,7 @@ G('derivation', 'de-tangente-parallele', 'Tangentes parallèles à une droite', 
       'On résout donc ' + M('f\u2032(x) = ' + nf(m)) + ', avec ' + M('f\u2032(x) = 3x^{2}' + (b ? sgn(2 * b, 'x') : '') + (c ? sgn(c, '') : '')) + '.',
       M('3x^{2}' + (b ? sgn(2 * b, 'x') : '') + sgn(c - m, '') + ' = 0') + ', ' + M('\u0394 = ' + nf(4 * b * b - 12 * (c - m)) + ' > 0') + '.',
       'Les solutions sont ' + M('x_1 = ' + nf(r1)) + ' et ' + M('x_2 = ' + nf(r2)) + ' : il y a <b>deux</b> points où la tangente est parallèle à ' + M('d') + '.',
-      'Remarque : l\u2019ordonnée à l\u2019origine de ' + M('d') + ' (ici 7) <b>ne sert à rien</b> — seul le coefficient directeur compte.'
+      'Remarque : l\u2019ordonnée à l\u2019origine de ' + M('d') + ' (ici 7) <b>ne sert à rien</b> : seul le coefficient directeur compte.'
     ]
   };
 });
@@ -2283,7 +2332,7 @@ G('produit-scalaire', 'ps-ensemble-points', 'Ensemble de points', 'exp', functio
     ],
     etapes: [
       'Propriété du cours : ' + M('vec{MA} \u00B7 vec{MB} = 0') + ' signifie que ' + M('M') + ' voit ' + M('[AB]') +
-        ' sous un angle droit — c\u2019est le <b>cercle de diamètre ' + M('[AB]') + '</b>.',
+        ' sous un angle droit → c\u2019est le <b>cercle de diamètre ' + M('[AB]') + '</b>.',
       'Son centre est le <b>milieu</b> de ' + M('[AB]') + ' : ' + M('\u03A9(frac{' + nf(ax) + ' + ' + nf(bx) + '}{2} ; frac{' + nf(ay) + ' + ' + nf(by) + '}{2}) = \u03A9(' + nf(cx) + ' ; ' + nf(cy) + ')') + '.',
       M('AB = sqrt{(' + nf(bx - ax) + ')^{2} + (' + nf(by - ay) + ')^{2}} = sqrt{' + nf((bx - ax) * (bx - ax) + (by - ay) * (by - ay)) + '} = ' + nf(2 * r)) +
         ', donc le rayon vaut ' + M('frac{AB}{2} = ' + nf(r)) + '.',
@@ -2378,7 +2427,7 @@ G('produit-scalaire', 'ps-norme-somme', 'Norme d\u2019une somme de vecteurs', 'e
    Une démonstration ne peut pas être corrigée automatiquement : l'élève la
    rédige sur son cahier, puis compare avec le corrigé et s'auto-évalue
    ligne par ligne, avec le barème du professeur. C'est exactement ce que
-   fait un correcteur — et ça apprend les attentes de rédaction.
+   fait un correcteur · et ça apprend les attentes de rédaction.
    ========================================================================= */
 
 NIVEAUX.demo = 'Démonstration';
@@ -2442,7 +2491,7 @@ D('suites', 'dm-gauss', 'Démontrer la somme des n premiers entiers', function()
       { pts: 1, d: 'On note ' + M('S = 1 + 2 + … + n') + '.' },
       { pts: 2, d: 'On récrit la même somme dans l’ordre décroissant :' + Mc('S = n + (n-1) + … + 2 + 1') },
       { pts: 2, d: 'On additionne les deux lignes terme à terme. Chaque colonne donne ' + M('n + 1') + ' :' +
-                   Mc('2S = underbrace(n+1) + (n+1) + … + (n+1)') + '<p class="tiny" style="text-align:center">et il y a exactement ' + M('n') + ' colonnes</p>' },
+                   Mc('2S = (n+1) + (n+1) + … + (n+1)') + '<p class="tiny" style="text-align:center">et il y a exactement ' + M('n') + ' colonnes</p>' },
       { pts: 1, d: 'Donc ' + M('2S = n(n+1)') + '.' },
       { pts: 1, d: 'Conclusion : ' + M('S = frac{n(n+1)}{2}') + '.' }
     ]
@@ -2566,7 +2615,7 @@ const PLUS = {
     Mc('x_1 = frac{5 - 7}{4} = -frac{1}{2}     x_2 = frac{5 + 7}{4} = 3') +
     '<p><b>Vérification en 3 secondes</b> : ' + M('x_1 + x_2 = frac{5}{2}') + ' et ' + M('frac{-b}{a} = frac{5}{2}') + ' ✓</p>' }],
   astuces: [
-    'Si ' + M('a + b + c = 0') + ', alors <b>1 est racine évidente</b> — et l’autre vaut ' + M('frac{c}{a}') + '. Ça évite tout le calcul du discriminant.',
+    'Si ' + M('a + b + c = 0') + ', alors <b>1 est racine évidente</b>, et l’autre vaut ' + M('frac{c}{a}') + '. Ça évite tout le calcul du discriminant.',
     'Dans un exercice, ' + M('Δ') + ' est presque toujours un <b>carré parfait</b> (4, 9, 16, 25, 49…). Si tu tombes sur ' + M('Δ = 53') + ', relis tes signes avant de sortir la calculatrice.',
     'Le piège numéro 1 des copies : ' + M('-4ac') + ' avec ' + M('c') + ' négatif donne un <b>plus</b>. Écris toujours les parenthèses : ' + M('-4 × a × (-3)') + '.',
     'Pour le signe, retiens la phrase : « <b>du signe de ' + M('a') + ', sauf entre les racines</b> ». Tout le tableau de signes tient là-dedans.'
@@ -2585,7 +2634,7 @@ const PLUS = {
   astuces: [
     '<b>+ ' + M('p') + ' %</b> se traduit par ' + M('q = 1 + frac{p}{100}') + ' et <b>− ' + M('p') + ' %</b> par ' + M('q = 1 - frac{p}{100}') + '. C’est la traduction la plus demandée de l’année.',
     'Deux hausses de 10 % ne font <b>pas</b> + 20 % mais ' + M('1,1 × 1,1 = 1,21') + ', soit + 21 %.',
-    'Pour reconnaître la nature : je calcule ' + M('u_{n+1} - u_n') + ' — constant ? arithmétique. Sinon ' + M('frac{u_{n+1}}{u_n}') + ' — constant ? géométrique.',
+    'Pour reconnaître la nature : je calcule ' + M('u_{n+1} - u_n') + ' → constant ? arithmétique. Sinon ' + M('frac{u_{n+1}}{u_n}') + ' → constant ? géométrique.',
     'Compter les termes de ' + M('u_p') + ' à ' + M('u_n') + ' : il y en a ' + M('n - p + 1') + '. Le « + 1 » oublié coûte un point à chaque devoir.'
   ]
 },
@@ -2605,7 +2654,7 @@ const PLUS = {
     'Dériver ' + M('x^{n}') + ' : « <b>l’exposant descend devant, puis on lui retire 1</b> ». ' + M('x^{5} → 5x^{4}') + '.',
     'La dérivée d’une <b>constante est toujours 0</b> : le ' + M('+ 7') + ' de l’exemple ci-dessus disparaît.',
     'Produit : « <b>dérivée du premier × le second + le premier × dérivée du second</b> ». Récite-la, elle s’oublie moins qu’une formule lue.',
-    'Quotient : le dénominateur passe <b>au carré</b>, et en haut c’est ' + M('u′v - uv′') + ' — <b>dans cet ordre</b>. Inverser les deux termes change le signe de toute l’étude.'
+    'Quotient : le dénominateur passe <b>au carré</b>, et en haut c’est ' + M('u′v - uv′') + ', <b>dans cet ordre</b>. Inverser les deux termes change le signe de toute l’étude.'
   ]
 },
 
@@ -2652,14 +2701,14 @@ const PLUS = {
   astuces: [
     'Conversion : ' + M('π = 180°') + ', puis règle de trois. ' + M('frac{π}{4} = 45°') + ', ' + M('frac{π}{3} = 60°') + ', ' + M('frac{π}{6} = 30°') + '.',
     '<b>cos = abscisse, sin = ordonnée.</b> Le quart du cercle où l’on se trouve donne immédiatement les deux signes, avant tout calcul.',
-    'Les trois valeurs remarquables se rangent dans l’ordre : ' + M('frac{1}{2}') + ', ' + M('frac{sqrt{2}}{2}') + ', ' + M('frac{sqrt{3}}{2}') + ' — le sinus les prend dans cet ordre quand l’angle grandit, le cosinus dans l’ordre inverse.',
+    'Les trois valeurs remarquables se rangent dans l’ordre : ' + M('frac{1}{2}') + ', ' + M('frac{sqrt{2}}{2}') + ', ' + M('frac{sqrt{3}}{2}') + '. Le sinus les prend dans cet ordre quand l’angle grandit, le cosinus dans l’ordre inverse.',
     'Vérification gratuite de toute réponse : ' + M('@cos^{2} + @sin^{2}') + ' doit faire <b>1</b>.'
   ]
 },
 
 'produit-scalaire': {
   pourquoi: '<p>Le produit scalaire répond à deux questions très concrètes : « ces deux droites sont-elles <b>perpendiculaires</b> ? » ' +
-    'et « <b>combien mesure cet angle</b> ? » — sans rapporteur, uniquement par le calcul.</p>' +
+    'et « <b>combien mesure cet angle</b> ? », sans rapporteur, uniquement par le calcul.</p>' +
     '<p>En physique, c’est exactement le travail d’une force : ' + M('W = vec{F} · vec{d}') + '.</p>',
   exemples: [{ t: 'Perpendiculaires ou pas ?', c:
     '<p>' + M('vec{u}(3 ; -1)') + ' et ' + M('vec{v}(2 ; 6)') + ' :</p>' +
@@ -2669,7 +2718,7 @@ const PLUS = {
   astuces: [
     'Le résultat est un <b>nombre</b>, jamais un vecteur. Écrire ' + M('vec{u} · vec{v} = vec{w}') + ' est une faute de cours.',
     'Le <b>signe</b> raconte l’angle : positif → aigu, nul → droit, négatif → obtus. Un réflexe de vérification instantané.',
-    'La formule ' + M('xx′ + yy′') + ' n’est valable que dans un repère <b>orthonormé</b> — vérifie que l’énoncé le dit.',
+    'La formule ' + M('xx′ + yy′') + ' n’est valable que dans un repère <b>orthonormé</b> : vérifie que l’énoncé le dit.',
     'Pour démontrer qu’un triangle est rectangle en ' + M('A') + ', on calcule ' + M('vec{AB} · vec{AC}') + ' : les deux vecteurs doivent <b>partir de ' + M('A') + '</b>.'
   ]
 },
@@ -2681,7 +2730,7 @@ const PLUS = {
     '<p>Droite passant par ' + M('A(1 ; 2)') + ' et perpendiculaire à ' + M('vec{n}(3 ; -1)') + ' :</p>' +
     Mc('3(x - 1) - 1(y - 2) = 0') +
     '<p>On développe : ' + M('3x - 3 - y + 2 = 0') + ', soit ' + M('3x - y - 1 = 0') + '.</p>' +
-    '<p>Vérification : le point ' + M('A') + ' doit annuler l’équation — ' + M('3 × 1 - 2 - 1 = 0') + ' ✓</p>' }],
+    '<p>Vérification : le point ' + M('A') + ' doit annuler l’équation : ' + M('3 × 1 - 2 - 1 = 0') + ' ✓</p>' }],
   astuces: [
     'Dans ' + M('ax + by + c = 0') + ', le vecteur <b>normal se lit directement</b> : ' + M('vec{n}(a ; b)') + '. Et le directeur, c’est ' + M('vec{u}(-b ; a)') + ' (on échange et on change un signe).',
     'Dans l’équation d’un cercle, c’est ' + M('r^{2}') + ' qui apparaît : si le membre de droite vaut 25, le rayon est <b>5</b>.',
@@ -2708,7 +2757,7 @@ const PLUS = {
 
 'variables-aleatoires': {
   pourquoi: '<p>Une variable aléatoire met un <b>nombre</b> sur le hasard : un gain, une durée, un nombre de clients. ' +
-    'L’espérance répond à « à long terme, je gagne ou je perds ? » — c’est le calcul que font les assureurs et les casinos.</p>',
+    'L’espérance répond à « à long terme, je gagne ou je perds ? ». C’est le calcul que font les assureurs et les casinos.</p>',
   exemples: [{ t: 'Ce jeu est-il rentable ?', c:
     '<p>Mise de 2 €. On gagne 10 € avec une probabilité de 0,1, 1 € avec 0,3, rien sinon. On note ' + M('X') + ' le gain <b>net</b>.</p>' +
     '<p>Loi : ' + M('X = 8') + ' avec 0,1 ; ' + M('X = -1') + ' avec 0,3 ; ' + M('X = -2') + ' avec 0,6.</p>' +
@@ -2732,7 +2781,7 @@ const PLUS = {
   astuces: [
     M('range(3)') + ' donne <b>0, 1, 2</b> : trois tours, mais on ne compte jamais jusqu’à 3.',
     '<b>for</b> quand on sait combien de tours faire ; <b>while</b> quand on cherche un seuil (« tant que c’est trop petit »).',
-    'Toujours <b>initialiser avant la boucle</b> — la variable de départ et le compteur. Un oubli et le programme plante ou compte faux.',
+    'Toujours <b>initialiser avant la boucle</b> : la variable de départ et le compteur. Un oubli et le programme plante ou compte faux.',
     'Pour une question « qu’affiche ce programme ? », fais un <b>tableau de valeurs</b> ligne par ligne. C’est plus long mais toujours juste.'
   ]
 },
@@ -2742,11 +2791,11 @@ const PLUS = {
     'confondre une implication et sa réciproque, c’est perdre la question entière.</p>',
   exemples: [{ t: 'Une implication et sa réciproque', c:
     '<p>« Si un nombre est divisible par 4, alors il est pair » : <b>vraie</b>.</p>' +
-    '<p>Réciproque : « s’il est pair, alors il est divisible par 4 » : <b>fausse</b> — contre-exemple : <b>6</b> est pair et n’est pas divisible par 4.</p>' +
+    '<p>Réciproque : « s’il est pair, alors il est divisible par 4 » : <b>fausse</b>. Contre-exemple : <b>6</b> est pair et n’est pas divisible par 4.</p>' +
     '<p>Contraposée : « s’il n’est pas pair, alors il n’est pas divisible par 4 » : <b>vraie</b>, comme l’implication de départ.</p>' +
     '<p>Un seul contre-exemple a suffi à démolir la réciproque. C’est toute la puissance de la méthode.</p>' }],
   astuces: [
-    'Pour montrer qu’une propriété « <b>pour tout…</b> » est fausse : un <b>seul contre-exemple</b> suffit. Pour la montrer vraie, il faut une démonstration générale — un exemple ne prouve rien.',
+    'Pour montrer qu’une propriété « <b>pour tout…</b> » est fausse : un <b>seul contre-exemple</b> suffit. Pour la montrer vraie, il faut une démonstration générale : un exemple ne prouve rien.',
     'Contraposée : on <b>échange et on nie</b> les deux membres. Elle a toujours la même valeur de vérité que l’implication ; la réciproque, non.',
     M('∈') + ' relie un <b>élément</b> à un ensemble, ' + M('⊂') + ' relie <b>deux ensembles</b>. ' + M('2 ∈ ℕ') + ' mais ' + M('ℕ ⊂ ℤ') + '.',
     'Le « ou » mathématique n’est <b>pas exclusif</b> : « ' + M('x') + ' est positif ou pair » est vrai pour 4.'
@@ -2812,7 +2861,7 @@ const FIGURES = {
       trace(x => -0.55 * x * x + 1.6, -2.85, 2.85, 112, 96, 26, 26) +
       pt(112, 96 - 1.6 * 26) + txt(112, 96 - 1.6 * 26 - 12, 'maximum', 'lab c') +
       txt(112, 24, 'a &lt; 0 : vers le bas', 'titre c') + '</g>';
-    return fig(460, 186, g1 + g2, 'Le signe de ' + M('a') + ' décide du sens de la parabole — et donc si le sommet est un minimum ou un maximum.');
+    return fig(460, 186, g1 + g2, 'Le signe de ' + M('a') + ' décide du sens de la parabole, et donc si le sommet est un minimum ou un maximum.');
   }},
   { apres: 'Forme canonique et sommet', f: function(){
     const ox = 150, oy = 132, ex = 30, ey = 26;
@@ -2992,7 +3041,7 @@ const FIGURES = {
       txt(px + 70, py - 40, 'u⃗ (-b ; a) directeur', 'lab') +
       txt(px + 44, py + 72, 'n⃗ (a ; b) normal', 'lab') +
       txt(ox + 7 * ex, oy - d(7) * ey - 12, 'ax + by + c = 0', 'lab c'),
-      'Dans ' + M('ax + by + c = 0') + ', on <b>lit directement</b> le vecteur normal ' + M('vec{n}(a ; b)') + ' — celui qui est perpendiculaire à la droite.');
+      'Dans ' + M('ax + by + c = 0') + ', on <b>lit directement</b> le vecteur normal ' + M('vec{n}(a ; b)') + ', celui qui est perpendiculaire à la droite.');
   }}
 ],
 
@@ -3032,7 +3081,7 @@ const FIGURES = {
       '<line class="esp" x1="' + xE + '" y1="26" x2="' + xE + '" y2="' + (oy + 6) + '"></line>' +
       txt(xE + 8, 36, 'E(X) = -0,7', 'lab') +
       txt(ox + 11 * ex, oy + 18, 'valeurs de X', 'lab r'),
-      'Chaque bâton est une valeur possible, sa hauteur est sa probabilité. L’<b>espérance</b> est le point d’équilibre — ici négatif : le jeu est perdant.');
+      'Chaque bâton est une valeur possible, sa hauteur est sa probabilité. L’<b>espérance</b> est le point d’équilibre. Ici il est négatif : le jeu est perdant.');
   }}
 ]
 
@@ -3050,7 +3099,7 @@ Object.keys(FIGURES).forEach(id => {
 });
 /* =========================================================================
    Couche motivation : encouragements, badges, confettis, objectif du jour,
-   petits sons. Tout est décoratif — rien ici ne change une correction.
+   petits sons. Tout est décoratif · rien ici ne change une correction.
    ========================================================================= */
 
 /* ---------- messages ---------- */
@@ -3060,7 +3109,7 @@ const MSG_JUSTE = [
 ];
 const MSG_FAUX = [
   'Presque ! Regarde la correction, elle est détaillée.',
-  'Pas grave — c’est exactement pour ça qu’on s’entraîne.',
+  'Pas grave ! C’est exactement pour ça qu’on s’entraîne.',
   'Celle-là est piégeuse. Reprends la correction tranquillement.',
   'On la remettra dans « Réviser » dans quelques jours.',
   'C’est en se trompant qu’on retient. Lis chaque étape.',
@@ -3072,10 +3121,10 @@ function unDe(liste){ return liste[Math.floor(Math.random() * liste.length)]; }
 
 function motDeFin(pc){
   if (pc === 100) return { e: '🏆', t: 'Sans-faute. Chapeau.' };
-  if (pc >= 85)   return { e: '🎉', t: 'Excellent — c’est du niveau DS, ça.' };
+  if (pc >= 85)   return { e: '🎉', t: 'Excellent ! C’est du niveau DS, ça.' };
   if (pc >= 70)   return { e: '💪', t: 'Solide. Encore un peu d’entraînement et c’est plié.' };
   if (pc >= 50)   return { e: '🙂', t: 'Ça avance. Reprends les erreurs, elles reviendront.' };
-  if (pc >= 25)   return { e: '🌱', t: 'Chapitre pas encore digéré — relis la fiche de cours.' };
+  if (pc >= 25)   return { e: '🌱', t: 'Chapitre pas encore digéré. Relis la fiche de cours.' };
   return { e: '📖', t: 'Relis le cours, puis reviens : ça ira beaucoup mieux.' };
 }
 
@@ -3237,7 +3286,7 @@ function toast(html, duree){
 function feterBadges(liste){
   liste.forEach((b, i) => {
     setTimeout(() => {
-      toast('<span class="te">' + b.e + '</span><span><b>Badge débloqué — ' + b.nom + '</b><br>' + b.desc + '</span>', 4200);
+      toast('<span class="te">' + b.e + '</span><span><b>Badge débloqué : ' + b.nom + '</b><br>' + b.desc + '</span>', 4200);
       bip('badge');
       confettis();
     }, i * 900);
@@ -3468,7 +3517,7 @@ function calculerNote(){
     enregistrer(q.gen.id, part >= 0.7, part);
   });
   d.note = Math.round(2 * 20 * obtenu / d.total) / 2;      /* au demi-point */
-  d.detail = nf(Math.round(obtenu * 10) / 10) + ' points sur ' + d.total + ' — ' +
+  d.detail = nf(Math.round(obtenu * 10) / 10) + ' points sur ' + d.total + ' · ' +
              d.questions.filter(q => pointsQuestion(q) === q.bar).length + ' exercice(s) parfaitement traité(s) sur ' + d.questions.length + '.';
   S.notes = S.notes || [];
   S.notes.push({ t: Date.now(), note: d.note, matiere: S.matiere, duree: Math.round((Date.now() - d.debut) / 1000) });
@@ -3556,32 +3605,47 @@ function rendreNav(){
     (sj ? '<span class="fl">\uD83D\uDD25 ' + sj + '</span>' : '') + '</div></div>';
 
   const liens = [
-    { id: 'accueil',  e: '\uD83C\uDFE0', t: 'Accueil',         a: 'data-go="accueil"' },
-    { id: 'revision', e: '\uD83D\uDD01', t: 'R\u00e9viser',   a: 'data-go="revision"' },
-    { id: 'chrono',   e: '\u23F1\uFE0F', t: 'Interro chrono',  a: 'data-go="chrono"' },
+    { id: 'accueil',  e: '\uD83C\uDFE0', t: 'Accueil',                a: 'data-go="accueil"' },
+    { id: 'revision', e: '\uD83D\uDD01', t: 'R\u00e9viser',          a: 'data-go="revision"' },
+    { id: 'chrono',   e: '\u23F1\uFE0F', t: 'Interro chrono',         a: 'data-go="chrono"' },
     { id: 'ds',       e: '\uD83D\uDCDD', t: 'Devoir surveill\u00e9', a: 'data-eval="1"' },
-    { id: 'notes',    e: '\uD83D\uDCC8', t: 'Mes notes',       a: 'data-go="notes"' }
+    { id: 'notes',    e: '\uD83D\uDCC8', t: 'Mes notes',              a: 'data-go="notes"' }
   ];
   h += '<div class="liens">' + liens.map(l =>
     '<button class="lien l-' + l.id + (estActif(l.id) ? ' on' : '') + '" ' + l.a + '>' +
     '<span class="ic">' + l.e + '</span><span>' + l.t + '</span></button>').join('') + '</div>';
 
-  h += '<div class="nav-mat"><span>' + matiereCourante().e + '</span>' + matiereCourante().nom + '</div>';
-  blocsCourants().forEach(b => {
-    const chs = chapitresCourants().filter(c => c.bloc === b.id);
-    if (!chs.length) return;
-    h += '<div class="grp" data-bloc="' + b.id + '"><i></i>' + b.nom + '</div>';
-    chs.forEach(c => {
-      const st = statutChap(c.id), sc = scoreChap(c.id);
-      h += '<button class="chl' + (vue.nom === 'chapitre' && vue.id === c.id ? ' on' : '') + '" data-bloc="' + c.bloc + '" data-chap="' + c.id + '">' +
-           '<span class="dot ' + (st === 'encours' ? 'vu' : (st === 'fini' ? 'fini' : '')) + '"></span>' +
-           '<span class="nm">' + c.titre + '</span>' +
-           (c.gens.length
-              ? '<span class="jg"><i style="width:' + (sc.pc === null ? 0 : sc.pc) + '%"></i></span>'
-              : '<span class="meta">cours</span>') +
-           '</button>';
+  h += '<div class="grp-mat">Mes mati\u00e8res</div>';
+  const ouverte = (S.navOuv === undefined) ? S.matiere : S.navOuv;
+  MATIERES.filter(m => S.mesMatieres.indexOf(m.id) >= 0).forEach(m => {
+    const chs = CHAPITRES.filter(c => c.matiere === m.id && c.classe === classeCourante().id);
+    const est = (m.id === ouverte && m.pret && chs.length);
+    h += '<button class="mat-tete' + (est ? ' ouverte' : '') + (m.pret ? '' : ' futur') + '" data-ouvrir="' + m.id + '"' +
+         ' aria-expanded="' + (est ? 'true' : 'false') + '">' +
+         '<span class="me">' + m.e + '</span>' +
+         '<span class="nm">' + m.court + '</span>' +
+         (m.pret ? '<span class="cnt">' + chs.length + '</span>' : '<span class="mb">bient\u00f4t</span>') +
+         '<span class="chev">' + (est ? '\u25BE' : '\u25B8') + '</span></button>';
+    if (!est) return;
+    h += '<div class="mat-corps">';
+    blocsCourants().forEach(b => {
+      const dedans = chs.filter(c => c.bloc === b.id);
+      if (!dedans.length) return;
+      h += '<div class="grp" data-bloc="' + b.id + '"><i></i>' + b.nom + '</div>';
+      dedans.forEach(c => {
+        const st = statutChap(c.id), sc = scoreChap(c.id);
+        h += '<button class="chl' + (vue.nom === 'chapitre' && vue.id === c.id ? ' on' : '') + '" data-bloc="' + c.bloc + '" data-chap="' + c.id + '">' +
+             '<span class="dot ' + (st === 'encours' ? 'vu' : (st === 'fini' ? 'fini' : '')) + '"></span>' +
+             '<span class="nm">' + c.titre + '</span>' +
+             (c.gens.length
+                ? '<span class="jg"><i style="width:' + (sc.pc === null ? 0 : sc.pc) + '%"></i></span>'
+                : '<span class="meta">cours</span>') +
+             '</button>';
+      });
     });
+    h += '</div>';
   });
+  h += '<button class="lien plus-mat" data-mat="+"><span class="ic">+</span><span>Ajouter une mati\u00e8re</span></button>';
   elNav.innerHTML = h;
 }
 function estActif(id){
@@ -3626,8 +3690,8 @@ function vueAccueil(){
        '<text x="40" y="46" text-anchor="middle" class="anneau-t">' + (pcj >= 100 ? '✓' : pcj + '%') + '</text></svg>' +
        '<div class="jour-txt"><b>Objectif du jour</b>' +
        '<span>' + (xj >= OBJECTIF_JOUR
-          ? 'Atteint — ' + xj + ' points aujourd’hui. Tout ce qui suit est du bonus 🎁'
-          : xj + ' / ' + OBJECTIF_JOUR + ' points — encore ' + (OBJECTIF_JOUR - xj) + ', soit deux ou trois exercices.') + '</span></div>' +
+          ? 'Atteint ! ' + xj + ' points aujourd’hui. Tout ce qui suit est du bonus 🎁'
+          : xj + ' / ' + OBJECTIF_JOUR + ' points. Encore ' + (OBJECTIF_JOUR - xj) + ', soit deux ou trois exercices.') + '</span></div>' +
        '<div class="flamme' + (sj ? ' on' : '') + '"><span class="f">🔥</span><b>' + sj + '</b>' +
        '<span class="j">jour' + (sj > 1 ? 's' : '') + ' de suite</span></div>' +
        '</div>';
@@ -3964,7 +4028,7 @@ function vueSerie(){
 
   if (q.bareme){
     if (!serie.valide){
-      h += '<div class="actions"><button class="btn primary" data-corrige="1">J’ai fini — voir le corrigé</button></div>';
+      h += '<div class="actions"><button class="btn primary" data-corrige="1">J’ai fini, voir le corrigé</button></div>';
     } else if (serie.note === undefined){
       h += '<div class="actions"><button class="btn primary" data-autoeval="1">Valider mon auto-évaluation</button></div>';
     } else {
@@ -4037,7 +4101,7 @@ function verifier(abandon){
   serie.gains = (serie.gains || 0) + r.gain;
   serie.msg = juste
     ? (r.revanche ? 'Tu l’avais ratée la dernière fois. Plus maintenant !'
-       : (q.gen.niveau === 'exp' ? 'Chapeau — celle-là était coriace.'
+       : (q.gen.niveau === 'exp' ? 'Chapeau ! Celle-là était coriace.'
           : (serie.gain > POINTS[q.gen.niveau] ? unDe(MSG_JUSTE) + ' Bonus de série.' : unDe(MSG_JUSTE))))
     : unDe(MSG_FAUX);
   serie.emo = juste ? (r.revanche ? '🔁' : unDe(EMO_JUSTE)) : '💡';
@@ -4115,7 +4179,7 @@ function rendre(){
 }
 
 document.addEventListener('click', function(e){
-  const t = e.target.closest('[data-corrige],[data-coched],[data-autoeval],[data-eval],[data-dsq],[data-dschoix],[data-dschamp],[data-dsrendre],[data-coche],[data-noter],[data-mat],[data-prendre],[data-son],[data-go],[data-chap],[data-onglet],[data-statut],[data-serie],[data-choix],[data-champ],[data-verifier],[data-sechapper],[data-suivante],[data-quitter],[data-refaire]');
+  const t = e.target.closest('[data-ouvrir],[data-corrige],[data-coched],[data-autoeval],[data-eval],[data-dsq],[data-dschoix],[data-dschamp],[data-dsrendre],[data-coche],[data-noter],[data-mat],[data-prendre],[data-son],[data-go],[data-chap],[data-onglet],[data-statut],[data-serie],[data-choix],[data-champ],[data-verifier],[data-sechapper],[data-suivante],[data-quitter],[data-refaire]');
   if (e.target.closest('#burger')){
     elSide.classList.add('open');
     const s = document.createElement('div'); s.className = 'scrim'; s.addEventListener('click', fermerMenu);
@@ -4136,10 +4200,18 @@ document.addEventListener('click', function(e){
     } else aller({ nom: d.go });
     return;
   }
+  if (d.ouvrir){
+    const m = MAT[d.ouvrir];
+    const ouverte = (S.navOuv === undefined) ? S.matiere : S.navOuv;
+    if (!m.pret){ aller({ nom: 'bientot', id: d.ouvrir }); return; }
+    if (m.id === ouverte){ S.navOuv = null; }
+    else { S.navOuv = m.id; if (S.matiere !== m.id){ S.matiere = m.id; aller({ nom: 'accueil' }); return; } }
+    sauver(); rendreNav(); return;
+  }
   if (d.mat){
     if (d.mat === '+'){ aller({ nom: 'matieres' }); return; }
     const m = MAT[d.mat];
-    if (m && m.pret){ S.matiere = d.mat; sauver(); aller({ nom: 'accueil' }); }
+    if (m && m.pret){ S.matiere = d.mat; S.navOuv = d.mat; sauver(); aller({ nom: 'accueil' }); }
     else aller({ nom: 'bientot', id: d.mat });
     return;
   }
@@ -4168,7 +4240,7 @@ document.addEventListener('click', function(e){
   if (d.serie){
     const p = d.serie.split('|'), c = CHAP[p[0]];
     const pool = p[1] === 'mixte' ? c.gens : c.gens.filter(g => g.niveau === p[1]);
-    lancerSerie(pool, 8, 'chapitre', c.titre + (p[1] === 'mixte' ? '' : ' — ' + NIVEAUX[p[1]]));
+    lancerSerie(pool, 8, 'chapitre', c.titre + (p[1] === 'mixte' ? '' : ' · ' + NIVEAUX[p[1]]));
     return;
   }
   if (d.choix !== undefined){ if (!serie.valide){ serie.q.choix = +d.choix; rendre(); } return; }

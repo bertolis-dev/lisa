@@ -17,7 +17,7 @@ const PLUS = {
     Mc('x_1 = frac{5 - 7}{4} = -frac{1}{2}     x_2 = frac{5 + 7}{4} = 3') +
     '<p><b>Vérification en 3 secondes</b> : ' + M('x_1 + x_2 = frac{5}{2}') + ' et ' + M('frac{-b}{a} = frac{5}{2}') + ' ✓</p>' }],
   astuces: [
-    'Si ' + M('a + b + c = 0') + ', alors <b>1 est racine évidente</b> — et l’autre vaut ' + M('frac{c}{a}') + '. Ça évite tout le calcul du discriminant.',
+    'Si ' + M('a + b + c = 0') + ', alors <b>1 est racine évidente</b>, et l’autre vaut ' + M('frac{c}{a}') + '. Ça évite tout le calcul du discriminant.',
     'Dans un exercice, ' + M('Δ') + ' est presque toujours un <b>carré parfait</b> (4, 9, 16, 25, 49…). Si tu tombes sur ' + M('Δ = 53') + ', relis tes signes avant de sortir la calculatrice.',
     'Le piège numéro 1 des copies : ' + M('-4ac') + ' avec ' + M('c') + ' négatif donne un <b>plus</b>. Écris toujours les parenthèses : ' + M('-4 × a × (-3)') + '.',
     'Pour le signe, retiens la phrase : « <b>du signe de ' + M('a') + ', sauf entre les racines</b> ». Tout le tableau de signes tient là-dedans.'
@@ -36,7 +36,7 @@ const PLUS = {
   astuces: [
     '<b>+ ' + M('p') + ' %</b> se traduit par ' + M('q = 1 + frac{p}{100}') + ' et <b>− ' + M('p') + ' %</b> par ' + M('q = 1 - frac{p}{100}') + '. C’est la traduction la plus demandée de l’année.',
     'Deux hausses de 10 % ne font <b>pas</b> + 20 % mais ' + M('1,1 × 1,1 = 1,21') + ', soit + 21 %.',
-    'Pour reconnaître la nature : je calcule ' + M('u_{n+1} - u_n') + ' — constant ? arithmétique. Sinon ' + M('frac{u_{n+1}}{u_n}') + ' — constant ? géométrique.',
+    'Pour reconnaître la nature : je calcule ' + M('u_{n+1} - u_n') + ' → constant ? arithmétique. Sinon ' + M('frac{u_{n+1}}{u_n}') + ' → constant ? géométrique.',
     'Compter les termes de ' + M('u_p') + ' à ' + M('u_n') + ' : il y en a ' + M('n - p + 1') + '. Le « + 1 » oublié coûte un point à chaque devoir.'
   ]
 },
@@ -56,7 +56,7 @@ const PLUS = {
     'Dériver ' + M('x^{n}') + ' : « <b>l’exposant descend devant, puis on lui retire 1</b> ». ' + M('x^{5} → 5x^{4}') + '.',
     'La dérivée d’une <b>constante est toujours 0</b> : le ' + M('+ 7') + ' de l’exemple ci-dessus disparaît.',
     'Produit : « <b>dérivée du premier × le second + le premier × dérivée du second</b> ». Récite-la, elle s’oublie moins qu’une formule lue.',
-    'Quotient : le dénominateur passe <b>au carré</b>, et en haut c’est ' + M('u′v - uv′') + ' — <b>dans cet ordre</b>. Inverser les deux termes change le signe de toute l’étude.'
+    'Quotient : le dénominateur passe <b>au carré</b>, et en haut c’est ' + M('u′v - uv′') + ', <b>dans cet ordre</b>. Inverser les deux termes change le signe de toute l’étude.'
   ]
 },
 
@@ -103,14 +103,14 @@ const PLUS = {
   astuces: [
     'Conversion : ' + M('π = 180°') + ', puis règle de trois. ' + M('frac{π}{4} = 45°') + ', ' + M('frac{π}{3} = 60°') + ', ' + M('frac{π}{6} = 30°') + '.',
     '<b>cos = abscisse, sin = ordonnée.</b> Le quart du cercle où l’on se trouve donne immédiatement les deux signes, avant tout calcul.',
-    'Les trois valeurs remarquables se rangent dans l’ordre : ' + M('frac{1}{2}') + ', ' + M('frac{sqrt{2}}{2}') + ', ' + M('frac{sqrt{3}}{2}') + ' — le sinus les prend dans cet ordre quand l’angle grandit, le cosinus dans l’ordre inverse.',
+    'Les trois valeurs remarquables se rangent dans l’ordre : ' + M('frac{1}{2}') + ', ' + M('frac{sqrt{2}}{2}') + ', ' + M('frac{sqrt{3}}{2}') + '. Le sinus les prend dans cet ordre quand l’angle grandit, le cosinus dans l’ordre inverse.',
     'Vérification gratuite de toute réponse : ' + M('@cos^{2} + @sin^{2}') + ' doit faire <b>1</b>.'
   ]
 },
 
 'produit-scalaire': {
   pourquoi: '<p>Le produit scalaire répond à deux questions très concrètes : « ces deux droites sont-elles <b>perpendiculaires</b> ? » ' +
-    'et « <b>combien mesure cet angle</b> ? » — sans rapporteur, uniquement par le calcul.</p>' +
+    'et « <b>combien mesure cet angle</b> ? », sans rapporteur, uniquement par le calcul.</p>' +
     '<p>En physique, c’est exactement le travail d’une force : ' + M('W = vec{F} · vec{d}') + '.</p>',
   exemples: [{ t: 'Perpendiculaires ou pas ?', c:
     '<p>' + M('vec{u}(3 ; -1)') + ' et ' + M('vec{v}(2 ; 6)') + ' :</p>' +
@@ -120,7 +120,7 @@ const PLUS = {
   astuces: [
     'Le résultat est un <b>nombre</b>, jamais un vecteur. Écrire ' + M('vec{u} · vec{v} = vec{w}') + ' est une faute de cours.',
     'Le <b>signe</b> raconte l’angle : positif → aigu, nul → droit, négatif → obtus. Un réflexe de vérification instantané.',
-    'La formule ' + M('xx′ + yy′') + ' n’est valable que dans un repère <b>orthonormé</b> — vérifie que l’énoncé le dit.',
+    'La formule ' + M('xx′ + yy′') + ' n’est valable que dans un repère <b>orthonormé</b> : vérifie que l’énoncé le dit.',
     'Pour démontrer qu’un triangle est rectangle en ' + M('A') + ', on calcule ' + M('vec{AB} · vec{AC}') + ' : les deux vecteurs doivent <b>partir de ' + M('A') + '</b>.'
   ]
 },
@@ -132,7 +132,7 @@ const PLUS = {
     '<p>Droite passant par ' + M('A(1 ; 2)') + ' et perpendiculaire à ' + M('vec{n}(3 ; -1)') + ' :</p>' +
     Mc('3(x - 1) - 1(y - 2) = 0') +
     '<p>On développe : ' + M('3x - 3 - y + 2 = 0') + ', soit ' + M('3x - y - 1 = 0') + '.</p>' +
-    '<p>Vérification : le point ' + M('A') + ' doit annuler l’équation — ' + M('3 × 1 - 2 - 1 = 0') + ' ✓</p>' }],
+    '<p>Vérification : le point ' + M('A') + ' doit annuler l’équation : ' + M('3 × 1 - 2 - 1 = 0') + ' ✓</p>' }],
   astuces: [
     'Dans ' + M('ax + by + c = 0') + ', le vecteur <b>normal se lit directement</b> : ' + M('vec{n}(a ; b)') + '. Et le directeur, c’est ' + M('vec{u}(-b ; a)') + ' (on échange et on change un signe).',
     'Dans l’équation d’un cercle, c’est ' + M('r^{2}') + ' qui apparaît : si le membre de droite vaut 25, le rayon est <b>5</b>.',
@@ -159,7 +159,7 @@ const PLUS = {
 
 'variables-aleatoires': {
   pourquoi: '<p>Une variable aléatoire met un <b>nombre</b> sur le hasard : un gain, une durée, un nombre de clients. ' +
-    'L’espérance répond à « à long terme, je gagne ou je perds ? » — c’est le calcul que font les assureurs et les casinos.</p>',
+    'L’espérance répond à « à long terme, je gagne ou je perds ? ». C’est le calcul que font les assureurs et les casinos.</p>',
   exemples: [{ t: 'Ce jeu est-il rentable ?', c:
     '<p>Mise de 2 €. On gagne 10 € avec une probabilité de 0,1, 1 € avec 0,3, rien sinon. On note ' + M('X') + ' le gain <b>net</b>.</p>' +
     '<p>Loi : ' + M('X = 8') + ' avec 0,1 ; ' + M('X = -1') + ' avec 0,3 ; ' + M('X = -2') + ' avec 0,6.</p>' +
@@ -183,7 +183,7 @@ const PLUS = {
   astuces: [
     M('range(3)') + ' donne <b>0, 1, 2</b> : trois tours, mais on ne compte jamais jusqu’à 3.',
     '<b>for</b> quand on sait combien de tours faire ; <b>while</b> quand on cherche un seuil (« tant que c’est trop petit »).',
-    'Toujours <b>initialiser avant la boucle</b> — la variable de départ et le compteur. Un oubli et le programme plante ou compte faux.',
+    'Toujours <b>initialiser avant la boucle</b> : la variable de départ et le compteur. Un oubli et le programme plante ou compte faux.',
     'Pour une question « qu’affiche ce programme ? », fais un <b>tableau de valeurs</b> ligne par ligne. C’est plus long mais toujours juste.'
   ]
 },
@@ -193,11 +193,11 @@ const PLUS = {
     'confondre une implication et sa réciproque, c’est perdre la question entière.</p>',
   exemples: [{ t: 'Une implication et sa réciproque', c:
     '<p>« Si un nombre est divisible par 4, alors il est pair » : <b>vraie</b>.</p>' +
-    '<p>Réciproque : « s’il est pair, alors il est divisible par 4 » : <b>fausse</b> — contre-exemple : <b>6</b> est pair et n’est pas divisible par 4.</p>' +
+    '<p>Réciproque : « s’il est pair, alors il est divisible par 4 » : <b>fausse</b>. Contre-exemple : <b>6</b> est pair et n’est pas divisible par 4.</p>' +
     '<p>Contraposée : « s’il n’est pas pair, alors il n’est pas divisible par 4 » : <b>vraie</b>, comme l’implication de départ.</p>' +
     '<p>Un seul contre-exemple a suffi à démolir la réciproque. C’est toute la puissance de la méthode.</p>' }],
   astuces: [
-    'Pour montrer qu’une propriété « <b>pour tout…</b> » est fausse : un <b>seul contre-exemple</b> suffit. Pour la montrer vraie, il faut une démonstration générale — un exemple ne prouve rien.',
+    'Pour montrer qu’une propriété « <b>pour tout…</b> » est fausse : un <b>seul contre-exemple</b> suffit. Pour la montrer vraie, il faut une démonstration générale : un exemple ne prouve rien.',
     'Contraposée : on <b>échange et on nie</b> les deux membres. Elle a toujours la même valeur de vérité que l’implication ; la réciproque, non.',
     M('∈') + ' relie un <b>élément</b> à un ensemble, ' + M('⊂') + ' relie <b>deux ensembles</b>. ' + M('2 ∈ ℕ') + ' mais ' + M('ℕ ⊂ ℤ') + '.',
     'Le « ou » mathématique n’est <b>pas exclusif</b> : « ' + M('x') + ' est positif ou pair » est vrai pour 4.'

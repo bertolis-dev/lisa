@@ -34,32 +34,47 @@ function rendreNav(){
     (sj ? '<span class="fl">\uD83D\uDD25 ' + sj + '</span>' : '') + '</div></div>';
 
   const liens = [
-    { id: 'accueil',  e: '\uD83C\uDFE0', t: 'Accueil',         a: 'data-go="accueil"' },
-    { id: 'revision', e: '\uD83D\uDD01', t: 'R\u00e9viser',   a: 'data-go="revision"' },
-    { id: 'chrono',   e: '\u23F1\uFE0F', t: 'Interro chrono',  a: 'data-go="chrono"' },
+    { id: 'accueil',  e: '\uD83C\uDFE0', t: 'Accueil',                a: 'data-go="accueil"' },
+    { id: 'revision', e: '\uD83D\uDD01', t: 'R\u00e9viser',          a: 'data-go="revision"' },
+    { id: 'chrono',   e: '\u23F1\uFE0F', t: 'Interro chrono',         a: 'data-go="chrono"' },
     { id: 'ds',       e: '\uD83D\uDCDD', t: 'Devoir surveill\u00e9', a: 'data-eval="1"' },
-    { id: 'notes',    e: '\uD83D\uDCC8', t: 'Mes notes',       a: 'data-go="notes"' }
+    { id: 'notes',    e: '\uD83D\uDCC8', t: 'Mes notes',              a: 'data-go="notes"' }
   ];
   h += '<div class="liens">' + liens.map(l =>
     '<button class="lien l-' + l.id + (estActif(l.id) ? ' on' : '') + '" ' + l.a + '>' +
     '<span class="ic">' + l.e + '</span><span>' + l.t + '</span></button>').join('') + '</div>';
 
-  h += '<div class="nav-mat"><span>' + matiereCourante().e + '</span>' + matiereCourante().nom + '</div>';
-  blocsCourants().forEach(b => {
-    const chs = chapitresCourants().filter(c => c.bloc === b.id);
-    if (!chs.length) return;
-    h += '<div class="grp" data-bloc="' + b.id + '"><i></i>' + b.nom + '</div>';
-    chs.forEach(c => {
-      const st = statutChap(c.id), sc = scoreChap(c.id);
-      h += '<button class="chl' + (vue.nom === 'chapitre' && vue.id === c.id ? ' on' : '') + '" data-bloc="' + c.bloc + '" data-chap="' + c.id + '">' +
-           '<span class="dot ' + (st === 'encours' ? 'vu' : (st === 'fini' ? 'fini' : '')) + '"></span>' +
-           '<span class="nm">' + c.titre + '</span>' +
-           (c.gens.length
-              ? '<span class="jg"><i style="width:' + (sc.pc === null ? 0 : sc.pc) + '%"></i></span>'
-              : '<span class="meta">cours</span>') +
-           '</button>';
+  h += '<div class="grp-mat">Mes mati\u00e8res</div>';
+  const ouverte = (S.navOuv === undefined) ? S.matiere : S.navOuv;
+  MATIERES.filter(m => S.mesMatieres.indexOf(m.id) >= 0).forEach(m => {
+    const chs = CHAPITRES.filter(c => c.matiere === m.id && c.classe === classeCourante().id);
+    const est = (m.id === ouverte && m.pret && chs.length);
+    h += '<button class="mat-tete' + (est ? ' ouverte' : '') + (m.pret ? '' : ' futur') + '" data-ouvrir="' + m.id + '"' +
+         ' aria-expanded="' + (est ? 'true' : 'false') + '">' +
+         '<span class="me">' + m.e + '</span>' +
+         '<span class="nm">' + m.court + '</span>' +
+         (m.pret ? '<span class="cnt">' + chs.length + '</span>' : '<span class="mb">bient\u00f4t</span>') +
+         '<span class="chev">' + (est ? '\u25BE' : '\u25B8') + '</span></button>';
+    if (!est) return;
+    h += '<div class="mat-corps">';
+    blocsCourants().forEach(b => {
+      const dedans = chs.filter(c => c.bloc === b.id);
+      if (!dedans.length) return;
+      h += '<div class="grp" data-bloc="' + b.id + '"><i></i>' + b.nom + '</div>';
+      dedans.forEach(c => {
+        const st = statutChap(c.id), sc = scoreChap(c.id);
+        h += '<button class="chl' + (vue.nom === 'chapitre' && vue.id === c.id ? ' on' : '') + '" data-bloc="' + c.bloc + '" data-chap="' + c.id + '">' +
+             '<span class="dot ' + (st === 'encours' ? 'vu' : (st === 'fini' ? 'fini' : '')) + '"></span>' +
+             '<span class="nm">' + c.titre + '</span>' +
+             (c.gens.length
+                ? '<span class="jg"><i style="width:' + (sc.pc === null ? 0 : sc.pc) + '%"></i></span>'
+                : '<span class="meta">cours</span>') +
+             '</button>';
+      });
     });
+    h += '</div>';
   });
+  h += '<button class="lien plus-mat" data-mat="+"><span class="ic">+</span><span>Ajouter une mati\u00e8re</span></button>';
   elNav.innerHTML = h;
 }
 function estActif(id){
@@ -104,8 +119,8 @@ function vueAccueil(){
        '<text x="40" y="46" text-anchor="middle" class="anneau-t">' + (pcj >= 100 ? '✓' : pcj + '%') + '</text></svg>' +
        '<div class="jour-txt"><b>Objectif du jour</b>' +
        '<span>' + (xj >= OBJECTIF_JOUR
-          ? 'Atteint — ' + xj + ' points aujourd’hui. Tout ce qui suit est du bonus 🎁'
-          : xj + ' / ' + OBJECTIF_JOUR + ' points — encore ' + (OBJECTIF_JOUR - xj) + ', soit deux ou trois exercices.') + '</span></div>' +
+          ? 'Atteint ! ' + xj + ' points aujourd’hui. Tout ce qui suit est du bonus 🎁'
+          : xj + ' / ' + OBJECTIF_JOUR + ' points. Encore ' + (OBJECTIF_JOUR - xj) + ', soit deux ou trois exercices.') + '</span></div>' +
        '<div class="flamme' + (sj ? ' on' : '') + '"><span class="f">🔥</span><b>' + sj + '</b>' +
        '<span class="j">jour' + (sj > 1 ? 's' : '') + ' de suite</span></div>' +
        '</div>';
@@ -442,7 +457,7 @@ function vueSerie(){
 
   if (q.bareme){
     if (!serie.valide){
-      h += '<div class="actions"><button class="btn primary" data-corrige="1">J’ai fini — voir le corrigé</button></div>';
+      h += '<div class="actions"><button class="btn primary" data-corrige="1">J’ai fini, voir le corrigé</button></div>';
     } else if (serie.note === undefined){
       h += '<div class="actions"><button class="btn primary" data-autoeval="1">Valider mon auto-évaluation</button></div>';
     } else {
@@ -515,7 +530,7 @@ function verifier(abandon){
   serie.gains = (serie.gains || 0) + r.gain;
   serie.msg = juste
     ? (r.revanche ? 'Tu l’avais ratée la dernière fois. Plus maintenant !'
-       : (q.gen.niveau === 'exp' ? 'Chapeau — celle-là était coriace.'
+       : (q.gen.niveau === 'exp' ? 'Chapeau ! Celle-là était coriace.'
           : (serie.gain > POINTS[q.gen.niveau] ? unDe(MSG_JUSTE) + ' Bonus de série.' : unDe(MSG_JUSTE))))
     : unDe(MSG_FAUX);
   serie.emo = juste ? (r.revanche ? '🔁' : unDe(EMO_JUSTE)) : '💡';
@@ -593,7 +608,7 @@ function rendre(){
 }
 
 document.addEventListener('click', function(e){
-  const t = e.target.closest('[data-corrige],[data-coched],[data-autoeval],[data-eval],[data-dsq],[data-dschoix],[data-dschamp],[data-dsrendre],[data-coche],[data-noter],[data-mat],[data-prendre],[data-son],[data-go],[data-chap],[data-onglet],[data-statut],[data-serie],[data-choix],[data-champ],[data-verifier],[data-sechapper],[data-suivante],[data-quitter],[data-refaire]');
+  const t = e.target.closest('[data-ouvrir],[data-corrige],[data-coched],[data-autoeval],[data-eval],[data-dsq],[data-dschoix],[data-dschamp],[data-dsrendre],[data-coche],[data-noter],[data-mat],[data-prendre],[data-son],[data-go],[data-chap],[data-onglet],[data-statut],[data-serie],[data-choix],[data-champ],[data-verifier],[data-sechapper],[data-suivante],[data-quitter],[data-refaire]');
   if (e.target.closest('#burger')){
     elSide.classList.add('open');
     const s = document.createElement('div'); s.className = 'scrim'; s.addEventListener('click', fermerMenu);
@@ -614,10 +629,18 @@ document.addEventListener('click', function(e){
     } else aller({ nom: d.go });
     return;
   }
+  if (d.ouvrir){
+    const m = MAT[d.ouvrir];
+    const ouverte = (S.navOuv === undefined) ? S.matiere : S.navOuv;
+    if (!m.pret){ aller({ nom: 'bientot', id: d.ouvrir }); return; }
+    if (m.id === ouverte){ S.navOuv = null; }
+    else { S.navOuv = m.id; if (S.matiere !== m.id){ S.matiere = m.id; aller({ nom: 'accueil' }); return; } }
+    sauver(); rendreNav(); return;
+  }
   if (d.mat){
     if (d.mat === '+'){ aller({ nom: 'matieres' }); return; }
     const m = MAT[d.mat];
-    if (m && m.pret){ S.matiere = d.mat; sauver(); aller({ nom: 'accueil' }); }
+    if (m && m.pret){ S.matiere = d.mat; S.navOuv = d.mat; sauver(); aller({ nom: 'accueil' }); }
     else aller({ nom: 'bientot', id: d.mat });
     return;
   }
@@ -646,7 +669,7 @@ document.addEventListener('click', function(e){
   if (d.serie){
     const p = d.serie.split('|'), c = CHAP[p[0]];
     const pool = p[1] === 'mixte' ? c.gens : c.gens.filter(g => g.niveau === p[1]);
-    lancerSerie(pool, 8, 'chapitre', c.titre + (p[1] === 'mixte' ? '' : ' — ' + NIVEAUX[p[1]]));
+    lancerSerie(pool, 8, 'chapitre', c.titre + (p[1] === 'mixte' ? '' : ' · ' + NIVEAUX[p[1]]));
     return;
   }
   if (d.choix !== undefined){ if (!serie.valide){ serie.q.choix = +d.choix; rendre(); } return; }

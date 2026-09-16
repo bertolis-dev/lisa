@@ -551,6 +551,55 @@ main{min-width:0;padding-block:34px;padding-left:40px;padding-right:40px;max-wid
 .fig .lab{font-size:12px}
 .fig .pv{fill:var(--juste);font-weight:700}
 .fig .c{text-anchor:middle} .fig .r{text-anchor:end}
+
+/* ---------- respiration : le regard doit séparer les éléments d'un coup ---------- */
+.cours{gap:18px}
+.blk{padding:20px 22px}
+.blk .h{margin-bottom:12px;gap:11px}
+.blk .body{gap:14px;font-size:15px;line-height:1.65}
+.blk .body p + p{margin-top:2px}
+.blk .body ul{gap:12px;padding-left:2px;list-style:none;margin:2px 0}
+.blk .body ul li{position:relative;padding-left:26px}
+.blk .body ul li::before{content:"B8";position:absolute;left:4px;top:-1px;color:var(--bc,var(--accent));font-weight:700;font-size:1.05em}
+.blk.prop .body ul li::before{color:var(--juste)}
+.blk.astuce .body ul li::before{content:"92";color:var(--amber);left:2px}
+.blk.piege .body ul li::before{content:"¹7";color:var(--faux);font-size:.95em}
+.blk.pourquoi .body ul li::before{color:#BC3B84}
+.capa ul{list-style:none;padding-left:2px;gap:10px}
+.capa ul li{position:relative;padding-left:26px}
+.capa ul li::before{content:"92";position:absolute;left:3px;top:0;color:var(--accent);font-weight:700}
+.center{padding:8px 0 10px}
+.blk .body .center{padding:4px 0 6px}
+.qtext{gap:13px;line-height:1.62}
+.fields{margin-top:24px;gap:14px}
+.choices{margin-top:22px;gap:10px}
+.sol{padding:20px 22px}
+.steps{gap:15px}
+.step{line-height:1.68}
+.ligne{padding:14px 16px}
+.autoeval{gap:9px}
+.fig{margin:18px 0 6px;gap:11px}
+.fig figcaption{line-height:1.55}
+
+/* ---------- matières dépliables dans le menu ---------- */
+.grp-mat{font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-3);font-weight:700;padding:18px 10px 8px}
+.mat-tete{display:flex;align-items:center;gap:9px;width:100%;text-align:left;padding:9px 10px;border-radius:9px;
+  font-size:14px;font-weight:600;color:var(--ink);transition:background .12s}
+.mat-tete:hover{background:var(--surface-2)}
+.mat-tete .me{font-size:16px;line-height:1;flex:0 0 auto}
+.mat-tete .nm{flex:1 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mat-tete .cnt{font-size:11px;font-weight:700;color:var(--ink-3);background:var(--surface-3);border-radius:999px;padding:2px 8px}
+.mat-tete .mb{font-size:9.5px;text-transform:uppercase;letter-spacing:.06em;font-weight:700;color:var(--amber);
+  background:var(--amber-soft);padding:2px 7px;border-radius:999px}
+.mat-tete .chev{font-size:11px;color:var(--ink-3);width:12px;text-align:center;flex:0 0 auto}
+.mat-tete.ouverte{background:var(--accent-soft);color:var(--accent-ink)}
+.mat-tete.ouverte .cnt{background:var(--surface);color:var(--accent)}
+.mat-tete.ouverte .chev{color:var(--accent)}
+.mat-tete.futur{color:var(--ink-2)}
+.mat-corps{padding:4px 0 10px 8px;margin-left:12px;border-left:2px solid var(--line-soft);display:flex;flex-direction:column;gap:1px}
+.mat-corps .grp{padding:11px 8px 4px}
+.plus-mat{margin-top:12px;color:var(--ink-3);font-weight:600}
+.plus-mat .ic{border-style:dashed;font-size:15px;font-weight:700}
 </style>
 
 <div class="app">

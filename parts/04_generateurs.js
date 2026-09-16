@@ -76,7 +76,7 @@ G('second-degre', 'sd-racines', 'Résoudre une équation du second degré', 'ent
     ],
     etapes: [
       M('a = ' + nf(a)) + ', ' + M('b = ' + nf(b)) + ', ' + M('c = ' + nf(c)) + '.',
-      M('Δ = b^{2} - 4ac = ' + nf(b * b) + sgn(-4 * a * c, '') + ' = ' + nf(D)) + ' — ' + M('Δ > 0') + ', il y a deux solutions.',
+      M('Δ = b^{2} - 4ac = ' + nf(b * b) + sgn(-4 * a * c, '') + ' = ' + nf(D)) + '. ' + M('Δ > 0') + ' : il y a deux solutions.',
       M('sqrt{Δ} = ' + nf(rD)),
       M('x_1 = frac{' + nf(-b) + ' - ' + nf(rD) + '}{' + nf(2 * a) + '} = ' + nf(a > 0 ? x1 : x2)) + '   et   ' +
         M('x_2 = frac{' + nf(-b) + ' + ' + nf(rD) + '}{' + nf(2 * a) + '} = ' + nf(a > 0 ? x2 : x1)),
@@ -103,7 +103,7 @@ G('second-degre', 'sd-factorisation', 'Factoriser un trinôme', 'ent', function(
       bon: 0
     },
     etapes: [
-      M('Δ = ' + nf(b) + '^{2} - 4 × ' + nf(a) + ' × ' + nf(c) + ' = ' + nf(b * b - 4 * a * c)) + ' — deux racines.',
+      M('Δ = ' + nf(b) + '^{2} - 4 × ' + nf(a) + ' × ' + nf(c) + ' = ' + nf(b * b - 4 * a * c)) + ' → deux racines.',
       'Les racines sont ' + M('x_1 = ' + nf(x1)) + ' et ' + M('x_2 = ' + nf(x2)) + '.',
       'La forme factorisée est ' + M('f(x) = a(x - x_1)(x - x_2)') + ', donc ' + bon + '.',
       '<b>Ne jamais oublier le coefficient ' + M('a') + '</b> : sans lui, on ne retrouve pas le même trinôme en développant.'
@@ -535,7 +535,7 @@ G('derivation', 'de-produit-quotient', 'Produit et quotient', 'ent', function(){
     etapes: [
       M('u(x) = ' + lead(a, 'x') + sgn(b, '')) + ', ' + M('u′(x) = ' + nf(a)) + ' ; ' +
         M('v(x) = ' + lead(c, 'x') + sgn(d, '')) + ', ' + M('v′(x) = ' + nf(c)) + '.',
-      'Formule : ' + M('(frac{u}{v})′ = frac{u′v - uv′}{v^{2}}') + ' — <b>l’ordre compte</b>.',
+      'Formule : ' + M('(frac{u}{v})′ = frac{u′v - uv′}{v^{2}}') + '. <b>L’ordre compte.</b>',
       M('u′v - uv′ = ' + nf(a) + '(' + lead(c, 'x') + sgn(d, '') + ') - (' + lead(a, 'x') + sgn(b, '') + ') × (' + nf(c) + ') = ' + nf(num)),
       'Les termes en ' + M('x') + ' se simplifient : ' + M('f′(x) = frac{' + nf(num) + '}{(' + lead(c, 'x') + sgn(d, '') + ')^{2}}') + '.'
     ]

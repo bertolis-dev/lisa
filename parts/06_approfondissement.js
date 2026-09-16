@@ -46,7 +46,7 @@ G('second-degre', 'sd-toujours-positif', 'Paramètre : signe constant', 'exp', f
         ' partout <b>si et seulement si</b> il n\u2019a <b>aucune racine</b>, c\u2019est-à-dire ' + M('\u0394 &lt; 0') + '.',
       M('\u0394 = (' + nf(a * b) + ')^{2} - 4 \u00D7 (' + nf(a) + ') \u00D7 (' + (a > 0 ? 'm' : '-m') + ') = ' + nf(b * b) + ' - 4m'),
       'On résout ' + M('' + nf(b * b) + ' - 4m &lt; 0') + ' soit ' + M('m > frac{' + nf(b * b) + '}{4} = ' + nf(seuil)) + '.',
-      '<b>Piège classique</b> : avec ' + M('\u0394 = 0') + ' le trinôme s\u2019annule en un point — il ne serait plus <b>strictement</b> ' +
+      '<b>Piège classique</b> : avec ' + M('\u0394 = 0') + ' le trinôme s\u2019annule en un point : il ne serait plus <b>strictement</b> ' +
         (strictPos ? 'positif' : 'négatif') + '. L\u2019inégalité sur ' + M('m') + ' est donc <b>stricte</b>.'
     ]
   };
@@ -102,12 +102,12 @@ G('second-degre', 'sd-inequation', 'Inéquation à ramener au second degré', 'e
       bon: bonEstDehors ? 1 : 0
     },
     etapes: [
-      '<b>Étape 1</b> — tout ramener d\u2019un même côté : ' +
+      '<b>Étape 1</b> → tout ramener d\u2019un même côté : ' +
         M(trinome(a, gaucheB, gaucheC) + ' - (' + lead(d, 'x') + (e ? sgn(e, '') : '') + ')' + (superieur ? ' \u2265 ' : ' \u2264 ') + '0') +
         ' soit ' + M(trinome(a, b, c) + (superieur ? ' \u2265 ' : ' \u2264 ') + '0') + '.',
-      '<b>Étape 2</b> — racines du trinôme : ' + M('\u0394 = ' + nf(b * b - 4 * a * c) + ' > 0') + ', ' +
+      '<b>Étape 2</b> → racines du trinôme : ' + M('\u0394 = ' + nf(b * b - 4 * a * c) + ' > 0') + ', ' +
         M('x_1 = ' + nf(x1)) + ' et ' + M('x_2 = ' + nf(x2)) + '.',
-      '<b>Étape 3</b> — signe : ' + M('a = ' + nf(a)) + ', donc le trinôme est ' + (a > 0 ? 'positif' : 'négatif') +
+      '<b>Étape 3</b> → signe : ' + M('a = ' + nf(a)) + ', donc le trinôme est ' + (a > 0 ? 'positif' : 'négatif') +
         ' à l\u2019extérieur des racines et ' + (a > 0 ? 'négatif' : 'positif') + ' entre les deux.',
       '<b>Conclusion</b> : ' + (bonEstDehors ? dehors : dedans) + '. Les crochets sont <b>fermés</b> car l\u2019inégalité est large.',
       'Erreur fréquente : résoudre sans tout ramener à gauche, ou garder des crochets ouverts avec un ' + M('\u2265') + '.'
@@ -232,7 +232,7 @@ G('derivation', 'de-tangente-parallele', 'Tangentes parallèles à une droite', 
       'On résout donc ' + M('f\u2032(x) = ' + nf(m)) + ', avec ' + M('f\u2032(x) = 3x^{2}' + (b ? sgn(2 * b, 'x') : '') + (c ? sgn(c, '') : '')) + '.',
       M('3x^{2}' + (b ? sgn(2 * b, 'x') : '') + sgn(c - m, '') + ' = 0') + ', ' + M('\u0394 = ' + nf(4 * b * b - 12 * (c - m)) + ' > 0') + '.',
       'Les solutions sont ' + M('x_1 = ' + nf(r1)) + ' et ' + M('x_2 = ' + nf(r2)) + ' : il y a <b>deux</b> points où la tangente est parallèle à ' + M('d') + '.',
-      'Remarque : l\u2019ordonnée à l\u2019origine de ' + M('d') + ' (ici 7) <b>ne sert à rien</b> — seul le coefficient directeur compte.'
+      'Remarque : l\u2019ordonnée à l\u2019origine de ' + M('d') + ' (ici 7) <b>ne sert à rien</b> : seul le coefficient directeur compte.'
     ]
   };
 });
@@ -328,7 +328,7 @@ G('produit-scalaire', 'ps-ensemble-points', 'Ensemble de points', 'exp', functio
     ],
     etapes: [
       'Propriété du cours : ' + M('vec{MA} \u00B7 vec{MB} = 0') + ' signifie que ' + M('M') + ' voit ' + M('[AB]') +
-        ' sous un angle droit — c\u2019est le <b>cercle de diamètre ' + M('[AB]') + '</b>.',
+        ' sous un angle droit → c\u2019est le <b>cercle de diamètre ' + M('[AB]') + '</b>.',
       'Son centre est le <b>milieu</b> de ' + M('[AB]') + ' : ' + M('\u03A9(frac{' + nf(ax) + ' + ' + nf(bx) + '}{2} ; frac{' + nf(ay) + ' + ' + nf(by) + '}{2}) = \u03A9(' + nf(cx) + ' ; ' + nf(cy) + ')') + '.',
       M('AB = sqrt{(' + nf(bx - ax) + ')^{2} + (' + nf(by - ay) + ')^{2}} = sqrt{' + nf((bx - ax) * (bx - ax) + (by - ay) * (by - ay)) + '} = ' + nf(2 * r)) +
         ', donc le rayon vaut ' + M('frac{AB}{2} = ' + nf(r)) + '.',

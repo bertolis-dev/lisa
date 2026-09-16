@@ -3,7 +3,7 @@
    Une démonstration ne peut pas être corrigée automatiquement : l'élève la
    rédige sur son cahier, puis compare avec le corrigé et s'auto-évalue
    ligne par ligne, avec le barème du professeur. C'est exactement ce que
-   fait un correcteur — et ça apprend les attentes de rédaction.
+   fait un correcteur · et ça apprend les attentes de rédaction.
    ========================================================================= */
 
 NIVEAUX.demo = 'Démonstration';
@@ -67,7 +67,7 @@ D('suites', 'dm-gauss', 'Démontrer la somme des n premiers entiers', function()
       { pts: 1, d: 'On note ' + M('S = 1 + 2 + … + n') + '.' },
       { pts: 2, d: 'On récrit la même somme dans l’ordre décroissant :' + Mc('S = n + (n-1) + … + 2 + 1') },
       { pts: 2, d: 'On additionne les deux lignes terme à terme. Chaque colonne donne ' + M('n + 1') + ' :' +
-                   Mc('2S = underbrace(n+1) + (n+1) + … + (n+1)') + '<p class="tiny" style="text-align:center">et il y a exactement ' + M('n') + ' colonnes</p>' },
+                   Mc('2S = (n+1) + (n+1) + … + (n+1)') + '<p class="tiny" style="text-align:center">et il y a exactement ' + M('n') + ' colonnes</p>' },
       { pts: 1, d: 'Donc ' + M('2S = n(n+1)') + '.' },
       { pts: 1, d: 'Conclusion : ' + M('S = frac{n(n+1)}{2}') + '.' }
     ]
