@@ -663,6 +663,19 @@ table.tab{border-collapse:collapse;margin:14px auto 4px;font-size:14.5px;font-va
 table.tab th,table.tab td{border:1px solid var(--line);padding:7px 14px;text-align:center}
 table.tab th{background:var(--surface-2);font-weight:700;font-size:13.5px}
 table.tab tr:first-child th{background:var(--accent-soft);color:var(--accent-ink)}
+
+/* ---------- couleurs des domaines de l'enseignement scientifique ---------- */
+[data-bloc="es-transverse"]{--bc:#BC3B84;--bcs:#FBE5F1}
+[data-bloc="es-donnees"]   {--bc:#C4700A;--bcs:#FBEEDA}
+[data-bloc="es-evolution"] {--bc:#2F6FE0;--bcs:#E4EDFC}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) [data-bloc="es-transverse"]{--bc:#F183BC;--bcs:#3B1C30}
+  :root:not([data-theme="light"]) [data-bloc="es-donnees"]   {--bc:#F0A94C;--bcs:#3A2A12}
+  :root:not([data-theme="light"]) [data-bloc="es-evolution"] {--bc:#7FB0FF;--bcs:#1B2C4E}
+}
+:root[data-theme="dark"] [data-bloc="es-transverse"]{--bc:#F183BC;--bcs:#3B1C30}
+:root[data-theme="dark"] [data-bloc="es-donnees"]   {--bc:#F0A94C;--bcs:#3A2A12}
+:root[data-theme="dark"] [data-bloc="es-evolution"] {--bc:#7FB0FF;--bcs:#1B2C4E}
 </style>
 
 <div class="app">

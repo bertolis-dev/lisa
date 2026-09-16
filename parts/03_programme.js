@@ -33,7 +33,14 @@ const MATIERES = [
   { id: 'ses',        nom: 'Spécialité SES',           court: 'SES',         e: '📊', type: 'specialite' },
   { id: 'hggsp',      nom: 'Spécialité HGGSP',         court: 'HGGSP',       e: '🏛️', type: 'specialite' },
   { id: 'hlp',        nom: 'Spécialité HLP',           court: 'HLP',         e: '📜', type: 'specialite' },
-  { id: 'nsi',        nom: 'Spécialité NSI',           court: 'NSI',         e: '💻', type: 'specialite' }
+  { id: 'nsi',        nom: 'Spécialité NSI',           court: 'NSI',         e: '💻', type: 'specialite' },
+  { id: 'llcer',      nom: 'Spécialité LLCER',         court: 'LLCER',       e: '🗣️', type: 'specialite' },
+  { id: 'llca',       nom: 'Spécialité LLCA',          court: 'LLCA',        e: '🏺', type: 'specialite' },
+  { id: 'si',         nom: 'Spécialité sciences de l’ingénieur', court: 'SI', e: '⚙️', type: 'specialite' },
+  { id: 'arts',       nom: 'Spécialité arts',          court: 'Arts',        e: '🎨', type: 'specialite' },
+  { id: 'eppcs',      nom: 'Spécialité EPPCS',         court: 'EPPCS',       e: '🏃', type: 'specialite' },
+  { id: 'bioeco',     nom: 'Spécialité biologie-écologie', court: 'Bio-éco', e: '🌿', type: 'specialite' },
+  { id: 'eps',        nom: 'Éducation physique et sportive', court: 'EPS',   e: '🤸', type: 'commun' }
 ];
 const MAT = {};
 MATIERES.forEach(m => { MAT[m.id] = m; });
