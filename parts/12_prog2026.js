@@ -194,7 +194,7 @@ insererApres('probas-conditionnelles', 'Indépendance', { k: 'prop', t: 'Success
   '<p><b>Épreuve de Bernoulli</b> : une expérience à deux issues seulement, <b>succès</b> (probabilité ' + M('p') + ') et échec (' + M('1 - p') + ').</p>' +
   '<p>Le programme 2026 demande, <b>pour ' + M('n \u2264 4') + '</b>, de dessiner l’arbre de ' + M('n') + ' épreuves identiques et indépendantes et d’en tirer des probabilités.</p>' +
   '<p>Exemple, ' + M('n = 3') + ' et ' + M('p = 0,2') + ' : la probabilité d’obtenir <b>exactement un succès</b> est ' +
-  M('3 \u00D7 0,2 \u00D7 0,8 \u00D7 0,8 = 0,384') + ' — il y a <b>3 chemins</b> qui donnent un seul succès.</p>' });
+  M('3 \u00D7 0,2 \u00D7 0,8 \u00D7 0,8 = 0,384') + ' : il y a <b>3 chemins</b> qui donnent un seul succès.</p>' });
 
 /* ---------- VARIABLES ALÉATOIRES : linéarité, König-Huygens ---------- */
 insererApres('variables-aleatoires', 'Transformation affine', { k: 'prop', t: 'Formule de König-Huygens', c:

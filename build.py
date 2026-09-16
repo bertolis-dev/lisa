@@ -15,7 +15,7 @@ SITE = os.path.join(BASE, 'docs')
 CORPS = ['01_shell.html', '02_core.js', '03_programme.js', '04_generateurs.js',
          '06_approfondissement.js', '08_demonstrations.js', '10_cours_plus.js', '11_figures.js',
          '12_prog2026.js', '13_gen2026.js', '14_gen_analyse.js', '15_gen_divers.js',
-         '16_demos2026.js', '17_maths_es.js',
+         '16_demos2026.js', '17_maths_es.js', '18_francais.js', '19_gen_francais.js',
          '07_fun.js', '09_evaluation.js', '05_ui.js']
 
 def lire(nom):

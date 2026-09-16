@@ -70,7 +70,7 @@ const CHAPITRES_ES = [
       'il s’agit de <b>développer le sens critique</b>.</p>' },
     { k: 'def', t: 'Deux caractères qualitatifs : le tableau croisé', c:
       '<p>On compte les individus dans chaque case. On peut alors calculer des <b>fréquences</b> : par rapport au total, ' +
-      'par rapport à une ligne, ou par rapport à une colonne — et ce sont trois choses différentes.</p>' },
+      'par rapport à une ligne, ou par rapport à une colonne, et ce sont trois choses différentes.</p>' },
     { k: 'def', t: 'Deux caractères quantitatifs : le nuage de points', c:
       '<p>Chaque individu devient un point ' + M('(x_i ; y_i)') + '. Si les points s’alignent à peu près, une <b>droite d’ajustement</b> ' +
       'résume la relation.</p>' },
@@ -219,7 +219,7 @@ const CHAPITRES_ES = [
       '<p>Si une quantité subit ' + M('n') + ' évolutions et que le coefficient global est ' + M('CM') + ', le coefficient <b>moyen</b> par période est</p>' +
       Mc('CM_{moyen} = CM^{frac{1}{n}}') +
       '<p>et le taux moyen s’en déduit par ' + M('t = (CM_{moyen} - 1) × 100') + '.</p>' +
-      '<p>Exemple : une hausse de 21 % en 2 ans correspond à un taux moyen de ' + M('1,21^{frac{1}{2}} = 1,1') + ', soit <b>+ 10 % par an</b> — ' +
+      '<p>Exemple : une hausse de 21 % en 2 ans correspond à un taux moyen de ' + M('1,21^{frac{1}{2}} = 1,1') + ', soit <b>+ 10 % par an</b>, ' +
       'et non 10,5 %.</p>' },
     { k: 'meth', t: 'Problème de seuil', c:
       '<p>« Au bout de combien de temps dépasse-t-on ' + M('S') + ' ? » On calcule les termes un par un, à la calculatrice ou au tableur, ' +
@@ -377,7 +377,7 @@ G('es-quadratique', 'esq-factorisee', 'Racines et signe par la forme factorisée
     qcm: { options: [dedans, dehors, 'Pour tout réel ' + M('x'), 'Aucune valeur de ' + M('x')], bon: bonEstDehors ? 1 : 0 },
     etapes: [
       'La fonction est <b>déjà factorisée</b> : ses racines se lisent directement, ' + M('x_1 = ' + nf(r1)) + ' et ' + M('x_2 = ' + nf(r2)) + '.',
-      '<b>Aucun discriminant n’est nécessaire</b> — il n’est d’ailleurs pas au programme de cet enseignement.',
+      '<b>Aucun discriminant n’est nécessaire</b> : il n’est d’ailleurs pas au programme de cet enseignement.',
       'Règle du signe : ' + M('f(x)') + ' est du <b>signe de ' + M('a') + '</b> à l’extérieur des racines, du signe contraire entre les deux. Ici ' + M('a = ' + nf(a)) + '.',
       'Réponse : ' + (bonEstDehors ? dehors : dedans) + '.'
     ]
@@ -424,7 +424,7 @@ G('es-exponentiel', 'ese-terme', 'Terme d’une suite géométrique', 'app', fun
       'Formule : ' + M('u_n = u_0 q^{n}') + '.',
       M('u_{' + n + '} = ' + nf(u0) + ' × ' + nf(q) + '^{' + n + '} ≈ ' + nf(val)),
       'À la calculatrice, ' + M(nf(q) + '^{' + n + '} ≈ ' + nf(Math.round(Math.pow(q, n) * 100000) / 100000)) + '.',
-      '<b>Erreur classique</b> : multiplier par ' + M(nf(t) + ' × ' + n) + ' % — cela reviendrait à une croissance <b>linéaire</b>, pas exponentielle.'
+      '<b>Erreur classique</b> : multiplier par ' + M(nf(t) + ' × ' + n) + ' % : cela reviendrait à une croissance <b>linéaire</b>, pas exponentielle.'
     ]
   };
 });

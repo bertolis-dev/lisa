@@ -150,7 +150,7 @@ G('algorithmique', 'ag-comprehension', 'Liste en compréhension', 'ent', functio
     qcm: { options: opts.map(o => '<code>' + o + '</code>'), bon: opts.indexOf(cas.r) },
     etapes: [
       'Une liste <b>en compréhension</b> se lit de droite à gauche : d’abord ce que parcourt ' + M('n') + ', ensuite ce qu’on en fait.',
-      '<code>range(5)</code> donne <b>0, 1, 2, 3, 4</b> — jamais 5. <code>range(1, 5)</code> donne 1, 2, 3, 4.',
+      '<code>range(5)</code> donne <b>0, 1, 2, 3, 4</b>, jamais 5. <code>range(1, 5)</code> donne 1, 2, 3, 4.',
       'Ici on construit ' + cas.d + ', soit <code>' + cas.r + '</code>.',
       'Une condition <code>if</code> à la fin <b>filtre</b> les valeurs conservées.'
     ]

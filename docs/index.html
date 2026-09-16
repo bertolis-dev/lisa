@@ -297,6 +297,11 @@ main{min-width:0;padding-block:34px;padding-left:40px;padding-right:40px;max-wid
 :root[data-theme="dark"] [data-bloc="probas"]    {--bc:#F0A94C;--bcs:#3A2A12}
 :root[data-theme="dark"] [data-bloc="transverse"]{--bc:#F183BC;--bcs:#3B1C30}
 
+
+/* citations litteraires (francais) */
+.cit{margin:14px 0;padding:14px 16px;border-left:4px solid var(--bc,var(--accent));background:var(--surface-2);border-radius:0 10px 10px 0;font-family:var(--serif,Georgia,serif);font-size:16px;line-height:1.7;color:var(--ink-1)}
+.cit-src{display:block;margin-top:8px;font-family:var(--sans);font-size:12px;letter-spacing:.04em;color:var(--ink-3);font-style:normal}
+.cit u{text-decoration:none;background:var(--bcs,var(--accent-soft));box-shadow:inset 0 -2px 0 var(--bc,var(--accent));border-radius:3px;padding:0 2px}
 .nav .grp[data-bloc]{color:var(--bc)}
 .bloc[data-bloc] h3{color:var(--bc);border-bottom-color:var(--bc);border-bottom-width:2px}
 .chap[data-bloc]{border-top:3px solid var(--bc)}
@@ -690,14 +695,23 @@ table.tab tr:first-child th{background:var(--accent-soft);color:var(--accent-ink
 [data-bloc="es-transverse"]{--bc:#BC3B84;--bcs:#FBE5F1}
 [data-bloc="es-donnees"]   {--bc:#C4700A;--bcs:#FBEEDA}
 [data-bloc="es-evolution"] {--bc:#2F6FE0;--bcs:#E4EDFC}
+[data-bloc="fr-oe"]        {--bc:#B23A48;--bcs:#FBE6E8}
+[data-bloc="fr-outils"]    {--bc:#0F8A5F;--bcs:#DDF2EA}
+[data-bloc="fr-epreuves"]  {--bc:#6D4AC9;--bcs:#EEE8FC}
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]) [data-bloc="es-transverse"]{--bc:#F183BC;--bcs:#3B1C30}
   :root:not([data-theme="light"]) [data-bloc="es-donnees"]   {--bc:#F0A94C;--bcs:#3A2A12}
   :root:not([data-theme="light"]) [data-bloc="es-evolution"] {--bc:#7FB0FF;--bcs:#1B2C4E}
+  :root:not([data-theme="light"]) [data-bloc="fr-oe"]       {--bc:#F0808C;--bcs:#3D1A1F}
+  :root:not([data-theme="light"]) [data-bloc="fr-outils"]   {--bc:#4FD1A0;--bcs:#12352C}
+  :root:not([data-theme="light"]) [data-bloc="fr-epreuves"] {--bc:#B49BFF;--bcs:#2C2350}
 }
 :root[data-theme="dark"] [data-bloc="es-transverse"]{--bc:#F183BC;--bcs:#3B1C30}
 :root[data-theme="dark"] [data-bloc="es-donnees"]   {--bc:#F0A94C;--bcs:#3A2A12}
 :root[data-theme="dark"] [data-bloc="es-evolution"] {--bc:#7FB0FF;--bcs:#1B2C4E}
+:root[data-theme="dark"] [data-bloc="fr-oe"]       {--bc:#F0808C;--bcs:#3D1A1F}
+:root[data-theme="dark"] [data-bloc="fr-outils"]   {--bc:#4FD1A0;--bcs:#12352C}
+:root[data-theme="dark"] [data-bloc="fr-epreuves"] {--bc:#B49BFF;--bcs:#2C2350}
 </style>
 
 <div class="app">
@@ -750,7 +764,7 @@ function M(src){ return '<span class="m">' + mathHtml(src) + '</span>'; }
 function Mc(src){ return '<div class="center">' + M(src) + '</div>'; }
 
 /* version de la construction, remplacée par build.py */
-const VERSION_APP = '1.12';
+const VERSION_APP = '1.15';
 
 /* ---------- utilitaires numériques ---------- */
 const R = {
@@ -3401,7 +3415,7 @@ insererApres('probas-conditionnelles', 'Indépendance', { k: 'prop', t: 'Success
   '<p><b>Épreuve de Bernoulli</b> : une expérience à deux issues seulement, <b>succès</b> (probabilité ' + M('p') + ') et échec (' + M('1 - p') + ').</p>' +
   '<p>Le programme 2026 demande, <b>pour ' + M('n \u2264 4') + '</b>, de dessiner l’arbre de ' + M('n') + ' épreuves identiques et indépendantes et d’en tirer des probabilités.</p>' +
   '<p>Exemple, ' + M('n = 3') + ' et ' + M('p = 0,2') + ' : la probabilité d’obtenir <b>exactement un succès</b> est ' +
-  M('3 \u00D7 0,2 \u00D7 0,8 \u00D7 0,8 = 0,384') + ' — il y a <b>3 chemins</b> qui donnent un seul succès.</p>' });
+  M('3 \u00D7 0,2 \u00D7 0,8 \u00D7 0,8 = 0,384') + ' : il y a <b>3 chemins</b> qui donnent un seul succès.</p>' });
 
 /* ---------- VARIABLES ALÉATOIRES : linéarité, König-Huygens ---------- */
 insererApres('variables-aleatoires', 'Transformation affine', { k: 'prop', t: 'Formule de König-Huygens', c:
@@ -4348,7 +4362,7 @@ G('algorithmique', 'ag-comprehension', 'Liste en compréhension', 'ent', functio
     qcm: { options: opts.map(o => '<code>' + o + '</code>'), bon: opts.indexOf(cas.r) },
     etapes: [
       'Une liste <b>en compréhension</b> se lit de droite à gauche : d’abord ce que parcourt ' + M('n') + ', ensuite ce qu’on en fait.',
-      '<code>range(5)</code> donne <b>0, 1, 2, 3, 4</b> — jamais 5. <code>range(1, 5)</code> donne 1, 2, 3, 4.',
+      '<code>range(5)</code> donne <b>0, 1, 2, 3, 4</b>, jamais 5. <code>range(1, 5)</code> donne 1, 2, 3, 4.',
       'Ici on construit ' + cas.d + ', soit <code>' + cas.r + '</code>.',
       'Une condition <code>if</code> à la fin <b>filtre</b> les valeurs conservées.'
     ]
@@ -4823,7 +4837,7 @@ const CHAPITRES_ES = [
       'il s’agit de <b>développer le sens critique</b>.</p>' },
     { k: 'def', t: 'Deux caractères qualitatifs : le tableau croisé', c:
       '<p>On compte les individus dans chaque case. On peut alors calculer des <b>fréquences</b> : par rapport au total, ' +
-      'par rapport à une ligne, ou par rapport à une colonne — et ce sont trois choses différentes.</p>' },
+      'par rapport à une ligne, ou par rapport à une colonne, et ce sont trois choses différentes.</p>' },
     { k: 'def', t: 'Deux caractères quantitatifs : le nuage de points', c:
       '<p>Chaque individu devient un point ' + M('(x_i ; y_i)') + '. Si les points s’alignent à peu près, une <b>droite d’ajustement</b> ' +
       'résume la relation.</p>' },
@@ -4972,7 +4986,7 @@ const CHAPITRES_ES = [
       '<p>Si une quantité subit ' + M('n') + ' évolutions et que le coefficient global est ' + M('CM') + ', le coefficient <b>moyen</b> par période est</p>' +
       Mc('CM_{moyen} = CM^{frac{1}{n}}') +
       '<p>et le taux moyen s’en déduit par ' + M('t = (CM_{moyen} - 1) × 100') + '.</p>' +
-      '<p>Exemple : une hausse de 21 % en 2 ans correspond à un taux moyen de ' + M('1,21^{frac{1}{2}} = 1,1') + ', soit <b>+ 10 % par an</b> — ' +
+      '<p>Exemple : une hausse de 21 % en 2 ans correspond à un taux moyen de ' + M('1,21^{frac{1}{2}} = 1,1') + ', soit <b>+ 10 % par an</b>, ' +
       'et non 10,5 %.</p>' },
     { k: 'meth', t: 'Problème de seuil', c:
       '<p>« Au bout de combien de temps dépasse-t-on ' + M('S') + ' ? » On calcule les termes un par un, à la calculatrice ou au tableur, ' +
@@ -5130,7 +5144,7 @@ G('es-quadratique', 'esq-factorisee', 'Racines et signe par la forme factorisée
     qcm: { options: [dedans, dehors, 'Pour tout réel ' + M('x'), 'Aucune valeur de ' + M('x')], bon: bonEstDehors ? 1 : 0 },
     etapes: [
       'La fonction est <b>déjà factorisée</b> : ses racines se lisent directement, ' + M('x_1 = ' + nf(r1)) + ' et ' + M('x_2 = ' + nf(r2)) + '.',
-      '<b>Aucun discriminant n’est nécessaire</b> — il n’est d’ailleurs pas au programme de cet enseignement.',
+      '<b>Aucun discriminant n’est nécessaire</b> : il n’est d’ailleurs pas au programme de cet enseignement.',
       'Règle du signe : ' + M('f(x)') + ' est du <b>signe de ' + M('a') + '</b> à l’extérieur des racines, du signe contraire entre les deux. Ici ' + M('a = ' + nf(a)) + '.',
       'Réponse : ' + (bonEstDehors ? dehors : dedans) + '.'
     ]
@@ -5177,7 +5191,7 @@ G('es-exponentiel', 'ese-terme', 'Terme d’une suite géométrique', 'app', fun
       'Formule : ' + M('u_n = u_0 q^{n}') + '.',
       M('u_{' + n + '} = ' + nf(u0) + ' × ' + nf(q) + '^{' + n + '} ≈ ' + nf(val)),
       'À la calculatrice, ' + M(nf(q) + '^{' + n + '} ≈ ' + nf(Math.round(Math.pow(q, n) * 100000) / 100000)) + '.',
-      '<b>Erreur classique</b> : multiplier par ' + M(nf(t) + ' × ' + n) + ' % — cela reviendrait à une croissance <b>linéaire</b>, pas exponentielle.'
+      '<b>Erreur classique</b> : multiplier par ' + M(nf(t) + ' × ' + n) + ' % : cela reviendrait à une croissance <b>linéaire</b>, pas exponentielle.'
     ]
   };
 });
@@ -5228,6 +5242,1319 @@ G('es-exponentiel', 'ese-seuil', 'Seuil dans une évolution exponentielle', 'ds'
         M('u_{' + n + '} ≈ ' + nf(Math.round(u0 * Math.pow(q, n) * 10) / 10)) + '.',
       'Le seuil est franchi pour ' + M('n = ' + n) + '.',
       'Au tableur : une colonne des rangs, une colonne des effectifs avec la formule ' + M('= cellule × ' + nf(q)) + ', et on descend jusqu’au franchissement.'
+    ]
+  };
+});
+/* =========================================================================
+   MATIÈRE : français, première générale.
+
+   Programme : arrêté du 17 janvier 2019 modifié.
+   Œuvres : note de service du 4 juillet 2025 (BO n°30 du 24 juillet 2025,
+   NOR MENE2518792N), programme national d'œuvres pour l'année scolaire
+   2026-2027 et les épreuves anticipées de la session 2028.
+   Le roman est l'objet d'étude renouvelé cette année.
+
+   Épreuve écrite : 4 heures, coefficient 5, au choix commentaire (20 points)
+   ou dissertation sur une des œuvres étudiées (20 points).
+   Épreuve orale : coefficient 5, explication linéaire sur 8 points,
+   question de grammaire sur 2 points, lecture expressive sur 2 points,
+   entretien sur une œuvre choisie sur 8 points.
+   ========================================================================= */
+
+MAT['francais'].pret = true;
+
+BLOCS.push(
+  { id: 'fr-oe',       nom: 'Les quatre objets d’étude', matiere: 'francais' },
+  { id: 'fr-outils',   nom: 'Outils d’analyse',          matiere: 'francais' },
+  { id: 'fr-epreuves', nom: 'Les épreuves',              matiere: 'francais' }
+);
+
+/* fabrique le bloc « les trois œuvres au programme » d'un objet d'étude */
+function oeuvresAuProgramme(liste){
+  return { k: 'def', t: 'Les trois œuvres au programme 2026-2027', c:
+    '<p>Ton professeur en choisit <b>une</b>, avec son parcours associé. C’est celle-là que tu dois connaître en profondeur, ' +
+    'et c’est sur elle que portera ton sujet de dissertation.</p>' +
+    '<ul>' + liste.map(o =>
+      '<li><b>' + o[0] + '</b>, <i>' + o[1] + '</i><br><span class="tiny">parcours : ' + o[2] + '</span></li>').join('') +
+    '</ul>' };
+}
+
+const CHAPITRES_FR = [
+{
+  id: 'fr-poesie', bloc: 'fr-oe', titre: 'La poésie du XIXe au XXIe siècle',
+  resume: 'Rimbaud, Ponge, Dorion. Le poème et son travail.',
+  capacites: [
+    'Situer l’œuvre dans son mouvement et son siècle.',
+    'Analyser la forme du poème : mètre, rimes, strophes, rythme.',
+    'Repérer et interpréter les images : métaphore, comparaison, personnification.',
+    'Relier le poème au parcours associé et à l’œuvre intégrale.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'À quoi ça sert ?', c:
+      '<p>La poésie est l’objet d’étude où l’on apprend à lire <b>lentement</b> : chaque mot, chaque son, chaque coupe compte. ' +
+      'C’est aussi le plus rentable à l’oral, parce qu’un poème court se prête bien à l’explication linéaire.</p>' },
+    oeuvresAuProgramme([
+      ['Rimbaud', 'Cahier de Douai', 'émancipations créatrices'],
+      ['Francis Ponge', 'La rage de l’expression', 'dans l’atelier du poète'],
+      ['Hélène Dorion', 'Mes forêts', 'la poésie, la nature, l’intime']
+    ]),
+    { k: 'prop', t: 'Trois façons très différentes d’écrire', c:
+      '<ul><li><b>Rimbaud</b> (1870) : vingt-deux poèmes écrits à seize ans. La forme classique, l’alexandrin et le sonnet, ' +
+      'mise au service d’une révolte et d’une liberté nouvelles. D’où le parcours : <i>émancipations créatrices</i>.</li>' +
+      '<li><b>Ponge</b> (1952) : le poème devient un <b>chantier</b>. On lit les brouillons, les ratures, les tentatives. ' +
+      'Le sujet n’est plus la chose décrite mais le travail pour la dire.</li>' +
+      '<li><b>Dorion</b> (2021) : vers libres, poésie contemporaine québécoise. La forêt comme paysage intérieur, ' +
+      'le lien entre le vivant et l’intime.</li></ul>' },
+    { k: 'meth', t: 'Lire un poème sans réciter le cours', c:
+      '<ul><li>1. <b>Lire à voix haute</b> : le rythme et les sons livrent déjà la moitié du sens.</li>' +
+      '<li>2. Repérer la <b>forme</b> : mètre, rimes, strophes, et surtout les endroits où la forme <b>se casse</b> (enjambement, rejet, vers faux).</li>' +
+      '<li>3. Suivre le <b>mouvement du texte</b> : où bascule-t-il ? C’est cette bascule qui donne le plan de l’explication linéaire.</li>' +
+      '<li>4. Interpréter les <b>images</b>, jamais isolément : une métaphore prend sens dans son réseau.</li></ul>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Ne jamais dire « il y a une métaphore » sans dire <b>ce qu’elle produit</b>. Le procédé seul ne vaut aucun point.</li>' +
+      '<li>Une rupture de forme est toujours volontaire : un enjambement, une strophe plus courte, un mot qui déborde du vers.</li>' +
+      '<li>Apprendre <b>trois citations courtes</b> par poème étudié suffit largement, à condition de savoir les placer.</li></ul>' }
+  ]
+},
+{
+  id: 'fr-idees', bloc: 'fr-oe', titre: 'La littérature d’idées du XVIe au XVIIIe siècle',
+  resume: 'La Boétie, Fontenelle, Graffigny. Convaincre et persuader.',
+  capacites: [
+    'Repérer une thèse, des arguments, des exemples.',
+    'Distinguer convaincre, persuader, délibérer.',
+    'Analyser les procédés de l’argumentation, directe ou indirecte, et l’ironie.',
+    'Situer le texte dans son contexte historique, notamment humaniste ou des Lumières.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'À quoi ça sert ?', c:
+      '<p>C’est l’objet d’étude qui apprend à <b>repérer comment on cherche à vous convaincre</b> : par la raison, ' +
+      'par l’émotion, par l’ironie, par la mise en scène. Une compétence qui dépasse très largement le cours de français.</p>' },
+    oeuvresAuProgramme([
+      ['Étienne de La Boétie', 'Discours de la servitude volontaire', '« Défendre » et « entretenir » la liberté'],
+      ['Fontenelle', 'Entretiens sur la pluralité des mondes', 'le goût de la science'],
+      ['Françoise de Graffigny', 'Lettres d’une Péruvienne', '« un nouvel univers s’est offert à mes yeux »']
+    ]),
+    { k: 'prop', t: 'Trois manières d’argumenter', c:
+      '<ul><li><b>La Boétie</b> (1576) : un texte de révolte. Pourquoi les peuples obéissent-ils à un seul homme ? ' +
+      'Argumentation <b>directe</b>, portée par l’indignation, les questions rhétoriques et les images fortes.</li>' +
+      '<li><b>Fontenelle</b> (1686) : la science expliquée sous forme de <b>dialogue</b> galant avec une marquise, ' +
+      'la nuit, dans un parc. Vulgariser sans ennuyer, c’est déjà une stratégie argumentative.</li>' +
+      '<li><b>Graffigny</b> (1747) : un <b>roman épistolaire</b>. Une Péruvienne enlevée découvre la France et la décrit ' +
+      'avec les yeux d’une étrangère : le <b>regard éloigné</b> rend visibles nos absurdités.</li></ul>' },
+    { k: 'def', t: 'Convaincre, persuader, délibérer', c:
+      '<ul><li><b>Convaincre</b> : s’adresser à la <b>raison</b>, par des arguments logiques et des preuves.</li>' +
+      '<li><b>Persuader</b> : s’adresser aux <b>émotions</b>, par les images, le rythme, l’implication du lecteur.</li>' +
+      '<li><b>Délibérer</b> : peser le pour et le contre avant de trancher.</li></ul>' +
+      '<p>Argumentation <b>directe</b> : l’auteur dit ce qu’il pense. <b>Indirecte</b> : il passe par une fiction, un apologue, ' +
+      'un dialogue, un regard naïf.</p>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Repérer le <b>destinataire</b> : à qui l’auteur parle-t-il ? Cela explique presque tous ses choix.</li>' +
+      '<li>L’<b>ironie</b> se repère à un décalage : entre ce qui est dit et ce qui est pensé, entre le ton et le sujet.</li>' +
+      '<li>Les questions rhétoriques, les impératifs et le « nous » servent à <b>embarquer</b> le lecteur : ils persuadent plus qu’ils ne convainquent.</li></ul>' }
+  ]
+},
+{
+  id: 'fr-roman', bloc: 'fr-oe', titre: 'Le roman et le récit du Moyen Âge au XXIe siècle',
+  resume: 'Chrétien de Troyes, Zola, Schwarz-Bart. Œuvres renouvelées.',
+  capacites: [
+    'Analyser la construction du récit : narrateur, point de vue, rythme, ellipses.',
+    'Étudier la construction d’un personnage et son évolution.',
+    'Relier le roman à son époque et à son courant : roman courtois, naturalisme, récit contemporain.',
+    'Nourrir la dissertation par des exemples précis tirés de l’œuvre et du parcours.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'À quoi ça sert ?', c:
+      '<p><b>C’est l’objet d’étude renouvelé pour 2026-2027</b> : les trois œuvres changent cette année. ' +
+      'C’est aussi celui qui tombe le plus souvent en dissertation, parce qu’une œuvre longue offre beaucoup de matière.</p>' },
+    oeuvresAuProgramme([
+      ['Chrétien de Troyes', 'Le Chevalier de la charrette (édition bilingue)', 'le roman et l’invention de l’amour'],
+      ['Émile Zola', 'Pot-Bouille', 'dévoiler les rouages de la société'],
+      ['Simone Schwarz-Bart', 'Pluie et vent sur Télumée Miracle', 'tisser les mémoires, habiter le monde']
+    ]),
+    { k: 'prop', t: 'Trois romans, trois mondes', c:
+      '<ul><li><b>Chrétien de Troyes</b> (vers 1180) : Lancelot, la charrette d’infamie, l’amour courtois poussé jusqu’à l’humiliation. ' +
+      'Le roman <b>invente</b> une certaine idée de l’amour, celle qui nous gouverne encore.</li>' +
+      '<li><b>Zola</b> (1882) : un immeuble bourgeois parisien, sa façade respectable et ce qui se passe derrière les portes. ' +
+      '<b>Naturalisme</b> : le roman comme enquête sociale, qui dévoile les rouages.</li>' +
+      '<li><b>Schwarz-Bart</b> (1972) : la Guadeloupe, quatre générations de femmes, l’héritage de l’esclavage. ' +
+      'Une langue qui mêle le français et le créole, la mémoire et le présent.</li></ul>' },
+    { k: 'def', t: 'Les outils du récit', c:
+      '<ul><li><b>Narrateur</b> : qui raconte ? Interne au récit (« je ») ou extérieur.</li>' +
+      '<li><b>Point de vue</b> (ou focalisation) : à travers les yeux de qui voit-on ? <b>Interne</b> (un personnage), ' +
+      '<b>externe</b> (une caméra), <b>omniscient</b> (on sait tout, même les pensées).</li>' +
+      '<li><b>Rythme</b> : la <b>scène</b> (temps du récit = temps de l’histoire), le <b>sommaire</b> (on résume), ' +
+      'l’<b>ellipse</b> (on saute), la <b>pause</b> (description).</li>' +
+      '<li><b>Ordre</b> : chronologique, ou avec retours en arrière et anticipations.</li></ul>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Le choix du <b>point de vue</b> n’est jamais neutre : il décide de ce que le lecteur sait et ignore.</li>' +
+      '<li>Une <b>ellipse</b> est un choix d’auteur : demander ce qu’on a caché, et pourquoi, fait souvent avancer l’analyse.</li>' +
+      '<li>Pour la dissertation, préparer <b>cinq à six passages clés</b> de l’œuvre, capables de servir plusieurs sujets différents.</li></ul>' }
+  ]
+},
+{
+  id: 'fr-theatre', bloc: 'fr-oe', titre: 'Le théâtre du XVIIe au XXIe siècle',
+  resume: 'Corneille, Musset, Sarraute. Le texte et la scène.',
+  capacites: [
+    'Analyser la double énonciation et les effets de la parole théâtrale.',
+    'Étudier la structure d’une scène : enjeux, rapports de force, retournements.',
+    'Prendre en compte la mise en scène : didascalies, espace, corps, silences.',
+    'Situer la pièce dans son genre et son époque.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'À quoi ça sert ?', c:
+      '<p>Au théâtre, <b>parler, c’est agir</b>. Une réplique n’informe pas : elle blesse, séduit, manipule, esquive. ' +
+      'Analyser une scène, c’est repérer qui prend le pouvoir sur qui, réplique après réplique.</p>' },
+    oeuvresAuProgramme([
+      ['Pierre Corneille', 'Le Menteur', 'mensonge et comédie'],
+      ['Alfred de Musset', 'On ne badine pas avec l’amour', 'les jeux du cœur et de la parole'],
+      ['Nathalie Sarraute', 'Pour un oui ou pour un non', 'théâtre et dispute']
+    ]),
+    { k: 'prop', t: 'Trois pièces, trois usages de la parole', c:
+      '<ul><li><b>Corneille</b> (1644) : une comédie où le héros ment sans arrêt, par plaisir et par virtuosité. ' +
+      'Le mensonge devient un art, et le moteur de l’intrigue.</li>' +
+      '<li><b>Musset</b> (1834) : un drame romantique. On joue avec l’amour par orgueil, et cela finit mal. ' +
+      'Le badinage y est une arme, et une faute.</li>' +
+      '<li><b>Sarraute</b> (1982) : deux amis se déchirent à cause d’une phrase anodine, « c’est bien, ça ». ' +
+      'Tout le théâtre tient dans les <b>sous-entendus</b> et les silences.</li></ul>' },
+    { k: 'def', t: 'La double énonciation', c:
+      '<p>Un personnage parle à un autre personnage <b>et</b>, en même temps, l’auteur parle au public. ' +
+      'Une même réplique a donc toujours deux destinataires.</p>' +
+      '<p>C’est ce qui rend possibles l’<b>aside</b> (l’aparté), le <b>quiproquo</b>, l’<b>ironie tragique</b> : ' +
+      'le spectateur sait ce que le personnage ignore.</p>' },
+    { k: 'meth', t: 'Analyser une scène', c:
+      '<ul><li>Qui <b>veut</b> quoi ? L’enjeu de la scène se formule en une phrase.</li>' +
+      '<li>Qui <b>parle le plus</b> ? La longueur des répliques dit le rapport de force, et son basculement.</li>' +
+      '<li>Que disent les <b>didascalies</b> ? Elles portent le corps, l’espace, le ton.</li>' +
+      '<li>Comment la scène <b>finit-elle</b> ? Une scène de théâtre se juge à son point de bascule.</li></ul>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Toujours penser <b>représentation</b> : un texte de théâtre est fait pour être joué, pas lu.</li>' +
+      '<li>Les <b>silences</b> et les interruptions comptent autant que les mots, surtout chez Sarraute.</li>' +
+      '<li>Comparer deux <b>mises en scène</b> d’un même passage est un excellent argument d’entretien à l’oral.</li></ul>' }
+  ]
+},
+{
+  id: 'fr-grammaire', bloc: 'fr-outils', titre: 'Grammaire',
+  resume: 'Subordonnées, négation, interrogation. 2 points à l’oral.',
+  capacites: [
+    'Distinguer juxtaposition, coordination et subordination.',
+    'Identifier une proposition subordonnée relative, conjonctive ou interrogative indirecte, et donner sa fonction.',
+    'Analyser l’interrogation : directe ou indirecte, totale ou partielle.',
+    'Analyser l’expression de la négation : totale ou partielle, syntaxique ou lexicale.',
+    'Mener l’analyse syntaxique d’une courte phrase, comme à l’oral de l’EAF.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'À quoi ça sert ?', c:
+      '<p><b>Deux points sur vingt à l’oral</b>, sur une seule question, posée au moment du tirage et portant sur le texte. ' +
+      'Deux points faciles à prendre, et faciles à perdre.</p>' +
+      '<p>Et au-delà de la note : comprendre la construction d’une phrase, c’est comprendre le texte.</p>' },
+    { k: 'def', t: 'Les trois façons de relier des propositions', c:
+      '<ul><li><b>Juxtaposition</b> : virgule, point-virgule, deux-points. <i>Il pleut, je reste.</i></li>' +
+      '<li><b>Coordination</b> : mais, ou, et, donc, or, ni, car. <i>Il pleut <b>donc</b> je reste.</i></li>' +
+      '<li><b>Subordination</b> : une proposition dépend d’une autre. <i><b>Comme</b> il pleut, je reste.</i></li></ul>' },
+    { k: 'prop', t: 'Les trois subordonnées à connaître', c:
+      '<ul><li><b>Relative</b> : introduite par un pronom relatif (qui, que, dont, où, lequel…). ' +
+      'Elle complète un <b>nom</b> : c’est son antécédent. <i>Le livre <b>que je lis</b> est court.</i> → complément de l’antécédent « livre ».</li>' +
+      '<li><b>Conjonctive complétive</b> : introduite par <b>que</b>, elle complète un <b>verbe</b>. ' +
+      '<i>Je pense <b>qu’il viendra</b>.</i> → COD de « pense ».</li>' +
+      '<li><b>Conjonctive circonstancielle</b> : introduite par une conjonction (quand, parce que, si, bien que, pour que…). ' +
+      'Elle précise les circonstances. <i><b>Quand il arrive</b>, tout change.</i> → complément circonstanciel de temps.</li>' +
+      '<li><b>Interrogative indirecte</b> : une question intégrée à une phrase déclarative, <b>sans point d’interrogation</b>. ' +
+      '<i>Je me demande <b>s’il viendra</b>.</i></li></ul>' },
+    { k: 'prop', t: 'Interrogation et négation', c:
+      '<p><b>Interrogation</b> :</p>' +
+      '<ul><li><b>totale</b> (réponse oui/non) ou <b>partielle</b> (elle porte sur un élément : qui, quand, où, comment) ;</li>' +
+      '<li><b>directe</b> (point d’interrogation) ou <b>indirecte</b> (intégrée, sans point d’interrogation) ;</li>' +
+      '<li>trois constructions : intonation (<i>Tu viens ?</i>), <b>est-ce que</b>, inversion (<i>Viens-tu ?</i>).</li></ul>' +
+      '<p><b>Négation</b> :</p>' +
+      '<ul><li><b>totale</b> : <i>ne… pas</i>, elle porte sur toute la phrase ;</li>' +
+      '<li><b>partielle</b> : <i>ne… plus, ne… jamais, ne… personne, ne… rien, ne… que</i> (qui est en fait une <b>restriction</b>) ;</li>' +
+      '<li><b>lexicale</b> : le sens négatif est dans le mot (<i>impossible</i>, <i>refuser</i>), sans « ne ».</li></ul>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Pour reconnaître une relative : le mot introducteur <b>remplace un nom</b> déjà cité. Pour une complétive : on peut remplacer par « cela ».</li>' +
+      '<li><i>Ne… que</i> n’est <b>pas</b> une négation : c’est une <b>restriction</b>, elle signifie « seulement ». Question classique à l’oral.</li>' +
+      '<li>Le <b>ne explétif</b> (<i>je crains qu’il ne vienne</i>) n’a aucune valeur négative.</li>' +
+      '<li>Toujours donner la <b>nature</b> ET la <b>fonction</b> : c’est ce qui vaut les deux points.</li></ul>' },
+    { k: 'piege', t: 'Erreurs classiques', c:
+      '<ul><li>Confondre « que » pronom relatif et « que » conjonction.</li>' +
+      '<li>Oublier la fonction et ne donner que la nature.</li>' +
+      '<li>Analyser la phrase entière alors que la question ne porte que sur une partie.</li></ul>' }
+  ]
+},
+{
+  id: 'fr-figures', bloc: 'fr-outils', titre: 'Figures de style',
+  resume: 'Les reconnaître, et surtout dire ce qu’elles font.',
+  capacites: [
+    'Identifier les principales figures d’analogie, d’opposition, d’insistance et d’atténuation.',
+    'Interpréter l’effet produit, et non seulement nommer le procédé.',
+    'Repérer les réseaux de procédés qui se répondent dans un texte.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'À quoi ça sert ?', c:
+      '<p>Une figure de style n’est pas une décoration : c’est un <b>choix</b>. La nommer ne rapporte rien. ' +
+      'Dire <b>ce qu’elle produit</b> sur le lecteur, voilà ce qui rapporte des points.</p>' +
+      '<p>La formule qui sauve une copie : « <i>procédé + citation + effet</i> ».</p>' },
+    { k: 'def', t: 'Les figures d’analogie', c:
+      '<ul><li><b>Comparaison</b> : deux éléments rapprochés par un <b>outil</b> (comme, tel, semblable à). <i>Il est fort comme un lion.</i></li>' +
+      '<li><b>Métaphore</b> : la même chose <b>sans outil</b>. <i>Ce lion s’est jeté dans la bataille.</i></li>' +
+      '<li><b>Personnification</b> : une chose ou une idée traitée comme une personne. <i>La nuit murmure.</i></li>' +
+      '<li><b>Allégorie</b> : une idée abstraite incarnée tout au long d’un texte. <i>La Mort, sa faux à la main.</i></li></ul>' },
+    { k: 'def', t: 'Les figures d’opposition et d’insistance', c:
+      '<ul><li><b>Antithèse</b> : deux termes opposés rapprochés. <i>Un soleil noir de mélancolie.</i></li>' +
+      '<li><b>Oxymore</b> : deux mots contradictoires <b>collés</b>. <i>Une obscure clarté.</i></li>' +
+      '<li><b>Chiasme</b> : un croisement en miroir, ABBA. <i>Il faut manger pour vivre et non vivre pour manger.</i></li>' +
+      '<li><b>Anaphore</b> : le même mot répété en <b>début</b> de phrases ou de vers.</li>' +
+      '<li><b>Gradation</b> : une progression, croissante ou décroissante. <i>Je me meurs, je suis mort, je suis enterré.</i></li>' +
+      '<li><b>Hyperbole</b> : l’exagération. <i>Mourir de rire.</i></li></ul>' },
+    { k: 'def', t: 'Les figures d’atténuation et de substitution', c:
+      '<ul><li><b>Litote</b> : on dit moins pour faire entendre plus. <i>Va, je ne te hais point</i> = je t’aime.</li>' +
+      '<li><b>Euphémisme</b> : on adoucit une réalité pénible. <i>Il nous a quittés.</i></li>' +
+      '<li><b>Métonymie</b> : on nomme par un élément lié. <i>Boire un verre</i>, <i>lire un Zola</i>.</li>' +
+      '<li><b>Périphrase</b> : on remplace un mot par un groupe. <i>La capitale de la France.</i></li></ul>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Comparaison ou métaphore ? Cherchez l’<b>outil</b>. S’il y en a un, c’est une comparaison.</li>' +
+      '<li>Antithèse ou oxymore ? L’oxymore est <b>collé</b> dans le même groupe de mots, l’antithèse est répartie dans la phrase.</li>' +
+      '<li>Une figure isolée ne vaut rien : cherchez le <b>réseau</b>, plusieurs procédés qui vont dans le même sens.</li>' +
+      '<li>Bannir « l’auteur utilise une métaphore pour embellir son texte » : cette phrase ne dit rien.</li></ul>' }
+  ]
+},
+{
+  id: 'fr-versification', bloc: 'fr-outils', titre: 'Versification',
+  resume: 'Compter les syllabes, nommer les rimes et les strophes.',
+  capacites: [
+    'Compter les syllabes d’un vers et nommer le mètre.',
+    'Identifier la disposition des rimes et leur qualité.',
+    'Nommer une strophe et une forme fixe.',
+    'Repérer les effets de rythme : césure, enjambement, rejet, contre-rejet.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'À quoi ça sert ?', c:
+      '<p>Ce sont des <b>points certains</b> : contrairement à l’interprétation, la versification se vérifie. ' +
+      'Et un décompte de syllabes juste montre immédiatement au correcteur qu’on sait lire un poème.</p>' },
+    { k: 'meth', t: 'Compter les syllabes', c:
+      '<ul><li>Le <b>e muet</b> se prononce <b>devant une consonne</b>, mais pas devant une voyelle ni en fin de vers.</li>' +
+      '<li><i>U/ne / nuit / clai/re, un / vent / gla/cé</i> : le « e » de « claire » ne compte pas, car le mot suivant commence par une voyelle.</li></ul>' +
+      '<p>Les mètres à connaître : <b>alexandrin</b> (12), <b>décasyllabe</b> (10), <b>octosyllabe</b> (8), ' +
+      '<b>heptasyllabe</b> (7), <b>hexasyllabe</b> (6).</p>' },
+    { k: 'prop', t: 'Les rimes', c:
+      '<p><b>Disposition</b> :</p>' +
+      '<ul><li><b>plates</b> (ou suivies) : AABB ;</li>' +
+      '<li><b>croisées</b> : ABAB ;</li>' +
+      '<li><b>embrassées</b> : ABBA.</li></ul>' +
+      '<p><b>Qualité</b>, selon le nombre de sons communs :</p>' +
+      '<ul><li><b>pauvre</b> : 1 son (<i>ami / joli</i>) ;</li>' +
+      '<li><b>suffisante</b> : 2 sons (<i>amour / toujours</i>) ;</li>' +
+      '<li><b>riche</b> : 3 sons ou plus (<i>image / hommage</i>).</li></ul>' },
+    { k: 'prop', t: 'Strophes et formes fixes', c:
+      '<ul><li>2 vers : <b>distique</b> · 3 : <b>tercet</b> · 4 : <b>quatrain</b> · 5 : <b>quintil</b> · 6 : <b>sizain</b> · 8 : <b>huitain</b> · 10 : <b>dizain</b>.</li>' +
+      '<li>Le <b>sonnet</b> : deux quatrains puis deux tercets, quatorze vers. La <b>chute</b> est le dernier vers, souvent le plus fort.</li></ul>' },
+    { k: 'prop', t: 'Les effets de rythme', c:
+      '<ul><li><b>Césure</b> : la coupe principale du vers ; l’alexandrin classique se coupe en deux <b>hémistiches</b> de six syllabes.</li>' +
+      '<li><b>Enjambement</b> : la phrase déborde sur le vers suivant.</li>' +
+      '<li><b>Rejet</b> : un court élément renvoyé au début du vers suivant, donc <b>mis en valeur</b>.</li>' +
+      '<li><b>Contre-rejet</b> : l’inverse, un élément placé en fin de vers qui annonce la suite.</li></ul>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Compter sur ses doigts, discrètement : personne ne compte de tête sans erreur.</li>' +
+      '<li>Un <b>rejet</b> met toujours un mot en avant : c’est presque toujours interprétable, donc payant.</li>' +
+      '<li>Un vers faux dans un poème classique n’est jamais une erreur de l’auteur : c’est un effet.</li></ul>' }
+  ]
+},
+{
+  id: 'fr-registres', bloc: 'fr-outils', titre: 'Registres et mouvements',
+  resume: 'Le ton d’un texte, son siècle, son courant.',
+  capacites: [
+    'Identifier le registre dominant d’un texte et les procédés qui le portent.',
+    'Situer une œuvre dans son mouvement littéraire et son siècle.',
+    'Reconnaître les genres littéraires et leurs codes.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'À quoi ça sert ?', c:
+      '<p>Le registre, c’est l’<b>effet recherché sur le lecteur</b>. Le nommer dès l’introduction du commentaire ' +
+      'oriente toute l’analyse, et montre qu’on a compris le texte avant de l’expliquer.</p>' },
+    { k: 'def', t: 'Les registres', c:
+      '<ul><li><b>Lyrique</b> : l’expression des sentiments personnels. Première personne, exclamations, images.</li>' +
+      '<li><b>Tragique</b> : l’homme écrasé par une force qui le dépasse, sans issue. Fatalité, mort.</li>' +
+      '<li><b>Pathétique</b> : la souffrance montrée pour émouvoir, faire pitié.</li>' +
+      '<li><b>Épique</b> : l’amplification héroïque. Hyperboles, pluriels, combat.</li>' +
+      '<li><b>Comique</b> : faire rire, par les mots, les gestes, la situation ou le caractère.</li>' +
+      '<li><b>Ironique</b> : dire le contraire de ce que l’on pense, pour critiquer.</li>' +
+      '<li><b>Polémique</b> : attaquer un adversaire. Ton virulent, lexique dépréciatif.</li>' +
+      '<li><b>Didactique</b> : instruire, expliquer.</li></ul>' },
+    { k: 'prop', t: 'Les mouvements littéraires', c:
+      '<ul><li><b>Humanisme</b> (XVIe) : la confiance dans l’homme et le savoir. Rabelais, Montaigne, La Boétie.</li>' +
+      '<li><b>Baroque</b> (fin XVIe – début XVIIe) : le mouvement, l’instabilité, l’illusion.</li>' +
+      '<li><b>Classicisme</b> (XVIIe) : l’ordre, la mesure, les règles. Corneille, Molière, Racine, La Fontaine.</li>' +
+      '<li><b>Lumières</b> (XVIIIe) : la raison contre les préjugés. Voltaire, Diderot, Rousseau, Fontenelle, Graffigny.</li>' +
+      '<li><b>Romantisme</b> (début XIXe) : le moi, la passion, la nature. Hugo, Musset, Lamartine.</li>' +
+      '<li><b>Réalisme</b> (milieu XIXe) : peindre la société telle qu’elle est. Balzac, Flaubert, Maupassant.</li>' +
+      '<li><b>Naturalisme</b> (fin XIXe) : le réalisme poussé à la méthode scientifique. <b>Zola</b>.</li>' +
+      '<li><b>Parnasse</b> (milieu XIXe) : « l’art pour l’art », la forme impeccable, les sujets antiques ou exotiques, le refus de l’épanchement personnel. Leconte de Lisle, Heredia.</li>' +
+      '<li><b>Symbolisme</b> (fin XIXe) : suggérer plutôt que nommer. Baudelaire, Verlaine, Rimbaud, Mallarmé.</li>' +
+      '<li><b>Surréalisme</b> (XXe) : le rêve, l’inconscient, l’écriture automatique. Breton, Éluard.</li>' +
+      '<li><b>Absurde et Nouveau Roman</b> (XXe) : Camus, Ionesco, Beckett, <b>Sarraute</b>.</li></ul>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Un texte a souvent <b>deux registres</b> qui se mêlent : le dire est plus fin que d’en choisir un seul.</li>' +
+      '<li>Tragique ≠ pathétique : le tragique suppose une <b>fatalité</b>, le pathétique cherche seulement l’émotion.</li>' +
+      '<li>Citer un mouvement sans le relier au texte ne rapporte rien : montrez le trait du mouvement <b>dans</b> l’extrait.</li></ul>' }
+  ]
+},
+{
+  id: 'fr-commentaire', bloc: 'fr-epreuves', titre: 'Le commentaire',
+  resume: 'Écrit, 4 h, 20 points. Analyser un texte inconnu.',
+  capacites: [
+    'Construire un projet de lecture et un plan en deux ou trois axes.',
+    'Rédiger une introduction complète : amorce, présentation, problématique, annonce du plan.',
+    'Rédiger un paragraphe d’analyse liant procédé, citation et interprétation.',
+    'Conclure en répondant à la problématique et en ouvrant.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'L’épreuve', c:
+      '<p><b>Écrit de 4 heures, coefficient 5.</b> Deux sujets au choix : le <b>commentaire</b> d’un texte que tu découvres, ' +
+      'ou la <b>dissertation</b> sur une des œuvres étudiées. Chacun est noté sur 20.</p>' +
+      '<p>Le commentaire porte sur un texte <b>hors programme</b>, mais relevant d’un des quatre objets d’étude.</p>' },
+    { k: 'meth', t: 'La méthode, étape par étape', c:
+      '<ul><li>1. <b>Lire trois fois</b> : pour comprendre, pour repérer les procédés, pour chercher le mouvement du texte.</li>' +
+      '<li>2. Formuler un <b>projet de lecture</b> : qu’est-ce que ce texte fait, et comment ? C’est la problématique.</li>' +
+      '<li>3. Bâtir <b>deux ou trois axes</b>, qui sont des <b>réponses</b> à la problématique, jamais des étiquettes comme « les procédés ».</li>' +
+      '<li>4. Rédiger entièrement : pas de plan apparent, pas de titres, pas de tirets.</li></ul>' },
+    { k: 'prop', t: 'L’introduction, quatre étapes obligatoires', c:
+      '<ul><li><b>Amorce</b> : une phrase de contexte (mouvement, genre, époque).</li>' +
+      '<li><b>Présentation</b> : auteur, titre, date, situation du passage.</li>' +
+      '<li><b>Problématique</b> : la question à laquelle le devoir répond.</li>' +
+      '<li><b>Annonce du plan</b> : les axes, dans l’ordre, sans les numéroter lourdement.</li></ul>' },
+    { k: 'prop', t: 'Le paragraphe d’analyse', c:
+      '<p>Chaque paragraphe suit le même mouvement, connu sous le nom d’<b>AQA</b> :</p>' +
+      '<ul><li><b>Affirmation</b> : l’idée défendue, annoncée d’emblée.</li>' +
+      '<li><b>Quotation</b> : la citation, courte, entre guillemets, avec la ligne.</li>' +
+      '<li><b>Analyse</b> : le procédé nommé <b>et son effet</b>.</li></ul>' +
+      '<p>Trois ou quatre paragraphes de ce type par axe suffisent.</p>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Un axe qui s’appelle « les figures de style » est un axe raté : ce n’est pas une idée, c’est un inventaire.</li>' +
+      '<li>Ne jamais paraphraser : si la phrase pourrait être écrite par quelqu’un qui n’a pas analysé le texte, elle ne vaut rien.</li>' +
+      '<li>Garder <b>vingt minutes</b> pour la relecture : l’orthographe compte dans la note.</li>' +
+      '<li>Une conclusion sans ouverture est une conclusion incomplète.</li></ul>' }
+  ]
+},
+{
+  id: 'fr-dissertation', bloc: 'fr-epreuves', titre: 'La dissertation',
+  resume: 'Écrit, 4 h, 20 points. Sur une œuvre étudiée.',
+  capacites: [
+    'Analyser un sujet et en dégager les mots clés et les enjeux.',
+    'Construire un plan dialectique ou thématique cohérent.',
+    'Nourrir chaque partie d’exemples précis tirés de l’œuvre et du parcours.',
+    'Rédiger une introduction et une conclusion complètes.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'L’épreuve', c:
+      '<p>Trois sujets de dissertation sont proposés, un par œuvre du programme. Tu traites celui qui porte sur ' +
+      '<b>l’œuvre étudiée dans ta classe</b>.</p>' +
+      '<p>Le sujet prend appui sur l’œuvre, sur le <b>parcours associé</b>, et sur ta culture personnelle : les trois sont attendus.</p>' },
+    { k: 'meth', t: 'Analyser le sujet', c:
+      '<ul><li>Souligner les <b>mots clés</b> et les définir : un sujet se joue souvent sur un seul mot.</li>' +
+      '<li>Repérer la <b>forme</b> : une question fermée appelle un plan <b>dialectique</b> (oui / non / dépassement) ; ' +
+      'une question ouverte appelle un plan <b>thématique</b>.</li>' +
+      '<li>Chercher la <b>tension</b> du sujet : ce qui, dans la citation, résiste ou surprend.</li></ul>' },
+    { k: 'prop', t: 'Les deux plans possibles', c:
+      '<ul><li><b>Dialectique</b> : I. Oui, dans une certaine mesure · II. Mais c’est insuffisant · III. En réalité, le sujet se déplace. ' +
+      'La troisième partie ne doit jamais être un simple compromis.</li>' +
+      '<li><b>Thématique</b> : trois aspects complémentaires d’une même question, du plus évident au plus fin.</li></ul>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Préparer <b>cinq ou six passages</b> de l’œuvre, capables de servir plusieurs sujets différents : c’est plus efficace que de tout relire.</li>' +
+      '<li>Le <b>parcours associé</b> doit apparaître explicitement : c’est un attendu du sujet.</li>' +
+      '<li>Un exemple non analysé ne compte pas. Un exemple = une idée + ce qu’il prouve.</li>' +
+      '<li>Ne jamais résumer l’œuvre : le correcteur la connaît.</li></ul>' }
+  ]
+},
+{
+  id: 'fr-oral', bloc: 'fr-epreuves', titre: 'L’oral',
+  resume: 'Explication linéaire, grammaire, entretien. 20 points.',
+  capacites: [
+    'Lire un texte à voix haute de façon expressive.',
+    'Conduire une explication linéaire suivant le mouvement du texte.',
+    'Répondre à une question de grammaire par une analyse syntaxique précise.',
+    'Présenter et défendre une œuvre choisie lors de l’entretien.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'L’épreuve, dans le détail', c:
+      '<p><b>Coefficient 5</b>, 20 minutes de préparation puis 20 minutes devant l’examinateur.</p>' +
+      '<ul><li><b>Lecture expressive</b> du texte : <b>2 points</b>.</li>' +
+      '<li><b>Explication linéaire</b> d’un passage d’une vingtaine de lignes, tiré de ton descriptif : <b>8 points</b>.</li>' +
+      '<li><b>Question de grammaire</b>, posée au tirage et portant sur le texte : <b>2 points</b>.</li>' +
+      '<li><b>Entretien</b> sur une œuvre que <b>tu as choisie</b> et présentée : <b>8 points</b>.</li></ul>' },
+    { k: 'meth', t: 'L’explication linéaire', c:
+      '<p>Elle suit le texte <b>dans son ordre</b> : ce n’est pas un commentaire composé.</p>' +
+      '<ul><li>1. Situer le texte en deux phrases.</li>' +
+      '<li>2. Annoncer les <b>mouvements</b> du texte : deux ou trois parties, repérées par un changement de ton, de temps, de sujet.</li>' +
+      '<li>3. Expliquer mouvement par mouvement, en citant, en nommant les procédés et en disant leurs effets.</li>' +
+      '<li>4. Conclure sur l’intérêt du passage et le relier à l’œuvre.</li></ul>' },
+    { k: 'meth', t: 'L’entretien', c:
+      '<p>Tu présentes l’œuvre choisie pendant deux à trois minutes, puis l’examinateur échange avec toi.</p>' +
+      '<ul><li>Expliquer <b>pourquoi</b> tu l’as choisie : une raison personnelle et sincère vaut mieux qu’un résumé.</li>' +
+      '<li>Préparer <b>deux passages précis</b> à citer.</li>' +
+      '<li>Accepter la discussion : l’examinateur teste ta capacité à réagir, pas ta mémoire.</li></ul>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>La <b>lecture expressive</b> vaut 2 points et se prépare : respirer aux virgules, ralentir à la chute.</li>' +
+      '<li>Ne jamais réciter : un examinateur repère un texte appris par cœur en trente secondes.</li>' +
+      '<li>La question de grammaire arrive <b>au tirage</b> : y penser pendant les 20 minutes de préparation, pas à la fin.</li>' +
+      '<li>Si un mot manque, le dire et reformuler : le silence coûte plus cher que l’hésitation.</li></ul>' }
+  ]
+}
+];
+
+CHAPITRES_FR.forEach(c => {
+  c.gens = [];
+  c.matiere = 'francais';
+  c.classe = 'premiere';
+  CHAPITRES.push(c);
+  CHAP[c.id] = c;
+});
+/* =========================================================================
+   Générateurs d'exercices de français.
+   Même principe qu'en maths : la réponse est calculée en même temps que
+   l'énoncé, donc la correction est toujours juste.
+   Les exercices de rédaction (introduction, paragraphe, explication
+   linéaire) passent par le barème auto-évalué, comme les démonstrations.
+   ========================================================================= */
+
+/* petit utilitaire : n distracteurs pris dans une liste, différents du bon */
+function autres(liste, bon, n){
+  const vus = {}, uniq = [];
+  liste.forEach(x => { if (x !== bon && !vus[x]){ vus[x] = 1; uniq.push(x); } });
+  return R.shuffle(uniq).slice(0, n);
+}
+/* fabrique un QCM à 4 options à partir d'un bon et d'un vivier */
+function qcm4(bon, vivier){
+  const opts = R.shuffle([bon].concat(autres(vivier, bon, 3)));
+  return { options: opts, bon: opts.indexOf(bon) };
+}
+/* encadré de citation */
+function cit(t, src){
+  return '<div class="cit">« ' + t + ' »' + (src ? '<span class="cit-src">' + src + '</span>' : '') + '</div>';
+}
+
+/* =================== FIGURES DE STYLE =================== */
+
+const NOMS_FIGURES = ['Comparaison', 'Métaphore', 'Personnification', 'Allégorie',
+  'Antithèse', 'Oxymore', 'Chiasme', 'Anaphore', 'Gradation', 'Hyperbole',
+  'Litote', 'Euphémisme', 'Métonymie', 'Périphrase'];
+
+const BANQUE_FIGURES = [
+  { t: 'Le vent hurlait dans les branches nues', f: 'Personnification',
+    e: 'Le vent reçoit un cri humain : il devient un être vivant et menaçant.' },
+  { t: 'Cette femme est une rose', f: 'Métaphore',
+    e: 'Aucun outil de comparaison : la femme est directement identifiée à la fleur.' },
+  { t: 'Il est fort comme un lion', f: 'Comparaison',
+    e: 'L’outil « comme » relie explicitement les deux éléments.' },
+  { t: 'Une obscure clarté tombe des étoiles', f: 'Oxymore', s: 'Corneille, Le Cid',
+    e: 'Deux mots contradictoires sont collés dans le même groupe : l’ombre et la lumière.' },
+  { t: 'Va, je ne te hais point', f: 'Litote', s: 'Corneille, Le Cid',
+    e: 'Chimène dit moins pour faire entendre beaucoup plus : elle aime encore Rodrigue.' },
+  { t: 'Il nous a quittés la nuit dernière', f: 'Euphémisme',
+    e: 'La mort est adoucie par une formule indirecte.' },
+  { t: 'Je meurs, je suis mort, je suis enterré', f: 'Gradation',
+    e: 'Les termes sont rangés dans une progression croissante d’intensité.' },
+  { t: 'Il faut manger pour vivre et non vivre pour manger', f: 'Chiasme', s: 'Molière, L’Avare',
+    e: 'Les deux verbes se croisent en miroir, selon le schéma AB / BA.' },
+  { t: 'Je l’ai attendu mille ans devant cette porte', f: 'Hyperbole',
+    e: 'L’exagération manifeste traduit l’impatience.' },
+  { t: 'Un soleil noir de la mélancolie', f: 'Antithèse', s: 'Nerval, El Desdichado',
+    e: 'La lumière et l’obscurité sont rapprochées pour dire la contradiction intérieure.' },
+  { t: 'Paris s’éveille et se met à courir', f: 'Personnification',
+    e: 'La ville agit comme une personne qui se lève.' },
+  { t: 'Boire un verre entre amis', f: 'Métonymie',
+    e: 'On nomme le contenant (le verre) pour désigner le contenu (la boisson).' },
+  { t: 'Il a lu tout un Zola cet été', f: 'Métonymie',
+    e: 'On nomme l’auteur pour désigner son œuvre.' },
+  { t: 'La capitale de la France s’est réveillée sous la neige', f: 'Périphrase',
+    e: 'Un groupe de mots remplace le nom propre « Paris ».' },
+  { t: 'La Mort s’avançait, sa faux à la main, et frappait sans choisir', f: 'Allégorie',
+    e: 'Une idée abstraite est incarnée en personnage, avec ses attributs.' },
+  { t: 'Mon enfant, ma sœur, songe à la douceur', f: 'Comparaison', s: 'Baudelaire, L’Invitation au voyage',
+    e: 'Les appositions rapprochent l’aimée de figures familières ; l’assimilation se fait sans outil explicite, mais le rapprochement est bien une mise en parallèle.' },
+  { t: 'Rome, l’unique objet de mon ressentiment', f: 'Périphrase', s: 'Corneille, Horace',
+    e: 'La ville est désignée par ce qu’elle représente pour Camille.' },
+  { t: 'Le vent glacé mordait les visages', f: 'Métaphore',
+    e: 'Le verbe « mordre » assimile le vent à un animal, sans outil de comparaison.' },
+  { t: 'Partir, partir enfin, partir pour toujours', f: 'Anaphore',
+    e: 'Le même mot ouvre chaque groupe : la répétition martèle le désir de départ.' },
+  { t: 'Ses yeux sont plus clairs que l’astre des beaux soirs', f: 'Comparaison', s: 'Leconte de Lisle',
+    e: 'Le comparatif « plus… que » est l’outil de comparaison.' }
+];
+/* la 16e entrée est ambiguë : on la retire du tirage */
+BANQUE_FIGURES.splice(15, 1);
+
+G('fr-figures', 'fg-identifier', 'Identifier la figure de style', 'app', function(){
+  const c = R.pick(BANQUE_FIGURES);
+  return {
+    enonce: '<p>Quelle figure de style reconnais-tu dans cet extrait ?</p>' + cit(c.t, c.s || ''),
+    qcm: qcm4(c.f, NOMS_FIGURES),
+    etapes: [
+      'Il s’agit d’une <b>' + c.f.toLowerCase() + '</b>.',
+      c.e,
+      'Rappel : on ne gagne des points qu’en disant <b>l’effet produit</b>, jamais en nommant seulement le procédé.'
+    ]
+  };
+});
+
+const DEFS_FIGURES = [
+  ['Comparaison', 'rapprocher deux éléments à l’aide d’un outil (comme, tel, semblable à, plus… que)'],
+  ['Métaphore', 'rapprocher deux éléments sans aucun outil de comparaison'],
+  ['Personnification', 'attribuer à une chose ou à un animal des traits humains'],
+  ['Allégorie', 'incarner une idée abstraite en personnage, avec ses attributs'],
+  ['Antithèse', 'rapprocher dans une même phrase deux termes de sens opposé'],
+  ['Oxymore', 'réunir dans un même groupe de mots deux termes contradictoires'],
+  ['Chiasme', 'construire un croisement en miroir selon le schéma AB / BA'],
+  ['Anaphore', 'répéter un même mot au début de plusieurs phrases ou vers'],
+  ['Gradation', 'ranger des termes selon une progression d’intensité'],
+  ['Hyperbole', 'exagérer volontairement pour frapper l’esprit'],
+  ['Litote', 'dire moins pour faire entendre davantage'],
+  ['Euphémisme', 'atténuer une réalité pénible par une formule adoucie'],
+  ['Métonymie', 'désigner une chose par un élément qui lui est lié (le contenant, l’auteur, la matière)'],
+  ['Périphrase', 'remplacer un mot par un groupe de mots qui le décrit']
+];
+
+G('fr-figures', 'fg-definition', 'Du sens vers le nom', 'app', function(){
+  const c = R.pick(DEFS_FIGURES);
+  return {
+    enonce: '<p>Comment s’appelle la figure de style qui consiste à <b>' + c[1] + '</b> ?</p>',
+    qcm: qcm4(c[0], NOMS_FIGURES),
+    etapes: ['C’est <b>' + c[0].toLowerCase() + '</b> : ' + c[1] + '.']
+  };
+});
+
+const CAT_FIGURE = {
+  'Comparaison': 'Analogie', 'Métaphore': 'Analogie', 'Personnification': 'Analogie', 'Allégorie': 'Analogie',
+  'Antithèse': 'Opposition', 'Oxymore': 'Opposition', 'Chiasme': 'Opposition',
+  'Anaphore': 'Insistance', 'Gradation': 'Insistance', 'Hyperbole': 'Insistance',
+  'Litote': 'Atténuation', 'Euphémisme': 'Atténuation',
+  'Métonymie': 'Substitution', 'Périphrase': 'Substitution'
+};
+const NOMS_CAT = ['Analogie', 'Opposition', 'Insistance', 'Atténuation', 'Substitution'];
+
+G('fr-figures', 'fg-effet', 'Figure, catégorie et effet', 'ent', function(){
+  const c = R.pick(BANQUE_FIGURES);
+  const figs = R.shuffle([c.f].concat(autres(NOMS_FIGURES, c.f, 3)));
+  const cat = CAT_FIGURE[c.f];
+  return {
+    enonce: '<p>Lis l’extrait, puis donne la figure employée et la famille à laquelle elle appartient.</p>' +
+            cit(c.t, c.s || ''),
+    champs: [
+      { type: 'choix', label: 'Figure employée', options: figs, bon: figs.indexOf(c.f) },
+      { type: 'choix', label: 'Famille de figures', options: NOMS_CAT.slice(), bon: NOMS_CAT.indexOf(cat) }
+    ],
+    etapes: [
+      'La figure est une <b>' + c.f.toLowerCase() + '</b>. Famille : <b>' + cat.toLowerCase() + '</b>.',
+      c.e,
+      'Dans une copie, la phrase attendue est toujours : <i>procédé + citation + effet</i>. Le nom seul ne rapporte rien.'
+    ]
+  };
+});
+
+/* =================== VERSIFICATION =================== */
+
+const VERS = [
+  { t: 'Une nuit claire, un vent glacé. La neige est rouge', n: 12, s: 'Leconte de Lisle' },
+  { t: 'Mille braves sont là qui dorment sans tombeaux', n: 12, s: 'Leconte de Lisle' },
+  { t: 'La lune froide verse au loin sa pâle flamme', n: 12, s: 'Leconte de Lisle' },
+  { t: 'Demain, dès l’aube, à l’heure où blanchit la campagne', n: 12, s: 'Hugo' },
+  { t: 'Je fais souvent ce rêve étrange et pénétrant', n: 12, s: 'Verlaine' },
+  { t: 'Souvent, pour s’amuser, les hommes d’équipage', n: 12, s: 'Baudelaire' },
+  { t: 'Les chants désespérés sont les chants les plus beaux', n: 12, s: 'Musset' },
+  { t: 'Ce toit tranquille, où marchent des colombes', n: 10, s: 'Valéry' },
+  { t: 'Sous le pont Mirabeau coule la Seine', n: 10, s: 'Apollinaire' },
+  { t: 'Maître Corbeau, sur un arbre perché', n: 10, s: 'La Fontaine' },
+  { t: 'Maître Renard, par l’odeur alléché', n: 10, s: 'La Fontaine' },
+  { t: 'Tenait en son bec un fromage', n: 8, s: 'La Fontaine' },
+  { t: 'Lui tint à peu près ce langage', n: 8, s: 'La Fontaine' },
+  { t: 'Mignonne, allons voir si la rose', n: 8, s: 'Ronsard' },
+  { t: 'Je suis venu, calme orphelin', n: 8, s: 'Verlaine' },
+  { t: 'Vienne la nuit sonne l’heure', n: 7, s: 'Apollinaire' },
+  { t: 'Les jours s’en vont je demeure', n: 7, s: 'Apollinaire' },
+  { t: 'Il pleure dans mon cœur', n: 6, s: 'Verlaine' }
+];
+const NOM_METRE = { 12: 'Alexandrin', 10: 'Décasyllabe', 8: 'Octosyllabe', 7: 'Heptasyllabe', 6: 'Hexasyllabe' };
+
+G('fr-versification', 'vs-metre', 'Compter les syllabes d’un vers', 'app', function(){
+  const v = R.pick(VERS);
+  const noms = ['Alexandrin', 'Décasyllabe', 'Octosyllabe', 'Heptasyllabe', 'Hexasyllabe'];
+  const bon = NOM_METRE[v.n];
+  return {
+    enonce: '<p>Compte les syllabes de ce vers, puis donne le nom du mètre.</p>' + cit(v.t, v.s) +
+            '<p class="tiny">Rappel : le « e » muet compte devant une consonne, mais pas devant une voyelle ni en fin de vers.</p>',
+    champs: [
+      { type: 'num', label: 'Nombre de syllabes', bon: v.n, tol: 0 },
+      { type: 'choix', label: 'Nom du mètre', options: noms, bon: noms.indexOf(bon) }
+    ],
+    etapes: [
+      'Ce vers compte <b>' + v.n + ' syllabes</b> : c’est un <b>' + bon.toLowerCase() + '</b>.',
+      'Méthode : lire à voix basse en marquant chaque syllabe sur les doigts, et surveiller chaque « e » final.',
+      'Piège habituel : un « e » suivi d’une voyelle s’élide et ne compte pas.'
+    ]
+  };
+});
+
+const QUATRAINS = [
+  { v: ['Ô rage ! ô désespoir ! ô vieillesse ennemie !', 'N’ai-je donc tant vécu que pour cette infamie ?',
+        'Et ne suis-je blanchi dans les travaux guerriers', 'Que pour voir en un jour flétrir tant de lauriers ?'],
+    s: 'Corneille, Le Cid', mvt: 'Classicisme', d: 'Plates', sch: 'AABB' },
+  { v: ['Enfin Malherbe vint, et, le premier en France,', 'Fit sentir dans les vers une juste cadence,',
+        'D’un mot mis en sa place enseigna le pouvoir,', 'Et réduisit la muse aux règles du devoir.'],
+    s: 'Boileau, Art poétique', mvt: 'Classicisme', d: 'Plates', sch: 'AABB' },
+  { v: ['Une nuit claire, un vent glacé. La neige est rouge.', 'Mille braves sont là qui dorment sans tombeaux,',
+        'L’épée au poing, les yeux hagards. Pas un ne bouge.', 'Au-dessus tourne et crie un vol de noirs corbeaux.'],
+    s: 'Leconte de Lisle, Le Cœur de Hialmar', mvt: 'Parnasse', d: 'Croisées', sch: 'ABAB' },
+  { v: ['Souvent, pour s’amuser, les hommes d’équipage', 'Prennent des albatros, vastes oiseaux des mers,',
+        'Qui suivent, indolents compagnons de voyage,', 'Le navire glissant sur les gouffres amers.'],
+    s: 'Baudelaire, L’Albatros', mvt: 'Symbolisme', d: 'Croisées', sch: 'ABAB' },
+  { v: ['C’est un trou de verdure où chante une rivière', 'Accrochant follement aux herbes des haillons',
+        'D’argent ; où le soleil, de la montagne fière,', 'Luit : c’est un petit val qui mousse de rayons.'],
+    s: 'Rimbaud, Le Dormeur du val', mvt: 'Symbolisme', d: 'Croisées', sch: 'ABAB' },
+  { v: ['Heureux qui, comme Ulysse, a fait un beau voyage,', 'Ou comme celui-là qui conquit la toison,',
+        'Et puis est retourné, plein d’usage et raison,', 'Vivre entre ses parents le reste de son âge !'],
+    s: 'Du Bellay, Les Regrets', mvt: 'Humanisme', d: 'Embrassées', sch: 'ABBA' },
+  { v: ['Je fais souvent ce rêve étrange et pénétrant', 'D’une femme inconnue, et que j’aime, et qui m’aime,',
+        'Et qui n’est, chaque fois, ni tout à fait la même', 'Ni tout à fait une autre, et m’aime et me comprend.'],
+    s: 'Verlaine, Mon rêve familier', mvt: 'Symbolisme', d: 'Embrassées', sch: 'ABBA' }
+];
+
+G('fr-versification', 'vs-disposition', 'Disposition des rimes', 'app', function(){
+  const q = R.pick(QUATRAINS);
+  const noms = ['Plates', 'Croisées', 'Embrassées'];
+  return {
+    enonce: '<p>Quelle est la disposition des rimes dans ce quatrain ?</p>' +
+            '<div class="cit">' + q.v.join('<br>') + '<span class="cit-src">' + q.s + '</span></div>',
+    qcm: { options: noms.slice(), bon: noms.indexOf(q.d) },
+    etapes: [
+      'Les rimes suivent le schéma <b>' + q.sch + '</b> : ce sont des rimes <b>' + q.d.toLowerCase() + '</b>.',
+      'Méthode : noter la lettre de chaque son final, en commençant par A, et relire la suite obtenue.',
+      'AABB plates · ABAB croisées · ABBA embrassées.'
+    ]
+  };
+});
+
+const RIMES = [
+  { a: 'ami', b: 'joli', son: '[i]', n: 1, q: 'Pauvre' },
+  { a: 'vu', b: 'perdu', son: '[y]', n: 1, q: 'Pauvre' },
+  { a: 'chanté', b: 'oublié', son: '[e]', n: 1, q: 'Pauvre' },
+  { a: 'content', b: 'temps', son: '[ɑ̃]', n: 1, q: 'Pauvre' },
+  { a: 'amour', b: 'toujours', son: '[uʀ]', n: 2, q: 'Suffisante' },
+  { a: 'matin', b: 'destin', son: '[tɛ̃]', n: 2, q: 'Suffisante' },
+  { a: 'sommeil', b: 'pareil', son: '[ɛj]', n: 2, q: 'Suffisante' },
+  { a: 'âge', b: 'voyage', son: '[aʒ]', n: 2, q: 'Suffisante' },
+  { a: 'image', b: 'hommage', son: '[maʒ]', n: 3, q: 'Riche' },
+  { a: 'victoire', b: 'histoire', son: '[twaʀ]', n: 3, q: 'Riche' },
+  { a: 'tendresse', b: 'caresse', son: '[ʀɛs]', n: 3, q: 'Riche' },
+  { a: 'sévère', b: 'persévère', son: '[sevɛʀ]', n: 4, q: 'Riche' }
+];
+
+G('fr-versification', 'vs-qualite', 'Qualité d’une rime', 'ent', function(){
+  const r = R.pick(RIMES);
+  const noms = ['Pauvre', 'Suffisante', 'Riche'];
+  return {
+    enonce: '<p>Deux vers riment en <b>' + r.a + '</b> / <b>' + r.b + '</b>.</p>' +
+            '<p>Combien de sons ces deux mots ont-ils en commun, et quelle est la qualité de la rime ?</p>',
+    champs: [
+      { type: 'num', label: 'Sons en commun', bon: r.n, tol: 0 },
+      { type: 'choix', label: 'Qualité de la rime', options: noms, bon: noms.indexOf(r.q) }
+    ],
+    etapes: [
+      'Les deux mots ont en commun le son ' + r.son + ', soit <b>' + r.n + ' son' + (r.n > 1 ? 's' : '') + '</b>.',
+      '1 son → rime <b>pauvre</b> · 2 sons → rime <b>suffisante</b> · 3 sons ou plus → rime <b>riche</b>.',
+      'Ici la rime est donc <b>' + r.q.toLowerCase() + '</b>.',
+      'Attention : on compte des <b>sons</b>, pas des lettres.'
+    ]
+  };
+});
+
+const STROPHES = [[2, 'Distique'], [3, 'Tercet'], [4, 'Quatrain'], [5, 'Quintil'],
+                  [6, 'Sizain'], [8, 'Huitain'], [10, 'Dizain']];
+
+G('fr-versification', 'vs-strophe', 'Nommer une strophe', 'app', function(){
+  const s = R.pick(STROPHES);
+  const noms = STROPHES.map(x => x[1]);
+  return {
+    enonce: '<p>Comment appelle-t-on une strophe de <b>' + s[0] + ' vers</b> ?</p>',
+    qcm: qcm4(s[1], noms),
+    etapes: [
+      'Une strophe de ' + s[0] + ' vers est un <b>' + s[1].toLowerCase() + '</b>.',
+      'À retenir aussi : le <b>sonnet</b> est fait de deux quatrains suivis de deux tercets, soit quatorze vers.'
+    ]
+  };
+});
+
+const RYTHME = [
+  ['Enjambement', 'la phrase se poursuit au-delà de la fin du vers, sans pause'],
+  ['Rejet', 'un élément court est renvoyé au début du vers suivant, ce qui le met en relief'],
+  ['Contre-rejet', 'un élément court est placé en fin de vers alors qu’il appartient à la phrase suivante'],
+  ['Césure', 'la coupe principale à l’intérieur du vers'],
+  ['Hémistiche', 'chacune des deux moitiés de l’alexandrin séparées par la césure'],
+  ['Diérèse', 'prononcer en deux syllabes un groupe de voyelles habituellement dit en une seule']
+];
+
+G('fr-versification', 'vs-rythme', 'Les effets de rythme', 'ent', function(){
+  const r = R.pick(RYTHME);
+  const noms = RYTHME.map(x => x[0]);
+  return {
+    enonce: '<p>Quel terme désigne le fait suivant : <b>' + r[1] + '</b> ?</p>',
+    qcm: qcm4(r[0], noms),
+    etapes: [
+      'Il s’agit de <b>' + r[0].toLowerCase() + '</b>.',
+      'Exemple de rejet célèbre, chez Rimbaud : « Il dort dans le soleil, la main sur sa poitrine / <b>Tranquille</b>. » Le mot isolé au vers suivant frappe d’autant plus que la suite annonce la mort du soldat.'
+    ]
+  };
+});
+
+/* =================== GRAMMAIRE =================== */
+
+const SUBORDONNEES = [
+  { mot: 'que', p: 'Le livre <u>que je lis</u> est passionnant.', nat: 'Subordonnée relative',
+    fon: 'Complément de l’antécédent « livre »',
+    e: 'Introduite par le pronom relatif « que », elle complète le nom « livre », son antécédent.' },
+  { mot: 'où', p: 'La ville <u>où je suis né</u> a beaucoup changé.', nat: 'Subordonnée relative',
+    fon: 'Complément de l’antécédent « ville »',
+    e: '« où » est ici un pronom relatif, dont l’antécédent est « ville ».' },
+  { mot: 'que', p: 'Je pense <u>qu’il viendra demain</u>.', nat: 'Subordonnée conjonctive complétive',
+    fon: 'COD du verbe « pense »',
+    e: 'Elle est introduite par la conjonction « que » et complète le verbe. On peut la remplacer par « cela ».' },
+  { mot: 'que', p: 'Elle affirme <u>que ce texte est un pastiche</u>.', nat: 'Subordonnée conjonctive complétive',
+    fon: 'COD du verbe « affirme »',
+    e: 'Test : « elle affirme cela » fonctionne, donc la subordonnée est bien COD.' },
+  { mot: 'quand', p: '<u>Quand la nuit tombe</u>, la ville devient silencieuse.', nat: 'Subordonnée conjonctive circonstancielle',
+    fon: 'Complément circonstanciel de temps',
+    e: 'Introduite par « quand », elle précise le moment de l’action principale.' },
+  { mot: 'parce que', p: 'Il se tait <u>parce qu’il a peur</u>.', nat: 'Subordonnée conjonctive circonstancielle',
+    fon: 'Complément circonstanciel de cause',
+    e: '« parce que » introduit la cause du silence.' },
+  { mot: 'bien que', p: '<u>Bien qu’il soit tard</u>, elle continue d’écrire.', nat: 'Subordonnée conjonctive circonstancielle',
+    fon: 'Complément circonstanciel de concession',
+    e: '« bien que » marque la concession, et se construit avec le subjonctif.' },
+  { mot: 'si', p: 'Je me demande <u>s’il viendra</u>.', nat: 'Subordonnée interrogative indirecte',
+    fon: 'COD du verbe « me demande »',
+    e: 'C’est une question intégrée à une phrase déclarative : pas de point d’interrogation, pas d’inversion.' },
+  { mot: 'pourquoi', p: 'Elle ignore <u>pourquoi il est parti</u>.', nat: 'Subordonnée interrogative indirecte',
+    fon: 'COD du verbe « ignore »',
+    e: 'La question porte sur la cause, et elle est intégrée : interrogative indirecte partielle.' }
+];
+const NAT_SUB = ['Subordonnée relative', 'Subordonnée conjonctive complétive',
+                 'Subordonnée conjonctive circonstancielle', 'Subordonnée interrogative indirecte'];
+
+G('fr-grammaire', 'gr-subordonnee', 'Nature d’une subordonnée', 'app', function(){
+  const s = R.pick(SUBORDONNEES);
+  return {
+    enonce: '<p>Quelle est la nature de la proposition soulignée ?</p>' + cit(s.p),
+    qcm: { options: NAT_SUB.slice(), bon: NAT_SUB.indexOf(s.nat) },
+    etapes: [
+      'C’est une <b>' + s.nat.toLowerCase() + '</b>.',
+      s.e,
+      'À l’oral, on attend toujours la <b>nature</b> et la <b>fonction</b> : ici ' + s.fon.toLowerCase() + '.'
+    ]
+  };
+});
+
+G('fr-grammaire', 'gr-nature-fonction', 'Nature et fonction', 'ent', function(){
+  const s = R.pick(SUBORDONNEES);
+  const fons = R.shuffle([s.fon].concat(autres(SUBORDONNEES.map(x => x.fon), s.fon, 3)));
+  return {
+    enonce: '<p>Analyse la proposition soulignée : donne sa nature, puis sa fonction.</p>' + cit(s.p) +
+            '<p class="tiny">C’est exactement le format de la question de grammaire de l’oral, notée sur 2 points.</p>',
+    champs: [
+      { type: 'choix', label: 'Nature', options: NAT_SUB.slice(), bon: NAT_SUB.indexOf(s.nat) },
+      { type: 'choix', label: 'Fonction', options: fons, bon: fons.indexOf(s.fon) }
+    ],
+    etapes: [
+      'Nature : <b>' + s.nat.toLowerCase() + '</b>. ' + s.e,
+      'Fonction : <b>' + s.fon.toLowerCase() + '</b>.',
+      'Formulation attendue à l’oral : « c’est une ' + s.nat.toLowerCase() + ', introduite par …, et elle est ' + s.fon.toLowerCase() + ' ».'
+    ]
+  };
+});
+
+const NEGATIONS = [
+  { p: 'Il ne viendra pas ce soir.', t: 'Négation totale',
+    e: '« ne… pas » porte sur toute la phrase : rien n’est sauvé de l’affirmation.' },
+  { p: 'Je ne comprends pas cette phrase.', t: 'Négation totale',
+    e: '« ne… pas » nie l’ensemble de l’énoncé.' },
+  { p: 'Elle ne sort jamais le dimanche.', t: 'Négation partielle',
+    e: '« ne… jamais » nie seulement la fréquence, pas l’action elle-même.' },
+  { p: 'Il n’y a plus personne dans la salle.', t: 'Négation partielle',
+    e: '« ne… plus » et « personne » portent sur le temps et sur les êtres, non sur la phrase entière.' },
+  { p: 'Je n’ai rien dit.', t: 'Négation partielle',
+    e: '« ne… rien » nie l’objet du verbe.' },
+  { p: 'Je n’ai qu’une seule question.', t: 'Restriction',
+    e: '« ne… que » n’est pas une négation : c’est une restriction, elle signifie « seulement ». Piège classique à l’oral.' },
+  { p: 'Il ne reste que deux minutes.', t: 'Restriction',
+    e: '« ne… que » équivaut à « seulement deux minutes ».' },
+  { p: 'Cette réponse est impossible à comprendre.', t: 'Négation lexicale',
+    e: 'Le sens négatif vient du préfixe « im- », pas d’un outil grammatical : il n’y a pas de « ne ».' },
+  { p: 'Elle refuse de répondre.', t: 'Négation lexicale',
+    e: 'Le verbe « refuser » porte lui-même le sens négatif.' }
+];
+const T_NEG = ['Négation totale', 'Négation partielle', 'Restriction', 'Négation lexicale'];
+
+G('fr-grammaire', 'gr-negation', 'L’expression de la négation', 'app', function(){
+  const n = R.pick(NEGATIONS);
+  return {
+    enonce: '<p>Comment analyses-tu la négation dans cette phrase ?</p>' + cit(n.p),
+    qcm: { options: T_NEG.slice(), bon: T_NEG.indexOf(n.t) },
+    etapes: ['Il s’agit d’une <b>' + n.t.toLowerCase() + '</b>.', n.e]
+  };
+});
+
+const INTERROGATIONS = [
+  { p: 'Viens-tu demain ?', por: 'Totale', con: 'Directe', pro: 'Inversion du sujet',
+    e: 'La réponse attendue est oui ou non : l’interrogation est totale. Le point d’interrogation montre qu’elle est directe.' },
+  { p: 'Est-ce que tu as terminé ?', por: 'Totale', con: 'Directe', pro: 'Locution « est-ce que »',
+    e: 'Réponse par oui ou non, question posée directement, construite avec « est-ce que ».' },
+  { p: 'Tu viens ?', por: 'Totale', con: 'Directe', pro: 'Intonation',
+    e: 'Aucun marqueur grammatical : seule l’intonation, notée par le point d’interrogation, fait la question.' },
+  { p: 'Quand pars-tu ?', por: 'Partielle', con: 'Directe', pro: 'Inversion du sujet',
+    e: 'La question porte sur un élément précis, le moment : elle est partielle.' },
+  { p: 'Qui a écrit ce poème ?', por: 'Partielle', con: 'Directe', pro: 'Pronom interrogatif sujet',
+    e: 'La question porte sur l’auteur : interrogation partielle, sans inversion car le mot interrogatif est sujet.' },
+  { p: 'Je me demande s’il viendra.', por: 'Totale', con: 'Indirecte', pro: 'Subordonnée introduite par « si »',
+    e: 'Question intégrée à une phrase déclarative : ni point d’interrogation ni inversion.' },
+  { p: 'Elle ignore où il est allé.', por: 'Partielle', con: 'Indirecte', pro: 'Subordonnée introduite par « où »',
+    e: 'La question porte sur le lieu, et elle est intégrée : interrogative indirecte partielle.' }
+];
+
+G('fr-grammaire', 'gr-interrogation', 'L’interrogation', 'ent', function(){
+  const q = R.pick(INTERROGATIONS);
+  const pros = R.shuffle([q.pro].concat(autres(INTERROGATIONS.map(x => x.pro), q.pro, 3)));
+  return {
+    enonce: '<p>Analyse l’interrogation contenue dans cette phrase.</p>' + cit(q.p),
+    champs: [
+      { type: 'choix', label: 'Portée', options: ['Totale', 'Partielle'], bon: q.por === 'Totale' ? 0 : 1 },
+      { type: 'choix', label: 'Construction', options: ['Directe', 'Indirecte'], bon: q.con === 'Directe' ? 0 : 1 },
+      { type: 'choix', label: 'Procédé', options: pros, bon: pros.indexOf(q.pro) }
+    ],
+    etapes: [
+      'Interrogation <b>' + q.por.toLowerCase() + '</b> et <b>' + q.con.toLowerCase() + '</b>, construite par ' + q.pro.toLowerCase() + '.',
+      q.e,
+      'Repère rapide : pas de point d’interrogation → interrogation indirecte. Réponse par oui ou non → interrogation totale.'
+    ]
+  };
+});
+
+const LIENS = [
+  { p: 'Il pleut, je reste à la maison.', t: 'Juxtaposition', e: 'Les deux propositions sont reliées par une simple virgule.' },
+  { p: 'Il pleut ; la rue est déserte.', t: 'Juxtaposition', e: 'Le point-virgule relie sans mot de liaison.' },
+  { p: 'Il pleut, donc je reste à la maison.', t: 'Coordination', e: '« donc » est une conjonction de coordination.' },
+  { p: 'Elle écrit et il lit.', t: 'Coordination', e: '« et » coordonne deux propositions indépendantes.' },
+  { p: 'Comme il pleut, je reste à la maison.', t: 'Subordination', e: '« comme » rend la première proposition dépendante de la seconde.' },
+  { p: 'Je sais que tu as raison.', t: 'Subordination', e: '« que » introduit une subordonnée complétive, dépendante du verbe « sais ».' }
+];
+
+G('fr-grammaire', 'gr-liaison', 'Juxtaposition, coordination, subordination', 'app', function(){
+  const l = R.pick(LIENS);
+  const noms = ['Juxtaposition', 'Coordination', 'Subordination'];
+  return {
+    enonce: '<p>Comment les propositions de cette phrase sont-elles reliées ?</p>' + cit(l.p),
+    qcm: { options: noms.slice(), bon: noms.indexOf(l.t) },
+    etapes: [
+      'Il s’agit d’une <b>' + l.t.toLowerCase() + '</b>.', l.e,
+      'Rappel des coordonnants : mais, ou, et, donc, or, ni, car.'
+    ]
+  };
+});
+
+/* =================== REGISTRES, GENRES, MOUVEMENTS =================== */
+
+const REGISTRES = [
+  { t: 'Ô temps, suspends ton vol ! et vous, heures propices, suspendez votre cours !', s: 'Lamartine, Le Lac',
+    r: 'Lyrique', e: 'Apostrophes, exclamations, expression d’un sentiment intime : c’est le registre lyrique.' },
+  { t: 'Je meurs, je suis perdue, et rien ne peut me sauver du destin qui me poursuit.',
+    r: 'Tragique', e: 'Une force supérieure écrase le personnage, sans issue possible : registre tragique.' },
+  { t: 'L’enfant tendait ses petites mains vides vers la foule qui passait sans le voir.',
+    r: 'Pathétique', e: 'La détresse est montrée pour émouvoir et faire pitié : registre pathétique.' },
+  { t: 'Mille braves sont là qui dorment sans tombeaux, l’épée au poing, les yeux hagards.', s: 'Leconte de Lisle',
+    r: 'Épique', e: 'Pluriels, nombre impressionnant, grandeur du combat : registre épique.' },
+  { t: 'Que diable allait-il faire dans cette galère ?', s: 'Molière, Les Fourberies de Scapin',
+    r: 'Comique', e: 'La répétition de la réplique et la naïveté du personnage font rire : registre comique.' },
+  { t: 'Ils sont si parfaitement organisés qu’ils ont même prévu de nous faire payer l’attente.',
+    r: 'Ironique', e: 'L’éloge apparent dit le contraire de ce qui est pensé : registre ironique.' },
+  { t: 'Ces gens-là, qui se disent nos maîtres, ne sont que des tyrans engraissés de notre servitude.',
+    r: 'Polémique', e: 'Attaque frontale, lexique dépréciatif, adversaire désigné : registre polémique.' },
+  { t: 'On distingue trois formes de liaison entre les propositions : la juxtaposition, la coordination et la subordination.',
+    r: 'Didactique', e: 'Le texte instruit et classe : registre didactique.' }
+];
+const NOMS_REG = ['Lyrique', 'Tragique', 'Pathétique', 'Épique', 'Comique', 'Ironique', 'Polémique', 'Didactique'];
+
+G('fr-registres', 'rg-registre', 'Identifier le registre', 'app', function(){
+  const r = R.pick(REGISTRES);
+  return {
+    enonce: '<p>Quel est le registre dominant de cet extrait ?</p>' + cit(r.t, r.s || ''),
+    qcm: qcm4(r.r, NOMS_REG),
+    etapes: ['Registre <b>' + r.r.toLowerCase() + '</b>.', r.e,
+             'Astuce : le registre se repère à l’<b>effet cherché sur le lecteur</b>, pas au sujet du texte.']
+  };
+});
+
+const AUTEURS = [
+  { a: 'Rabelais', m: 'Humanisme', s: 16 },
+  { a: 'Montaigne', m: 'Humanisme', s: 16 },
+  { a: 'La Boétie', m: 'Humanisme', s: 16 },
+  { a: 'Corneille', m: 'Classicisme', s: 17 },
+  { a: 'Molière', m: 'Classicisme', s: 17 },
+  { a: 'Racine', m: 'Classicisme', s: 17 },
+  { a: 'La Fontaine', m: 'Classicisme', s: 17 },
+  { a: 'Fontenelle', m: 'Lumières', s: 17 },
+  { a: 'Voltaire', m: 'Lumières', s: 18 },
+  { a: 'Diderot', m: 'Lumières', s: 18 },
+  { a: 'Rousseau', m: 'Lumières', s: 18 },
+  { a: 'Madame de Graffigny', m: 'Lumières', s: 18 },
+  { a: 'Hugo', m: 'Romantisme', s: 19 },
+  { a: 'Musset', m: 'Romantisme', s: 19 },
+  { a: 'Lamartine', m: 'Romantisme', s: 19 },
+  { a: 'Balzac', m: 'Réalisme', s: 19 },
+  { a: 'Flaubert', m: 'Réalisme', s: 19 },
+  { a: 'Maupassant', m: 'Réalisme', s: 19 },
+  { a: 'Zola', m: 'Naturalisme', s: 19 },
+  { a: 'Leconte de Lisle', m: 'Parnasse', s: 19 },
+  { a: 'Verlaine', m: 'Symbolisme', s: 19 },
+  { a: 'Rimbaud', m: 'Symbolisme', s: 19 },
+  { a: 'Mallarmé', m: 'Symbolisme', s: 19 },
+  { a: 'Breton', m: 'Surréalisme', s: 20 },
+  { a: 'Éluard', m: 'Surréalisme', s: 20 },
+  { a: 'Sarraute', m: 'Nouveau Roman', s: 20 },
+  { a: 'Ionesco', m: 'Théâtre de l’absurde', s: 20 },
+  { a: 'Beckett', m: 'Théâtre de l’absurde', s: 20 }
+];
+const NOMS_MVT = ['Humanisme', 'Baroque', 'Classicisme', 'Lumières', 'Romantisme', 'Réalisme',
+                  'Naturalisme', 'Parnasse', 'Symbolisme', 'Surréalisme', 'Nouveau Roman', 'Théâtre de l’absurde'];
+const SIECLES = [['16', 'XVIe siècle'], ['17', 'XVIIe siècle'], ['18', 'XVIIIe siècle'],
+                 ['19', 'XIXe siècle'], ['20', 'XXe siècle']];
+
+G('fr-registres', 'rg-mouvement', 'Auteur, mouvement et siècle', 'app', function(){
+  const a = R.pick(AUTEURS);
+  const noms = SIECLES.map(x => x[1]);
+  const bonS = SIECLES.find(x => +x[0] === a.s)[1];
+  const mvts = R.shuffle([a.m].concat(autres(NOMS_MVT, a.m, 3)));
+  return {
+    enonce: '<p>À quel mouvement littéraire rattache-t-on <b>' + a.a + '</b>, et à quel siècle a-t-il écrit ?</p>',
+    champs: [
+      { type: 'choix', label: 'Mouvement', options: mvts, bon: mvts.indexOf(a.m) },
+      { type: 'choix', label: 'Siècle', options: noms, bon: noms.indexOf(bonS) }
+    ],
+    etapes: [
+      a.a + ' appartient au <b>' + a.m.toLowerCase() + '</b>, au <b>' + bonS + '</b>.',
+      'Fontenelle est un cas intéressant : il écrit à la fin du XVIIe siècle, mais il annonce déjà l’esprit des Lumières.',
+      'Un mouvement cité sans être montré dans le texte ne rapporte aucun point : il faut en repérer les traits dans l’extrait.'
+    ]
+  };
+});
+
+const GENRES = [
+  ['Roman épistolaire', 'un récit entièrement composé de lettres échangées'],
+  ['Roman d’apprentissage', 'un récit qui suit la formation d’un jeune héros au contact du monde'],
+  ['Autobiographie', 'un récit où l’auteur, le narrateur et le personnage sont la même personne'],
+  ['Apologue', 'un court récit plaisant porteur d’une leçon'],
+  ['Comédie', 'une pièce qui fait rire et se termine bien, souvent par un mariage'],
+  ['Tragédie', 'une pièce où un héros de haut rang est écrasé par une fatalité'],
+  ['Drame romantique', 'une pièce du XIXe siècle qui mêle le comique et le tragique en refusant les règles classiques'],
+  ['Sonnet', 'un poème de quatorze vers, deux quatrains puis deux tercets'],
+  ['Essai', 'un texte où un auteur expose librement sa réflexion personnelle']
+];
+
+G('fr-registres', 'rg-genre', 'Genres et formes', 'app', function(){
+  const g = R.pick(GENRES);
+  const noms = GENRES.map(x => x[0]);
+  return {
+    enonce: '<p>Quel genre ou quelle forme désigne-t-on ainsi : <b>' + g[1] + '</b> ?</p>',
+    qcm: qcm4(g[0], noms),
+    etapes: ['C’est <b>' + g[0].toLowerCase() + '</b>.',
+             'Les Lettres d’une Péruvienne de Madame de Graffigny, au programme cette année, sont un roman épistolaire.']
+  };
+});
+
+/* =================== LE PROGRAMME 2026-2027 =================== */
+
+const OEUVRES = [
+  { o: 'Le Chevalier de la charrette', a: 'Chrétien de Troyes', p: 'le roman et l’invention de l’amour',
+    oe: 'Le roman et le récit du Moyen Âge au XXIe siècle', d: 'vers 1180', chap: 'fr-roman' },
+  { o: 'Pot-Bouille', a: 'Émile Zola', p: 'dévoiler les rouages de la société',
+    oe: 'Le roman et le récit du Moyen Âge au XXIe siècle', d: '1882', chap: 'fr-roman' },
+  { o: 'Pluie et vent sur Télumée Miracle', a: 'Simone Schwarz-Bart', p: 'tisser les mémoires, habiter le monde',
+    oe: 'Le roman et le récit du Moyen Âge au XXIe siècle', d: '1972', chap: 'fr-roman' },
+  { o: 'Discours de la servitude volontaire', a: 'Étienne de La Boétie', p: '« Défendre » et « entretenir » la liberté',
+    oe: 'La littérature d’idées du XVIe au XVIIIe siècle', d: 'XVIe siècle', chap: 'fr-idees' },
+  { o: 'Entretiens sur la pluralité des mondes', a: 'Fontenelle', p: 'le goût de la science',
+    oe: 'La littérature d’idées du XVIe au XVIIIe siècle', d: '1686', chap: 'fr-idees' },
+  { o: 'Lettres d’une Péruvienne', a: 'Françoise de Graffigny', p: '« un nouvel univers s’est offert à mes yeux »',
+    oe: 'La littérature d’idées du XVIe au XVIIIe siècle', d: '1747', chap: 'fr-idees' },
+  { o: 'Le Menteur', a: 'Pierre Corneille', p: 'mensonge et comédie',
+    oe: 'Le théâtre du XVIIe au XXIe siècle', d: '1644', chap: 'fr-theatre' },
+  { o: 'On ne badine pas avec l’amour', a: 'Alfred de Musset', p: 'les jeux du cœur et de la parole',
+    oe: 'Le théâtre du XVIIe au XXIe siècle', d: '1834', chap: 'fr-theatre' },
+  { o: 'Pour un oui ou pour un non', a: 'Nathalie Sarraute', p: 'théâtre et dispute',
+    oe: 'Le théâtre du XVIIe au XXIe siècle', d: '1982', chap: 'fr-theatre' },
+  { o: 'Cahier de Douai', a: 'Arthur Rimbaud', p: 'émancipations créatrices',
+    oe: 'La poésie du XIXe au XXIe siècle', d: '1870', chap: 'fr-poesie' },
+  { o: 'La rage de l’expression', a: 'Francis Ponge', p: 'dans l’atelier du poète',
+    oe: 'La poésie du XIXe au XXIe siècle', d: '1952', chap: 'fr-poesie' },
+  { o: 'Mes forêts', a: 'Hélène Dorion', p: 'la poésie, la nature, l’intime',
+    oe: 'La poésie du XIXe au XXIe siècle', d: '2021', chap: 'fr-poesie' }
+];
+const NOMS_OE = ['Le roman et le récit du Moyen Âge au XXIe siècle',
+                 'La littérature d’idées du XVIe au XVIIIe siècle',
+                 'Le théâtre du XVIIe au XXIe siècle',
+                 'La poésie du XIXe au XXIe siècle'];
+
+['fr-roman', 'fr-idees', 'fr-theatre', 'fr-poesie'].forEach(function(ch){
+  G(ch, ch + '-auteur', 'Œuvre et auteur', 'app', function(){
+    const w = R.pick(OEUVRES.filter(x => x.chap === ch));
+    return {
+      enonce: '<p>Qui a écrit <b>' + w.o + '</b> ?</p>',
+      qcm: qcm4(w.a, OEUVRES.map(x => x.a)),
+      etapes: [w.o + ' a été écrit par <b>' + w.a + '</b> (' + w.d + ').',
+               'Parcours associé : <i>' + w.p + '</i>.']
+    };
+  });
+  G(ch, ch + '-parcours', 'Œuvre et parcours associé', 'ent', function(){
+    const w = R.pick(OEUVRES.filter(x => x.chap === ch));
+    return {
+      enonce: '<p>Quel parcours est associé à <b>' + w.o + '</b>, de ' + w.a + ' ?</p>' +
+              '<p class="tiny">Le parcours doit apparaître explicitement dans la dissertation : c’est un attendu du sujet.</p>',
+      qcm: qcm4(w.p, OEUVRES.map(x => x.p)),
+      etapes: ['Le parcours associé est : <b>' + w.p + '</b>.',
+               'Objet d’étude : ' + w.oe + '.']
+    };
+  });
+});
+
+G('fr-registres', 'oe-objet', 'Situer une œuvre du programme', 'app', function(){
+  const w = R.pick(OEUVRES);
+  return {
+    enonce: '<p>À quel objet d’étude appartient <b>' + w.o + '</b>, de ' + w.a + ' (' + w.d + ') ?</p>',
+    qcm: { options: NOMS_OE.slice(), bon: NOMS_OE.indexOf(w.oe) },
+    etapes: ['Cette œuvre relève de l’objet d’étude <b>' + w.oe + '</b>.',
+             'Le programme 2026-2027 propose trois œuvres par objet d’étude ; le professeur en choisit une.']
+  };
+});
+
+const EPREUVE_QCM = [
+  { q: 'Quelle est la durée de l’épreuve écrite de français ?', b: '4 heures', v: ['2 heures', '3 heures', '4 heures', '5 heures'] },
+  { q: 'Quel est le coefficient de l’épreuve écrite ?', b: '5', v: ['2', '3', '5', '8'] },
+  { q: 'Sur combien de points est notée l’explication linéaire à l’oral ?', b: '8 points', v: ['4 points', '6 points', '8 points', '10 points'] },
+  { q: 'Sur combien de points est notée la question de grammaire à l’oral ?', b: '2 points', v: ['1 point', '2 points', '4 points', '5 points'] },
+  { q: 'Sur combien de points est noté l’entretien à l’oral ?', b: '8 points', v: ['4 points', '6 points', '8 points', '12 points'] },
+  { q: 'Combien de temps dure la préparation de l’oral ?', b: '30 minutes', v: ['10 minutes', '20 minutes', '30 minutes', '45 minutes'] },
+  { q: 'Combien de sujets de dissertation sont proposés à l’écrit ?', b: 'Trois, un par œuvre du programme', v: ['Un seul', 'Deux', 'Trois, un par œuvre du programme', 'Quatre'] },
+  { q: 'Le dictionnaire est-il autorisé à l’écrit ?', b: 'Non, ni dictionnaire ni calculatrice', v: ['Oui, un dictionnaire de langue', 'Oui, pour les candidats concernés', 'Non, ni dictionnaire ni calculatrice', 'Seulement pour le commentaire'] },
+  { q: 'Le texte du commentaire est-il tiré d’une œuvre au programme ?', b: 'Non, c’est un texte hors programme', v: ['Oui, toujours', 'Non, c’est un texte hors programme', 'Au choix du candidat', 'Seulement en voie technologique'] }
+];
+
+G('fr-commentaire', 'fr-epreuve-regles', 'Les règles de l’épreuve', 'app', function(){
+  const e = R.pick(EPREUVE_QCM);
+  const opts = R.shuffle(e.v.slice());
+  return {
+    enonce: '<p>' + e.q + '</p>',
+    qcm: { options: opts, bon: opts.indexOf(e.b) },
+    etapes: ['Réponse : <b>' + e.b + '</b>.',
+             'À l’écrit : 4 heures, coefficient 5, commentaire ou dissertation, chacun sur 20 points.',
+             'À l’oral : 30 minutes de préparation, puis lecture expressive sur 2 points, explication linéaire sur 8, question de grammaire sur 2 et entretien sur 8.']
+  };
+});
+
+/* =================== EXERCICES DE RÉDACTION (barème auto-évalué) =================== */
+
+D('fr-commentaire', 'fr-intro-commentaire', 'Rédiger une introduction de commentaire', function(){
+  return {
+    enonce: '<p>Voici le début d’un poème donné au baccalauréat.</p>' +
+      '<div class="cit">Une nuit claire, un vent glacé. La neige est rouge.<br>' +
+      'Mille braves sont là qui dorment sans tombeaux,<br>' +
+      'L’épée au poing, les yeux hagards. Pas un ne bouge.<br>' +
+      'Au-dessus tourne et crie un vol de noirs corbeaux.' +
+      '<span class="cit-src">Leconte de Lisle, Poèmes barbares, « Le Cœur de Hialmar », 1862</span></div>' +
+      '<p><b>Rédige entièrement l’introduction</b> du commentaire de ce texte, sur ton cahier.</p>',
+    aide: 'Quatre étapes obligatoires : amorce · présentation du texte · problématique · annonce du plan. ' +
+          'Une introduction réussie tient en huit à douze lignes.',
+    bareme: [
+      { pts: 1, d: '<b>Amorce</b> : une phrase de contexte, sans jamais commencer par « De tout temps ». ' +
+                   'Par exemple : la poésie du XIXe siècle se détourne du lyrisme personnel pour aller chercher, chez les Parnassiens, des univers lointains et des figures héroïques.' },
+      { pts: 2, d: '<b>Présentation</b> : auteur, titre du recueil, titre du poème, date, et situation du passage. ' +
+                   'Ici : Leconte de Lisle, Poèmes barbares, « Le Cœur de Hialmar », 1862, un poème qui met en scène un guerrier scandinave mourant sur un champ de bataille.' },
+      { pts: 1, d: 'Une ou deux phrases de <b>résumé neutre</b> du passage, sans analyse : un décor de carnage, puis la parole du héros blessé.' },
+      { pts: 2, d: '<b>Problématique</b> : une vraie question, qui porte sur ce que le texte fait. ' +
+                   'Par exemple : comment ce tableau de mort devient-il la célébration d’un héroïsme sans peur ?' },
+      { pts: 2, d: '<b>Annonce du plan</b> : les axes dans l’ordre, formulés comme des réponses. ' +
+                   'Par exemple : un décor funèbre saisissant · puis la parole d’un héros qui renverse la mort en victoire.' },
+      { pts: 1, d: '<b>Rédaction</b> : un seul paragraphe, sans titre ni tiret, sans « je vais montrer », sans annoncer les procédés.' },
+      { pts: 1, d: '<b>Langue</b> : orthographe et syntaxe soignées, temps du commentaire au présent, titres du recueil en italique et titre du poème entre guillemets.' }
+    ]
+  };
+});
+
+D('fr-commentaire', 'fr-paragraphe-aqa', 'Rédiger un paragraphe d’analyse', function(){
+  return {
+    enonce: '<p>Toujours sur le même poème :</p>' +
+      '<div class="cit">Viens par ici, Corbeau, mon brave mangeur d’hommes !<br>' +
+      'Ouvre-moi la poitrine avec ton bec de fer.<br>' +
+      'Tu nous retrouveras demain tels que nous sommes ;<br>' +
+      'Porte mon cœur tout chaud à la fille d’Ylmer.' +
+      '<span class="cit-src">Leconte de Lisle, « Le Cœur de Hialmar »</span></div>' +
+      '<p><b>Rédige un paragraphe d’analyse complet</b> montrant que le héros domine la mort au lieu de la subir.</p>',
+    aide: 'Structure attendue : Affirmation · citation courte · analyse du procédé et de son effet · phrase de bilan. ' +
+          'Un paragraphe fait entre huit et quinze lignes.',
+    bareme: [
+      { pts: 2, d: '<b>Affirmation</b> en ouverture : l’idée est annoncée avant toute citation. ' +
+                   'Par exemple : loin d’implorer, Hialmar prend l’initiative et transforme son agonie en acte volontaire.' },
+      { pts: 2, d: '<b>Citations courtes</b>, entre guillemets, intégrées à la phrase : « Viens par ici, Corbeau », « Ouvre-moi la poitrine ».' },
+      { pts: 2, d: '<b>Procédés nommés</b> : l’apostrophe au corbeau, la série d’<b>impératifs</b> (« Viens », « Ouvre », « Porte »), ' +
+                   'l’<b>apposition</b> familière « mon brave mangeur d’hommes ».' },
+      { pts: 2, d: '<b>Effets analysés</b> : les impératifs font du mourant le donneur d’ordres ; le charognard devient un serviteur, ' +
+                   'presque un ami ; l’horreur physique est dite sans trembler, ce qui manifeste le courage.' },
+      { pts: 1, d: 'Un <b>détail précis</b> relevé et interprété : « mon cœur tout chaud », où l’adjectif transforme l’organe arraché en gage d’amour vivant.' },
+      { pts: 1, d: '<b>Bilan</b> d’une phrase qui relie le paragraphe à la problématique, sans répéter l’affirmation mot pour mot.' },
+      { pts: 0, d: '<span class="tiny">Zéro point, mais vérifie-le : aucune paraphrase, aucun « l’auteur utilise une figure pour embellir son texte ».</span>' }
+    ]
+  };
+});
+
+D('fr-dissertation', 'fr-intro-dissertation', 'Rédiger une introduction de dissertation', function(){
+  const sujets = [
+    { o: 'Pot-Bouille', a: 'Zola', p: 'dévoiler les rouages de la société',
+      s: 'Le roman de Zola se contente-t-il de dévoiler les rouages de la société bourgeoise ?' },
+    { o: 'Le Menteur', a: 'Corneille', p: 'mensonge et comédie',
+      s: 'Dans Le Menteur, le mensonge n’est-il qu’un ressort comique ?' },
+    { o: 'Cahier de Douai', a: 'Rimbaud', p: 'émancipations créatrices',
+      s: 'La liberté du Cahier de Douai tient-elle seulement au refus des règles ?' },
+    { o: 'Pour un oui ou pour un non', a: 'Sarraute', p: 'théâtre et dispute',
+      s: 'La dispute, chez Sarraute, porte-t-elle vraiment sur des mots ?' }
+  ];
+  const t = R.pick(sujets);
+  return {
+    enonce: '<p><b>Sujet de dissertation</b>, portant sur <i>' + t.o + '</i> de ' + t.a +
+            ' et sur le parcours <i>' + t.p + '</i> :</p>' + cit(t.s) +
+            '<p>Vous répondrez à cette question dans un développement organisé, en prenant appui sur l’œuvre au programme, ' +
+            'sur le parcours associé et sur votre culture personnelle.</p>' +
+            '<p><b>Rédige entièrement l’introduction</b>, puis note le plan détaillé en trois parties.</p>',
+    aide: 'Introduction : amorce · présentation de l’œuvre et du sujet · analyse des mots clés · problématique · annonce du plan. ' +
+          'Le mot qui compte ici est le mot restrictif du sujet (« se contente-t-il », « n’est-il que », « seulement », « vraiment ») : ' +
+          'c’est lui qui impose un plan dialectique.',
+    bareme: [
+      { pts: 1, d: '<b>Amorce</b> reliée au genre ou au parcours, jamais générale.' },
+      { pts: 1, d: '<b>Présentation</b> de l’œuvre : auteur, titre, date, et en une phrase ce dont elle traite.' },
+      { pts: 2, d: '<b>Citation du sujet</b> entre guillemets, puis <b>analyse des mots clés</b>. ' +
+                   'Le mot restrictif du sujet doit être repéré et commenté : c’est lui qui crée la tension.' },
+      { pts: 2, d: '<b>Problématique</b> reformulée, plus précise que le sujet, et qui ne se contente pas de le recopier.' },
+      { pts: 2, d: '<b>Annonce d’un plan dialectique</b> en trois temps : oui, dans une certaine mesure · mais c’est insuffisant · ' +
+                   'en réalité la question se déplace. La troisième partie n’est jamais un simple compromis.' },
+      { pts: 2, d: '<b>Plan détaillé</b> : trois parties, deux ou trois sous-parties chacune, et pour chaque sous-partie ' +
+                   '<b>un exemple précis</b> tiré de l’œuvre (un passage, un personnage, une scène), pas une idée générale.' },
+      { pts: 1, d: 'Le <b>parcours associé</b> apparaît explicitement quelque part dans le plan : c’est un attendu du sujet.' },
+      { pts: 1, d: 'Au moins une référence de <b>culture personnelle</b> : une autre œuvre, un film, une pièce vue, reliée à la question.' }
+    ]
+  };
+});
+
+D('fr-oral', 'fr-explication-lineaire', 'Préparer une explication linéaire', function(){
+  return {
+    enonce: '<p>Tu disposes de 30 minutes de préparation. Voici la fin du poème étudié en classe :</p>' +
+      '<div class="cit">Va, sombre messager, dis-lui bien que je l’aime,<br>' +
+      'Et que voici mon cœur. Elle reconnaîtra<br>' +
+      'Qu’il est rouge et solide et non tremblant et blême ;<br>' +
+      'Et la fille d’Ylmer, Corbeau, te sourira !<br><br>' +
+      'Moi, je meurs. Mon esprit coule par vingt blessures.<br>' +
+      'J’ai fait mon temps. Buvez, ô loups, mon sang vermeil.<br>' +
+      'Jeune, brave, riant, libre et sans flétrissures,<br>' +
+      'Je vais m’asseoir parmi les Dieux, dans le soleil !' +
+      '<span class="cit-src">Leconte de Lisle, « Le Cœur de Hialmar », 1862</span></div>' +
+      '<p><b>Prépare l’explication linéaire</b> de ce passage sur ton cahier, puis dis-la à voix haute, en te chronométrant.</p>',
+    aide: 'L’explication suit le texte dans son ordre : ce n’est pas un commentaire composé. ' +
+          'Découpe d’abord le passage en mouvements, puis explique mouvement par mouvement.',
+    bareme: [
+      { pts: 1, d: '<b>Situation</b> du passage en deux phrases : la fin du poème, après l’appel au corbeau, au moment où le guerrier meurt.' },
+      { pts: 2, d: '<b>Mouvements identifiés</b> et justifiés : premier mouvement, le message d’amour confié au corbeau ; ' +
+                   'second mouvement, à partir de « Moi, je meurs », le face-à-face du héros avec sa propre mort.' },
+      { pts: 1, d: '<b>Projet de lecture</b> annoncé : comment la mort se change-t-elle en apothéose ?' },
+      { pts: 3, d: '<b>Explication suivie</b> du premier mouvement : l’impératif « Va », l’apostrophe « sombre messager », ' +
+                   'l’<b>antithèse</b> « rouge et solide » contre « tremblant et blême » qui fait du cœur la preuve du courage, ' +
+                   'et le futur « sourira » qui projette une scène apaisée.' },
+      { pts: 3, d: '<b>Explication suivie</b> du second mouvement : la brièveté des phrases (« Moi, je meurs. », « J’ai fait mon temps. ») ' +
+                   'qui dit le calme ; l’<b>hyperbole</b> « vingt blessures » ; l’impératif « Buvez, ô loups » qui offre le corps ; ' +
+                   'l’<b>accumulation</b> « Jeune, brave, riant, libre et sans flétrissures » ; ' +
+                   'et le dernier vers, qui fait passer du champ de bataille au soleil des dieux.' },
+      { pts: 1, d: '<b>Conclusion</b> : réponse au projet de lecture, et lien avec le recueil ou le parcours.' },
+      { pts: 1, d: '<b>Lecture expressive</b> préparée : respirer aux points, marquer la césure, ralentir sur le dernier vers. Elle vaut 2 points le jour de l’oral.' }
+    ]
+  };
+});
+
+D('fr-grammaire', 'fr-question-grammaire', 'La question de grammaire de l’oral', function(){
+  const cas = [
+    { p: 'Elle reconnaîtra qu’il est rouge et solide.',
+      r: ['<b>Nature</b> : proposition subordonnée conjonctive complétive, introduite par la conjonction de subordination « que ».',
+          '<b>Fonction</b> : COD du verbe « reconnaîtra ». Test : « elle reconnaîtra <i>cela</i> ».',
+          '<b>Détail</b> : à l’intérieur, « il » est sujet, « est » verbe d’état, « rouge et solide » attribut du sujet.'] },
+    { p: 'Mille braves sont là qui dorment sans tombeaux.',
+      r: ['<b>Nature</b> : proposition subordonnée relative, introduite par le pronom relatif « qui ».',
+          '<b>Fonction</b> : complément de l’antécédent « braves ».',
+          '<b>Détail</b> : « qui » est sujet du verbe « dorment » dans la subordonnée ; « sans tombeaux » est complément circonstanciel de manière.'] },
+    { p: 'Je me demande si le corbeau portera le message.',
+      r: ['<b>Nature</b> : proposition subordonnée interrogative indirecte, introduite par « si ».',
+          '<b>Fonction</b> : COD du verbe « me demande ».',
+          '<b>Détail</b> : interrogation <b>totale</b> (la réponse serait oui ou non) et <b>indirecte</b> : ni point d’interrogation ni inversion du sujet.'] },
+    { p: 'Il ne reste qu’un guerrier debout.',
+      r: ['<b>Nature</b> : il ne s’agit pas d’une négation mais d’une <b>restriction</b>, exprimée par « ne… que ».',
+          '<b>Sens</b> : « il reste seulement un guerrier debout ».',
+          '<b>Détail</b> : « ne » est ici corrélé à « que » ; supprimer « que » changerait entièrement le sens de la phrase. C’est le piège le plus fréquent de l’épreuve.'] }
+  ];
+  const c = R.pick(cas);
+  return {
+    enonce: '<p>L’examinateur te pose la question de grammaire, notée <b>sur 2 points</b>.</p>' + cit(c.p) +
+            '<p><b>Analyse cette phrase</b> à l’oral, comme le jour de l’épreuve : à voix haute, en une minute.</p>',
+    aide: 'On attend toujours la <b>nature</b> puis la <b>fonction</b>, avec le mot introducteur cité et un test qui justifie la réponse.',
+    bareme: c.r.map((t, i) => ({ pts: i === 2 ? 2 : 1, d: t })).concat([
+      { pts: 1, d: '<b>Formulation</b> : une phrase complète, calme, qui cite le mot introducteur et justifie par un test, plutôt qu’une étiquette lancée seule.' }
+    ])
+  };
+});
+
+/* =================== SYNTHÈSES DE NIVEAU DEVOIR SURVEILLÉ =================== */
+
+G('fr-versification', 'vs-synthese', 'Analyser une strophe', 'ds', function(){
+  const q = R.pick(QUATRAINS);
+  const metres = ['Alexandrin', 'Décasyllabe', 'Octosyllabe', 'Heptasyllabe'];
+  const disp = ['Plates', 'Croisées', 'Embrassées'];
+  const mvts = R.shuffle([q.mvt].concat(autres(NOMS_MVT, q.mvt, 3)));
+  return {
+    enonce: '<p>Analyse cette strophe comme on te le demandera le jour du devoir.</p>' +
+            '<div class="cit">' + q.v.join('<br>') + '<span class="cit-src">' + q.s + '</span></div>',
+    champs: [
+      { type: 'choix', label: 'Nombre de vers', options: ['Tercet', 'Quatrain', 'Quintil', 'Sizain'], bon: 1 },
+      { type: 'choix', label: 'Mètre employé', options: metres, bon: 0 },
+      { type: 'choix', label: 'Disposition des rimes', options: disp, bon: disp.indexOf(q.d) },
+      { type: 'choix', label: 'Mouvement de l’auteur', options: mvts, bon: mvts.indexOf(q.mvt) }
+    ],
+    etapes: [
+      'Quatre vers : c’est un <b>quatrain</b>.',
+      'Chaque vers compte douze syllabes : ce sont des <b>alexandrins</b>. Pense à élider les « e » placés devant une voyelle, ' +
+        'comme dans « ô rage ! ô » ou « comme Ulysse ».',
+      'Les rimes suivent le schéma <b>' + q.sch + '</b>, ce sont donc des rimes <b>' + q.d.toLowerCase() + '</b>.',
+      'L’auteur appartient au <b>' + q.mvt.toLowerCase() + '</b>.',
+      'Dans une copie, cette description ne suffit pas : il faut ensuite dire ce que la forme <b>produit</b>. ' +
+        'Des rimes embrassées enferment le vers central, des rimes plates donnent un effet de liste ou de raisonnement.'
+    ]
+  };
+});
+
+G('fr-grammaire', 'gr-synthese', 'Analyse syntaxique complète', 'ds', function(){
+  const s = R.pick(SUBORDONNEES);
+  const fons = R.shuffle([s.fon].concat(autres(SUBORDONNEES.map(x => x.fon), s.fon, 3)));
+  const mots = R.shuffle([s.mot].concat(autres(SUBORDONNEES.map(x => x.mot), s.mot, 3)));
+  return {
+    enonce: '<p>Analyse la proposition soulignée, comme le jour de l’oral.</p>' + cit(s.p) +
+            '<p class="tiny">Trois réponses attendues : le mot qui introduit, la nature, la fonction.</p>',
+    champs: [
+      { type: 'choix', label: 'Mot introducteur', options: mots, bon: mots.indexOf(s.mot) },
+      { type: 'choix', label: 'Nature', options: NAT_SUB.slice(), bon: NAT_SUB.indexOf(s.nat) },
+      { type: 'choix', label: 'Fonction', options: fons, bon: fons.indexOf(s.fon) }
+    ],
+    etapes: [
+      'La proposition est introduite par <b>« ' + s.mot + ' »</b>.',
+      'Nature : <b>' + s.nat.toLowerCase() + '</b>. ' + s.e,
+      'Fonction : <b>' + s.fon.toLowerCase() + '</b>.',
+      'Réponse orale attendue, en une phrase : « c’est une ' + s.nat.toLowerCase() + ', introduite par « ' + s.mot +
+        ' », et elle est ' + s.fon.toLowerCase() + ' ».'
     ]
   };
 });
