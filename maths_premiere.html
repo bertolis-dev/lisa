@@ -524,7 +524,7 @@ main{min-width:0;padding-block:34px;padding-left:40px;padding-right:40px;max-wid
 
 /* ---------- figures du cours ---------- */
 .fig{margin:14px 0 4px;display:flex;flex-direction:column;align-items:center;gap:8px}
-.fig svg{width:100%;max-width:470px;height:auto;display:block;overflow:visible}
+.fig svg{width:100%;max-width:470px;height:auto;display:block;overflow:hidden}
 .fig figcaption{font-size:13px;color:var(--ink-2);line-height:1.5;max-width:54ch;text-align:center}
 .fig figcaption b{color:var(--ink)}
 .fig .axe{stroke:var(--ink-3);stroke-width:1.3;fill:none}
@@ -2804,22 +2804,22 @@ const FIGURES = {
   { apres: 'Fonction polynôme du second degré', f: function(){
     const g1 = '<g transform="translate(0,0)">' +
       axes(112, 96, -3.4, 3.4, -2.2, 2.6, 26, 26) +
-      trace(x => 0.55 * x * x - 1.6, -3.1, 3.1, 112, 96, 26, 26) +
+      trace(x => 0.55 * x * x - 1.6, -2.85, 2.85, 112, 96, 26, 26) +
       pt(112, 96 + 1.6 * 26) + txt(112, 96 + 1.6 * 26 + 20, 'minimum', 'lab c') +
       txt(112, 24, 'a > 0 : vers le haut', 'titre c') + '</g>';
     const g2 = '<g transform="translate(236,0)">' +
       axes(112, 96, -3.4, 3.4, -2.6, 2.2, 26, 26) +
-      trace(x => -0.55 * x * x + 1.6, -3.1, 3.1, 112, 96, 26, 26) +
+      trace(x => -0.55 * x * x + 1.6, -2.85, 2.85, 112, 96, 26, 26) +
       pt(112, 96 - 1.6 * 26) + txt(112, 96 - 1.6 * 26 - 12, 'maximum', 'lab c') +
       txt(112, 24, 'a &lt; 0 : vers le bas', 'titre c') + '</g>';
-    return fig(460, 178, g1 + g2, 'Le signe de ' + M('a') + ' décide du sens de la parabole — et donc si le sommet est un minimum ou un maximum.');
+    return fig(460, 186, g1 + g2, 'Le signe de ' + M('a') + ' décide du sens de la parabole — et donc si le sommet est un minimum ou un maximum.');
   }},
   { apres: 'Forme canonique et sommet', f: function(){
     const ox = 150, oy = 132, ex = 30, ey = 26;
     const f = x => 0.6 * (x - 1.5) * (x - 1.5) - 2;
     return fig(460, 172,
       axes(ox, oy, -3.2, 4.4, -2.6, 1.6, ex, ey) +
-      trace(f, -2.6, 4.2, ox, oy, ex, ey) +
+      trace(f, -2.35, 4.1, ox, oy, ex, ey) +
       '<line class="aide" x1="' + (ox + 1.5 * ex) + '" y1="' + oy + '" x2="' + (ox + 1.5 * ex) + '" y2="' + (oy + 2 * ey) + '"></line>' +
       '<line class="aide" x1="' + ox + '" y1="' + (oy + 2 * ey) + '" x2="' + (ox + 1.5 * ex) + '" y2="' + (oy + 2 * ey) + '"></line>' +
       pt(ox + 1.5 * ex, oy + 2 * ey) +
@@ -2837,7 +2837,7 @@ const FIGURES = {
       '<rect class="zn" x="' + xg + '" y="' + oy + '" width="' + (xd - xg) + '" height="46"></rect>' +
       '<rect class="zp" x="' + xd + '" y="18" width="' + (1.6 * ex) + '" height="' + (oy - 18) + '"></rect>' +
       axes(ox, oy, -3.3, 3.7, -1.6, 2.4, ex, ey) +
-      trace(f, -2.6, 3.4, ox, oy, ex, ey) +
+      trace(f, -2.25, 3.4, ox, oy, ex, ey) +
       pt(xg, oy) + pt(xd, oy) +
       txt(xg, oy + 20, 'x₁', 'lab c') + txt(xd, oy + 20, 'x₂', 'lab c') +
       txt(ox - 2.3 * ex, 42, 'signe de a', 'lab c') +
