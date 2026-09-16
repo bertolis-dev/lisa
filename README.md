@@ -1,6 +1,6 @@
-# Cahier de spé maths — Première générale
+# Lisa — spécialité maths, première générale
 
-Application de révision couvrant **tout le programme de spécialité mathématiques de première générale**
+**Lisa** est une application de révision couvrant **tout le programme de spécialité mathématiques de première générale**
 (arrêté du 17 janvier 2019, BO spécial n°1 du 22 janvier 2019) : 5 blocs, 12 chapitres, avec pour chacun
 les capacités attendues et une fiche de cours.
 

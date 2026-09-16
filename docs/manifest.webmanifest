@@ -1,6 +1,6 @@
 {
-  "name": "Cahier de spé maths — Première",
-  "short_name": "Spé maths",
+  "name": "Lisa — Spé maths première",
+  "short_name": "Lisa",
   "description": "Tout le programme de spécialité mathématiques de première, avec des exercices tirés au sort et corrigés pas à pas.",
   "start_url": "./",
   "scope": "./",

@@ -125,7 +125,7 @@ function vueAccueil(){
   });
   h += '</div>';
   elMain.innerHTML = h;
-  elTop.textContent = 'Cahier de spé maths';
+  elTop.textContent = 'Lisa';
 }
 
 /* ---------------- programme officiel ---------------- */

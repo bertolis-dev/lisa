@@ -35,14 +35,14 @@ TETE = """<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Tout le programme de spécialité mathématiques de première, avec des exercices tirés au sort et corrigés pas à pas.">
+<meta name="description" content="Lisa — tout le programme de spécialité mathématiques de première, avec des exercices tirés au sort et corrigés pas à pas.">
 <meta name="theme-color" content="#16223F">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon-192.png" sizes="192x192">
 <link rel="apple-touch-icon" href="icon-180.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Spé maths">
+<meta name="apple-mobile-web-app-title" content="Lisa">
 <style>*,*::before,*::after{box-sizing:border-box}html,body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 </head>
 <body>
@@ -62,8 +62,8 @@ if ('serviceWorker' in navigator){
 ecrire(os.path.join(SITE, 'index.html'), TETE + corps + PIED)
 
 MANIFESTE = """{
-  "name": "Cahier de spé maths — Première",
-  "short_name": "Spé maths",
+  "name": "Lisa — Spé maths première",
+  "short_name": "Lisa",
   "description": "Tout le programme de spécialité mathématiques de première, avec des exercices tirés au sort et corrigés pas à pas.",
   "start_url": "./",
   "scope": "./",
@@ -85,7 +85,7 @@ ecrire(os.path.join(SITE, 'manifest.webmanifest'), MANIFESTE)
 # le cache est versionne par la taille du corps : toute modification force la mise a jour
 VERSION = 'v' + str(len(corps))
 SW = """/* Service worker : l'application fonctionne hors connexion. */
-const CACHE = 'spe-maths-%s';
+const CACHE = 'lisa-%s';
 const FICHIERS = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', e => {

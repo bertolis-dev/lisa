@@ -1,5 +1,5 @@
 /* Service worker : l'application fonctionne hors connexion. */
-const CACHE = 'spe-maths-v147558';
+const CACHE = 'lisa-v147508';
 const FICHIERS = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', e => {
