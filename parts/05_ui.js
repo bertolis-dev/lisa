@@ -55,11 +55,11 @@ function rendreNav(){
 
   const liens = [
     { id: 'accueil',  e: '\uD83C\uDFE0', t: 'Accueil',                a: 'data-go="accueil"' },
-    { id: 'revision', e: '\uD83D\uDD01', t: 'R\u00e9viser',          a: 'data-go="revision"' },
-    { id: 'chrono',   e: '\u23F1\uFE0F', t: 'Interro chrono',         a: 'data-go="chrono"' },
+    { id: 'revision', e: '\uD83D\uDD01', t: 'Mix',                     a: 'data-go="revision"' },
+    { id: 'chrono',   e: '\u23F1\uFE0F', t: 'Chrono',                  a: 'data-go="chrono"' },
     { id: 'defi',     e: '🎯', t: 'Défi du jour',      a: 'data-defi="vue"' },
-    { id: 'ds',       e: '\uD83D\uDCDD', t: 'Devoir surveill\u00e9', a: 'data-eval="1"' },
-    { id: 'notes',    e: '\uD83D\uDCC8', t: 'Mes notes',              a: 'data-go="notes"' }
+    { id: 'ds',       e: '\uD83D\uDCDD', t: 'DS blanc',                a: 'data-eval="1"' },
+    { id: 'notes',    e: '\uD83D\uDCC8', t: 'Ma courbe',               a: 'data-go="notes"' }
   ];
   h += '<div class="liens">' + liens.map(l =>
     '<button class="lien l-' + l.id + (estActif(l.id) ? ' on' : '') + '" ' + l.a + '>' +
@@ -128,21 +128,144 @@ async function forcerMiseAJour(){
   location.replace(location.pathname + '?maj=' + Date.now());
 }
 
-/* ---------------- accueil ---------------- */
+/* ---------------- accueil : le hub ----------------
+   L'accueil ne parle plus d'une matière en particulier. Il montre où on en
+   est (l'anneau de l'objectif du jour tracé autour du logo), ce qu'on
+   reprend, et une cartouche par matière. Le détail d'une matière — modes,
+   chapitres, notes — vit dans vueMatiere(). */
+
+function chapitresMatiere(id){
+  return CHAPITRES.filter(c => c.matiere === id && c.classe === classeCourante().id);
+}
+/* état d'une matière, tel qu'il s'affiche sur sa cartouche */
+function statsMatiere(id){
+  const chs = chapitresMatiere(id);
+  let ok = 0, tot = 0, xp = 0, entames = 0;
+  chs.forEach(c => {
+    if (statutChap(c.id) !== 'neuf') entames++;
+    xp += xpChap(c.id);
+    (c.gens || []).forEach(g => { const st = S.methodes[g.id]; if (st){ ok += st.ok; tot += st.ok + st.ko; } });
+  });
+  const rev = aRevoir().filter(r => CHAP[r.meta.chap] && CHAP[r.meta.chap].matiere === id).length;
+  return { n: chs.length, entames, ok, tot, pc: tot ? Math.round(100 * ok / tot) : null, xp, rev };
+}
+
+/* une cartouche porte un état, sinon elle ne vaut pas la place qu'elle prend :
+   avancement, réussite, et ce qui attend d'être revu. */
+function carteMatiere(m){
+  if (!m.pret){
+    return '<button class="carte futur" data-bloc="mat-' + m.id + '" data-mat="' + m.id + '">' +
+      '<span class="ctop"><span class="ce">' + m.e + '</span><span class="mb">bientôt</span></span>' +
+      '<b>' + m.court + '</b>' +
+      '<span class="tiny">Le programme arrive.</span></button>';
+  }
+  const s = statsMatiere(m.id);
+  const pc = s.n ? Math.round(100 * s.entames / s.n) : 0;
+  let pied;
+  if (!s.entames){
+    /* rien de commencé : pas de jauge vide, ça donnerait l'impression d'être en retard */
+    pied = '<span class="tiny">' + s.n + ' chapitre' + (s.n > 1 ? 's' : '') + ' à découvrir</span>';
+  } else {
+    pied = '<span class="cjauge"><i style="width:' + pc + '%"></i></span>' +
+           '<span class="tiny">' + s.entames + ' / ' + s.n + ' chapitres' +
+           (s.pc !== null ? ' &middot; ' + s.pc + ' % de réussite' : '') + '</span>';
+  }
+  return '<button class="carte" data-bloc="mat-' + m.id + '" data-mat="' + m.id + '">' +
+    '<span class="ctop"><span class="ce">' + m.e + '</span>' +
+    (s.rev ? '<span class="cbadge">' + s.rev + ' à revoir</span>' : '') + '</span>' +
+    '<b>' + m.court + '</b>' + pied + '</button>';
+}
+
 function vueAccueil(){
-  const g = scoreGlobal(), rev = aRevoir();
-  const cur = S.courant && CHAP[S.courant] ? CHAP[S.courant] : null;
-  const chaps = chapitresCourants();
-  const travailles = chaps.filter(c => statutChap(c.id) !== 'neuf').length;
-  let h = '';
-  h += rubanMatieres();
+  const xp = xpTotal(), rg = rang(xp, RANGS), g = scoreGlobal();
+  const xj = xpDuJour(), pcj = Math.min(100, Math.round(100 * xj / OBJECTIF_JOUR)), sj = serieJours();
+  const C = 2 * Math.PI * 52;
   const heure = new Date().getHours();
   const salut = heure < 13 ? 'Bonjour 👋' : (heure < 18 ? 'Bon après-midi 👋' : 'Bonsoir 👋');
+
+  /* le logo tient dans l'anneau de l'objectif du jour : il est identitaire et il informe */
+  let h = '<div class="hub-head">' +
+    '<div class="logo-anneau" title="Objectif du jour : ' + xj + ' sur ' + OBJECTIF_JOUR + ' points">' +
+    '<svg viewBox="0 0 120 120" aria-hidden="true">' +
+    '<circle cx="60" cy="60" r="52" class="piste"></circle>' +
+    '<circle cx="60" cy="60" r="52" class="jauge" style="stroke-dasharray:' + C +
+    ';stroke-dashoffset:' + (C * (1 - pcj / 100)) + '"></circle></svg>' +
+    '<div class="logo-txt"><b>Lisa</b><span>' +
+    (pcj >= 100 ? 'objectif atteint' : xj + ' / ' + OBJECTIF_JOUR + ' pts') + '</span></div>' +
+    (sj ? '<span class="logo-flamme">🔥 ' + sj + '</span>' : '') + '</div>' +
+    '<div class="hub-txt"><div class="eyebrow">' + salut + ' &middot; ' + classeCourante().nom + '</div>' +
+    '<h2>On travaille quoi aujourd’hui ?</h2>' +
+    '<p class="lede">Les exercices sont tirés au sort à chaque fois et corrigés étape par étape. '
+    + 'Plus c’est difficile, plus ça rapporte.</p>' +
+    '<div class="hub-chips"><span class="chip"><b>' + rg.nom + '</b> ' + xp + ' pts</span>' +
+    (rg.prochain
+       ? '<span class="chip">' + (rg.prochain.min - xp) + ' pts avant <b>' + rg.prochain.nom + '</b></span>'
+       : '<span class="chip">Rang maximal</span>') +
+    '</div></div></div>';
+
+  /* reprendre : l'action la plus fréquente reste à un seul toucher */
+  const cur = S.courant && CHAP[S.courant] ? CHAP[S.courant] : null;
+  if (cur){
+    const mc = MAT[cur.matiere], sc = scoreChap(cur.id);
+    h += '<button class="reprendre" data-bloc="mat-' + cur.matiere + '" data-reprendre="' + cur.id + '">' +
+      '<span class="re-ic">' + (mc ? mc.e : '📘') + '</span>' +
+      '<span class="re-txt"><span class="eyebrow">Reprendre' + (mc ? ' &middot; ' + mc.court : '') + '</span>' +
+      '<b>' + cur.titre + '</b>' +
+      '<span class="tiny">' + cur.resume + (sc.tot ? ' &middot; ' + sc.ok + '/' + sc.tot + ' réussis' : '') + '</span></span>' +
+      '<span class="re-go">' + (cur.gens.length ? 'S’entraîner' : 'Ouvrir') + '</span></button>';
+  }
+
+  const miennes = MATIERES.filter(m => S.mesMatieres.indexOf(m.id) >= 0);
+  h += '<div class="titre-sec">Mes matières <span>' + miennes.length + '</span></div>' +
+    '<div class="cartes">' + miennes.map(carteMatiere).join('') +
+    '<button class="carte plus" data-mat="+"><span class="ce">+</span><b>Ajouter</b>' +
+    '<span class="tiny">Tes spécialités et tes enseignements communs.</span></button></div>';
+
+  h += '<div class="modes">' +
+    '<button class="mode m-defi" data-defi="vue"><b>🎯 Le défi du jour</b>' +
+    '<span>Dix questions tirées dans toutes tes matières. Chrono, combo, médaille.</span></button>' +
+    '</div>';
+
+  h += '<div class="stats">' +
+    '<div class="stat"><div class="v">' + g.tot + '</div><div class="k">exercices faits</div></div>' +
+    '<div class="stat"><div class="v">' + (g.pc === null ? '—' : g.pc + ' %') + '</div><div class="k">de réussite</div></div>' +
+    '<div class="stat"><div class="v">' + (S.record || 0) + '</div><div class="k">meilleure série</div></div>' +
+    '<div class="stat"><div class="v">' + xp + '</div><div class="k">points au total</div></div>' +
+    '</div>';
+
+  S.badges = S.badges || [];
+  h += '<div class="titre-sec">Badges <span>' + S.badges.length + ' / ' + BADGES.length + '</span></div>' +
+    '<div class="badges" style="margin-bottom:30px">' + BADGES.map(b => {
+      const eu = S.badges.indexOf(b.id) >= 0;
+      return '<div class="badge' + (eu ? ' eu' : '') + '" title="' + esc(b.desc) + '">' +
+             '<span class="be">' + (eu ? b.e : '🔒') + '</span>' +
+             '<b>' + b.nom + '</b><span class="bd">' + b.desc + '</span></div>';
+    }).join('') + '</div>';
+
+  h += '<div class="pied">' + ligneVersion() + '</div>';
+  elMain.innerHTML = h;
+  elTop.textContent = 'Lisa';
+}
+
+/* ---------------- une matière ----------------
+   Ce qui était l'accueil : l'état de la matière choisie et tout ce qu'on
+   peut y lancer. */
+function vueMatiere(){
+  const m = matiereCourante();
+  const g = scoreGlobal();
+  const cur = S.courant && CHAP[S.courant] && CHAP[S.courant].matiere === m.id ? CHAP[S.courant] : null;
+  const chaps = chapitresCourants();
+  const travailles = chaps.filter(c => statutChap(c.id) !== 'neuf').length;
+  const rev = aRevoir().filter(r => CHAP[r.meta.chap] && CHAP[r.meta.chap].matiere === m.id);
+  const s = statsMatiere(m.id);
+  let h = '';
+  h += rubanMatieres();
   h += '<div class="home-head"><div>' +
-       '<div class="eyebrow">' + salut + ' &middot; Spécialité maths, première</div>' +
-       '<h2 style="font-size:31px">On travaille quoi aujourd’hui ?</h2>' +
-       '<p class="lede" style="margin-top:8px">Les exercices sont tirés au sort à chaque fois, avec la correction détaillée ' +
-       'étape par étape. Plus c’est difficile, plus ça rapporte de points.</p></div></div>';
+       '<div class="eyebrow"><button class="retour" data-go="accueil">Toutes mes matières</button></div>' +
+       '<h2 style="font-size:31px">' + m.e + ' ' + m.nom + '</h2>' +
+       '<p class="lede" style="margin-top:8px">' + s.n + ' chapitres du programme officiel. ' +
+       'Les exercices sont tirés au sort à chaque fois, avec la correction détaillée étape par étape. ' +
+       'Plus c’est difficile, plus ça rapporte de points.</p></div></div>';
 
   const xp = xpTotal(), rg = rang(xp, RANGS);
   h += '<div class="duo">';
@@ -172,7 +295,7 @@ function vueAccueil(){
 
   h += '<div class="stats">' +
        '<div class="stat"><div class="v">' + g.tot + '</div><div class="k">exercices faits</div></div>' +
-       '<div class="stat"><div class="v">' + (g.pc === null ? '—' : g.pc + ' %') + '</div><div class="k">de réussite</div></div>' +
+       '<div class="stat"><div class="v">' + (s.pc === null ? '—' : s.pc + ' %') + '</div><div class="k">de réussite ici</div></div>' +
        '<div class="stat"><div class="v">' + (S.record || 0) + '</div><div class="k">meilleure série</div></div>' +
        '<div class="stat"><div class="v">' + travailles + '<span style="font-size:17px;color:var(--ink-3)"> / ' + chaps.length + '</span></div><div class="k">chapitres entamés</div></div>' +
        '<div class="stat"><div class="v">' + rev.length + '</div><div class="k">notions à revoir</div></div>' +
@@ -189,34 +312,26 @@ function vueAccueil(){
          '<button class="btn" data-chap="' + cur.id + '">Ouvrir</button></div></div>';
   } else {
     h += '<div class="encours"><div><h3 style="font-size:19px">Sur quoi travailles-tu en ce moment ?</h3>' +
-         '<p class="tiny" style="margin-top:4px">Ouvre un chapitre et marque-le « En cours » : il apparaîtra ici, et les révisions se concentreront dessus.</p></div>' +
-         '<div><button class="btn" data-chap="second-degre">Voir un chapitre</button></div></div>';
+         '<p class="tiny" style="margin-top:4px">Ouvre un chapitre et marque-le « En cours » : il apparaîtra ici, et le Mix se concentrera dessus.</p></div>' +
+         (chaps.length ? '<div><button class="btn" data-chap="' + chaps[0].id + '">Voir un chapitre</button></div>' : '<div></div>') +
+         '</div>';
   }
 
   h += '<div class="modes" style="margin-top:14px">' +
-       '<button class="mode" data-go="revision"' + (poolRevision().length ? '' : ' disabled') + '><b>🔁 Réviser</b>' +
+       '<button class="mode" data-go="revision"' + (poolRevision().length ? '' : ' disabled') + '><b>🔁 Mix</b>' +
        '<span>Un mélange tiré dans les chapitres déjà vus, en commençant par ce qui a été raté.</span></button>' +
-       '<button class="mode" data-go="chrono"' + (poolRevision().length ? '' : ' disabled') + '><b>⏱️ Interro chrono</b>' +
-       '<span>10 questions en 15 minutes, comme un devoir surveillé.</span></button>' +
-       '<button class="mode m-ds" data-eval="1"' + (poolRevision().length ? '' : ' disabled') + '><b>📝 Devoir surveillé</b>' +
+       '<button class="mode" data-go="chrono"' + (poolRevision().length ? '' : ' disabled') + '><b>⏱️ Chrono</b>' +
+       '<span>10 questions en 15 minutes, comme en classe.</span></button>' +
+       '<button class="mode m-ds" data-eval="1"' + (poolRevision().length ? '' : ' disabled') + '><b>📝 DS blanc</b>' +
        '<span>Un vrai sujet noté sur 20, avec barème et durée. Correction et note à la fin.</span></button>' +
-       '<button class="mode" data-go="notes"><b>📈 Mes notes</b>' +
-       '<span>L’historique des devoirs et la courbe de progression.</span></button>' +
+       '<button class="mode" data-go="notes"><b>📈 Ma courbe</b>' +
+       '<span>L’historique des DS et la progression des notes.</span></button>' +
        '<button class="mode" data-go="programme"><b>📋 Le programme officiel</b>' +
-       '<span>Les 12 chapitres du BO et les capacités attendues pour chacun.</span></button>' +
+       '<span>Les chapitres du BO et les capacités attendues pour chacun.</span></button>' +
        '</div>';
 
-  S.badges = S.badges || [];
-  h += '<div class="titre-sec">Badges <span>' + S.badges.length + ' / ' + BADGES.length + '</span></div>' +
-       '<div class="badges">' + BADGES.map(b => {
-         const eu = S.badges.indexOf(b.id) >= 0;
-         return '<div class="badge' + (eu ? ' eu' : '') + '" title="' + esc(b.desc) + '">' +
-                '<span class="be">' + (eu ? b.e : '🔒') + '</span>' +
-                '<b>' + b.nom + '</b><span class="bd">' + b.desc + '</span></div>';
-       }).join('') + '</div>';
-
   if (rev.length){
-    h += '<h3 style="font-size:13px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-3);font-family:var(--sans);font-weight:700;margin-bottom:10px">À revoir en priorité</h3>' +
+    h += '<div class="titre-sec">Ça résiste encore <span>' + rev.length + '</span></div>' +
          '<div class="revue" style="margin-bottom:30px">' +
          rev.slice(0, 5).map(r => '<div class="rev"><span>' + esc(r.meta.label) + '</span>' +
            '<span class="ch">' + CHAP[r.meta.chap].titre + ' &middot; ' + r.st.ko + ' erreur' + (r.st.ko > 1 ? 's' : '') + '</span></div>').join('') +
@@ -247,7 +362,7 @@ function vueAccueil(){
   h += '</div>';
   h += '<div class="pied">' + ligneVersion() + '</div>';
   elMain.innerHTML = h;
-  elTop.textContent = 'Lisa';
+  elTop.textContent = m.court;
 }
 
 /* ---------------- programme officiel ---------------- */
@@ -348,7 +463,7 @@ function vueChapitre(){
                '<div class="sc">' + (tot ? m.ok + ' / ' + tot : '—') + '</div>' +
                '<div class="bar' + (pc !== null && pc >= 70 ? ' g' : '') + '"><span style="width:' + (pc === null ? 0 : pc) + '%"></span></div></div>';
       }).join('') + '</div>' +
-      '<p class="tiny" style="margin-top:12px">Une notion ratée est automatiquement reproposée dans « Réviser » quelques jours plus tard.</p>';
+      '<p class="tiny" style="margin-top:12px">Une notion ratée est automatiquement reproposée dans le « Mix » quelques jours plus tard.</p>';
     }
   }
   elMain.innerHTML = h;
@@ -646,11 +761,12 @@ function vueBilan(){
     rates.forEach(g => { if (uniques.indexOf(g) < 0) uniques.push(g); });
     h += '<div class="revue" style="margin-top:22px;text-align:left">' +
       uniques.map(g => '<div class="rev"><span>' + esc(g.label) + '</span><span class="ch">' + CHAP[g.chap].titre + '</span></div>').join('') +
-      '</div><p class="tiny" style="margin-top:10px">Ces notions reviendront automatiquement dans « Réviser ».</p>';
+      '</div><p class="tiny" style="margin-top:10px">Ces notions reviendront automatiquement dans le « Mix ».</p>';
   }
   h += '<div class="actions" style="justify-content:center;margin-top:24px">' +
     '<button class="btn primary" data-refaire="1">Refaire une série</button>' +
-    '<button class="btn" data-go="accueil">Retour à l’accueil</button></div>';
+    '<button class="btn" data-go="matiere">Retour à la matière</button>' +
+    '<button class="btn ghost" data-go="accueil">Accueil</button></div>';
   h += '</div></div>';
   elMain.innerHTML = h;
   elTop.textContent = 'Bilan';
@@ -659,6 +775,7 @@ function vueBilan(){
 /* ---------------- rendu global + événements ---------------- */
 function rendre(){
   if (vue.nom === 'accueil') vueAccueil();
+  else if (vue.nom === 'matiere') vueMatiere();
   else if (vue.nom === 'programme') vueProgramme();
   else if (vue.nom === 'matieres') vueMatieres();
   else if (vue.nom === 'ds') vueDS();
@@ -673,7 +790,7 @@ function rendre(){
 }
 
 document.addEventListener('click', function(e){
-  const t = e.target.closest('[data-maj],[data-ouvrir],[data-corrige],[data-coched],[data-autoeval],[data-eval],[data-dsq],[data-dschoix],[data-dschamp],[data-dsrendre],[data-coche],[data-noter],[data-mat],[data-prendre],[data-son],[data-go],[data-chap],[data-onglet],[data-statut],[data-serie],[data-choix],[data-champ],[data-verifier],[data-sechapper],[data-suivante],[data-quitter],[data-refaire]');
+  const t = e.target.closest('[data-reprendre],[data-maj],[data-ouvrir],[data-corrige],[data-coched],[data-autoeval],[data-eval],[data-dsq],[data-dschoix],[data-dschamp],[data-dsrendre],[data-coche],[data-noter],[data-mat],[data-prendre],[data-son],[data-go],[data-chap],[data-onglet],[data-statut],[data-serie],[data-choix],[data-champ],[data-verifier],[data-sechapper],[data-suivante],[data-quitter],[data-refaire]');
   if (e.target.closest('#burger')){ ouvrirMenu(); return; }
   if (!t) return;
   const d = t.dataset;
@@ -685,7 +802,7 @@ document.addEventListener('click', function(e){
     } else if (d.go === 'chrono'){
       const pool = poolRevision();
       if (!pool.length) return;
-      lancerSerie(pool, 10, 'chrono', 'Interro chrono', 900);
+      lancerSerie(pool, 10, 'chrono', 'Chrono', 900);
     } else aller({ nom: d.go });
     return;
   }
@@ -694,13 +811,13 @@ document.addEventListener('click', function(e){
     const ouverte = (S.navOuv === undefined) ? S.matiere : S.navOuv;
     if (!m.pret){ aller({ nom: 'bientot', id: d.ouvrir }); return; }
     if (m.id === ouverte){ S.navOuv = null; }
-    else { S.navOuv = m.id; if (S.matiere !== m.id){ S.matiere = m.id; aller({ nom: 'accueil' }); return; } }
+    else { S.navOuv = m.id; if (S.matiere !== m.id){ S.matiere = m.id; aller({ nom: 'matiere' }); return; } }
     sauver(); rendreNav(); return;
   }
   if (d.mat){
     if (d.mat === '+'){ aller({ nom: 'matieres' }); return; }
     const m = MAT[d.mat];
-    if (m && m.pret){ S.matiere = d.mat; S.navOuv = d.mat; sauver(); aller({ nom: 'accueil' }); }
+    if (m && m.pret){ S.matiere = d.mat; S.navOuv = d.mat; sauver(); aller({ nom: 'matiere' }); }
     else aller({ nom: 'bientot', id: d.mat });
     return;
   }
@@ -709,6 +826,14 @@ document.addEventListener('click', function(e){
     if (i >= 0){ if (d.prendre !== 'maths') S.mesMatieres.splice(i, 1); }
     else S.mesMatieres.push(d.prendre);
     sauver(); rendre(); return;
+  }
+  if (d.reprendre){
+    const c = CHAP[d.reprendre];
+    if (!c) return;
+    if (S.matiere !== c.matiere){ S.matiere = c.matiere; S.navOuv = c.matiere; sauver(); }
+    if (c.gens.length) lancerSerie(c.gens, 8, 'chapitre', c.titre);
+    else aller({ nom: 'chapitre', id: c.id, onglet: 'cours' });
+    return;
   }
   if (d.chap){ aller({ nom: 'chapitre', id: d.chap, onglet: 'cours' }); return; }
   if (d.onglet){ vue.onglet = d.onglet; window.scrollTo(0, 0); rendre(); return; }

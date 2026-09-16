@@ -81,7 +81,7 @@ function rendreCopie(){
 function vueDS(){
   const d = dsEnCours, q = d.questions[d.idx], g = q.gen;
   let h = '<div class="run">';
-  h += '<div class="runtop"><div><div class="eyebrow" style="margin-bottom:2px">Devoir surveillé &middot; ' + matiereCourante().nom + '</div>' +
+  h += '<div class="runtop"><div><div class="eyebrow" style="margin-bottom:2px">DS blanc &middot; ' + matiereCourante().nom + '</div>' +
        '<div class="dots">' + d.questions.map((qq, i) =>
          '<button class="pastille' + (i === d.idx ? ' now' : '') + (repondu(qq) ? ' faite' : '') + '" data-dsq="' + i + '">' + (i + 1) + '</button>').join('') +
        '</div></div>' +
@@ -122,7 +122,7 @@ function vueDS(){
        '</div>';
   h += '</div></div>';
   elMain.innerHTML = h;
-  elTop.textContent = 'Devoir surveillé';
+  elTop.textContent = 'DS blanc';
 }
 function repondu(q){
   if (q.bareme) return false;
@@ -135,7 +135,7 @@ function vueCopie(){
   const d = dsEnCours;
   let h = '<div class="run">';
   h += '<div class="eyebrow">Copie corrigée &middot; ' + matiereCourante().nom + '</div>' +
-       '<h2 style="font-size:27px;margin-bottom:6px">Devoir surveillé</h2>' +
+       '<h2 style="font-size:27px;margin-bottom:6px">DS blanc</h2>' +
        '<p class="tiny" style="margin-bottom:20px">Durée utilisée : ' + mmss(Math.round((Date.now() - d.debut) / 1000)) +
        ' sur ' + Math.round(d.duree / 60) + ' minutes &middot; barème sur ' + d.total + ' points</p>';
 
@@ -187,7 +187,7 @@ function vueCopie(){
   h += '<div class="actions" style="justify-content:center;margin:24px 0 10px">' +
        (d.note === null
           ? '<button class="btn primary" data-noter="1">Calculer ma note</button>'
-          : '<button class="btn primary" data-go="accueil">Retour à l’accueil</button><button class="btn" data-eval="1">Refaire un devoir</button>') +
+          : '<button class="btn primary" data-go="matiere">Retour à la matière</button><button class="btn" data-eval="1">Refaire un DS blanc</button>') +
        '</div></div>';
   elMain.innerHTML = h;
   elTop.textContent = 'Copie corrigée';
@@ -236,11 +236,11 @@ function calculerNote(){
 /* ---------------- historique des notes ---------------- */
 function vueNotes(){
   const notes = (S.notes || []).filter(n => n.matiere === S.matiere);
-  let h = '<div class="eyebrow">' + matiereCourante().nom + '</div><h2 style="font-size:27px">Mes évaluations</h2>';
+  let h = '<div class="eyebrow">' + matiereCourante().nom + '</div><h2 style="font-size:27px">Ma courbe</h2>';
   if (!notes.length){
-    h += '<div class="empty" style="margin-top:18px">Aucun devoir surveillé pour l’instant.' +
-         '<div style="margin-top:14px"><button class="btn primary" data-eval="1">Passer un devoir</button></div></div>';
-    elMain.innerHTML = h; elTop.textContent = 'Mes évaluations'; return;
+    h += '<div class="empty" style="margin-top:18px">Aucun DS blanc pour l’instant.' +
+         '<div style="margin-top:14px"><button class="btn primary" data-eval="1">Passer un DS blanc</button></div></div>';
+    elMain.innerHTML = h; elTop.textContent = 'Ma courbe'; return;
   }
   const moy = notes.reduce((t, n) => t + n.note, 0) / notes.length;
   const best = Math.max.apply(null, notes.map(n => n.note));
@@ -270,5 +270,5 @@ function vueNotes(){
     '<div class="sc" style="font-weight:700;color:' + (n.note >= 10 ? 'var(--juste)' : 'var(--faux)') + '">' + nf(n.note) + '/20</div></div>').join('') + '</div>';
   h += '<div class="actions" style="margin-top:20px"><button class="btn primary" data-eval="1">Passer un nouveau devoir</button></div>';
   elMain.innerHTML = h;
-  elTop.textContent = 'Mes évaluations';
+  elTop.textContent = 'Ma courbe';
 }

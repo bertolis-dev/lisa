@@ -13,6 +13,9 @@ une application (« Ajouter à l'écran d'accueil »), fonctionne hors connexion
 
 ## Ce que fait l'application
 
+- **Un accueil par cartouches** — une carte par matière, avec son avancement, son taux de
+  réussite et ce qui reste à revoir ; au centre, le logo tient dans l'anneau de l'objectif du jour.
+  Le chapitre en cours est repris d'un seul toucher, avant même la grille.
 - **Choix du chapitre en cours** — l'élève marque où elle en est ; les révisions ne piochent que dans ce
   qui a déjà été vu.
 - **Exercices générés** — chaque exercice tire ses valeurs au hasard **et calcule la solution exacte en
@@ -24,7 +27,7 @@ une application (« Ajouter à l'écran d'accueil »), fonctionne hors connexion
 - **Démonstrations rédigées** — l'élève rédige sur son cahier, compare au corrigé et s'auto-évalue
   **ligne par ligne sur le barème**. C'est la seule façon honnête de corriger une rédaction sans IA,
   et ça apprend les attentes du correcteur.
-- **Devoirs surveillés** — un sujet de 5 exercices tiré des chapitres vus, un barème, une durée
+- **DS blanc** — un sujet de 5 exercices tiré des chapitres vus, un barème, une durée
   calculée, aucune correction pendant l'épreuve. À la fin : la copie corrigée, la note sur 20
   et l'historique avec courbe de progression.
 - **Fiches de cours** — pour chaque chapitre : capacités attendues du BO, définitions et propriétés,
@@ -32,7 +35,7 @@ une application (« Ajouter à l'écran d'accueil »), fonctionne hors connexion
   et les erreurs classiques.
 - **Rangs** : Débutant → Confirmé → Avancé → Expert → Maître, au global et par chapitre.
 - **Révision espacée** : une notion ratée revient automatiquement après 1, 3, 7 puis 16 jours.
-- **Interro chrono** : 10 questions en 15 minutes.
+- **Chrono** : 10 questions en 15 minutes. **Mix** : un mélange tiré dans les chapitres déjà vus.
 
 La progression est stockée **dans le navigateur de l'élève** (`localStorage`). Rien n'est envoyé nulle part,
 aucun compte n'est nécessaire, aucune donnée personnelle n'est collectée.
@@ -52,7 +55,7 @@ Les sources sont découpées dans `parts/` et assemblées par `build.py` :
 | `parts/10_cours_plus.js` | « à quoi ça sert », exemples traités, astuces |
 | `parts/07_fun.js` | badges, confettis, sons, objectif du jour |
 | `parts/09_evaluation.js` | devoirs surveillés, copie corrigée, historique des notes |
-| `parts/05_ui.js` | navigation, séries d'exercices, bilans |
+| `parts/05_ui.js` | accueil (le hub), vue par matière, navigation, séries d'exercices, bilans |
 
 ```bash
 python build.py

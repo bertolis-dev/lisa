@@ -360,6 +360,95 @@ pre.code code{background:none;padding:0}
 .mat .mb{font-size:9.5px;text-transform:uppercase;letter-spacing:.07em;font-weight:700;color:var(--amber);
   background:var(--amber-soft);padding:2px 6px;border-radius:999px}
 .mat.plus{border-style:dashed;color:var(--ink-3)}
+
+/* ---------- accueil : le hub ----------
+   Le logo n'est pas décoratif : il tient dans l'anneau de l'objectif du jour. */
+.hub-head{display:grid;grid-template-columns:auto minmax(0,1fr);gap:24px;align-items:center;
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
+  padding:20px 24px;margin-bottom:18px;box-shadow:var(--shadow)}
+.logo-anneau{position:relative;width:136px;height:136px;flex:0 0 auto}
+.logo-anneau svg{width:100%;height:100%;display:block}
+.logo-anneau .piste{fill:none;stroke:var(--surface-3);stroke-width:9}
+.logo-anneau .jauge{fill:none;stroke:var(--juste);stroke-width:9;stroke-linecap:round;
+  transform:rotate(-90deg);transform-origin:50% 50%;transition:stroke-dashoffset .6s ease}
+.logo-txt{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:3px;text-align:center;padding:0 12px}
+.logo-txt b{font-family:var(--serif);font-size:32px;font-weight:700;line-height:1}
+.logo-txt span{font-size:10px;text-transform:uppercase;letter-spacing:.06em;
+  color:var(--ink-3);font-weight:700;font-family:var(--sans)}
+.logo-flamme{position:absolute;right:-6px;bottom:8px;padding:3px 10px;border-radius:999px;
+  background:var(--amber-soft);color:var(--amber);border:1px solid var(--amber);
+  font-size:12px;font-weight:700;white-space:nowrap}
+.hub-txt h2{font-family:var(--serif);font-size:30px;line-height:1.15;margin:3px 0 6px}
+.hub-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:13px}
+.chip{display:inline-flex;align-items:center;gap:5px;padding:5px 12px;border-radius:999px;
+  background:var(--surface-2);border:1px solid var(--line);font-size:12.5px;color:var(--ink-2)}
+.chip b{color:var(--ink);font-weight:700}
+
+/* reprendre : l'action la plus fréquente, à un seul toucher */
+.reprendre{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:16px;align-items:center;
+  width:100%;text-align:left;background:var(--bcs,var(--accent-soft));
+  border:1px solid var(--bc,var(--accent));border-left-width:4px;border-radius:var(--r);
+  padding:14px 18px;margin-bottom:24px;transition:transform .1s}
+.reprendre:hover{transform:translateY(-1px)}
+.re-ic{font-size:27px;line-height:1}
+.re-txt{display:flex;flex-direction:column;gap:2px;min-width:0}
+.re-txt b{font-family:var(--serif);font-size:19.5px;font-weight:600;line-height:1.25}
+.re-txt .eyebrow{margin:0}
+.re-go{flex:0 0 auto;padding:9px 16px;border-radius:999px;background:var(--bc,var(--accent));
+  color:#fff;font-size:13px;font-weight:700;white-space:nowrap}
+:root[data-theme="dark"] .re-go{color:#0E1424}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .re-go{color:#0E1424}}
+
+/* les cartouches par matière */
+.cartes{display:grid;grid-template-columns:repeat(auto-fill,minmax(158px,1fr));gap:12px;margin-bottom:26px}
+.carte{display:flex;flex-direction:column;gap:8px;text-align:left;padding:14px 16px 15px;
+  border-radius:var(--r);background:var(--surface);border:1px solid var(--line);
+  border-top:4px solid var(--bc,var(--accent));transition:transform .1s,box-shadow .12s}
+.carte:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.carte b{font-family:var(--serif);font-size:17.5px;font-weight:600;line-height:1.2}
+.carte .tiny{line-height:1.4}
+.ctop{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;min-height:30px}
+.ce{font-size:27px;line-height:1}
+.cbadge{padding:3px 8px;border-radius:999px;background:var(--faux-soft);color:var(--faux);
+  font-size:10.5px;font-weight:700;white-space:nowrap}
+.cjauge{display:block;height:6px;border-radius:4px;background:var(--surface-3);overflow:hidden}
+.cjauge i{display:block;height:100%;border-radius:4px;background:var(--bc,var(--accent))}
+.carte .mb{font-size:9.5px;text-transform:uppercase;letter-spacing:.07em;font-weight:700;
+  color:var(--amber);background:var(--amber-soft);padding:2px 6px;border-radius:999px}
+.carte.futur{opacity:.66;border-top-style:dashed}
+.carte.plus{border:1px dashed var(--line);color:var(--ink-3);justify-content:flex-start}
+.carte.plus b{color:var(--ink-2)}
+.mode.m-defi{border-color:#C4700A}
+
+/* retour au hub depuis une matière */
+.retour{font:inherit;color:var(--accent);font-weight:700;letter-spacing:inherit;
+  text-transform:inherit;display:inline-flex;align-items:center;gap:6px}
+.retour::before{content:"";width:12px;height:12px;background:currentColor;
+  -webkit-mask:var(--ic-fleche) center/contain no-repeat;mask:var(--ic-fleche) center/contain no-repeat;
+  transform:rotate(180deg)}
+.retour:hover{text-decoration:underline}
+
+/* sur telephone l'en-tete reste compact : les cartouches doivent rester
+   visibles sans defiler */
+@media (max-width:700px){
+  .hub-head{gap:14px;padding:14px 15px;margin-bottom:14px;align-items:start}
+  .logo-anneau{width:104px;height:104px}
+  .logo-txt b{font-size:25px}
+  .logo-txt span{font-size:9px}
+  .logo-flamme{right:-2px;bottom:2px;font-size:11px;padding:2px 8px}
+  .hub-txt h2{font-size:22px;margin:2px 0 4px}
+  .hub-txt .lede{font-size:13.5px;line-height:1.4}
+  .hub-chips{margin-top:9px;gap:6px}
+  .chip{font-size:11.5px;padding:4px 9px}
+  .reprendre{grid-template-columns:auto minmax(0,1fr);row-gap:11px;padding:12px 14px;margin-bottom:18px}
+  .re-go{grid-column:1/-1;text-align:center}
+  .cartes{grid-template-columns:repeat(auto-fill,minmax(142px,1fr));gap:10px}
+  .carte{padding:12px 13px 13px}
+  .carte b{font-size:16px}
+  .ctop{min-height:0}
+  .ce{font-size:24px}
+}
 .matcard{display:flex;align-items:center;gap:12px;text-align:left;width:100%;
   background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:13px 15px;transition:border-color .12s}
 .matcard:hover{border-color:var(--accent)}
@@ -757,6 +846,17 @@ table.tab tr:first-child th{background:var(--accent-soft);color:var(--accent-ink
 [data-bloc="ses-socio"]  {--bc:#BC3B84;--bcs:#FBE5F1}
 [data-bloc="ses-croises"]{--bc:#6D4AC9;--bcs:#EEE8FC}
 [data-bloc="ses-outils"] {--bc:#C4700A;--bcs:#FBEEDA}
+
+/* une couleur par matière : les cartouches du hub s'en servent */
+[data-bloc="mat-maths"]{--bc:#2F6FE0;--bcs:#E4EDFC}
+[data-bloc="mat-francais"]{--bc:#B23A48;--bcs:#FBE6E8}
+[data-bloc="mat-histgeo"]{--bc:#A2541C;--bcs:#F7E8DA}
+[data-bloc="mat-sciences"]{--bc:#0F8A5F;--bcs:#DDF2EA}
+[data-bloc="mat-anglais"]{--bc:#0F7A8A;--bcs:#DCF0F3}
+[data-bloc="mat-emc"]{--bc:#6D4AC9;--bcs:#EEE8FC}
+[data-bloc="mat-physique"]{--bc:#BC3B84;--bcs:#FBE5F1}
+[data-bloc="mat-nsi"]{--bc:#C4700A;--bcs:#FBEEDA}
+[data-bloc="mat-ses"]{--bc:#5E7A0F;--bcs:#EEF3DA}
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]) [data-bloc="es-transverse"]{--bc:#F183BC;--bcs:#3B1C30}
   :root:not([data-theme="light"]) [data-bloc="es-donnees"]   {--bc:#F0A94C;--bcs:#3A2A12}
@@ -790,6 +890,16 @@ table.tab tr:first-child th{background:var(--accent-soft);color:var(--accent-ink
   :root:not([data-theme="light"]) [data-bloc="ses-socio"]  {--bc:#F183BC;--bcs:#3B1C30}
   :root:not([data-theme="light"]) [data-bloc="ses-croises"]{--bc:#B49BFF;--bcs:#2C2350}
   :root:not([data-theme="light"]) [data-bloc="ses-outils"] {--bc:#F0A94C;--bcs:#3A2A12}
+
+  :root:not([data-theme="light"]) [data-bloc="mat-maths"]{--bc:#7FB0FF;--bcs:#1B2C4E}
+  :root:not([data-theme="light"]) [data-bloc="mat-francais"]{--bc:#F0808C;--bcs:#3D1A1F}
+  :root:not([data-theme="light"]) [data-bloc="mat-histgeo"]{--bc:#E09A5F;--bcs:#3A2716}
+  :root:not([data-theme="light"]) [data-bloc="mat-sciences"]{--bc:#4FD1A0;--bcs:#12352C}
+  :root:not([data-theme="light"]) [data-bloc="mat-anglais"]{--bc:#57C6D6;--bcs:#10333A}
+  :root:not([data-theme="light"]) [data-bloc="mat-emc"]{--bc:#B49BFF;--bcs:#2C2350}
+  :root:not([data-theme="light"]) [data-bloc="mat-physique"]{--bc:#F183BC;--bcs:#3B1C30}
+  :root:not([data-theme="light"]) [data-bloc="mat-nsi"]{--bc:#F0A94C;--bcs:#3A2A12}
+  :root:not([data-theme="light"]) [data-bloc="mat-ses"]{--bc:#A8C94F;--bcs:#2B3312}
 }
 :root[data-theme="dark"] [data-bloc="es-transverse"]{--bc:#F183BC;--bcs:#3B1C30}
 :root[data-theme="dark"] [data-bloc="es-donnees"]   {--bc:#F0A94C;--bcs:#3A2A12}
@@ -823,6 +933,16 @@ table.tab tr:first-child th{background:var(--accent-soft);color:var(--accent-ink
 :root[data-theme="dark"] [data-bloc="ses-socio"]  {--bc:#F183BC;--bcs:#3B1C30}
 :root[data-theme="dark"] [data-bloc="ses-croises"]{--bc:#B49BFF;--bcs:#2C2350}
 :root[data-theme="dark"] [data-bloc="ses-outils"] {--bc:#F0A94C;--bcs:#3A2A12}
+
+:root[data-theme="dark"] [data-bloc="mat-maths"]{--bc:#7FB0FF;--bcs:#1B2C4E}
+:root[data-theme="dark"] [data-bloc="mat-francais"]{--bc:#F0808C;--bcs:#3D1A1F}
+:root[data-theme="dark"] [data-bloc="mat-histgeo"]{--bc:#E09A5F;--bcs:#3A2716}
+:root[data-theme="dark"] [data-bloc="mat-sciences"]{--bc:#4FD1A0;--bcs:#12352C}
+:root[data-theme="dark"] [data-bloc="mat-anglais"]{--bc:#57C6D6;--bcs:#10333A}
+:root[data-theme="dark"] [data-bloc="mat-emc"]{--bc:#B49BFF;--bcs:#2C2350}
+:root[data-theme="dark"] [data-bloc="mat-physique"]{--bc:#F183BC;--bcs:#3B1C30}
+:root[data-theme="dark"] [data-bloc="mat-nsi"]{--bc:#F0A94C;--bcs:#3A2A12}
+:root[data-theme="dark"] [data-bloc="mat-ses"]{--bc:#A8C94F;--bcs:#2B3312}
 </style>
 
 <div class="app">
