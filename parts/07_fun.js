@@ -12,7 +12,7 @@ const MSG_FAUX = [
   'Presque ! Regarde la correction, elle est détaillée.',
   'Pas grave ! C’est exactement pour ça qu’on s’entraîne.',
   'Celle-là est piégeuse. Reprends la correction tranquillement.',
-  'On la remettra dans « Réviser » dans quelques jours.',
+  'On la remettra dans le « Mix » dans quelques jours.',
   'C’est en se trompant qu’on retient. Lis chaque étape.',
   'Rien de grave. La prochaine est pour toi.'
 ];
@@ -67,7 +67,7 @@ const BADGES = [
     test: c => c.revanche },
   { id: 'coriace',   e: '🧠', nom: 'Chasseuse de pièges', desc: '10 exercices d’Approfondissement réussis',
     test: c => c.okExp >= 10 },
-  { id: 'chrono',    e: '⏱️', nom: 'Sang-froid',        desc: 'Au moins 8 bonnes réponses en interro chrono',
+  { id: 'chrono',    e: '⏱️', nom: 'Sang-froid',        desc: 'Au moins 8 bonnes réponses en Chrono',
     test: c => c.chronoOk >= 8 },
   { id: 'expertChap',e: '🏅', nom: 'Spécialiste',       desc: 'Atteindre le rang Expert sur un chapitre',
     test: c => CHAPITRES.some(ch => xpChap(ch.id) >= RANGS_CHAP[3].min) },
