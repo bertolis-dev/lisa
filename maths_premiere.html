@@ -79,9 +79,12 @@ input{font:inherit;color:inherit}
 /* ---------- notation mathématique ---------- */
 .m{font-family:var(--serif);font-size:1.06em}
 .m i{font-style:italic}
-.frac{display:inline-flex;flex-direction:column;vertical-align:-0.45em;text-align:center;font-size:.9em;line-height:1.18}
-.frac>.n{padding:0 .3em;border-bottom:1px solid currentColor}
-.frac>.d{padding:0 .3em}
+/* la barre de fraction doit tomber sur l'axe mathématique, à la hauteur du trait du « = » :
+   les deux lignes ont exactement la même hauteur, la barre est donc au milieu du bloc,
+   et « vertical-align: middle » place ce milieu sur l'axe. */
+.frac{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;font-size:.86em;line-height:1.22}
+.frac>.n{padding:0 .32em .06em;border-bottom:1.2px solid currentColor}
+.frac>.d{padding:.06em .32em 0}
 .sqrt>.rad{border-top:1px solid currentColor;padding:0 .15em 0 .06em;margin-left:-.06em}
 .vec{position:relative;display:inline-block}
 .vec>.arw{position:absolute;top:-.8em;left:0;right:0;font-size:.6em;text-align:center;font-style:normal;line-height:1}
