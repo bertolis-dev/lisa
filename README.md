@@ -1,10 +1,14 @@
-# Lisa — spécialité maths, première générale
+# Lisa — réviser le programme, matière par matière
 
-**Lisa** est une application de révision couvrant **tout le programme de spécialité mathématiques de première générale**
-(arrêté du 17 janvier 2019, BO spécial n°1 du 22 janvier 2019) : 5 blocs, 12 chapitres, avec pour chacun
-les capacités attendues et une fiche de cours.
+**Lisa** est une application de révision construite sur les programmes officiels de l'Éducation nationale.
 
-👉 **[bertolis-dev.github.io/spe-maths](https://bertolis-dev.github.io/spe-maths/)** — installable comme
+Première matière couverte : **la spécialité mathématiques de première générale** (arrêté du 17 janvier 2019,
+BO spécial n°1 du 22 janvier 2019) — 5 blocs, 12 chapitres, avec pour chacun les capacités attendues et une
+fiche de cours. L'application est prévue pour accueillir **les autres matières** (`MATIERES` dans
+`parts/03_programme.js`) et, plus tard, **d'autres classes** (`CLASSES`) : chaque chapitre porte un champ
+`matiere` et un champ `classe`.
+
+👉 **[bertolis-dev.github.io/lisa](https://bertolis-dev.github.io/lisa/)** — installable comme
 une application (« Ajouter à l'écran d'accueil »), fonctionne hors connexion.
 
 ## Ce que fait l'application

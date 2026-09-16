@@ -31,6 +31,8 @@ function rendreNav(){
   h += '<button class="' + (vue.nom === 'accueil' ? 'on' : '') + '" data-go="accueil">Accueil</button>';
   h += '<button class="' + (vue.nom === 'serie' && serie && serie.mode === 'revision' ? 'on' : '') + '" data-go="revision">Réviser</button>';
   h += '<button class="' + (vue.nom === 'serie' && serie && serie.mode === 'chrono' ? 'on' : '') + '" data-go="chrono">Interro chrono</button>';
+  const bs = document.getElementById('brandsub');
+  if (bs) bs.textContent = classeCourante().nom;
   h += '<div class="nav-mat">' + matiereCourante().e + ' ' + matiereCourante().nom + '</div>';
   blocsCourants().forEach(b => {
     h += '<div class="grp" data-bloc="' + b.id + '">' + b.nom + '</div>';

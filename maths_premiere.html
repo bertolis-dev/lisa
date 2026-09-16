@@ -401,7 +401,7 @@ main{min-width:0;padding-block:34px;padding-left:40px;padding-right:40px;max-wid
   <aside class="side" id="side">
     <div class="brand">
       <h1>Lisa</h1>
-      <div class="sub">Spé maths &middot; Première</div>
+      <div class="sub" id="brandsub">Première générale</div>
     </div>
     <nav class="nav" id="nav"></nav>
   </aside>
@@ -662,6 +662,15 @@ async function initStore(){
    Pour ajouter une matière : ses chapitres avec `matiere: "<id>"`, ses blocs
    dans BLOCS avec le même champ, et passer `pret` à true.
    ========================================================================= */
+
+/* Classes couvertes. Une seule est remplie aujourd'hui ; le champ `classe`
+   porte par chaque chapitre permet d'en ajouter d'autres sans rien casser. */
+const CLASSES = [
+  { id: 'seconde',   nom: 'Seconde g\u00e9n\u00e9rale',   court: 'Seconde' },
+  { id: 'premiere',  nom: 'Premi\u00e8re g\u00e9n\u00e9rale',  court: 'Premi\u00e8re', pret: true },
+  { id: 'terminale', nom: 'Terminale g\u00e9n\u00e9rale', court: 'Terminale' }
+];
+function classeCourante(){ return CLASSES.filter(c => c.pret)[0]; }
 
 const MATIERES = [
   { id: 'maths',      nom: 'Spécialité mathématiques', court: 'Maths',       e: '📐', type: 'specialite', pret: true },
@@ -1087,10 +1096,10 @@ const CHAPITRES = [
 ];
 
 const CHAP = {};
-CHAPITRES.forEach(c => { c.gens = []; c.matiere = c.matiere || 'maths'; CHAP[c.id] = c; });
+CHAPITRES.forEach(c => { c.gens = []; c.matiere = c.matiere || 'maths'; c.classe = c.classe || 'premiere'; CHAP[c.id] = c; });
 BLOCS.forEach(b => { b.matiere = b.matiere || 'maths'; });
 /* chapitres et blocs de la matière affichée */
-function chapitresCourants(){ return CHAPITRES.filter(c => c.matiere === S.matiere); }
+function chapitresCourants(){ return CHAPITRES.filter(c => c.matiere === S.matiere && c.classe === classeCourante().id); }
 function blocsCourants(){ return BLOCS.filter(b => b.matiere === S.matiere); }
 const METHODE = {};
 /* =========================================================================
@@ -2435,6 +2444,8 @@ function rendreNav(){
   h += '<button class="' + (vue.nom === 'accueil' ? 'on' : '') + '" data-go="accueil">Accueil</button>';
   h += '<button class="' + (vue.nom === 'serie' && serie && serie.mode === 'revision' ? 'on' : '') + '" data-go="revision">Réviser</button>';
   h += '<button class="' + (vue.nom === 'serie' && serie && serie.mode === 'chrono' ? 'on' : '') + '" data-go="chrono">Interro chrono</button>';
+  const bs = document.getElementById('brandsub');
+  if (bs) bs.textContent = classeCourante().nom;
   h += '<div class="nav-mat">' + matiereCourante().e + ' ' + matiereCourante().nom + '</div>';
   blocsCourants().forEach(b => {
     h += '<div class="grp" data-bloc="' + b.id + '">' + b.nom + '</div>';

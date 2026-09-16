@@ -11,6 +11,15 @@
    dans BLOCS avec le même champ, et passer `pret` à true.
    ========================================================================= */
 
+/* Classes couvertes. Une seule est remplie aujourd'hui ; le champ `classe`
+   porte par chaque chapitre permet d'en ajouter d'autres sans rien casser. */
+const CLASSES = [
+  { id: 'seconde',   nom: 'Seconde g\u00e9n\u00e9rale',   court: 'Seconde' },
+  { id: 'premiere',  nom: 'Premi\u00e8re g\u00e9n\u00e9rale',  court: 'Premi\u00e8re', pret: true },
+  { id: 'terminale', nom: 'Terminale g\u00e9n\u00e9rale', court: 'Terminale' }
+];
+function classeCourante(){ return CLASSES.filter(c => c.pret)[0]; }
+
 const MATIERES = [
   { id: 'maths',      nom: 'Spécialité mathématiques', court: 'Maths',       e: '📐', type: 'specialite', pret: true },
   { id: 'francais',   nom: 'Français',                 court: 'Français',    e: '📖', type: 'commun' },
@@ -435,9 +444,9 @@ const CHAPITRES = [
 ];
 
 const CHAP = {};
-CHAPITRES.forEach(c => { c.gens = []; c.matiere = c.matiere || 'maths'; CHAP[c.id] = c; });
+CHAPITRES.forEach(c => { c.gens = []; c.matiere = c.matiere || 'maths'; c.classe = c.classe || 'premiere'; CHAP[c.id] = c; });
 BLOCS.forEach(b => { b.matiere = b.matiere || 'maths'; });
 /* chapitres et blocs de la matière affichée */
-function chapitresCourants(){ return CHAPITRES.filter(c => c.matiere === S.matiere); }
+function chapitresCourants(){ return CHAPITRES.filter(c => c.matiere === S.matiere && c.classe === classeCourante().id); }
 function blocsCourants(){ return BLOCS.filter(b => b.matiere === S.matiere); }
 const METHODE = {};
