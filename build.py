@@ -25,8 +25,12 @@ def ecrire(chemin, contenu):
         os.makedirs(d)
     io.open(chemin, 'w', encoding='utf-8', newline='\n').write(contenu)
 
-import datetime
-VERSION_LISIBLE = datetime.datetime.now().strftime('%d/%m/%Y %Hh%M')
+# numero de version : fichier VERSION, incremente a chaque construction
+_vf = os.path.join(BASE, 'VERSION')
+_maj, _min = (io.open(_vf, encoding='utf-8').read().strip() or '1.0').split('.')
+_min = str(int(_min) + 1)
+io.open(_vf, 'w', encoding='utf-8').write(_maj + '.' + _min)
+VERSION_LISIBLE = _maj + '.' + _min
 corps = ''.join(lire(n) for n in CORPS).replace('__VERSION__', VERSION_LISIBLE)
 
 # ---------- 1. version Artifact ----------
@@ -92,7 +96,7 @@ MANIFESTE = """{
 ecrire(os.path.join(SITE, 'manifest.webmanifest'), MANIFESTE)
 
 # le cache est versionne par la taille du corps : toute modification force la mise a jour
-VERSION = 'v' + str(len(corps)) + '-' + datetime.datetime.now().strftime('%Y%m%d%H%M')
+VERSION = 'v' + VERSION_LISIBLE + '-' + str(len(corps))
 SW = """/* Service worker : l'application fonctionne hors connexion. */
 const CACHE = 'lisa-%s';
 const FICHIERS = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png', './apercu.png'];
