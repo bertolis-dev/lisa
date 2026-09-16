@@ -461,7 +461,10 @@ main{min-width:0;padding-block:34px;padding-left:40px;padding-right:40px;max-wid
 .nav-mat span{font-size:15px}
 
 /* ---------- respiration et largeur ---------- */
-main{max-width:1240px;padding-left:34px;padding-right:34px}
+@media (min-width:901px){main{max-width:1240px;padding-left:34px;padding-right:34px}}
+/* le ruban défile seul : il ne doit jamais élargir la page */
+@media (max-width:900px){.app{grid-template-columns:minmax(0,1fr)}}
+.ruban{min-width:0;max-width:100%}
 .chaps{grid-template-columns:repeat(auto-fill,minmax(236px,1fr))}
 .badges{grid-template-columns:repeat(auto-fill,minmax(134px,1fr))}
 .modes{grid-template-columns:repeat(auto-fit,minmax(196px,1fr))}
