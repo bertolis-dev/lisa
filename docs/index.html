@@ -674,6 +674,11 @@ main{padding-bottom:calc(34px + env(safe-area-inset-bottom, 0px))}
   color:var(--amber);background:var(--amber-soft);padding:2px 7px;border-radius:999px;flex:0 0 auto}
 .chl .jg{width:36px;height:5px;border-radius:3px}
 .chl .jg i{transition:width .3s}
+
+/* ---------- menu ouvert : la page derrière ne doit plus défiler ---------- */
+.side{overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+body.menu-ouvert{position:fixed;left:0;right:0;width:100%;overflow:hidden}
+.scrim{overscroll-behavior:contain;touch-action:none}
 </style>
 
 <div class="app">
@@ -726,7 +731,7 @@ function M(src){ return '<span class="m">' + mathHtml(src) + '</span>'; }
 function Mc(src){ return '<div class="center">' + M(src) + '</div>'; }
 
 /* version de la construction, remplacée par build.py */
-const VERSION_APP = '16/09/2026 16h07';
+const VERSION_APP = '16/09/2026 16h09';
 
 /* ---------- utilitaires numériques ---------- */
 const R = {
@@ -3665,7 +3670,27 @@ const STATUTS = [
 
 function esc(s){ return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
 function aller(v){ vue = v; fermerMenu(); window.scrollTo(0, 0); rendre(); }
-function fermerMenu(){ elSide.classList.remove('open'); const s = document.querySelector('.scrim'); if (s) s.remove(); }
+let defilementPage = 0;
+function ouvrirMenu(){
+  defilementPage = window.scrollY || 0;
+  elSide.classList.add('open');
+  document.body.classList.add('menu-ouvert');
+  document.body.style.top = (-defilementPage) + 'px';
+  const s = document.createElement('div');
+  s.className = 'scrim';
+  s.addEventListener('click', fermerMenu);
+  document.body.appendChild(s);
+}
+function fermerMenu(){
+  elSide.classList.remove('open');
+  const s = document.querySelector('.scrim');
+  if (s) s.remove();
+  if (document.body.classList.contains('menu-ouvert')){
+    document.body.classList.remove('menu-ouvert');
+    document.body.style.top = '';
+    window.scrollTo(0, defilementPage);       /* on revient où on en était */
+  }
+}
 
 /* ---------------- navigation latérale ---------------- */
 function rendreNav(){
@@ -4281,12 +4306,7 @@ function rendre(){
 
 document.addEventListener('click', function(e){
   const t = e.target.closest('[data-maj],[data-ouvrir],[data-corrige],[data-coched],[data-autoeval],[data-eval],[data-dsq],[data-dschoix],[data-dschamp],[data-dsrendre],[data-coche],[data-noter],[data-mat],[data-prendre],[data-son],[data-go],[data-chap],[data-onglet],[data-statut],[data-serie],[data-choix],[data-champ],[data-verifier],[data-sechapper],[data-suivante],[data-quitter],[data-refaire]');
-  if (e.target.closest('#burger')){
-    elSide.classList.add('open');
-    const s = document.createElement('div'); s.className = 'scrim'; s.addEventListener('click', fermerMenu);
-    document.body.appendChild(s);
-    return;
-  }
+  if (e.target.closest('#burger')){ ouvrirMenu(); return; }
   if (!t) return;
   const d = t.dataset;
   if (d.go){

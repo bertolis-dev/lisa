@@ -1,5 +1,5 @@
 /* Service worker : l'application fonctionne hors connexion. */
-const CACHE = 'lisa-v258447-202609161607';
+const CACHE = 'lisa-v259149-202609161609';
 const FICHIERS = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png', './apercu.png'];
 
 self.addEventListener('install', e => {

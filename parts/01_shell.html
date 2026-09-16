@@ -652,6 +652,11 @@ main{padding-bottom:calc(34px + env(safe-area-inset-bottom, 0px))}
   color:var(--amber);background:var(--amber-soft);padding:2px 7px;border-radius:999px;flex:0 0 auto}
 .chl .jg{width:36px;height:5px;border-radius:3px}
 .chl .jg i{transition:width .3s}
+
+/* ---------- menu ouvert : la page derrière ne doit plus défiler ---------- */
+.side{overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+body.menu-ouvert{position:fixed;left:0;right:0;width:100%;overflow:hidden}
+.scrim{overscroll-behavior:contain;touch-action:none}
 </style>
 
 <div class="app">
