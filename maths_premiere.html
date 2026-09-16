@@ -280,6 +280,14 @@ main{min-width:0;padding-block:34px;padding-left:40px;padding-right:40px;max-wid
 .cit{margin:14px 0;padding:14px 16px;border-left:4px solid var(--bc,var(--accent));background:var(--surface-2);border-radius:0 10px 10px 0;font-family:var(--serif,Georgia,serif);font-size:16px;line-height:1.7;color:var(--ink-1)}
 .cit-src{display:block;margin-top:8px;font-family:var(--sans);font-size:12px;letter-spacing:.04em;color:var(--ink-3);font-style:normal}
 .cit u{text-decoration:none;background:var(--bcs,var(--accent-soft));box-shadow:inset 0 -2px 0 var(--bc,var(--accent));border-radius:3px;padding:0 2px}
+
+/* listes de reperes chronologiques (histoire-geo) */
+ul.dates{list-style:none;margin:10px 0;padding:0;display:flex;flex-direction:column;gap:8px}
+ul.dates li{display:grid;grid-template-columns:minmax(110px,auto) minmax(0,1fr);gap:4px 14px;align-items:baseline;padding-bottom:8px;border-bottom:1px solid var(--line)}
+ul.dates li:last-child{border-bottom:0;padding-bottom:0}
+ul.dates b{color:var(--bc,var(--accent));font-variant-numeric:tabular-nums;font-family:var(--sans);font-size:13px;letter-spacing:.02em}
+ul.dates span{color:var(--ink-1)}
+@media (max-width:560px){ul.dates li{grid-template-columns:minmax(0,1fr)}}
 .nav .grp[data-bloc]{color:var(--bc)}
 .bloc[data-bloc] h3{color:var(--bc);border-bottom-color:var(--bc);border-bottom-width:2px}
 .chap[data-bloc]{border-top:3px solid var(--bc)}
@@ -676,6 +684,9 @@ table.tab tr:first-child th{background:var(--accent-soft);color:var(--accent-ink
 [data-bloc="fr-oe"]        {--bc:#B23A48;--bcs:#FBE6E8}
 [data-bloc="fr-outils"]    {--bc:#0F8A5F;--bcs:#DDF2EA}
 [data-bloc="fr-epreuves"]  {--bc:#6D4AC9;--bcs:#EEE8FC}
+[data-bloc="hg-histoire"]   {--bc:#A2541C;--bcs:#F7E8DA}
+[data-bloc="hg-geographie"] {--bc:#0F7A8A;--bcs:#DCF0F3}
+[data-bloc="hg-methode"]    {--bc:#6D4AC9;--bcs:#EEE8FC}
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]) [data-bloc="es-transverse"]{--bc:#F183BC;--bcs:#3B1C30}
   :root:not([data-theme="light"]) [data-bloc="es-donnees"]   {--bc:#F0A94C;--bcs:#3A2A12}
@@ -683,6 +694,9 @@ table.tab tr:first-child th{background:var(--accent-soft);color:var(--accent-ink
   :root:not([data-theme="light"]) [data-bloc="fr-oe"]       {--bc:#F0808C;--bcs:#3D1A1F}
   :root:not([data-theme="light"]) [data-bloc="fr-outils"]   {--bc:#4FD1A0;--bcs:#12352C}
   :root:not([data-theme="light"]) [data-bloc="fr-epreuves"] {--bc:#B49BFF;--bcs:#2C2350}
+  :root:not([data-theme="light"]) [data-bloc="hg-histoire"]   {--bc:#E09A5F;--bcs:#3A2716}
+  :root:not([data-theme="light"]) [data-bloc="hg-geographie"] {--bc:#57C6D6;--bcs:#10333A}
+  :root:not([data-theme="light"]) [data-bloc="hg-methode"]    {--bc:#B49BFF;--bcs:#2C2350}
 }
 :root[data-theme="dark"] [data-bloc="es-transverse"]{--bc:#F183BC;--bcs:#3B1C30}
 :root[data-theme="dark"] [data-bloc="es-donnees"]   {--bc:#F0A94C;--bcs:#3A2A12}
@@ -690,6 +704,9 @@ table.tab tr:first-child th{background:var(--accent-soft);color:var(--accent-ink
 :root[data-theme="dark"] [data-bloc="fr-oe"]       {--bc:#F0808C;--bcs:#3D1A1F}
 :root[data-theme="dark"] [data-bloc="fr-outils"]   {--bc:#4FD1A0;--bcs:#12352C}
 :root[data-theme="dark"] [data-bloc="fr-epreuves"] {--bc:#B49BFF;--bcs:#2C2350}
+:root[data-theme="dark"] [data-bloc="hg-histoire"]   {--bc:#E09A5F;--bcs:#3A2716}
+:root[data-theme="dark"] [data-bloc="hg-geographie"] {--bc:#57C6D6;--bcs:#10333A}
+:root[data-theme="dark"] [data-bloc="hg-methode"]    {--bc:#B49BFF;--bcs:#2C2350}
 </style>
 
 <div class="app">
@@ -742,7 +759,7 @@ function M(src){ return '<span class="m">' + mathHtml(src) + '</span>'; }
 function Mc(src){ return '<div class="center">' + M(src) + '</div>'; }
 
 /* version de la construction, remplacée par build.py */
-const VERSION_APP = '1.15';
+const VERSION_APP = '1.19';
 
 /* ---------- utilitaires numériques ---------- */
 const R = {
@@ -6537,6 +6554,1676 @@ G('fr-grammaire', 'gr-synthese', 'Analyse syntaxique complète', 'ds', function(
   };
 });
 /* =========================================================================
+   MATIÈRE : histoire-géographie, première générale.
+
+   Programme : arrêté du 17 janvier 2019, BO spécial n°1 du 22 janvier 2019,
+   annexe 2. Inchangé pour 2026-2027 : les arrêtés du 26 février 2026
+   (BO n°14 du 2 avril 2026) ne réécrivent que les mathématiques.
+
+   Histoire (48 h) : « Nations, empires, nationalités
+   (de 1789 aux lendemains de la Première Guerre mondiale) », 4 thèmes.
+   Géographie (48 h) : « Les dynamiques d’un monde en recomposition »,
+   3 thèmes plus un thème conclusif.
+
+   Les intitulés de thèmes, de chapitres, les points de passage et
+   d’ouverture, les questions et les études de cas sont ceux du texte
+   officiel, repris mot pour mot.
+   ========================================================================= */
+
+MAT['histgeo'].pret = true;
+
+BLOCS.push(
+  { id: 'hg-histoire',   nom: 'Histoire : nations, empires, nationalités', matiere: 'histgeo' },
+  { id: 'hg-geographie', nom: 'Géographie : un monde en recomposition',    matiere: 'histgeo' },
+  { id: 'hg-methode',    nom: 'Méthodes et repères',                       matiere: 'histgeo' }
+);
+
+/* bloc « points de passage et d’ouverture », toujours formé pareil */
+function ppo(liste){
+  return { k: 'ppo', t: 'Les points de passage et d’ouverture du programme', c:
+    '<p>Ce sont les moments que le professeur travaille en détail, et sur lesquels tombent les analyses de document. ' +
+    'Il faut savoir les raconter précisément.</p><ul>' +
+    liste.map(x => '<li>' + x + '</li>').join('') + '</ul>' };
+}
+/* bloc « repères » : une liste de dates */
+function reperes(liste){
+  return { k: 'reperes', t: 'Les dates à savoir sans hésiter', c:
+    '<ul class="dates">' + liste.map(d => '<li><b>' + d[0] + '</b> <span>' + d[1] + '</span></li>').join('') + '</ul>' };
+}
+
+const CHAPITRES_HG = [
+
+/* ================= HISTOIRE · THÈME 1 ================= */
+{
+  id: 'hg-h1-revolution', bloc: 'hg-histoire',
+  titre: 'La Révolution française et l’Empire',
+  resume: 'Thème 1, chapitre 1. Une nouvelle conception de la nation.',
+  capacites: [
+    'Mesurer l’ampleur de la rupture révolutionnaire avec l’Ancien Régime.',
+    'Expliquer les grands principes de la modernité politique formulés dans la Déclaration des droits de l’homme et du citoyen.',
+    'Analyser les conflits et les débats de la période, jusqu’à la Terreur.',
+    'Montrer comment Napoléon établit un ordre autoritaire qui conserve certains principes de la Révolution.',
+    'Expliquer la diffusion de ces principes en Europe et la fragilité de l’empire napoléonien.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'À quoi ça sert ?', c:
+      '<p>C’est le chapitre qui ouvre le programme, et il commande tout le reste. Tout ce que tu étudieras ensuite, ' +
+      'de 1815 à 1918, se joue autour d’une question posée en 1789 : <b>qui détient la souveraineté ?</b></p>' +
+      '<p>La France passe de la souveraineté du roi à la <b>souveraineté de la nation</b>. Elle mettra ensuite un siècle ' +
+      'à trouver un régime stable.</p>' },
+    reperes([
+      ['1789', 'Réunion des États généraux, prise de la Bastille le 14 juillet, Déclaration des droits de l’homme et du citoyen le 26 août'],
+      ['1792', 'Chute de la monarchie, proclamation de la République'],
+      ['1793', 'Exécution de Louis XVI le 21 janvier, la Terreur'],
+      ['1799', 'Coup d’État de Bonaparte, le Consulat'],
+      ['1804', 'Le Code civil ; Napoléon empereur'],
+      ['1815', 'Waterloo, chute de l’Empire']
+    ]),
+    { k: 'prop', t: 'Les idées directrices du chapitre', c:
+      '<ul><li>La Déclaration de 1789 formule les <b>principes de la modernité politique</b> : liberté, égalité devant la loi, ' +
+      'propriété, souveraineté nationale.</li>' +
+      '<li>La Révolution veut <b>unir la nation</b> autour de ces principes, mais elle est traversée de conflits : ' +
+      'la Révolution et l’Église, la guerre contre l’Europe, la Terreur, les représentants de la nation face aux sans-culottes.</li>' +
+      '<li>Napoléon installe un <b>ordre politique autoritaire</b> qui conserve pourtant des acquis : égalité devant la loi, ' +
+      'Code civil, administration centralisée.</li>' +
+      '<li>Les armées françaises <b>diffusent ces principes en Europe</b>, mais suscitent en retour des <b>sentiments nationaux</b> ' +
+      'qui se retournent contre l’Empire.</li>' +
+      '<li>De la <b>nation en armes</b> de 1792 à la <b>Grande Armée</b> : la guerre change de nature.</li></ul>' },
+    ppo([
+      'Madame Roland, une femme en révolution.',
+      'Décembre 1792 et janvier 1793 : procès et mort de Louis XVI.',
+      '1804 : le Code civil permet l’égalité devant la loi et connaît un rayonnement européen.'
+    ]),
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Ne jamais écrire « la Révolution » comme un bloc : elle a des <b>phases</b>, et des acteurs qui s’opposent.</li>' +
+      '<li>Le Code civil est l’exemple parfait pour montrer la <b>continuité</b> entre Révolution et Empire : ' +
+      'il garde l’égalité devant la loi et supprime l’égalité politique.</li>' +
+      '<li>Une copie qui cite la DDHC de 1789 et une mesure de 1804 montre en deux phrases qu’elle a compris le chapitre.</li></ul>' }
+  ]
+},
+{
+  id: 'hg-h1-restauration', bloc: 'hg-histoire',
+  titre: 'L’Europe entre restauration et révolution',
+  resume: 'Thème 1, chapitre 2. 1814-1848 : refermer la Révolution ?',
+  capacites: [
+    'Expliquer la volonté de clore la Révolution et la restauration de l’ordre monarchique européen.',
+    'Analyser l’œuvre du congrès de Vienne et sa fragilité.',
+    'Comparer les deux expériences de monarchie constitutionnelle en France.',
+    'Expliquer l’essor du mouvement des nationalités et la circulation des idées politiques.',
+    'Situer les deux poussées révolutionnaires de 1830 et 1848 en France et en Europe.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'À quoi ça sert ?', c:
+      '<p>Ce chapitre explique pourquoi la Révolution <b>ne se referme pas</b>. Les souverains européens tentent de revenir ' +
+      'à l’ordre ancien ; les peuples, eux, ont retenu l’idée de nation.</p>' +
+      '<p>C’est ici que naît le <b>principe des nationalités</b>, le fil rouge de tout le programme d’histoire.</p>' },
+    reperes([
+      ['1814', 'Première Restauration, la Charte'],
+      ['1815', 'Le congrès de Vienne redessine l’Europe'],
+      ['1822', 'Le massacre de Chios'],
+      ['1830', 'Les Trois Glorieuses, la monarchie de Juillet'],
+      ['1848', 'Le « printemps des peuples » en Europe']
+    ]),
+    { k: 'prop', t: 'Les idées directrices du chapitre', c:
+      '<ul><li>Deux expériences françaises de <b>monarchie constitutionnelle</b> : la Charte de 1814, puis la Charte révisée de 1830. ' +
+      'Le roi accepte une constitution, mais le suffrage reste censitaire.</li>' +
+      '<li>Le congrès de Vienne veut bâtir une <b>paix durable</b> en renouvelant les règles de la diplomatie. ' +
+      'Il redessine la carte sans tenir compte des peuples.</li>' +
+      '<li>Le <b>mouvement des nationalités</b> remet en cause cet ordre : les peuples réclament un État qui corresponde à leur nation.</li>' +
+      '<li>Les hommes et les idées circulent : écrits, discours, sociétés parfois secrètes, comme la <b>Jeune-Italie</b> de Mazzini.</li>' +
+      '<li>Deux poussées révolutionnaires, <b>1830</b> et <b>1848</b>, se propagent de la France à l’Europe.</li></ul>' },
+    ppo([
+      '1815 : Metternich et le congrès de Vienne.',
+      '1822 : le massacre de Chios.',
+      '1830 : les Trois Glorieuses.'
+    ]),
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Opposer clairement <b>deux logiques</b> : celle des souverains, l’équilibre entre États ; celle des peuples, ' +
+      'le droit des nations. Tout le chapitre tient dans cette tension.</li>' +
+      '<li>Le tableau de Delacroix sur Chios est un document classique : il montre que l’opinion publique ' +
+      'devient un acteur politique.</li>' +
+      '<li>Attention à ne pas confondre <b>Restauration</b> (1814-1830) et <b>monarchie de Juillet</b> (1830-1848).</li></ul>' }
+  ]
+},
+
+/* ================= HISTOIRE · THÈME 2 ================= */
+{
+  id: 'hg-h2-democratie', bloc: 'hg-histoire',
+  titre: 'La difficile entrée dans l’âge démocratique',
+  resume: 'Thème 2, chapitre 1. La Deuxième République et le Second Empire.',
+  capacites: [
+    'Montrer que le suffrage universel masculin de 1848 ne tranche pas la question du régime.',
+    'Expliquer les affirmations fondatrices de 1848 et l’échec du projet républicain.',
+    'Caractériser le Second Empire comme régime autoritaire appuyé sur le suffrage universel masculin.',
+    'Analyser les oppositions au Second Empire et la répression exercée.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'À quoi ça sert ?', c:
+      '<p>1848 donne le droit de vote à tous les hommes. Quatre ans plus tard, ce même suffrage porte au pouvoir ' +
+      'un empereur. Ce chapitre explique ce paradoxe : <b>la démocratie ne se réduit pas au vote</b>.</p>' },
+    reperes([
+      ['février 1848', 'Révolution, proclamation de la Deuxième République'],
+      ['mars 1848', 'Suffrage universel masculin'],
+      ['27 avril 1848', 'Abolition de l’esclavage dans les colonies françaises'],
+      ['juin 1848', 'Journées de juin, répression de l’insurrection ouvrière'],
+      ['2 décembre 1851', 'Coup d’État de Louis-Napoléon Bonaparte'],
+      ['1852', 'Proclamation du Second Empire']
+    ]),
+    { k: 'prop', t: 'Les idées directrices du chapitre', c:
+      '<ul><li>1848 apporte des <b>affirmations fondatrices</b> : suffrage universel masculin, abolition de l’esclavage, ' +
+      'droit au travail un temps proclamé.</li>' +
+      '<li>Le projet républicain <b>échoue</b> devant les tensions : conservateurs contre républicains, villes contre campagnes, ' +
+      'bourgeois contre ouvriers.</li>' +
+      '<li>Le Second Empire est un <b>régime autoritaire</b> qui s’appuie sur le suffrage universel masculin, ' +
+      'le renforcement de l’État et la prospérité économique, et qui mène une politique de grandeur nationale.</li>' +
+      '<li>Il rencontre des <b>oppositions</b> et les réprime : Victor Hugo et Edgar Quinet sont proscrits.</li></ul>' },
+    ppo([
+      'Alphonse de Lamartine en 1848.',
+      'George Sand, femme de lettres engagée en politique.',
+      'Louis-Napoléon Bonaparte, premier président de la République.'
+    ]),
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Le suffrage universel de 1848 est <b>masculin</b> : l’oublier coûte cher, et le préciser montre de la rigueur.</li>' +
+      '<li>Le plébiscite est l’outil clé du Second Empire : un vote qui donne l’apparence démocratique à un pouvoir personnel.</li>' +
+      '<li>Bien distinguer les <b>trois moments</b> : février 1848 l’espoir, juin 1848 la fracture, décembre 1851 le basculement.</li></ul>' }
+  ]
+},
+{
+  id: 'hg-h2-industrialisation', bloc: 'hg-histoire',
+  titre: 'L’industrialisation et les transformations de la France',
+  resume: 'Thème 2, chapitre 2. Mutations économiques et sociales.',
+  capacites: [
+    'Analyser les transformations des modes de production : mécanisation, essor du salariat.',
+    'Expliquer la modernisation encouragée par le Second Empire.',
+    'Mesurer l’importance du monde rural et les débuts de l’exode rural.',
+    'Expliquer l’importance politique de la question sociale.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'À quoi ça sert ?', c:
+      '<p>Ce chapitre montre comment la France change de visage : usines, chemins de fer, villes qui s’étendent. ' +
+      'Et comment une question neuve surgit, qui va dominer la politique pendant un siècle : ' +
+      'la <b>question sociale</b>, celle de la condition ouvrière.</p>' },
+    reperes([
+      ['années 1840-1870', 'Essor du chemin de fer et de l’industrie'],
+      ['1853-1870', 'Paris haussmannien, transformation de la capitale'],
+      ['25 mai 1864', 'La loi Ollivier reconnaît le droit de grève'],
+      ['1884', 'Loi Waldeck-Rousseau autorisant les syndicats']
+    ]),
+    { k: 'prop', t: 'Les idées directrices du chapitre', c:
+      '<ul><li>Les <b>modes de production</b> changent : mécanisation, concentration des ateliers, essor du <b>salariat</b>.</li>' +
+      '<li>Le Second Empire <b>encourage la modernisation</b> : crédit, chemins de fer, grands travaux urbains, libre-échange.</li>' +
+      '<li>La France reste pourtant <b>largement rurale</b> ; l’exode rural commence, mais il est lent.</li>' +
+      '<li>La <b>question sociale</b> devient politique : conditions de travail, salaires, logement ouvrier, droit de s’organiser.</li></ul>' },
+    ppo([
+      'Paris haussmannien : la transformation d’une ville.',
+      'Les frères Pereire, acteurs de la modernisation économique.',
+      '25 mai 1864 : le droit de grève répond à l’une des attentes du mouvement ouvrier.'
+    ]),
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>La France s’industrialise <b>plus lentement</b> que l’Angleterre ou l’Allemagne, et reste rurale plus longtemps. ' +
+      'Le dire évite le contresens le plus fréquent.</li>' +
+      '<li>Le droit de grève est reconnu en 1864, mais le syndicat reste interdit jusqu’en 1884 : ' +
+      'deux dates, deux étapes distinctes.</li>' +
+      '<li>Haussmann est l’exemple à tout faire : modernisation, hygiène, spéculation, et maintien de l’ordre.</li></ul>' }
+  ]
+},
+{
+  id: 'hg-h2-nations', bloc: 'hg-histoire',
+  titre: 'La France et la construction de nouveaux États',
+  resume: 'Thème 2, chapitre 3. Unités italienne et allemande.',
+  capacites: [
+    'Expliquer le rôle de la France dans la construction des unités italienne et allemande.',
+    'Montrer que ces unifications sont menées par des régimes monarchiques appuyés sur la guerre et la diplomatie.',
+    'Analyser la guerre de 1870 et ses conséquences pour la France et pour l’Allemagne.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'À quoi ça sert ?', c:
+      '<p>Le principe des nationalités, né en 1848, devient réalité entre 1859 et 1871 : deux grands États naissent au centre ' +
+      'de l’Europe. Ce ne sont pas les peuples qui les font, ce sont des <b>monarchies</b>, par la guerre et la diplomatie.</p>' +
+      '<p>Et la France, qui a aidé l’unité italienne, est écrasée par l’unité allemande.</p>' },
+    reperes([
+      ['1859', 'Campagne d’Italie, victoires de Magenta et Solférino'],
+      ['1860', 'Rattachement de Nice et de la Savoie à la France'],
+      ['1861', 'Proclamation du royaume d’Italie'],
+      ['1870', 'Guerre franco-prussienne, défaite de Sedan, chute du Second Empire le 4 septembre'],
+      ['18 janvier 1871', 'Proclamation de l’Empire allemand dans la galerie des Glaces, à Versailles'],
+      ['1871', 'Traité de Francfort, perte de l’Alsace et d’une partie de la Lorraine']
+    ]),
+    { k: 'prop', t: 'Les idées directrices du chapitre', c:
+      '<ul><li>Le Second Empire <b>participe à la marche vers l’unité italienne</b>, contre l’Autriche, et reçoit en échange ' +
+      'Nice et la Savoie.</li>' +
+      '<li>La <b>guerre de 1870</b> entraîne la chute du Second Empire et permet l’unité allemande, proclamée à Versailles.</li>' +
+      '<li>Ces unités sont l’œuvre de <b>Cavour</b> en Italie et de <b>Bismarck</b> en Prusse : ' +
+      'des hommes d’État, pas des révolutionnaires.</li></ul>' },
+    ppo([
+      'Le rattachement de Nice et de la Savoie à la France.',
+      '1871 : Bismarck et la proclamation du Reich.'
+    ]),
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Le lieu de la proclamation du Reich, <b>la galerie des Glaces à Versailles</b>, n’est pas un détail : ' +
+      'c’est une humiliation voulue, et la source d’un ressentiment qui pèsera jusqu’en 1914.</li>' +
+      '<li>Retenir la formule : les nations se font <b>par en haut</b>, par la guerre et la diplomatie, ' +
+      'et non par le soulèvement des peuples.</li></ul>' }
+  ]
+},
+
+/* ================= HISTOIRE · THÈME 3 ================= */
+{
+  id: 'hg-h3-republique', bloc: 'hg-histoire',
+  titre: 'La mise en œuvre du projet républicain',
+  resume: 'Thème 3, chapitre 1. Enraciner la République.',
+  capacites: [
+    'Expliquer l’instauration de la République et de la démocratie parlementaire entre 1870 et 1875.',
+    'Présenter l’affirmation des libertés fondamentales.',
+    'Analyser le projet d’unification de la nation autour des valeurs de 1789 et ses modalités.',
+    'Identifier les oppositions rencontrées par la République, dont l’antisémitisme lors de l’affaire Dreyfus.',
+    'Expliquer le refus du droit de vote des femmes.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'À quoi ça sert ?', c:
+      '<p>La République qui naît en 1870 est la <b>troisième</b>. Les deux premières ont duré quatre et douze ans. ' +
+      'Celle-ci tiendra soixante-dix ans. Ce chapitre explique <b>comment un régime s’enracine</b> : par les lois, ' +
+      'par l’école, par les symboles.</p>' },
+    reperes([
+      ['4 septembre 1870', 'Proclamation de la République'],
+      ['1875', 'Lois constitutionnelles fondant la Troisième République'],
+      ['1881-1882', 'Lois Ferry : école gratuite, laïque et obligatoire'],
+      ['1881', 'Liberté de la presse et de réunion'],
+      ['1884', 'Liberté syndicale'],
+      ['1894-1906', 'Affaire Dreyfus'],
+      ['9 décembre 1905', 'Loi de séparation des Églises et de l’État']
+    ]),
+    { k: 'prop', t: 'Les idées directrices du chapitre', c:
+      '<ul><li>1870-1875 : l’instauration de la République et d’une <b>démocratie parlementaire</b>, ' +
+      'après une longue hésitation entre monarchie et république.</li>' +
+      '<li>Des <b>libertés fondamentales</b> sont affirmées : presse, réunion, association, syndicat.</li>' +
+      '<li>La République veut <b>unifier la nation</b> autour des valeurs de 1789, par les symboles (Marianne, 14 juillet, Marseillaise) ' +
+      'et par les lois scolaires.</li>' +
+      '<li>Elle se heurte à des <b>oppositions</b> : courants révolutionnaires, refus de la laïcité par l’Église catholique, ' +
+      'structuration de l’antisémitisme autour de l’<b>affaire Dreyfus</b>, nationalisme.</li>' +
+      '<li>Le <b>droit de vote des femmes est refusé</b>, alors même que la République se dit universelle.</li></ul>' },
+    ppo([
+      '1871 : Louise Michel pendant la Commune de Paris.',
+      '1885 : les funérailles nationales de Victor Hugo.',
+      '1905 : la loi de séparation des Églises et de l’État, débats et mise en œuvre.'
+    ]),
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Le refus du vote des femmes est un point du programme : le mentionner nuance utilement ' +
+      'l’idée d’une République « universelle ».</li>' +
+      '<li>L’affaire Dreyfus n’est pas qu’une erreur judiciaire : elle révèle un antisémitisme organisé ' +
+      'et fait naître la figure de l’<b>intellectuel</b> engagé.</li>' +
+      '<li>1905 sépare les Églises et l’État : elle ne « supprime » pas la religion, elle garantit la liberté de conscience.</li></ul>' }
+  ]
+},
+{
+  id: 'hg-h3-societe', bloc: 'hg-histoire',
+  titre: 'Permanences et mutations de la société française',
+  resume: 'Thème 3, chapitre 2. Une France industrielle et rurale.',
+  capacites: [
+    'Analyser l’industrialisation et les progrès techniques jusqu’en 1914.',
+    'Expliquer la question ouvrière et le mouvement ouvrier.',
+    'Étudier l’immigration et la place des étrangers.',
+    'Mesurer l’importance du monde rural et ses difficultés.',
+    'Analyser l’évolution de la place des femmes.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'À quoi ça sert ?', c:
+      '<p>Le mot clé du chapitre est dans son titre : <b>permanences ET mutations</b>. La France de 1900 est à la fois ' +
+      'le pays des expositions universelles et de l’électricité, et un pays où la moitié des habitants vivent encore à la campagne.</p>' +
+      '<p>Un devoir qui ne montre que la modernité passe à côté du sujet.</p>' },
+    reperes([
+      ['1889', 'Exposition universelle de Paris, la tour Eiffel'],
+      ['1er mai 1891', 'Fusillade de Fourmies'],
+      ['1900', 'Exposition universelle, le métro parisien'],
+      ['1906', 'Repos hebdomadaire obligatoire'],
+      ['1914', 'La France reste peuplée à environ la moitié de ruraux']
+    ]),
+    { k: 'prop', t: 'Les idées directrices du chapitre', c:
+      '<ul><li><b>Industrialisation et progrès techniques</b> : électricité, automobile, chimie, grands magasins.</li>' +
+      '<li>La <b>question ouvrière</b> et la structuration du mouvement ouvrier : syndicats, grèves, socialisme.</li>' +
+      '<li>L’<b>immigration</b> se développe, surtout belge, italienne et polonaise, et suscite des tensions.</li>' +
+      '<li>Le <b>monde rural</b> reste central et connaît ses propres difficultés : crises agricoles, exode.</li>' +
+      '<li>La <b>place des femmes</b> évolue : travail à l’usine et au magasin, accès progressif aux études, ' +
+      'sans droits politiques.</li></ul>' },
+    ppo([
+      '1891 : la fusillade de Fourmies du 1er mai.',
+      'Les expositions universelles de 1889 et 1900.',
+      'Le Creusot et la famille Schneider.'
+    ]),
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Le Creusot est l’exemple modèle du <b>paternalisme industriel</b> : l’usine loge, soigne et surveille l’ouvrier.</li>' +
+      '<li>Les expositions universelles servent à montrer la puissance industrielle <b>et</b> l’empire colonial : ' +
+      'elles relient ce chapitre au suivant.</li>' +
+      '<li>Attention au contresens : la France de 1914 n’est <b>pas</b> un pays majoritairement urbain.</li></ul>' }
+  ]
+},
+{
+  id: 'hg-h3-colonies', bloc: 'hg-histoire',
+  titre: 'Métropole et colonies',
+  resume: 'Thème 3, chapitre 3. L’empire colonial de la Troisième République.',
+  capacites: [
+    'Analyser l’expansion coloniale française : acteurs, motivations, territoires.',
+    'Présenter les débats suscités par la politique coloniale.',
+    'Expliquer les chocs entre puissances occasionnés par cette expansion.',
+    'Étudier le cas particulier de l’Algérie, conquise de 1830 à 1847 et organisée en départements français en 1848.',
+    'Analyser le fonctionnement des sociétés coloniales : affrontements, résistances, violences, négociations, contacts et échanges.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'À quoi ça sert ?', c:
+      '<p>La même République qui proclame les droits de l’homme conquiert un empire et y institue l’inégalité. ' +
+      'Ce chapitre demande de tenir les <b>deux faits ensemble</b>, sans anachronisme et sans complaisance.</p>' },
+    reperes([
+      ['1830-1847', 'Conquête de l’Algérie'],
+      ['1848', 'L’Algérie est organisée en départements français'],
+      ['1881', 'Protectorat français sur la Tunisie'],
+      ['1885', 'Débat Ferry contre Clemenceau à la Chambre sur la colonisation'],
+      ['1887', 'Le code de l’indigénat algérien est généralisé aux colonies françaises'],
+      ['1898', 'Crise de Fachoda, face à face franco-britannique']
+    ]),
+    { k: 'prop', t: 'Les idées directrices du chapitre', c:
+      '<ul><li>L’<b>expansion coloniale</b> a des acteurs (militaires, missionnaires, explorateurs, négociants) ' +
+      'et des motivations mêlées : économiques, stratégiques, de prestige, et une prétendue « mission civilisatrice ».</li>' +
+      '<li>Elle suscite des <b>débats</b> en métropole, entre Jules Ferry qui la défend et Georges Clemenceau qui la dénonce ' +
+      'au nom des droits de l’homme.</li>' +
+      '<li>Elle provoque des <b>chocs entre puissances</b>, dont Fachoda est le meilleur exemple.</li>' +
+      '<li>L’<b>Algérie</b> est un cas particulier : des départements français, mais une population majoritairement privée ' +
+      'de la citoyenneté.</li>' +
+      '<li>Les <b>sociétés coloniales</b> mêlent affrontements, résistances, violences, négociations, contacts et échanges.</li></ul>' },
+    ppo([
+      '1887 : le code de l’indigénat algérien est généralisé à toutes les colonies françaises.',
+      '1898 : Fachoda, le choc des impérialismes.',
+      'Saigon, ville coloniale.'
+    ]),
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Le <b>code de l’indigénat</b> est la preuve juridique de l’inégalité : des sujets, non des citoyens. ' +
+      'C’est l’argument le plus solide du chapitre.</li>' +
+      '<li>Toujours montrer que les colonisés sont des <b>acteurs</b> : ils résistent, négocient, s’adaptent. ' +
+      'Une copie qui les présente en simples victimes passives est incomplète.</li>' +
+      '<li>Le débat Ferry contre Clemenceau de 1885 est le document type de ce chapitre.</li></ul>' }
+  ]
+},
+
+/* ================= HISTOIRE · THÈME 4 ================= */
+{
+  id: 'hg-h4-embrasement', bloc: 'hg-histoire',
+  titre: 'Un embrasement mondial et ses grandes étapes',
+  resume: 'Thème 4, chapitre 1. Les phases et les formes de la guerre.',
+  capacites: [
+    'Présenter les motivations et les buts de guerre des belligérants.',
+    'Expliquer l’extension progressive du conflit et ses grandes étapes.',
+    'Analyser l’échec de la guerre de mouvement et le passage à la guerre de position.',
+    'Montrer l’implication des empires coloniaux britannique et français.',
+    'Expliquer la désintégration de l’empire russe.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'À quoi ça sert ?', c:
+      '<p>Le titre du thème donne la thèse : la Première Guerre mondiale est le <b>« suicide de l’Europe »</b>. ' +
+      'Ce premier chapitre est celui des faits militaires. Il faut le connaître pour pouvoir, ensuite, expliquer les sociétés ' +
+      'et la sortie de guerre.</p>' },
+    reperes([
+      ['28 juin 1914', 'Attentat de Sarajevo'],
+      ['août-septembre 1914', 'Tannenberg et la Marne, échec de la guerre de mouvement'],
+      ['1915', 'Offensive des Dardanelles'],
+      ['1916', 'Verdun et la Somme, les grandes batailles d’usure'],
+      ['1917', 'Révolutions russes, entrée en guerre des États-Unis'],
+      ['mars 1918', 'Dernière offensive allemande'],
+      ['11 novembre 1918', 'Armistice de Rethondes']
+    ]),
+    { k: 'prop', t: 'Les idées directrices du chapitre', c:
+      '<ul><li>Les <b>buts de guerre</b> diffèrent : récupérer l’Alsace-Lorraine, dominer l’Europe centrale, ' +
+      'défendre ou démanteler des empires.</li>' +
+      '<li>Trois formes de guerre : <b>terrestre, navale et aérienne</b>. La guerre devient technique et industrielle.</li>' +
+      '<li>La <b>guerre de mouvement</b> échoue dès l’automne 1914 ; commence la <b>guerre de position</b>, ' +
+      'celle des tranchées.</li>' +
+      '<li>Les <b>empires coloniaux</b> britannique et français fournissent soldats et travailleurs : le conflit devient mondial.</li>' +
+      '<li>L’<b>empire russe se désintègre</b> : la guerre provoque les révolutions de 1917 et la sortie de la Russie du conflit.</li></ul>' },
+    ppo([
+      'Août et septembre 1914 : Tannenberg et la Marne.',
+      '1915 : l’offensive des Dardanelles.',
+      '1916 : la bataille de la Somme.',
+      'Mars 1918 : la dernière offensive allemande.'
+    ]),
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Le programme retient <b>la Somme</b>, pas seulement Verdun : pense à la citer, c’est un point de passage officiel.</li>' +
+      '<li>Expliquer <b>pourquoi</b> la guerre de mouvement échoue (puissance de feu défensive, mitrailleuse, artillerie) ' +
+      'vaut mieux que de raconter la bataille.</li>' +
+      '<li>Le mot « mondial » se justifie par les empires coloniaux et par l’entrée des États-Unis, pas seulement par l’Europe.</li></ul>' }
+  ]
+},
+{
+  id: 'hg-h4-societes', bloc: 'hg-histoire',
+  titre: 'Les sociétés en guerre',
+  resume: 'Thème 4, chapitre 2. Des civils acteurs et victimes.',
+  capacites: [
+    'Analyser les dimensions économique, industrielle et scientifique de la guerre.',
+    'Expliquer les conséquences de la mobilisation des civils, notamment pour la place des femmes.',
+    'Étudier le génocide des Arméniens, depuis les massacres de 1894-1896 jusqu’à son déroulement dans le conflit mondial.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'À quoi ça sert ?', c:
+      '<p>Ce chapitre fait entrer les <b>civils</b> dans la guerre. Ils produisent, ils souffrent, ils se révoltent, ' +
+      'et certains sont exterminés. C’est ici que se joue la notion de <b>guerre totale</b>.</p>' },
+    reperes([
+      ['1894-1896', 'Massacres des Arméniens dans l’Empire ottoman'],
+      ['1915', 'Génocide des Arméniens'],
+      ['24 mai 1915', 'Déclaration de la Triple Entente sur les « crimes contre l’humanité et la civilisation »'],
+      ['1917', 'Grèves en France et mutineries au front'],
+      ['1914-1918', 'Les femmes remplacent les hommes dans les usines et les champs']
+    ]),
+    { k: 'prop', t: 'Les idées directrices du chapitre', c:
+      '<ul><li>La guerre est <b>économique, industrielle et scientifique</b> : usines converties, emprunts, ' +
+      'inventions mises au service du front.</li>' +
+      '<li>La <b>mobilisation des civils</b> a des conséquences durables, notamment sur la <b>place des femmes</b> ' +
+      'dans la société.</li>' +
+      '<li>Le <b>génocide des Arméniens</b> s’inscrit dans une histoire plus longue, commencée avec les massacres ' +
+      'de 1894-1896, et s’accomplit à la faveur du conflit mondial.</li>' +
+      '<li>Les sociétés se <b>fatiguent</b> : les grèves de 1917 montrent que le consentement à la guerre s’use.</li></ul>' },
+    ppo([
+      'Marie Curie dans la guerre.',
+      '24 mai 1915 : la déclaration de la Triple Entente à propos des « crimes contre l’humanité et la civilisation » ' +
+        'perpétrés contre les Arméniens de l’Empire ottoman.',
+      'Les grèves de l’année 1917.'
+    ]),
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>La déclaration du 24 mai 1915 est la <b>première apparition</b> de l’expression « crimes contre l’humanité » ' +
+      'dans un texte international. C’est ce qui en fait un point de passage.</li>' +
+      '<li>Sur les femmes, nuancer : leur rôle s’élargit pendant la guerre, mais l’après-guerre ramène beaucoup d’entre elles ' +
+      'au foyer, et la France ne leur accorde pas le droit de vote.</li>' +
+      '<li>Marie Curie et ses voitures radiologiques : un exemple qui relie science, guerre et place des femmes en une phrase.</li></ul>' }
+  ]
+},
+{
+  id: 'hg-h4-sortir', bloc: 'hg-histoire',
+  titre: 'Sortir de la guerre',
+  resume: 'Thème 4, chapitre 3. Construire un ordre des nations démocratiques.',
+  capacites: [
+    'Présenter le bilan humain et matériel de la guerre.',
+    'Expliquer les principes formulés par le président Wilson et la fondation de la Société des Nations.',
+    'Analyser les traités de paix et la fin des empires multinationaux européens.',
+    'Étudier les interventions étrangères et la guerre civile en Russie jusqu’en 1922.',
+    'Analyser les enjeux de mémoire de la Grande Guerre.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'À quoi ça sert ?', c:
+      '<p>Dernier chapitre du programme, et il le referme : l’Europe de 1920 est celle des <b>nations</b>, ' +
+      'les empires ont disparu. Le principe apparu en 1815 et revendiqué en 1848 a triomphé, au prix de dix millions de morts.</p>' +
+      '<p>Mais cette paix est fragile, et c’est par elle que commencera le programme de terminale.</p>' },
+    reperes([
+      ['janvier 1918', 'Les quatorze points du président Wilson'],
+      ['1919', 'Traité de Versailles, signé le 28 juin'],
+      ['1919-1923', 'Les traités de paix redessinent l’Europe'],
+      ['1920', 'Le soldat inconnu ; création de la Société des Nations'],
+      ['1922', 'Le passeport Nansen et le statut des apatrides ; fin de la guerre civile russe']
+    ]),
+    { k: 'prop', t: 'Les idées directrices du chapitre', c:
+      '<ul><li>Le <b>bilan</b> est humain et matériel : près de dix millions de morts, des régions dévastées, ' +
+      'des économies ruinées, une génération marquée.</li>' +
+      '<li>Wilson formule des <b>principes</b> : droit des peuples à disposer d’eux-mêmes, diplomatie ouverte, ' +
+      'et une organisation internationale, la <b>Société des Nations</b>.</li>' +
+      '<li>Les <b>traités de paix</b> font disparaître les empires multinationaux : allemand, austro-hongrois, ' +
+      'ottoman, russe. De nouveaux États apparaissent.</li>' +
+      '<li>En Russie, la guerre se prolonge en <b>guerre civile</b>, avec interventions étrangères, jusqu’en 1922.</li>' +
+      '<li>La <b>mémoire</b> de la guerre devient un enjeu, pour les États comme pour les familles : ' +
+      'monuments aux morts, commémorations, anciens combattants.</li></ul>' },
+    ppo([
+      '1919-1923 : les traités de paix.',
+      '1920 : le soldat inconnu et les enjeux mémoriels.',
+      '1922 : le passeport Nansen et le statut des apatrides.'
+    ]),
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Montrer que le principe des nationalités est <b>appliqué de façon inégale</b> : il sert les vainqueurs, ' +
+      'et laisse des minorités mécontentes partout. C’est l’argument qui fait la bonne copie.</li>' +
+      '<li>Le passeport Nansen invente une catégorie neuve : l’<b>apatride</b>. La paix produit des sans-État.</li>' +
+      '<li>Les États-Unis n’entrent jamais dans la Société des Nations qu’ils ont inspirée : ' +
+      'un paradoxe à citer pour expliquer sa faiblesse.</li></ul>' }
+  ]
+}
+];
+/* =========================================================================
+   Histoire-géographie, suite : les 4 thèmes de géographie et les chapitres
+   de méthode. Même source officielle que 20_histgeo.js.
+   ========================================================================= */
+
+CHAPITRES_HG.push(
+
+/* ================= GÉOGRAPHIE ================= */
+{
+  id: 'hg-g1-metropolisation', bloc: 'hg-geographie',
+  titre: 'La métropolisation : un processus mondial différencié',
+  resume: 'Thème 1. Les villes concentrent hommes, activités et pouvoir.',
+  capacites: [
+    'Expliquer le poids croissant des métropoles à l’échelle mondiale.',
+    'Montrer que les métropoles sont inégalement attractives et n’exercent pas la même influence.',
+    'Analyser les recompositions internes des métropoles : étalement urbain, nouveaux centres, inégalités.',
+    'Étudier la France : la métropolisation et ses effets.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'À quoi ça sert ?', c:
+      '<p>Depuis 2007, plus de la moitié de la population mondiale vit en ville, et cette part continue de progresser. ' +
+      'Comprendre la métropolisation, c’est comprendre <b>où se décide le monde</b>, et pourquoi certaines villes comptent ' +
+      'plus que des États entiers.</p>' },
+    { k: 'def', t: 'Les notions du thème', c:
+      '<ul><li><b>Urbanisation</b> : la part croissante de la population qui vit en ville.</li>' +
+      '<li><b>Métropolisation</b> : la concentration des <b>populations</b>, des <b>activités</b> et surtout ' +
+      'des <b>fonctions de commandement</b> dans quelques grandes villes.</li>' +
+      '<li><b>Métropole</b> : une ville qui concentre ces fonctions et rayonne au-delà de son territoire.</li>' +
+      '<li><b>Centralité</b> : la capacité d’un lieu à polariser, à attirer.</li>' +
+      '<li><b>Ville primatiale</b> : une ville très supérieure à toutes les autres du pays, comme Paris en France.</li>' +
+      '<li><b>Étalement urbain</b> : l’extension spatiale de la ville vers ses périphéries.</li></ul>' },
+    { k: 'prop', t: 'Les deux questions du programme', c:
+      '<p><b>1. Les villes à l’échelle mondiale : le poids croissant des métropoles.</b><br>' +
+      'L’urbanisation s’accompagne d’une métropolisation. Les métropoles concentrent ce qui commande : ' +
+      'sièges sociaux, bourses, universités, médias, institutions internationales.</p>' +
+      '<p><b>2. Des métropoles inégales et en mutation.</b><br>' +
+      'Elles partagent des attributs visibles (quartier d’affaires, équipement culturel de premier plan, ' +
+      'nœud de transports majeur, institution de recherche et d’innovation), mais elles sont très diverses ' +
+      'et inégalement attractives.</p>' +
+      '<p>À l’échelle locale, l’étalement urbain et l’apparition de <b>nouveaux centres fonctionnels</b>, ' +
+      'dans la ville-centre comme dans les périphéries, recomposent l’espace et <b>accentuent les inégalités</b> ' +
+      'à l’intérieur même des métropoles.</p>' },
+    { k: 'cas', t: 'Les études de cas du programme', c:
+      '<ul><li>La métropolisation au Brésil : dynamiques et contrastes.</li>' +
+      '<li>Londres : une métropole de rang mondial.</li>' +
+      '<li>Mumbai : une métropole fragmentée.</li>' +
+      '<li>La mégalopole du Nord-Est des États-Unis, de Boston à Washington : des synergies métropolitaines.</li></ul>' +
+      '<p class="tiny">Le professeur en choisit une. C’est elle qui fournira tes exemples précis.</p>' },
+    { k: 'meth', t: 'La question sur la France', c:
+      '<p><b>La France : la métropolisation et ses effets.</b></p>' +
+      '<ul><li>La métropolisation <b>renforce le poids de Paris</b>, ville primatiale.</li>' +
+      '<li>Les <b>métropoles régionales</b>, métropolitaines et ultramarines, gagnent en importance et en attractivité, ' +
+      'mais de façon différenciée, et se livrent une concurrence croissante.</li>' +
+      '<li>Le rôle des <b>villes petites et moyennes</b> évolue : certaines sont mises à l’écart, avec dévitalisation ' +
+      'de leur centre-ville ; d’autres connaissent un renouveau, porté par une dynamique économique locale ' +
+      'et la valorisation du cadre de vie.</li></ul>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Ne jamais confondre <b>urbanisation</b> (plus de citadins) et <b>métropolisation</b> ' +
+      '(concentration du pouvoir dans quelques villes). C’est la première chose que vérifie un correcteur.</li>' +
+      '<li>Toujours raisonner à <b>plusieurs échelles</b> : le monde, le pays, l’intérieur de la ville. ' +
+      'Le même processus y produit des effets différents.</li>' +
+      '<li>La métropolisation crée des inégalités <b>entre</b> les villes et <b>à l’intérieur</b> des villes. ' +
+      'Les deux, pas une seule.</li></ul>' }
+  ]
+},
+{
+  id: 'hg-g2-production', bloc: 'hg-geographie',
+  titre: 'Espaces et acteurs de la production',
+  resume: 'Thème 2. Une diversification des lieux et des acteurs.',
+  capacites: [
+    'Montrer la diversité croissante des espaces de production dans le monde.',
+    'Expliquer la métropolisation et la littoralisation des espaces productifs et l’accroissement des flux.',
+    'Analyser l’organisation des chaînes de valeur ajoutée et le rôle des acteurs, publics comme privés.',
+    'Étudier la France : les systèmes productifs entre valorisation locale et intégration européenne et mondiale.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'À quoi ça sert ?', c:
+      '<p>Ton téléphone est conçu dans un pays, ses composants fabriqués dans plusieurs autres, assemblé ailleurs encore, ' +
+      'et vendu partout. Ce thème explique <b>comment on en est arrivé là</b>, et qui décide de la localisation des usines.</p>' },
+    { k: 'def', t: 'Les notions du thème', c:
+      '<ul><li><b>Espace productif</b> : un espace aménagé et organisé pour produire des biens ou des services.</li>' +
+      '<li><b>Système productif</b> : l’ensemble des acteurs, des lieux et des relations qui concourent à une production.</li>' +
+      '<li><b>Chaîne de la valeur ajoutée</b> : la suite des étapes qui, de la conception à la vente, ajoutent chacune ' +
+      'de la valeur au produit. Elles sont réparties entre plusieurs territoires.</li>' +
+      '<li><b>Entreprise multinationale</b> : une entreprise implantée dans plusieurs pays, qui organise ces chaînes.</li>' +
+      '<li><b>Flux</b> : les circulations de marchandises, de capitaux, d’informations, de personnes.</li>' +
+      '<li><b>Littoralisation</b> : la concentration des activités productives sur les littoraux, au contact des grands ports.</li></ul>' },
+    { k: 'prop', t: 'Les deux questions du programme', c:
+      '<p><b>1. Les espaces de production dans le monde : une diversité croissante.</b><br>' +
+      'Les espaces productifs majeurs sont divers et plus ou moins spécialisés. Ils sont de plus en plus nombreux, ' +
+      'interconnectés, et se concentrent surtout <b>dans les métropoles et sur les littoraux</b>. ' +
+      'Il ne faut pas oublier les <b>services</b>, qui produisent aussi de la richesse.</p>' +
+      '<p><b>2. Métropolisation, littoralisation des espaces productifs et accroissement des flux.</b><br>' +
+      'La production s’organise en <b>chaînes de valeur ajoutée</b> à différentes échelles, ce qui multiplie ' +
+      'les flux matériels et immatériels.</p>' +
+      '<p>Les chaînes sont largement organisées par les <b>entreprises internationales</b>, mais l’implantation des unités ' +
+      'dépend aussi d’<b>autres acteurs, notamment publics</b>, des savoir-faire, des coûts de main-d’œuvre et des atouts ' +
+      'des territoires, <b>mis en concurrence</b>. L’<b>économie numérique</b> élargit encore la diversité des espaces ' +
+      'et des acteurs.</p>' },
+    { k: 'cas', t: 'Les études de cas du programme', c:
+      '<ul><li>Les espaces des industries aéronautique et aérospatiale européennes : une production en réseau.</li>' +
+      '<li>Singapour : l’articulation de la finance, de la production et des flux.</li>' +
+      '<li>Les investissements chinois en Afrique : la recomposition des acteurs et des espaces de la production ' +
+      'aux échelles régionale et mondiale.</li>' +
+      '<li>La Silicon Valley : un espace productif intégré de l’échelle locale à l’échelle mondiale.</li></ul>' },
+    { k: 'meth', t: 'La question sur la France', c:
+      '<p><b>La France : les systèmes productifs entre valorisation locale et intégration européenne et mondiale.</b></p>' +
+      '<p>L’étude porte sur la France <b>Outre-mer inclus</b>. Elle met en avant les lieux et les acteurs de la production ' +
+      'à l’échelle nationale, en soulignant l’articulation entre la <b>valorisation locale</b> (savoir-faire, terroirs, ' +
+      'pôles de compétitivité) et l’<b>intégration européenne et mondiale</b>.</p>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Le mot que le correcteur attend est <b>acteurs</b> : entreprises, États, collectivités, salariés, consommateurs. ' +
+      'Une copie qui ne parle que d’entreprises est incomplète.</li>' +
+      '<li>Ne pas réduire la production à l’industrie : les <b>services</b> sont explicitement dans le programme.</li>' +
+      '<li>Penser l’Outre-mer quand on traite la France : c’est écrit dans le texte officiel, et presque toujours oublié.</li></ul>' }
+  ]
+},
+{
+  id: 'hg-g3-ruraux', bloc: 'hg-geographie',
+  titre: 'Les espaces ruraux : multifonctionnalité ou fragmentation ?',
+  resume: 'Thème 3. Des campagnes qui ne sont plus seulement agricoles.',
+  capacites: [
+    'Analyser la fragmentation des espaces ruraux.',
+    'Expliquer l’affirmation des fonctions non agricoles et les conflits d’usages.',
+    'Montrer la diminution de la part des agriculteurs et le maintien du rôle structurant de l’agriculture dans certains espaces.',
+    'Étudier la France : des espaces ruraux multifonctionnels, entre initiatives locales et politiques européennes.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'À quoi ça sert ?', c:
+      '<p>Le titre du thème est une <b>question</b>, et c’est voulu : les campagnes se diversifient, ce qui les enrichit ' +
+      'et les fragilise en même temps. Un devoir doit trancher, ou montrer que les deux cohabitent.</p>' },
+    { k: 'def', t: 'Les notions du thème', c:
+      '<ul><li><b>Espace rural</b> : un espace de faible densité, où les paysages agricoles et naturels dominent.</li>' +
+      '<li><b>Multifonctionnalité</b> : le fait qu’un même espace remplisse plusieurs fonctions : agricole, résidentielle, ' +
+      'industrielle, environnementale, touristique.</li>' +
+      '<li><b>Fragmentation</b> : la division d’un espace en portions aux dynamiques opposées, certaines attractives, ' +
+      'd’autres à l’écart.</li>' +
+      '<li><b>Périurbanisation</b> : l’installation de citadins dans les campagnes proches des villes.</li>' +
+      '<li><b>Conflit d’usage</b> : une opposition entre acteurs qui veulent utiliser le même espace différemment.</li>' +
+      '<li><b>Ruralité</b> : les manières de vivre et les représentations associées à ces espaces.</li></ul>' },
+    { k: 'prop', t: 'Les deux questions du programme', c:
+      '<p><b>1. La fragmentation des espaces ruraux.</b><br>' +
+      'Les campagnes du monde connaissent un paradoxe : des liens de plus en plus étroits avec les villes, ' +
+      'et en même temps l’affirmation de <b>spécificités rurales</b>, paysagères, économiques, socio-culturelles. ' +
+      'Cela produit des dynamiques contrastées : valorisation, mise à l’écart, ou protection de la nature et du patrimoine.</p>' +
+      '<p>La part des agriculteurs <b>diminue</b> partout dans les populations rurales. L’agriculture reste pourtant ' +
+      '<b>structurante</b> pour certains espaces, avec des débouchés de plus en plus variés, alimentaires et non alimentaires.</p>' +
+      '<p><b>2. Affirmation des fonctions non agricoles et conflits d’usages.</b><br>' +
+      'La multifonctionnalité s’affirme de manière <b>inégale</b> selon les régions du monde. Elle diversifie ces espaces ' +
+      'et les fragilise. D’où une <b>conflictualité accrue</b>, notamment autour du foncier : accaparement des terres, ' +
+      'conflits d’usage. Se pose alors la question de leur <b>dépendance aux espaces urbains</b>.</p>' },
+    { k: 'cas', t: 'Les études de cas du programme', c:
+      '<ul><li>Les mutations des espaces ruraux de Toscane.</li>' +
+      '<li>Les transformations paysagères des espaces ruraux d’une région française, métropolitaine ou ultramarine.</li>' +
+      '<li>Mutations agricoles et recomposition des espaces ruraux en Inde.</li>' +
+      '<li>Les espaces ruraux canadiens : une multifonctionnalité marquée.</li></ul>' },
+    { k: 'meth', t: 'La question sur la France', c:
+      '<p><b>La France : des espaces ruraux multifonctionnels, entre initiatives locales et politiques européennes.</b></p>' +
+      '<ul><li>Mutation des systèmes agricoles et diversification des fonctions productives.</li>' +
+      '<li>Pression urbaine croissante et liens accrus avec les espaces urbains.</li>' +
+      '<li>Entre vieillissement et renouveau des populations rurales : des dynamiques démographiques ' +
+      'et résidentielles diversifiées.</li></ul>' +
+      '<p>Ces mutations posent des <b>enjeux d’aménagement</b> : soutien de l’agriculture, équipement numérique, télétravail, ' +
+      'protection de l’environnement, maintien et réorganisation des services publics. Elles mobilisent des acteurs ' +
+      '<b>à toutes les échelles</b>, du développement local aux politiques nationales et européennes.</p>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>« Rural » n’est pas « agricole ». Les agriculteurs sont désormais <b>minoritaires</b> dans les campagnes : ' +
+      'c’est le point de départ de tout le thème.</li>' +
+      '<li>Un <b>conflit d’usage</b> est l’exemple le plus efficace : il met en scène des acteurs qui s’opposent, ' +
+      'et c’est exactement ce que la géographie demande d’analyser.</li>' +
+      '<li>Le titre est une question : une conclusion qui répond « les deux, selon les espaces » est une bonne conclusion, ' +
+      'à condition de le démontrer.</li></ul>' }
+  ]
+},
+{
+  id: 'hg-g4-chine', bloc: 'hg-geographie',
+  titre: 'La Chine : des recompositions spatiales multiples',
+  resume: 'Thème 4 conclusif. Tout le programme appliqué à un pays.',
+  capacites: [
+    'Analyser le développement de la Chine et les inégalités qu’il produit.',
+    'Étudier des ressources et des environnements sous pression.',
+    'Expliquer les recompositions spatiales : urbanisation, littoralisation, mutations des espaces ruraux.',
+    'Mobiliser les acquis des trois premiers thèmes sur une seule aire géographique.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'À quoi ça sert ?', c:
+      '<p>C’est le <b>thème conclusif</b> : il ne présente pas de notion nouvelle, il applique à un seul pays ' +
+      'tout ce que tu as appris sur la métropolisation, la production et les espaces ruraux.</p>' +
+      '<p>C’est aussi le thème le plus rentable en devoir : tes exemples chinois peuvent servir à traiter ' +
+      'presque n’importe quel sujet de géographie de l’année.</p>' },
+    { k: 'prop', t: 'Les trois questions du programme', c:
+      '<p><b>1. Développement et inégalités.</b><br>' +
+      'Une croissance spectaculaire, mais des écarts considérables entre littoral et intérieur, entre villes et campagnes, ' +
+      'entre catégories sociales.</p>' +
+      '<p><b>2. Des ressources et des environnements sous pression.</b><br>' +
+      'Surexploitation des ressources, pollution de l’air et de l’eau, transition énergétique engagée ' +
+      'mais dépendance persistante au charbon.</p>' +
+      '<p><b>3. Recompositions spatiales : urbanisation, littoralisation, mutations des espaces ruraux.</b><br>' +
+      'Migrations massives des campagnes vers les villes, croissance des métropoles, concentration des activités ' +
+      'sur la façade maritime, transformation profonde des campagnes.</p>' },
+    { k: 'def', t: 'Le mot clé : paradoxe', c:
+      '<p>Le programme le dit explicitement : la Chine est un pays où les évolutions démographiques et les transitions, ' +
+      'urbaine, environnementale, énergétique, <b>engendrent de nombreux paradoxes</b>.</p>' +
+      '<ul><li>Deuxième puissance économique du monde, et de fortes inégalités internes.</li>' +
+      '<li>Premier émetteur mondial de gaz à effet de serre, et premier investisseur dans les énergies renouvelables.</li>' +
+      '<li>Une urbanisation fulgurante, et des campagnes qui se vident tout en restant peuplées de centaines de millions ' +
+      'de personnes.</li></ul>' +
+      '<p>Construire un devoir autour de ces paradoxes est la meilleure manière de traiter le thème.</p>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Raisonner toujours en <b>opposition littoral / intérieur</b> : c’est la clé de lecture du territoire chinois, ' +
+      'et elle se dessine très bien sur un croquis.</li>' +
+      '<li>La politique de l’enfant unique, puis son abandon, explique une partie du vieillissement : ' +
+      'un exemple précis vaut mieux qu’une généralité sur la démographie.</li>' +
+      '<li>Comme c’est le thème conclusif, un correcteur apprécie les <b>renvois aux thèmes précédents</b> : ' +
+      'Shanghai comme métropole, le delta de la rivière des Perles comme espace productif.</li></ul>' }
+  ]
+},
+
+/* ================= MÉTHODES ET REPÈRES ================= */
+{
+  id: 'hg-reperes', bloc: 'hg-methode',
+  titre: 'Chronologie et repères',
+  resume: 'Le fil de 1789 à 1922, régime par régime.',
+  capacites: [
+    'Identifier et nommer les périodes historiques, les continuités et les ruptures chronologiques.',
+    'Identifier et expliciter les dates et les acteurs clés des grands événements.',
+    'Mettre en relation des faits de natures, de périodes et de localisations différentes.',
+    'Utiliser l’échelle appropriée pour étudier un phénomène.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'À quoi ça sert ?', c:
+      '<p>Une date fausse dans une copie décrédibilise tout le reste. Une date juste, bien placée, fait le contraire : ' +
+      'elle prouve que tu maîtrises le contexte.</p>' +
+      '<p>Le programme demande explicitement de <b>connaître et se repérer</b> : c’est la première des capacités travaillées.</p>' },
+    { k: 'prop', t: 'Les régimes politiques français, dans l’ordre', c:
+      '<ul class="dates">' +
+      '<li><b>1789-1792</b> <span>Monarchie constitutionnelle</span></li>' +
+      '<li><b>1792-1804</b> <span>Première République : Convention, Directoire, Consulat</span></li>' +
+      '<li><b>1804-1814</b> <span>Premier Empire, Napoléon Ier</span></li>' +
+      '<li><b>1814-1830</b> <span>Restauration : Louis XVIII, puis Charles X</span></li>' +
+      '<li><b>1830-1848</b> <span>Monarchie de Juillet, Louis-Philippe</span></li>' +
+      '<li><b>1848-1852</b> <span>Deuxième République</span></li>' +
+      '<li><b>1852-1870</b> <span>Second Empire, Napoléon III</span></li>' +
+      '<li><b>1870-1940</b> <span>Troisième République</span></li></ul>' +
+      '<p>Sept régimes en quatre-vingts ans : c’est cette instabilité que raconte le programme d’histoire.</p>' },
+    reperes([
+      ['1789', 'Révolution française, Déclaration des droits de l’homme et du citoyen'],
+      ['1804', 'Code civil ; Napoléon empereur'],
+      ['1815', 'Congrès de Vienne'],
+      ['1830', 'Trois Glorieuses ; début de la conquête de l’Algérie'],
+      ['1848', 'Printemps des peuples ; suffrage universel masculin ; abolition de l’esclavage'],
+      ['1852', 'Second Empire'],
+      ['1870', 'Défaite de Sedan, proclamation de la République le 4 septembre'],
+      ['1871', 'Commune de Paris ; proclamation de l’Empire allemand'],
+      ['1875', 'Lois constitutionnelles de la Troisième République'],
+      ['1881-1882', 'Lois Ferry sur l’école'],
+      ['1894-1906', 'Affaire Dreyfus'],
+      ['1905', 'Séparation des Églises et de l’État'],
+      ['1914-1918', 'Première Guerre mondiale'],
+      ['1919', 'Traité de Versailles'],
+      ['1920', 'Société des Nations ; le soldat inconnu']
+    ]),
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Apprendre les dates <b>par régime</b>, pas en liste : le cerveau retient une histoire, pas un tableau.</li>' +
+      '<li>Retenir les <b>couples</b> : 1848 et le suffrage universel masculin, 1871 et Versailles, 1905 et la laïcité. ' +
+      'Une date seule s’oublie, une date avec son sens reste.</li>' +
+      '<li>En géographie, le repère est <b>spatial</b> : savoir placer Londres, Mumbai, Shanghai, la Silicon Valley, ' +
+      'la mégalopole du Nord-Est américain.</li></ul>' }
+  ]
+},
+{
+  id: 'hg-m-composition', bloc: 'hg-methode',
+  titre: 'La composition',
+  resume: 'Répondre à une question problématisée, en devoir.',
+  capacites: [
+    'S’approprier un questionnement historique ou géographique.',
+    'Construire une argumentation historique ou géographique.',
+    'Utiliser les notions et le lexique acquis à bon escient.',
+    'Justifier des choix, une interprétation, une production.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'L’exercice', c:
+      '<p>Le programme nomme trois exercices travaillés tout au long du lycée : la <b>composition</b>, ' +
+      'l’<b>analyse critique de document(s)</b> et la <b>réalisation d’un croquis</b>.</p>' +
+      '<p>En première, l’histoire-géographie est évaluée en <b>contrôle continu</b> : ce sont les devoirs faits en classe ' +
+      'qui comptent. La composition y est posée le plus souvent sous la forme d’une <b>question problématisée</b>.</p>' },
+    { k: 'meth', t: 'La méthode, étape par étape', c:
+      '<ul><li>1. <b>Analyser le sujet</b> : souligner les mots clés, et repérer les <b>bornes</b>. ' +
+      'Un sujet d’histoire a toujours des bornes chronologiques, un sujet de géographie des bornes spatiales.</li>' +
+      '<li>2. <b>Problématiser</b> : transformer le sujet en une question qui mérite une réponse construite.</li>' +
+      '<li>3. <b>Mobiliser</b> : noter au brouillon tout ce qui vient, dates, acteurs, notions, exemples, puis trier.</li>' +
+      '<li>4. <b>Bâtir le plan</b> : deux ou trois parties, chacune répondant à un aspect de la problématique.</li>' +
+      '<li>5. <b>Rédiger</b> entièrement, en sautant une ligne entre les parties.</li></ul>' },
+    { k: 'prop', t: 'Les trois plans possibles', c:
+      '<ul><li><b>Chronologique</b> : des étapes qui se succèdent. Le plus naturel en histoire, à condition ' +
+      'que chaque étape marque une vraie rupture.</li>' +
+      '<li><b>Thématique</b> : politique, économique, social, culturel. Utile, mais attention au catalogue.</li>' +
+      '<li><b>Analytique ou dialectique</b> : constat, puis limites, puis dépassement. Le plus exigeant, ' +
+      'et celui qui rapporte le plus quand il est maîtrisé.</li></ul>' +
+      '<p>En géographie, on ajoute souvent un plan <b>multiscalaire</b> : du mondial au local.</p>' },
+    { k: 'meth', t: 'L’introduction et la conclusion', c:
+      '<p><b>Introduction</b> en quatre temps : une <b>accroche</b> (un fait, une date, un chiffre) · ' +
+      'la <b>définition des termes</b> du sujet · la <b>problématique</b> · l’<b>annonce du plan</b>.</p>' +
+      '<p><b>Conclusion</b> en deux temps : la <b>réponse</b> à la problématique, puis une <b>ouverture</b> ' +
+      'vers un autre espace, une autre période ou l’actualité.</p>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Chaque paragraphe suit le même mouvement : une <b>idée</b>, un ou deux <b>exemples précis</b>, ' +
+      'une phrase de <b>bilan</b>. Sans exemple, l’idée ne vaut rien.</li>' +
+      '<li>Employer les <b>notions du programme</b> à bon escient : métropolisation, multifonctionnalité, ' +
+      'chaîne de valeur ajoutée. C’est une capacité explicitement évaluée.</li>' +
+      '<li>Les <b>bornes</b> du sujet se respectent : raconter 1789 dans un sujet qui commence en 1848 fait perdre du temps ' +
+      'et des points.</li>' +
+      '<li>Garder dix minutes pour <b>relire</b>. Les dates fausses se repèrent à la relecture.</li></ul>' }
+  ]
+},
+{
+  id: 'hg-m-document', bloc: 'hg-methode',
+  titre: 'L’analyse critique de document',
+  resume: 'Interroger un document, pas le paraphraser.',
+  capacites: [
+    'Procéder à l’analyse critique d’un document selon une approche historique ou géographique.',
+    'Savoir lire, comprendre et apprécier une carte, un croquis, un document iconographique, une série statistique.',
+    'Mettre un événement ou une figure en perspective.',
+    'Confronter le savoir acquis avec ce qui est lu.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'L’exercice', c:
+      '<p>Le mot qui compte dans l’intitulé est <b>critique</b>. On ne demande pas de raconter ce que dit le document, ' +
+      'mais de dire <b>ce qu’il vaut</b> : qui parle, pour qui, pourquoi, et ce qu’il tait.</p>' +
+      '<p>C’est l’exercice dans lequel se jouent les points de passage et d’ouverture du programme d’histoire.</p>' },
+    { k: 'meth', t: 'La méthode, étape par étape', c:
+      '<ul><li>1. <b>Identifier</b> : nature du document, auteur, date, destinataire, contexte. ' +
+      'Chacun de ces éléments est une information, pas une formalité.</li>' +
+      '<li>2. <b>Comprendre</b> : de quoi parle-t-il, quelle est sa thèse, comment est-il construit ?</li>' +
+      '<li>3. <b>Expliquer</b> : relier chaque passage cité à des connaissances précises, tirées du cours.</li>' +
+      '<li>4. <b>Critiquer</b> : quel est le point de vue de l’auteur ? Quels sont ses intérêts ? ' +
+      'Qu’est-ce qui est omis, déformé, exagéré ? Quelle est la portée du document, et ses limites ?</li></ul>' },
+    { k: 'prop', t: 'Ce que « critiquer » veut dire', c:
+      '<p>Critiquer, ce n’est pas dire que le document est mauvais. C’est répondre à trois questions :</p>' +
+      '<ul><li><b>Qui parle, et d’où ?</b> Un discours de Jules Ferry sur la colonisation n’est pas un témoignage neutre.</li>' +
+      '<li><b>Que dit-il et que tait-il ?</b> Les silences d’un document sont souvent plus parlants que son contenu.</li>' +
+      '<li><b>Que vaut-il comme source ?</b> Ce qu’il permet de savoir, et ce qu’il ne permet pas.</li></ul>' },
+    { k: 'piege', t: 'Les erreurs à éviter', c:
+      '<ul><li>La <b>paraphrase</b> : recopier le document en le reformulant. C’est l’erreur la plus sanctionnée.</li>' +
+      '<li>Le <b>hors-sujet du cours</b> : réciter le chapitre sans jamais revenir au document.</li>' +
+      '<li>L’<b>anachronisme</b> : juger les acteurs du passé avec les valeurs d’aujourd’hui, au lieu de les expliquer.</li>' +
+      '<li>Oublier la <b>consigne</b> : elle oriente l’analyse et doit structurer le plan.</li></ul>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Alterner sans arrêt <b>citation courte, entre guillemets</b> et <b>explication</b> tirée du cours. ' +
+      'C’est le rythme attendu.</li>' +
+      '<li>La <b>date</b> du document est presque toujours exploitable : que se passe-t-il cette année-là ?</li>' +
+      '<li>Un paragraphe entier sans citation est un paragraphe qui a quitté le document.</li></ul>' }
+  ]
+},
+{
+  id: 'hg-m-croquis', bloc: 'hg-methode',
+  titre: 'Le croquis et la production graphique',
+  resume: 'Transposer un texte en croquis, construire une légende.',
+  capacites: [
+    'Transposer un texte en croquis.',
+    'Réaliser des productions graphiques et cartographiques dans le cadre d’une analyse.',
+    'Nommer et localiser les grands repères géographiques et les principaux processus étudiés.',
+    'Justifier des choix et une production.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'L’exercice', c:
+      '<p>Le programme le dit : « <b>le croquis est l’aboutissement d’un travail de description, d’analyse et de synthèse</b> ». ' +
+      'Ce n’est pas un dessin décoratif, c’est une démonstration.</p>' +
+      '<p>Les capacités travaillées incluent explicitement <b>transposer un texte en croquis</b> : ' +
+      'un exercice très fréquent en devoir de première.</p>' },
+    { k: 'meth', t: 'La méthode, étape par étape', c:
+      '<ul><li>1. <b>Lire le sujet</b> et repérer les informations cartographiables dans le texte : ' +
+      'des lieux, des flux, des dynamiques.</li>' +
+      '<li>2. <b>Construire la légende d’abord</b>, jamais le croquis. La légende est le plan du devoir.</li>' +
+      '<li>3. <b>Organiser la légende en deux ou trois parties titrées</b>, qui répondent au sujet.</li>' +
+      '<li>4. <b>Reporter</b> sur le fond de carte, proprement, au crayon de couleur.</li>' +
+      '<li>5. <b>Nommer</b> : titre du croquis, noms des lieux essentiels, orientation.</li></ul>' },
+    { k: 'prop', t: 'Le langage cartographique', c:
+      '<ul><li><b>Surfaces</b> (aplats de couleur) : des espaces, des zones, des ensembles régionaux.</li>' +
+      '<li><b>Points</b> (cercles, carrés) : des villes, des ports, des sites. La taille indique l’importance.</li>' +
+      '<li><b>Lignes et flèches</b> : des flux, des axes, des limites. L’épaisseur indique l’intensité.</li></ul>' +
+      '<p>Les couleurs ont un sens conventionnel : le <b>rouge</b> pour ce qui est dynamique ou dense, ' +
+      'le <b>bleu</b> pour les flux et les espaces maritimes, le <b>vert</b> pour l’agricole et l’environnemental, ' +
+      'le <b>jaune</b> ou l’orange pour les intermédiaires.</p>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Une légende <b>organisée et titrée</b> vaut plus de points qu’un croquis très colorié : ' +
+      'c’est elle qui montre le raisonnement.</li>' +
+      '<li>Un croquis <b>sans titre</b> perd des points automatiquement. C’est la faute la plus bête de l’exercice.</li>' +
+      '<li>Mieux vaut <b>peu de figurés, bien choisis</b>, qu’une carte surchargée et illisible.</li>' +
+      '<li>Le <b>schéma</b> est une version simplifiée, dessinée à main levée : très utile pour illustrer ' +
+      'un paragraphe de composition en deux minutes.</li></ul>' }
+  ]
+}
+);
+
+CHAPITRES_HG.forEach(c => {
+  c.gens = [];
+  c.matiere = 'histgeo';
+  c.classe = 'premiere';
+  CHAPITRES.push(c);
+  CHAP[c.id] = c;
+});
+/* =========================================================================
+   Générateurs d'exercices d'histoire-géographie.
+   Les repères, les notions et les méthodes se corrigent automatiquement.
+   La composition, l'analyse de document et le croquis passent par le
+   barème auto-évalué, comme les démonstrations de maths.
+   ========================================================================= */
+
+/* ---------- repères chronologiques ---------- */
+const DATES_HG = [
+  { d: '1789', e: 'Déclaration des droits de l’homme et du citoyen', an: 1789, ch: 'hg-h1-revolution' },
+  { d: '21 janvier 1793', e: 'Exécution de Louis XVI', an: 1793, ch: 'hg-h1-revolution' },
+  { d: '1804', e: 'Le Code civil et le sacre de Napoléon Ier', an: 1804, ch: 'hg-h1-revolution' },
+  { d: '1815', e: 'Le congrès de Vienne redessine l’Europe', an: 1815, ch: 'hg-h1-restauration' },
+  { d: '1822', e: 'Le massacre de Chios', an: 1822, ch: 'hg-h1-restauration' },
+  { d: '1830', e: 'Les Trois Glorieuses et le début de la monarchie de Juillet', an: 1830, ch: 'hg-h1-restauration' },
+  { d: '1848', e: 'Le printemps des peuples et la Deuxième République', an: 1848, ch: 'hg-h2-democratie' },
+  { d: '27 avril 1848', e: 'L’abolition de l’esclavage dans les colonies françaises', an: 1848, ch: 'hg-h2-democratie' },
+  { d: '2 décembre 1851', e: 'Le coup d’État de Louis-Napoléon Bonaparte', an: 1851, ch: 'hg-h2-democratie' },
+  { d: '1852', e: 'La proclamation du Second Empire', an: 1852, ch: 'hg-h2-democratie' },
+  { d: '25 mai 1864', e: 'La reconnaissance du droit de grève', an: 1864, ch: 'hg-h2-industrialisation' },
+  { d: '1884', e: 'La loi Waldeck-Rousseau autorise les syndicats', an: 1884, ch: 'hg-h2-industrialisation' },
+  { d: '1860', e: 'Le rattachement de Nice et de la Savoie à la France', an: 1860, ch: 'hg-h2-nations' },
+  { d: '4 septembre 1870', e: 'La chute du Second Empire et la proclamation de la République', an: 1870, ch: 'hg-h2-nations' },
+  { d: '18 janvier 1871', e: 'La proclamation de l’Empire allemand à Versailles', an: 1871, ch: 'hg-h2-nations' },
+  { d: '1871', e: 'La Commune de Paris', an: 1871, ch: 'hg-h3-republique' },
+  { d: '1875', e: 'Les lois constitutionnelles fondant la Troisième République', an: 1875, ch: 'hg-h3-republique' },
+  { d: '1881-1882', e: 'Les lois Ferry : école gratuite, laïque et obligatoire', ch: 'hg-h3-republique' },
+  { d: '1885', e: 'Les funérailles nationales de Victor Hugo', an: 1885, ch: 'hg-h3-republique' },
+  { d: '9 décembre 1905', e: 'La loi de séparation des Églises et de l’État', an: 1905, ch: 'hg-h3-republique' },
+  { d: '1er mai 1891', e: 'La fusillade de Fourmies', an: 1891, ch: 'hg-h3-societe' },
+  { d: '1889', e: 'L’Exposition universelle de Paris et la tour Eiffel', an: 1889, ch: 'hg-h3-societe' },
+  { d: '1830-1847', e: 'La conquête de l’Algérie', ch: 'hg-h3-colonies' },
+  { d: '1887', e: 'Le code de l’indigénat est généralisé aux colonies françaises', an: 1887, ch: 'hg-h3-colonies' },
+  { d: '1898', e: 'La crise de Fachoda, le choc des impérialismes', an: 1898, ch: 'hg-h3-colonies' },
+  { d: '28 juin 1914', e: 'L’attentat de Sarajevo', an: 1914, ch: 'hg-h4-embrasement' },
+  { d: 'septembre 1914', e: 'La bataille de la Marne, échec de la guerre de mouvement', an: 1914, ch: 'hg-h4-embrasement' },
+  { d: '1916', e: 'Les batailles de Verdun et de la Somme', an: 1916, ch: 'hg-h4-embrasement' },
+  { d: '11 novembre 1918', e: 'L’armistice de Rethondes', an: 1918, ch: 'hg-h4-embrasement' },
+  { d: '24 mai 1915', e: 'La déclaration de la Triple Entente sur les crimes contre l’humanité commis contre les Arméniens', an: 1915, ch: 'hg-h4-societes' },
+  { d: '1917', e: 'Les grèves en France et les révolutions russes', an: 1917, ch: 'hg-h4-societes' },
+  { d: '28 juin 1919', e: 'La signature du traité de Versailles', an: 1919, ch: 'hg-h4-sortir' },
+  { d: '1920', e: 'La Société des Nations et le soldat inconnu', an: 1920, ch: 'hg-h4-sortir' },
+  { d: '1922', e: 'Le passeport Nansen et le statut des apatrides', an: 1922, ch: 'hg-h4-sortir' }
+];
+
+G('hg-reperes', 'hgr-date-event', 'De la date à l’événement', 'app', function(){
+  const x = R.pick(DATES_HG);
+  return {
+    enonce: '<p>Que s’est-il passé en <b>' + x.d + '</b> ?</p>',
+    qcm: qcm4(x.e, DATES_HG.map(y => y.e)),
+    etapes: [
+      '<b>' + x.d + '</b> : ' + x.e + '.',
+      'Ce repère appartient au chapitre « ' + CHAP[x.ch].titre + ' ».'
+    ]
+  };
+});
+
+G('hg-reperes', 'hgr-event-date', 'De l’événement à l’année', 'ent', function(){
+  const pool = DATES_HG.filter(y => y.an);
+  const x = R.pick(pool);
+  return {
+    enonce: '<p>En quelle année cet événement a-t-il eu lieu ?</p>' + cit(x.e),
+    champs: [{ type: 'num', label: 'Année', bon: x.an, tol: 0 }],
+    etapes: [
+      'Réponse : <b>' + x.an + '</b>. Repère complet : ' + x.d + '.',
+      'Chapitre concerné : « ' + CHAP[x.ch].titre + ' ».',
+      'Une date isolée s’oublie. Retiens-la avec son sens : ' + x.d + ', c’est ' + x.e.charAt(0).toLowerCase() + x.e.slice(1) + '.'
+    ]
+  };
+});
+
+const REGIMES = [
+  { a: 1791, r: 'Monarchie constitutionnelle', e: 'La Constitution de 1791 fait du roi le chef du pouvoir exécutif, sous une assemblée élue.' },
+  { a: 1795, r: 'Première République', e: 'Après la Convention, le Directoire gouverne : la République est proclamée depuis 1792.' },
+  { a: 1800, r: 'Première République', e: 'Le Consulat conserve officiellement la République, même si Bonaparte y exerce un pouvoir personnel.' },
+  { a: 1810, r: 'Premier Empire', e: 'Napoléon Ier règne depuis 1804.' },
+  { a: 1820, r: 'Restauration', e: 'Louis XVIII règne sous le régime de la Charte de 1814.' },
+  { a: 1825, r: 'Restauration', e: 'Charles X a succédé à Louis XVIII en 1824.' },
+  { a: 1835, r: 'Monarchie de Juillet', e: 'Louis-Philippe règne depuis les Trois Glorieuses de 1830.' },
+  { a: 1845, r: 'Monarchie de Juillet', e: 'Le suffrage reste censitaire jusqu’à la révolution de 1848.' },
+  { a: 1850, r: 'Deuxième République', e: 'Proclamée en février 1848, elle dure jusqu’au Second Empire en 1852.' },
+  { a: 1860, r: 'Second Empire', e: 'Napoléon III règne depuis 1852, avec un suffrage universel masculin.' },
+  { a: 1865, r: 'Second Empire', e: 'C’est la période de l’Empire libéral et des grands travaux.' },
+  { a: 1880, r: 'Troisième République', e: 'Les lois constitutionnelles de 1875 l’ont fondée.' },
+  { a: 1890, r: 'Troisième République', e: 'C’est la période de l’enracinement républicain et de l’expansion coloniale.' },
+  { a: 1910, r: 'Troisième République', e: 'Le régime durera jusqu’en 1940.' }
+];
+const NOMS_REGIMES = ['Monarchie constitutionnelle', 'Première République', 'Premier Empire',
+                      'Restauration', 'Monarchie de Juillet', 'Deuxième République',
+                      'Second Empire', 'Troisième République'];
+
+G('hg-reperes', 'hgr-regime', 'Quel régime, quelle année ?', 'app', function(){
+  const x = R.pick(REGIMES);
+  return {
+    enonce: '<p>Quel régime politique gouverne la France en <b>' + x.a + '</b> ?</p>',
+    qcm: qcm4(x.r, NOMS_REGIMES),
+    etapes: [
+      'En ' + x.a + ', c’est <b>' + x.r.toLowerCase() + '</b>.', x.e,
+      'Sept régimes se succèdent entre 1789 et 1870 : c’est cette instabilité que raconte le programme.'
+    ]
+  };
+});
+
+G('hg-reperes', 'hgr-ordre', 'Remettre dans l’ordre', 'ent', function(){
+  const pool = DATES_HG.filter(y => y.an);
+  let t = [];
+  while (t.length < 3){
+    const c = R.pick(pool);
+    if (!t.some(x => x.an === c.an || x.e === c.e)) t.push(c);
+  }
+  const tri = t.slice().sort((a, b) => a.an - b.an);
+  const aff = R.shuffle(t);
+  const opts = tri.map(x => x.e);
+  return {
+    enonce: '<p>Voici trois événements, dans le désordre :</p>' +
+            '<ul>' + aff.map(x => '<li>' + x.e + '</li>').join('') + '</ul>' +
+            '<p>Lequel vient <b>en premier</b>, et lequel vient <b>en dernier</b> ?</p>',
+    champs: [
+      { type: 'choix', label: 'Le premier', options: opts.slice(), bon: 0 },
+      { type: 'choix', label: 'Le dernier', options: opts.slice(), bon: 2 }
+    ],
+    etapes: [
+      'L’ordre chronologique est : ' + tri.map(x => '<b>' + x.an + '</b> ' + x.e).join(' → ') + '.',
+      'Savoir ordonner, c’est la capacité « identifier les continuités et les ruptures chronologiques » du programme.'
+    ]
+  };
+});
+
+const ACTEURS_HG = [
+  { n: 'Madame Roland', r: 'Figure girondine de la Révolution française, guillotinée en 1793', ch: 'hg-h1-revolution' },
+  { n: 'Metternich', r: 'Chancelier autrichien, maître d’œuvre du congrès de Vienne en 1815', ch: 'hg-h1-restauration' },
+  { n: 'Giuseppe Mazzini', r: 'Fondateur de la Jeune-Italie, militant de l’unité italienne', ch: 'hg-h1-restauration' },
+  { n: 'Alphonse de Lamartine', r: 'Poète et homme politique, figure de la Deuxième République en 1848', ch: 'hg-h2-democratie' },
+  { n: 'George Sand', r: 'Femme de lettres engagée en politique en 1848', ch: 'hg-h2-democratie' },
+  { n: 'Louis-Napoléon Bonaparte', r: 'Premier président de la République, puis empereur sous le nom de Napoléon III', ch: 'hg-h2-democratie' },
+  { n: 'Le baron Haussmann', r: 'Préfet qui transforme Paris sous le Second Empire', ch: 'hg-h2-industrialisation' },
+  { n: 'Les frères Pereire', r: 'Banquiers, acteurs de la modernisation économique du Second Empire', ch: 'hg-h2-industrialisation' },
+  { n: 'Otto von Bismarck', r: 'Chancelier prussien, artisan de l’unité allemande proclamée en 1871', ch: 'hg-h2-nations' },
+  { n: 'Louise Michel', r: 'Institutrice et militante, figure de la Commune de Paris en 1871', ch: 'hg-h3-republique' },
+  { n: 'Victor Hugo', r: 'Écrivain proscrit sous le Second Empire, honoré de funérailles nationales en 1885', ch: 'hg-h3-republique' },
+  { n: 'Jules Ferry', r: 'Ministre des lois scolaires, défenseur de l’expansion coloniale', ch: 'hg-h3-colonies' },
+  { n: 'Georges Clemenceau', r: 'Adversaire de la colonisation en 1885, puis chef du gouvernement pendant la Grande Guerre', ch: 'hg-h3-colonies' },
+  { n: 'Marie Curie', r: 'Scientifique qui met la radiologie au service des blessés pendant la guerre', ch: 'hg-h4-societes' },
+  { n: 'Woodrow Wilson', r: 'Président des États-Unis, auteur des quatorze points et inspirateur de la Société des Nations', ch: 'hg-h4-sortir' },
+  { n: 'Fridtjof Nansen', r: 'Haut-commissaire aux réfugiés, à l’origine du passeport qui porte son nom en 1922', ch: 'hg-h4-sortir' }
+];
+
+G('hg-reperes', 'hgr-acteur', 'Qui est-ce ?', 'app', function(){
+  const x = R.pick(ACTEURS_HG);
+  return {
+    enonce: '<p>De quel acteur du programme s’agit-il ?</p>' + cit(x.r),
+    qcm: qcm4(x.n, ACTEURS_HG.map(y => y.n)),
+    etapes: ['Il s’agit de <b>' + x.n + '</b>.', 'Chapitre concerné : « ' + CHAP[x.ch].titre + ' ».']
+  };
+});
+
+/* ---------- un exercice de repères propre à chaque chapitre d'histoire ---------- */
+['hg-h1-revolution', 'hg-h1-restauration', 'hg-h2-democratie', 'hg-h2-industrialisation',
+ 'hg-h2-nations', 'hg-h3-republique', 'hg-h3-societe', 'hg-h3-colonies',
+ 'hg-h4-embrasement', 'hg-h4-societes', 'hg-h4-sortir'].forEach(function(ch){
+  G(ch, ch + '-reperes', 'Les repères du chapitre', 'app', function(){
+    const locales = DATES_HG.filter(y => y.ch === ch);
+    const x = R.pick(locales);
+    return {
+      enonce: '<p>Dans ce chapitre, à quoi correspond la date <b>' + x.d + '</b> ?</p>',
+      qcm: qcm4(x.e, DATES_HG.map(y => y.e)),
+      etapes: ['<b>' + x.d + '</b> : ' + x.e + '.',
+               'Les autres repères du chapitre : ' + locales.filter(y => y !== x).map(y => y.d).join(', ') + '.']
+    };
+  });
+});
+
+/* ---------- points de passage et d'ouverture ---------- */
+const PPO_HG = [
+  { p: 'Le procès et la mort de Louis XVI', ch: 'hg-h1-revolution' },
+  { p: 'Le Code civil de 1804', ch: 'hg-h1-revolution' },
+  { p: 'Metternich et le congrès de Vienne', ch: 'hg-h1-restauration' },
+  { p: 'Le massacre de Chios', ch: 'hg-h1-restauration' },
+  { p: 'Les Trois Glorieuses', ch: 'hg-h1-restauration' },
+  { p: 'Louis-Napoléon Bonaparte, premier président de la République', ch: 'hg-h2-democratie' },
+  { p: 'Paris haussmannien, la transformation d’une ville', ch: 'hg-h2-industrialisation' },
+  { p: 'Le droit de grève de 1864', ch: 'hg-h2-industrialisation' },
+  { p: 'Bismarck et la proclamation du Reich', ch: 'hg-h2-nations' },
+  { p: 'Louise Michel pendant la Commune de Paris', ch: 'hg-h3-republique' },
+  { p: 'Les funérailles nationales de Victor Hugo', ch: 'hg-h3-republique' },
+  { p: 'La loi de séparation des Églises et de l’État', ch: 'hg-h3-republique' },
+  { p: 'La fusillade de Fourmies', ch: 'hg-h3-societe' },
+  { p: 'Le Creusot et la famille Schneider', ch: 'hg-h3-societe' },
+  { p: 'Le code de l’indigénat', ch: 'hg-h3-colonies' },
+  { p: 'Fachoda, le choc des impérialismes', ch: 'hg-h3-colonies' },
+  { p: 'Saigon, ville coloniale', ch: 'hg-h3-colonies' },
+  { p: 'L’offensive des Dardanelles', ch: 'hg-h4-embrasement' },
+  { p: 'La bataille de la Somme', ch: 'hg-h4-embrasement' },
+  { p: 'Marie Curie dans la guerre', ch: 'hg-h4-societes' },
+  { p: 'Les grèves de l’année 1917', ch: 'hg-h4-societes' },
+  { p: 'Les traités de paix', ch: 'hg-h4-sortir' },
+  { p: 'Le soldat inconnu et les enjeux mémoriels', ch: 'hg-h4-sortir' },
+  { p: 'Le passeport Nansen et le statut des apatrides', ch: 'hg-h4-sortir' }
+];
+const TITRES_HG_H = ['hg-h1-revolution', 'hg-h1-restauration', 'hg-h2-democratie', 'hg-h2-industrialisation',
+  'hg-h2-nations', 'hg-h3-republique', 'hg-h3-societe', 'hg-h3-colonies',
+  'hg-h4-embrasement', 'hg-h4-societes', 'hg-h4-sortir'];
+
+G('hg-reperes', 'hgr-ppo', 'Situer un point de passage', 'ent', function(){
+  const x = R.pick(PPO_HG);
+  const bon = CHAP[x.ch].titre;
+  return {
+    enonce: '<p>À quel chapitre du programme se rattache ce point de passage et d’ouverture ?</p>' + cit(x.p),
+    qcm: qcm4(bon, TITRES_HG_H.map(c => CHAP[c].titre)),
+    etapes: [
+      '« ' + x.p + '» appartient au chapitre <b>' + bon + '</b>.',
+      'Les points de passage sont les moments que le programme demande d’étudier en détail : ' +
+        'ce sont eux qui fournissent les documents des devoirs.'
+    ]
+  };
+});
+
+/* ---------- notions de géographie ---------- */
+const NOTIONS_GEO = [
+  { n: 'Métropolisation', d: 'la concentration des populations, des activités et des fonctions de commandement dans quelques grandes villes', ch: 'hg-g1-metropolisation' },
+  { n: 'Urbanisation', d: 'l’augmentation de la part de la population qui vit en ville', ch: 'hg-g1-metropolisation' },
+  { n: 'Centralité', d: 'la capacité d’un lieu à polariser et à attirer les hommes et les activités', ch: 'hg-g1-metropolisation' },
+  { n: 'Ville primatiale', d: 'une ville dont le poids est très supérieur à celui de toutes les autres villes du pays', ch: 'hg-g1-metropolisation' },
+  { n: 'Étalement urbain', d: 'l’extension spatiale de la ville vers ses périphéries', ch: 'hg-g1-metropolisation' },
+  { n: 'Espace productif', d: 'un espace aménagé et organisé pour produire des biens ou des services', ch: 'hg-g2-production' },
+  { n: 'Système productif', d: 'l’ensemble des acteurs, des lieux et des relations qui concourent à une production', ch: 'hg-g2-production' },
+  { n: 'Chaîne de la valeur ajoutée', d: 'la suite des étapes qui, de la conception à la vente, ajoutent chacune de la valeur au produit', ch: 'hg-g2-production' },
+  { n: 'Entreprise multinationale', d: 'une entreprise implantée dans plusieurs pays, qui organise la production à l’échelle mondiale', ch: 'hg-g2-production' },
+  { n: 'Littoralisation', d: 'la concentration des hommes et des activités sur les littoraux, au contact des grands ports', ch: 'hg-g2-production' },
+  { n: 'Flux', d: 'la circulation de marchandises, de capitaux, d’informations ou de personnes entre des lieux', ch: 'hg-g2-production' },
+  { n: 'Multifonctionnalité', d: 'le fait qu’un même espace remplisse plusieurs fonctions à la fois, agricole, résidentielle, touristique ou environnementale', ch: 'hg-g3-ruraux' },
+  { n: 'Fragmentation', d: 'la division d’un espace en portions aux dynamiques opposées, certaines attractives, d’autres à l’écart', ch: 'hg-g3-ruraux' },
+  { n: 'Périurbanisation', d: 'l’installation de citadins dans les campagnes proches des villes', ch: 'hg-g3-ruraux' },
+  { n: 'Conflit d’usage', d: 'l’opposition entre des acteurs qui veulent utiliser différemment le même espace', ch: 'hg-g3-ruraux' },
+  { n: 'Recomposition', d: 'la réorganisation d’un espace sous l’effet de mutations économiques, sociales ou environnementales', ch: 'hg-g4-chine' }
+];
+
+/* une révision de notions par thème, avec les notions de ce thème */
+[['hg-g1-metropolisation', 'Les notions de la métropolisation'],
+ ['hg-g2-production',      'Les notions de la production'],
+ ['hg-g3-ruraux',          'Les notions des espaces ruraux']].forEach(function(t){
+  G(t[0], t[0] + '-notions', t[1], 'app', function(){
+    const locales = NOTIONS_GEO.filter(y => y.ch === t[0]);
+    const x = R.pick(locales);
+    return {
+      enonce: '<p>Quelle notion de ce thème désigne <b>' + x.d + '</b> ?</p>',
+      qcm: qcm4(x.n, NOTIONS_GEO.map(y => y.n)),
+      etapes: [
+        'C’est la <b>' + x.n.toLowerCase() + '</b> : ' + x.d + '.',
+        'Les autres notions du thème : ' + locales.filter(y => y !== x).map(y => y.n.toLowerCase()).join(', ') + '.',
+        'Le programme demande explicitement d’employer ces notions à bon escient : c’est une capacité évaluée.'
+      ]
+    };
+  });
+});
+
+/* révision générale des notions, dans le thème conclusif */
+G('hg-g4-chine', 'hgg-definition', 'Toutes les notions de l’année', 'ent', function(){
+  const x = R.pick(NOTIONS_GEO);
+  const defs = R.shuffle([x.d].concat(autres(NOTIONS_GEO.map(y => y.d), x.d, 3)));
+  return {
+    enonce: '<p>Que désigne exactement la notion de <b>' + x.n.toLowerCase() + '</b> ?</p>',
+    qcm: { options: defs, bon: defs.indexOf(x.d) },
+    etapes: [
+      '<b>' + x.n + '</b> : ' + x.d + '.',
+      'Notion travaillée dans le thème « ' + CHAP[x.ch].titre + ' ».',
+      'Piège classique du thème 1 : l’<b>urbanisation</b> compte les citadins, ' +
+        'la <b>métropolisation</b> concentre le pouvoir. Ce ne sont pas les mêmes processus.'
+    ]
+  };
+});
+
+const CAS_GEO = [
+  { c: 'Londres : une métropole de rang mondial', t: 'hg-g1-metropolisation' },
+  { c: 'Mumbai : une métropole fragmentée', t: 'hg-g1-metropolisation' },
+  { c: 'La métropolisation au Brésil : dynamiques et contrastes', t: 'hg-g1-metropolisation' },
+  { c: 'La mégalopole du Nord-Est des États-Unis, de Boston à Washington', t: 'hg-g1-metropolisation' },
+  { c: 'Singapour : l’articulation de la finance, de la production et des flux', t: 'hg-g2-production' },
+  { c: 'La Silicon Valley : un espace productif intégré', t: 'hg-g2-production' },
+  { c: 'Les industries aéronautique et aérospatiale européennes : une production en réseau', t: 'hg-g2-production' },
+  { c: 'Les investissements chinois en Afrique', t: 'hg-g2-production' },
+  { c: 'Les mutations des espaces ruraux de Toscane', t: 'hg-g3-ruraux' },
+  { c: 'Mutations agricoles et recomposition des espaces ruraux en Inde', t: 'hg-g3-ruraux' },
+  { c: 'Les espaces ruraux canadiens : une multifonctionnalité marquée', t: 'hg-g3-ruraux' }
+];
+const THEMES_GEO = ['hg-g1-metropolisation', 'hg-g2-production', 'hg-g3-ruraux', 'hg-g4-chine'];
+
+G('hg-g1-metropolisation', 'hgg-cas', 'Relier une étude de cas à son thème', 'app', function(){
+  const x = R.pick(CAS_GEO);
+  const noms = THEMES_GEO.map(t => CHAP[t].titre);
+  return {
+    enonce: '<p>À quel thème de géographie se rattache cette étude de cas ?</p>' + cit(x.c),
+    qcm: { options: noms.slice(), bon: noms.indexOf(CHAP[x.t].titre) },
+    etapes: ['Cette étude de cas illustre le thème <b>' + CHAP[x.t].titre + '</b>.',
+             'Ton professeur choisit une étude de cas par thème : c’est elle qui te fournit tes exemples précis en devoir.']
+  };
+});
+
+const FRANCE_GEO = [
+  { q: 'La France : la métropolisation et ses effets', t: 'hg-g1-metropolisation',
+    e: 'Renforcement de Paris, ville primatiale, montée différenciée des métropoles régionales, et évolution contrastée des villes petites et moyennes.' },
+  { q: 'La France : les systèmes productifs entre valorisation locale et intégration européenne et mondiale', t: 'hg-g2-production',
+    e: 'L’étude porte sur la France, Outre-mer inclus, et articule savoir-faire locaux et insertion dans les réseaux européens et mondiaux.' },
+  { q: 'La France : des espaces ruraux multifonctionnels, entre initiatives locales et politiques européennes', t: 'hg-g3-ruraux',
+    e: 'Mutation des systèmes agricoles, pression urbaine croissante, et dynamiques démographiques diversifiées entre vieillissement et renouveau.' }
+];
+
+G('hg-g2-production', 'hgg-france', 'Les questions sur la France', 'ent', function(){
+  const x = R.pick(FRANCE_GEO);
+  const noms = THEMES_GEO.map(t => CHAP[t].titre);
+  return {
+    enonce: '<p>Chaque thème de géographie comporte une question spécifique sur la France. ' +
+            'À quel thème appartient celle-ci ?</p>' + cit(x.q),
+    qcm: { options: noms.slice(), bon: noms.indexOf(CHAP[x.t].titre) },
+    etapes: ['Cette question appartient au thème <b>' + CHAP[x.t].titre + '</b>.', x.e,
+             'Le thème conclusif sur la Chine est le seul sans question sur la France.']
+  };
+});
+
+const ECHELLES = [
+  { p: 'La concurrence entre Paris, Londres et New York pour attirer les sièges sociaux', e: 'Mondiale' },
+  { p: 'L’organisation des chaînes de valeur ajoutée d’un constructeur automobile', e: 'Mondiale' },
+  { p: 'La dévitalisation des centres-villes des villes moyennes françaises', e: 'Nationale' },
+  { p: 'Les politiques européennes de développement rural appliquées en France', e: 'Nationale' },
+  { p: 'Un conflit entre agriculteurs et nouveaux habitants sur l’usage d’un chemin', e: 'Locale' },
+  { p: 'L’apparition d’un nouveau quartier d’affaires en périphérie d’une métropole', e: 'Locale' },
+  { p: 'L’opposition entre le littoral chinois et les provinces de l’intérieur', e: 'Régionale' },
+  { p: 'Les migrations des campagnes vers les villes à l’intérieur de la Chine', e: 'Régionale' }
+];
+
+G('hg-g3-ruraux', 'hgg-echelle', 'Choisir la bonne échelle', 'ent', function(){
+  const x = R.pick(ECHELLES);
+  const noms = ['Locale', 'Régionale', 'Nationale', 'Mondiale'];
+  return {
+    enonce: '<p>À quelle échelle raisonne-t-on pour étudier ce phénomène ?</p>' + cit(x.p),
+    qcm: { options: noms.slice(), bon: noms.indexOf(x.e) },
+    etapes: [
+      'On raisonne ici à l’échelle <b>' + x.e.toLowerCase() + '</b>.',
+      'Le programme demande une <b>approche multiscalaire</b> : un même phénomène se traduit différemment ' +
+        'selon l’échelle, et les territoires interagissent d’une échelle à l’autre.',
+      'En devoir, changer d’échelle au moins une fois est presque toujours payant.'
+    ]
+  };
+});
+
+const CHINE = [
+  { q: 'Quel contraste territorial structure l’espace chinois ?', b: 'L’opposition entre un littoral développé et un intérieur en retard',
+    v: ['L’opposition entre le nord industriel et le sud agricole', 'L’opposition entre un littoral développé et un intérieur en retard',
+        'L’opposition entre l’est rural et l’ouest urbanisé', 'L’absence de contraste, le développement étant homogène'] },
+  { q: 'Pourquoi le thème sur la Chine est-il dit « conclusif » ?', b: 'Il applique à une seule aire géographique les acquis des trois premiers thèmes',
+    v: ['Il conclut le programme d’histoire', 'Il applique à une seule aire géographique les acquis des trois premiers thèmes',
+        'Il est facultatif', 'Il ne comporte pas d’étude de cas'] },
+  { q: 'Quelles sont les trois questions du thème sur la Chine ?', b: 'Développement et inégalités ; ressources et environnements sous pression ; recompositions spatiales',
+    v: ['Métropolisation, production, espaces ruraux', 'Développement et inégalités ; ressources et environnements sous pression ; recompositions spatiales',
+        'Démographie, industrie, agriculture', 'Puissance, territoire, frontières'] },
+  { q: 'Le thème sur la Chine comporte-t-il une question spécifique sur la France ?', b: 'Non, c’est le seul thème qui n’en comporte pas',
+    v: ['Oui, comme tous les thèmes', 'Non, c’est le seul thème qui n’en comporte pas',
+        'Oui, mais elle est facultative', 'Non, aucun thème n’en comporte'] }
+];
+
+G('hg-g4-chine', 'hgg-chine', 'Le thème conclusif', 'app', function(){
+  const x = R.pick(CHINE);
+  const opts = R.shuffle(x.v.slice());
+  return {
+    enonce: '<p>' + x.q + '</p>',
+    qcm: { options: opts, bon: opts.indexOf(x.b) },
+    etapes: ['Réponse : <b>' + x.b + '</b>.',
+             'Le programme insiste sur les <b>paradoxes</b> chinois : croissance et inégalités, ' +
+               'pollution record et investissements massifs dans les renouvelables.']
+  };
+});
+
+/* ---------- méthodes ---------- */
+const METH_COMPO = [
+  { q: 'Que doit contenir l’introduction d’une composition ?', b: 'Une accroche, la définition des termes, la problématique et l’annonce du plan',
+    v: ['Le plan seul', 'Une accroche, la définition des termes, la problématique et l’annonce du plan',
+        'Un résumé du cours', 'La conclusion annoncée à l’avance'] },
+  { q: 'Que sont les « bornes » d’un sujet ?', b: 'Les limites chronologiques en histoire, spatiales en géographie',
+    v: ['Les limites chronologiques en histoire, spatiales en géographie', 'Les titres des parties',
+        'Les documents fournis', 'Le nombre de pages attendu'] },
+  { q: 'Quel plan convient à un sujet qui décrit une évolution par étapes ?', b: 'Le plan chronologique',
+    v: ['Le plan chronologique', 'Le plan thématique', 'Le plan dialectique', 'Le plan multiscalaire'] },
+  { q: 'Quel plan consiste à aller de l’échelle mondiale à l’échelle locale ?', b: 'Le plan multiscalaire',
+    v: ['Le plan chronologique', 'Le plan thématique', 'Le plan dialectique', 'Le plan multiscalaire'] },
+  { q: 'Que doit contenir la conclusion ?', b: 'La réponse à la problématique, puis une ouverture',
+    v: ['La réponse à la problématique, puis une ouverture', 'Un résumé de chaque partie',
+        'Une nouvelle idée non traitée', 'L’annonce du plan'] },
+  { q: 'Que vaut une idée présentée sans exemple précis ?', b: 'Presque rien : c’est l’exemple qui prouve l’idée',
+    v: ['Presque rien : c’est l’exemple qui prouve l’idée', 'Autant qu’une idée illustrée',
+        'Davantage, car elle est plus générale', 'Cela dépend de la longueur du paragraphe'] }
+];
+
+G('hg-m-composition', 'hgm-composition', 'La méthode de la composition', 'app', function(){
+  const x = R.pick(METH_COMPO);
+  const opts = R.shuffle(x.v.slice());
+  return {
+    enonce: '<p>' + x.q + '</p>',
+    qcm: { options: opts, bon: opts.indexOf(x.b) },
+    etapes: ['Réponse : <b>' + x.b + '</b>.',
+             'Le programme nomme trois exercices travaillés au lycée : la composition, ' +
+               'l’analyse critique de document(s) et la réalisation d’un croquis.']
+  };
+});
+
+const METH_DOC = [
+  { q: 'Que signifie « analyse critique » d’un document ?', b: 'Interroger le point de vue de l’auteur, ses intérêts, ses silences et la portée du document',
+    v: ['Dire que le document est faux', 'Interroger le point de vue de l’auteur, ses intérêts, ses silences et la portée du document',
+        'Résumer le document', 'Comparer le document à un autre'] },
+  { q: 'Quelle est l’erreur la plus sanctionnée dans cet exercice ?', b: 'La paraphrase, qui reformule le document sans l’expliquer',
+    v: ['La paraphrase, qui reformule le document sans l’expliquer', 'Citer trop souvent',
+        'Utiliser des connaissances du cours', 'Mentionner la date du document'] },
+  { q: 'Que faut-il identifier en premier ?', b: 'La nature, l’auteur, la date, le destinataire et le contexte',
+    v: ['La nature, l’auteur, la date, le destinataire et le contexte', 'Le plan du devoir',
+        'Le nombre de lignes', 'La conclusion'] },
+  { q: 'Qu’est-ce qu’un anachronisme ?', b: 'Juger les acteurs du passé avec les valeurs d’aujourd’hui au lieu de les expliquer',
+    v: ['Juger les acteurs du passé avec les valeurs d’aujourd’hui au lieu de les expliquer',
+        'Se tromper de date', 'Citer un document postérieur', 'Employer un mot trop savant'] },
+  { q: 'Quel est le bon rythme de rédaction ?', b: 'Alterner citation courte entre guillemets et explication tirée du cours',
+    v: ['Alterner citation courte entre guillemets et explication tirée du cours',
+        'Citer tout le document puis l’expliquer', 'N’utiliser que ses connaissances',
+        'Recopier le document en le reformulant'] }
+];
+
+G('hg-m-document', 'hgm-document', 'La méthode de l’analyse de document', 'app', function(){
+  const x = R.pick(METH_DOC);
+  const opts = R.shuffle(x.v.slice());
+  return {
+    enonce: '<p>' + x.q + '</p>',
+    qcm: { options: opts, bon: opts.indexOf(x.b) },
+    etapes: ['Réponse : <b>' + x.b + '</b>.',
+             'Le mot qui compte dans l’intitulé est <b>critique</b> : on ne raconte pas le document, on le pèse.']
+  };
+});
+
+const METH_CROQUIS = [
+  { q: 'Par quoi commence-t-on un croquis ?', b: 'Par la légende, qui est le plan du devoir',
+    v: ['Par la légende, qui est le plan du devoir', 'Par le coloriage des surfaces',
+        'Par le titre', 'Par les flèches de flux'] },
+  { q: 'Quel figuré représente un flux ?', b: 'Une flèche, dont l’épaisseur indique l’intensité',
+    v: ['Une flèche, dont l’épaisseur indique l’intensité', 'Un aplat de couleur',
+        'Un cercle proportionnel', 'Un hachurage'] },
+  { q: 'Quel figuré représente une ville ?', b: 'Un point ou un cercle, dont la taille indique l’importance',
+    v: ['Un point ou un cercle, dont la taille indique l’importance', 'Une flèche',
+        'Un aplat de couleur', 'Une ligne pointillée'] },
+  { q: 'Quel figuré représente un ensemble régional ?', b: 'Un aplat de couleur, qui couvre une surface',
+    v: ['Un aplat de couleur, qui couvre une surface', 'Une flèche', 'Un point', 'Un trait épais'] },
+  { q: 'Quelle faute fait perdre des points automatiquement ?', b: 'Un croquis sans titre',
+    v: ['Un croquis sans titre', 'Un croquis en noir et blanc', 'Trop de figurés', 'Une légende en trois parties'] },
+  { q: 'Qu’est-ce qu’un schéma, par rapport à un croquis ?', b: 'Une version simplifiée, dessinée à main levée, qui illustre un raisonnement',
+    v: ['Une version simplifiée, dessinée à main levée, qui illustre un raisonnement',
+        'Un croquis sans légende', 'Une carte au format officiel', 'Un croquis colorié à l’ordinateur'] }
+];
+
+G('hg-m-croquis', 'hgm-croquis', 'Le langage du croquis', 'app', function(){
+  const x = R.pick(METH_CROQUIS);
+  const opts = R.shuffle(x.v.slice());
+  return {
+    enonce: '<p>' + x.q + '</p>',
+    qcm: { options: opts, bon: opts.indexOf(x.b) },
+    etapes: ['Réponse : <b>' + x.b + '</b>.',
+             'Le programme le formule ainsi : « le croquis est l’aboutissement d’un travail de description, ' +
+               'd’analyse et de synthèse ».']
+  };
+});
+
+/* ---------- synthèses de niveau devoir surveillé ---------- */
+G('hg-reperes', 'hgr-synthese', 'Situer un événement complètement', 'ds', function(){
+  const pool = DATES_HG.filter(y => y.an && y.an >= 1789);
+  const x = R.pick(pool);
+  const reg = x.an < 1792 ? 'Monarchie constitutionnelle'
+            : x.an < 1804 ? 'Première République'
+            : x.an < 1814 ? 'Premier Empire'
+            : x.an < 1830 ? 'Restauration'
+            : x.an < 1848 ? 'Monarchie de Juillet'
+            : x.an < 1852 ? 'Deuxième République'
+            : x.an < 1870 ? 'Second Empire'
+            : 'Troisième République';
+  const bonT = CHAP[x.ch].titre;
+  const titres = R.shuffle([bonT].concat(autres(TITRES_HG_H.map(c => CHAP[c].titre), bonT, 3)));
+  return {
+    enonce: '<p>Situe complètement cet événement, comme on te le demandera en devoir.</p>' + cit(x.e) +
+            '<p class="tiny">Trois réponses : l’année, le régime politique français du moment, le chapitre du programme.</p>',
+    champs: [
+      { type: 'num', label: 'Année', bon: x.an, tol: 0 },
+      { type: 'choix', label: 'Régime politique en France', options: NOMS_REGIMES.slice(), bon: NOMS_REGIMES.indexOf(reg) },
+      { type: 'choix', label: 'Chapitre du programme', options: titres, bon: titres.indexOf(bonT) }
+    ],
+    etapes: [
+      '<b>' + x.d + '</b> : ' + x.e + '.',
+      'La France est alors sous le régime de la <b>' + reg.toLowerCase() + '</b>.',
+      'Chapitre du programme : <b>' + bonT + '</b>.',
+      'Savoir replacer un événement dans son régime, c’est la capacité « contextualiser » du programme.'
+    ]
+  };
+});
+
+/* ---------- exercices rédigés, au barème auto-évalué ---------- */
+
+D('hg-m-composition', 'hgd-composition', 'Préparer une composition', function(){
+  const sujets = [
+    { s: 'La difficile entrée de la France dans l’âge démocratique (1848-1870)', t: 'histoire',
+      a: 'Bornes : 1848, la Deuxième République ; 1870, la chute du Second Empire. Le mot à interroger est « difficile ».' },
+    { s: 'La Troisième République avant 1914 : un régime qui s’enracine ?', t: 'histoire',
+      a: 'Le point d’interrogation impose un plan qui nuance : l’enracinement est réel, mais contesté.' },
+    { s: 'La Première Guerre mondiale, une guerre totale', t: 'histoire',
+      a: 'Il faut définir « totale » : militaire, économique, scientifique, et engageant les civils.' },
+    { s: 'La métropolisation, un processus mondial mais différencié', t: 'géographie',
+      a: 'Le « mais » est le cœur du sujet : montrer l’unité du processus, puis sa diversité, à plusieurs échelles.' },
+    { s: 'Les espaces ruraux dans le monde : multifonctionnalité ou fragmentation ?', t: 'géographie',
+      a: 'Le sujet est le titre même du thème. Une bonne copie montre que les deux processus se nourrissent l’un l’autre.' }
+  ];
+  const x = R.pick(sujets);
+  return {
+    enonce: '<p><b>Sujet de composition</b>, en ' + x.t + ' :</p>' + cit(x.s) +
+            '<p>Sur ton cahier, rédige entièrement l’<b>introduction</b>, puis note le <b>plan détaillé</b> ' +
+            'avec les exemples que tu emploierais.</p>',
+    aide: x.a + ' Introduction en quatre temps : accroche, définition des termes, problématique, annonce du plan.',
+    bareme: [
+      { pts: 1, d: '<b>Accroche</b> précise : un fait, une date ou un chiffre, jamais une généralité du type « de tout temps ».' },
+      { pts: 2, d: '<b>Définition des termes</b> du sujet, et repérage des <b>bornes</b> ' +
+                   (x.t === 'histoire' ? 'chronologiques.' : 'spatiales et des échelles concernées.') },
+      { pts: 2, d: '<b>Problématique</b> formulée en une question claire, qui reprend la tension du sujet ' +
+                   'au lieu de le recopier.' },
+      { pts: 1, d: '<b>Annonce du plan</b> en deux ou trois parties, présentées comme des réponses et non comme des thèmes.' },
+      { pts: 3, d: '<b>Plan détaillé</b> : chaque partie porte une idée directrice, et comporte deux ou trois sous-parties.' },
+      { pts: 3, d: '<b>Exemples précis</b> pour chaque sous-partie : une date, un acteur, un lieu, un chiffre. ' +
+                   'Une sous-partie sans exemple ne compte pas.' },
+      { pts: 2, d: '<b>Notions du programme</b> employées à bon escient' +
+                   (x.t === 'géographie' ? ' : métropolisation, multifonctionnalité, chaîne de la valeur ajoutée, acteurs, échelles.'
+                                         : ' : nation, souveraineté, république, question sociale, empire colonial.') },
+      { pts: 1, d: '<b>Ouverture</b> prévue pour la conclusion : un autre espace, une autre période, ou l’actualité.' }
+    ]
+  };
+});
+
+D('hg-m-document', 'hgd-document', 'Analyser un document', function(){
+  return {
+    enonce: '<p>Voici un extrait du discours de <b>Jules Ferry</b> devant la Chambre des députés, ' +
+      'le 28 juillet 1885, dans le débat sur la politique coloniale.</p>' +
+      '<div class="cit">Messieurs, il faut parler plus haut et plus vrai ! Il faut dire ouvertement qu’en effet ' +
+      'les races supérieures ont un droit vis-à-vis des races inférieures. […] Je répète qu’il y a pour les races ' +
+      'supérieures un droit, parce qu’il y a un devoir pour elles. Elles ont le devoir de civiliser les races inférieures.' +
+      '<span class="cit-src">Jules Ferry, discours à la Chambre des députés, 28 juillet 1885</span></div>' +
+      '<p><b>Consigne :</b> à l’aide du document et de vos connaissances, analysez les justifications ' +
+      'de la politique coloniale de la Troisième République, et montrez les limites de ce discours.</p>' +
+      '<p>Rédige l’analyse complète sur ton cahier.</p>',
+    aide: 'Quatre temps : identifier, comprendre, expliquer avec le cours, critiquer. ' +
+          'La critique est la partie qui rapporte le plus, et celle que l’on oublie le plus souvent.',
+    bareme: [
+      { pts: 2, d: '<b>Identification</b> : nature (un discours politique), auteur (Jules Ferry, ancien président du Conseil, ' +
+                   'ministre des lois scolaires), date (1885), destinataire (les députés), lieu (la Chambre).' },
+      { pts: 2, d: '<b>Contexte</b> : la France est en pleine expansion coloniale sous la Troisième République ; ' +
+                   'Ferry doit justifier une politique contestée, après l’échec du Tonkin qui l’a fait tomber quelques mois plus tôt.' },
+      { pts: 3, d: '<b>Thèse du document</b>, citée : « les races supérieures ont un droit vis-à-vis des races inférieures », ' +
+                   'un droit fondé sur un prétendu « devoir de civiliser ». Ferry transforme une domination en mission.' },
+      { pts: 3, d: '<b>Explication par le cours</b> : les motivations réelles de l’expansion sont aussi économiques ' +
+                   '(débouchés, matières premières), stratégiques (points d’appui, rivalité avec le Royaume-Uni) ' +
+                   'et de prestige national après 1871.' },
+      { pts: 3, d: '<b>Critique</b> : le discours est une justification <i>a posteriori</i>, adressée à une assemblée à convaincre. ' +
+                   'Il repose sur une hiérarchie raciale que rien ne fonde. Il tait la violence de la conquête, ' +
+                   'le code de l’indigénat de 1887 et le statut de sujet imposé aux colonisés.' },
+      { pts: 2, d: '<b>Mise en perspective</b> : la contradiction avec les principes de 1789 que la République revendique. ' +
+                   'Citer l’opposition de Clemenceau, qui dénonce ce discours au nom des droits de l’homme.' },
+      { pts: 2, d: '<b>Portée et limites</b> du document : il éclaire le discours officiel de la colonisation, ' +
+                   'mais ne dit rien de ce qu’en pensaient les colonisés ni de la réalité des sociétés coloniales.' },
+      { pts: 1, d: '<b>Rédaction</b> : alternance de citations courtes entre guillemets et d’explications, ' +
+                   'aucune paraphrase, aucun jugement anachronique substitué à l’explication.' }
+    ]
+  };
+});
+
+D('hg-m-croquis', 'hgd-croquis', 'Construire une légende de croquis', function(){
+  const sujets = [
+    { s: 'Les dynamiques de la métropolisation dans le monde', t: 'hg-g1-metropolisation',
+      l: ['Les grandes métropoles mondiales et leur rayonnement',
+          'Des métropoles inégalement attractives',
+          'Des recompositions internes et des inégalités croissantes'] },
+    { s: 'Les espaces productifs et les flux à l’échelle mondiale', t: 'hg-g2-production',
+      l: ['Les grands espaces productifs : métropoles et littoraux',
+          'Des chaînes de valeur ajoutée qui relient les territoires',
+          'Des flux croissants, matériels et immatériels'] },
+    { s: 'La Chine : des recompositions spatiales multiples', t: 'hg-g4-chine',
+      l: ['Un littoral urbanisé, ouvert et intégré à la mondialisation',
+          'Un intérieur moins développé, marqué par les départs',
+          'Des flux internes et des environnements sous pression'] }
+  ];
+  const x = R.pick(sujets);
+  return {
+    enonce: '<p><b>Sujet de croquis</b> :</p>' + cit(x.s) +
+            '<p>Sur ton cahier, construis la <b>légende organisée</b> de ce croquis : deux ou trois parties titrées, ' +
+            'et pour chaque information le <b>figuré</b> que tu emploierais (surface, point, ligne ou flèche) ' +
+            'et sa <b>couleur</b>.</p>',
+    aide: 'La légende se construit avant le croquis : c’est le plan du devoir. ' +
+          'Une piste possible : ' + x.l.map(t => '« ' + t + ' »').join(' · ') + '.',
+    bareme: [
+      { pts: 3, d: '<b>Légende organisée en parties titrées</b>, chaque titre étant une idée qui répond au sujet, ' +
+                   'et non une étiquette comme « les villes ».' },
+      { pts: 2, d: '<b>Ordre logique</b> des parties : du général au particulier, ou du plus intégré au moins intégré.' },
+      { pts: 3, d: '<b>Figurés adaptés</b> : des <i>surfaces</i> pour les espaces et les ensembles régionaux, ' +
+                   'des <i>points</i> pour les villes et les sites, des <i>flèches</i> pour les flux et les axes.' },
+      { pts: 2, d: '<b>Hiérarchie visuelle</b> : la taille des points et l’épaisseur des flèches traduisent l’intensité. ' +
+                   'Deux métropoles d’importance différente ne portent pas le même cercle.' },
+      { pts: 2, d: '<b>Couleurs cohérentes</b> : rouge pour le dense et le dynamique, bleu pour les flux et le maritime, ' +
+                   'vert pour l’agricole et l’environnemental.' },
+      { pts: 2, d: '<b>Nomenclature</b> : les lieux essentiels sont nommés, et correctement localisés.' },
+      { pts: 1, d: '<b>Titre du croquis</b>, qui reprend le sujet. Un croquis sans titre perd des points automatiquement.' }
+    ]
+  };
+});
+/* =========================================================================
+   Histoire-géographie : deux exercices de plus par chapitre d'histoire.
+   Les points de passage et d'ouverture du chapitre, et les contresens
+   classiques sous forme de vrai ou faux.
+   ========================================================================= */
+
+TITRES_HG_H.forEach(function(ch){
+  G(ch, ch + '-ppo', 'Les points de passage du chapitre', 'ent', function(){
+    const locaux = PPO_HG.filter(y => y.ch === ch);
+    const x = R.pick(locaux);
+    const ailleurs = PPO_HG.filter(y => y.ch !== ch).map(y => y.p);
+    return {
+      enonce: '<p>Parmi ces quatre propositions, laquelle est un <b>point de passage et d’ouverture</b> ' +
+              'du chapitre « ' + CHAP[ch].titre + ' » ?</p>',
+      qcm: qcm4(x.p, ailleurs),
+      etapes: [
+        '<b>' + x.p + '</b> est un point de passage de ce chapitre.',
+        locaux.length > 1
+          ? 'Les autres points de passage du chapitre : ' + locaux.filter(y => y !== x).map(y => y.p).join(' · ') + '.'
+          : 'C’est le point de passage de ce chapitre retenu dans l’application.',
+        'Le programme prévoit deux à quatre points de passage par chapitre. Ce sont les moments à savoir raconter ' +
+          'précisément, et ceux d’où viennent les documents des devoirs.'
+      ]
+    };
+  });
+});
+
+const VF_HG = [
+  { a: 'La Déclaration des droits de l’homme et du citoyen de 1789 accorde aux femmes les mêmes droits politiques qu’aux hommes.',
+    v: false, ch: 'hg-h1-revolution',
+    e: 'Elle proclame l’égalité des droits, mais les femmes restent exclues de la citoyenneté politique. Olympe de Gouges y répond dès 1791.' },
+  { a: 'Le Code civil de 1804 conserve l’égalité devant la loi héritée de la Révolution.',
+    v: true, ch: 'hg-h1-revolution',
+    e: 'C’est l’exemple type de la continuité entre Révolution et Empire. Il place en revanche la femme sous l’autorité de son mari.' },
+  { a: 'Napoléon rétablit une monarchie identique à celle d’avant 1789.',
+    v: false, ch: 'hg-h1-revolution',
+    e: 'Il installe un régime autoritaire, mais qui conserve des acquis révolutionnaires : égalité devant la loi, ' +
+       'administration centralisée, vente des biens nationaux.' },
+  { a: 'Le congrès de Vienne redessine l’Europe sans tenir compte du sentiment national des peuples.',
+    v: true, ch: 'hg-h1-restauration',
+    e: 'C’est ce qui rend son œuvre fragile : le mouvement des nationalités la conteste dès les années 1820.' },
+  { a: 'Sous la Restauration et la monarchie de Juillet, tous les hommes ont le droit de vote.',
+    v: false, ch: 'hg-h1-restauration',
+    e: 'Le suffrage est <b>censitaire</b> : seuls votent ceux qui paient un certain montant d’impôt. ' +
+       'Le suffrage universel masculin date de 1848.' },
+  { a: 'Le suffrage universel instauré en France en 1848 est masculin.',
+    v: true, ch: 'hg-h2-democratie',
+    e: 'Les femmes n’obtiendront le droit de vote qu’en 1944. Préciser « masculin » est attendu dans une copie.' },
+  { a: 'Le Second Empire supprime le suffrage universel masculin.',
+    v: false, ch: 'hg-h2-democratie',
+    e: 'Il le conserve et s’en sert : le plébiscite donne une apparence démocratique à un pouvoir personnel.' },
+  { a: 'L’esclavage est aboli dans les colonies françaises en 1848.',
+    v: true, ch: 'hg-h2-democratie',
+    e: 'Le décret du 27 avril 1848, porté par Victor Schœlcher, abolit définitivement l’esclavage. ' +
+       'Une première abolition de 1794 avait été annulée en 1802.' },
+  { a: 'En 1914, la France est un pays majoritairement urbain.',
+    v: false, ch: 'hg-h2-industrialisation',
+    e: 'La France reste très rurale jusqu’à la Première Guerre mondiale : c’est le contresens le plus fréquent du thème 2.' },
+  { a: 'Le droit de grève est reconnu en 1864, mais les syndicats restent interdits jusqu’en 1884.',
+    v: true, ch: 'hg-h2-industrialisation',
+    e: 'Deux dates, deux étapes distinctes : la loi Ollivier de 1864, puis la loi Waldeck-Rousseau de 1884.' },
+  { a: 'L’unité allemande est proclamée à Berlin en 1871.',
+    v: false, ch: 'hg-h2-nations',
+    e: 'Elle est proclamée dans la <b>galerie des Glaces du château de Versailles</b>, le 18 janvier 1871. ' +
+       'Le lieu est une humiliation voulue.' },
+  { a: 'Les unités italienne et allemande sont réalisées par des monarchies, par la guerre et la diplomatie.',
+    v: true, ch: 'hg-h2-nations',
+    e: 'Cavour et Bismarck agissent au nom de souverains. Les nations se font « par en haut », ' +
+       'et non par le soulèvement des peuples.' },
+  { a: 'La Troisième République est proclamée en 1875, lors du vote des lois constitutionnelles.',
+    v: false, ch: 'hg-h3-republique',
+    e: 'Elle est proclamée le <b>4 septembre 1870</b>, après la défaite de Sedan. Les lois de 1875 ne font que l’organiser.' },
+  { a: 'La loi de 1905 sépare les Églises et l’État et garantit la liberté de conscience.',
+    v: true, ch: 'hg-h3-republique',
+    e: 'Elle n’interdit pas la religion : elle met fin au régime concordataire et garantit le libre exercice des cultes.' },
+  { a: 'La Troisième République accorde le droit de vote aux femmes avant 1914.',
+    v: false, ch: 'hg-h3-republique',
+    e: 'Le refus du droit de vote des femmes figure explicitement dans le programme : il nuance l’universalisme affiché du régime.' },
+  { a: 'L’affaire Dreyfus révèle la structuration d’un antisémitisme politique en France.',
+    v: true, ch: 'hg-h3-societe',
+    e: 'Ce n’est pas seulement une erreur judiciaire : c’est une crise qui divise le pays et fait naître ' +
+       'la figure de l’intellectuel engagé.' },
+  { a: 'Au début du XXe siècle, la France n’accueille presque aucun immigré.',
+    v: false, ch: 'hg-h3-societe',
+    e: 'L’immigration, surtout belge, italienne et polonaise, est un point du programme, et elle suscite déjà des tensions.' },
+  { a: 'L’Algérie est organisée en départements français à partir de 1848.',
+    v: true, ch: 'hg-h3-colonies',
+    e: 'C’est le cas particulier du chapitre : un territoire juridiquement français, dont la majorité des habitants ' +
+       'ne sont pourtant pas citoyens.' },
+  { a: 'Le code de l’indigénat accorde la citoyenneté française aux populations colonisées.',
+    v: false, ch: 'hg-h3-colonies',
+    e: 'Il fait l’inverse : il institue un statut de <b>sujet</b>, avec des peines spécifiques. ' +
+       'C’est la preuve juridique de l’inégalité coloniale.' },
+  { a: 'La politique coloniale de la Troisième République fait l’objet de débats en métropole.',
+    v: true, ch: 'hg-h3-colonies',
+    e: 'Le débat de 1885 entre Jules Ferry, qui la défend, et Georges Clemenceau, qui la dénonce au nom des droits de l’homme, ' +
+       'en est l’exemple attendu.' },
+  { a: 'La guerre de mouvement échoue dès l’automne 1914 et cède la place à la guerre de position.',
+    v: true, ch: 'hg-h4-embrasement',
+    e: 'La puissance de feu défensive, mitrailleuse et artillerie, fige le front. Commence alors la guerre des tranchées.' },
+  { a: 'La Première Guerre mondiale ne concerne que l’Europe.',
+    v: false, ch: 'hg-h4-embrasement',
+    e: 'Les empires coloniaux britannique et français y sont engagés, les combats gagnent le Proche-Orient, ' +
+       'et les États-Unis entrent en guerre en 1917.' },
+  { a: 'L’expression « crimes contre l’humanité » apparaît dans une déclaration internationale dès 1915.',
+    v: true, ch: 'hg-h4-societes',
+    e: 'La déclaration de la Triple Entente du 24 mai 1915 vise les massacres commis contre les Arméniens de l’Empire ottoman.' },
+  { a: 'Le rôle nouveau des femmes pendant la guerre leur vaut le droit de vote en France dès 1918.',
+    v: false, ch: 'hg-h4-societes',
+    e: 'Leur rôle s’élargit pendant le conflit, mais l’après-guerre en ramène beaucoup au foyer, et la France attendra 1944.' },
+  { a: 'Les traités de paix de 1919-1923 font disparaître les empires multinationaux européens.',
+    v: true, ch: 'hg-h4-sortir',
+    e: 'Les empires allemand, austro-hongrois, ottoman et russe disparaissent. De nouveaux États apparaissent ' +
+       'au nom du principe des nationalités.' },
+  { a: 'Les États-Unis adhèrent à la Société des Nations qu’ils ont inspirée.',
+    v: false, ch: 'hg-h4-sortir',
+    e: 'Le Sénat américain refuse de ratifier le traité de Versailles. Cette absence est une des causes de la faiblesse de la SDN.' }
+];
+
+TITRES_HG_H.forEach(function(ch){
+  G(ch, ch + '-vf', 'Vrai ou faux : les contresens classiques', 'ent', function(){
+    const x = R.pick(VF_HG.filter(y => y.ch === ch));
+    return {
+      enonce: '<p>Cette affirmation est-elle exacte ?</p>' + cit(x.a),
+      qcm: { options: ['Vrai', 'Faux'], bon: x.v ? 0 : 1 },
+      etapes: [
+        x.v ? 'C’est <b>exact</b>.' : 'C’est <b>faux</b>.',
+        x.e,
+        'Ce sont ces précisions qui font la différence entre une copie moyenne et une bonne copie.'
+      ]
+    };
+  });
+});
+/* =========================================================================
    Couche motivation : encouragements, badges, confettis, objectif du jour,
    petits sons. Tout est décoratif · rien ici ne change une correction.
    ========================================================================= */
@@ -7309,7 +8996,9 @@ function vueChapitre(){
          c.capacites.map(x => '<li>' + x + '</li>').join('') + '</ul></div>';
     h += '<div class="cours" data-bloc="' + c.bloc + '">' + c.cours.map(b => {
       const k = { def: 'Définition', prop: 'Propriété', meth: 'Méthode', piege: 'À éviter',
-                  pourquoi: '🤔 À quoi ça sert', ex: '✏️ Exemple', astuce: '💡 Astuces' }[b.k];
+                  pourquoi: '🤔 À quoi ça sert', ex: '✏️ Exemple', astuce: '💡 Astuces',
+                  reperes: '📍 Repères à connaître', ppo: '🔎 Points de passage et d’ouverture',
+                  cas: '🌍 Études de cas possibles' }[b.k];
       return '<div class="blk ' + b.k + '"><div class="h"><span class="k">' + k + '</span><b>' + b.t + '</b></div><div class="body">' + b.c + '</div></div>';
     }).join('') + '</div>';
     if (c.gens.length){

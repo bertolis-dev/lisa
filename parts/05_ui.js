@@ -299,7 +299,9 @@ function vueChapitre(){
          c.capacites.map(x => '<li>' + x + '</li>').join('') + '</ul></div>';
     h += '<div class="cours" data-bloc="' + c.bloc + '">' + c.cours.map(b => {
       const k = { def: 'Définition', prop: 'Propriété', meth: 'Méthode', piege: 'À éviter',
-                  pourquoi: '🤔 À quoi ça sert', ex: '✏️ Exemple', astuce: '💡 Astuces' }[b.k];
+                  pourquoi: '🤔 À quoi ça sert', ex: '✏️ Exemple', astuce: '💡 Astuces',
+                  reperes: '📍 Repères à connaître', ppo: '🔎 Points de passage et d’ouverture',
+                  cas: '🌍 Études de cas possibles' }[b.k];
       return '<div class="blk ' + b.k + '"><div class="h"><span class="k">' + k + '</span><b>' + b.t + '</b></div><div class="body">' + b.c + '</div></div>';
     }).join('') + '</div>';
     if (c.gens.length){

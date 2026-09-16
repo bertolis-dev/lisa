@@ -280,6 +280,14 @@ main{min-width:0;padding-block:34px;padding-left:40px;padding-right:40px;max-wid
 .cit{margin:14px 0;padding:14px 16px;border-left:4px solid var(--bc,var(--accent));background:var(--surface-2);border-radius:0 10px 10px 0;font-family:var(--serif,Georgia,serif);font-size:16px;line-height:1.7;color:var(--ink-1)}
 .cit-src{display:block;margin-top:8px;font-family:var(--sans);font-size:12px;letter-spacing:.04em;color:var(--ink-3);font-style:normal}
 .cit u{text-decoration:none;background:var(--bcs,var(--accent-soft));box-shadow:inset 0 -2px 0 var(--bc,var(--accent));border-radius:3px;padding:0 2px}
+
+/* listes de reperes chronologiques (histoire-geo) */
+ul.dates{list-style:none;margin:10px 0;padding:0;display:flex;flex-direction:column;gap:8px}
+ul.dates li{display:grid;grid-template-columns:minmax(110px,auto) minmax(0,1fr);gap:4px 14px;align-items:baseline;padding-bottom:8px;border-bottom:1px solid var(--line)}
+ul.dates li:last-child{border-bottom:0;padding-bottom:0}
+ul.dates b{color:var(--bc,var(--accent));font-variant-numeric:tabular-nums;font-family:var(--sans);font-size:13px;letter-spacing:.02em}
+ul.dates span{color:var(--ink-1)}
+@media (max-width:560px){ul.dates li{grid-template-columns:minmax(0,1fr)}}
 .nav .grp[data-bloc]{color:var(--bc)}
 .bloc[data-bloc] h3{color:var(--bc);border-bottom-color:var(--bc);border-bottom-width:2px}
 .chap[data-bloc]{border-top:3px solid var(--bc)}
@@ -676,6 +684,9 @@ table.tab tr:first-child th{background:var(--accent-soft);color:var(--accent-ink
 [data-bloc="fr-oe"]        {--bc:#B23A48;--bcs:#FBE6E8}
 [data-bloc="fr-outils"]    {--bc:#0F8A5F;--bcs:#DDF2EA}
 [data-bloc="fr-epreuves"]  {--bc:#6D4AC9;--bcs:#EEE8FC}
+[data-bloc="hg-histoire"]   {--bc:#A2541C;--bcs:#F7E8DA}
+[data-bloc="hg-geographie"] {--bc:#0F7A8A;--bcs:#DCF0F3}
+[data-bloc="hg-methode"]    {--bc:#6D4AC9;--bcs:#EEE8FC}
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]) [data-bloc="es-transverse"]{--bc:#F183BC;--bcs:#3B1C30}
   :root:not([data-theme="light"]) [data-bloc="es-donnees"]   {--bc:#F0A94C;--bcs:#3A2A12}
@@ -683,6 +694,9 @@ table.tab tr:first-child th{background:var(--accent-soft);color:var(--accent-ink
   :root:not([data-theme="light"]) [data-bloc="fr-oe"]       {--bc:#F0808C;--bcs:#3D1A1F}
   :root:not([data-theme="light"]) [data-bloc="fr-outils"]   {--bc:#4FD1A0;--bcs:#12352C}
   :root:not([data-theme="light"]) [data-bloc="fr-epreuves"] {--bc:#B49BFF;--bcs:#2C2350}
+  :root:not([data-theme="light"]) [data-bloc="hg-histoire"]   {--bc:#E09A5F;--bcs:#3A2716}
+  :root:not([data-theme="light"]) [data-bloc="hg-geographie"] {--bc:#57C6D6;--bcs:#10333A}
+  :root:not([data-theme="light"]) [data-bloc="hg-methode"]    {--bc:#B49BFF;--bcs:#2C2350}
 }
 :root[data-theme="dark"] [data-bloc="es-transverse"]{--bc:#F183BC;--bcs:#3B1C30}
 :root[data-theme="dark"] [data-bloc="es-donnees"]   {--bc:#F0A94C;--bcs:#3A2A12}
@@ -690,6 +704,9 @@ table.tab tr:first-child th{background:var(--accent-soft);color:var(--accent-ink
 :root[data-theme="dark"] [data-bloc="fr-oe"]       {--bc:#F0808C;--bcs:#3D1A1F}
 :root[data-theme="dark"] [data-bloc="fr-outils"]   {--bc:#4FD1A0;--bcs:#12352C}
 :root[data-theme="dark"] [data-bloc="fr-epreuves"] {--bc:#B49BFF;--bcs:#2C2350}
+:root[data-theme="dark"] [data-bloc="hg-histoire"]   {--bc:#E09A5F;--bcs:#3A2716}
+:root[data-theme="dark"] [data-bloc="hg-geographie"] {--bc:#57C6D6;--bcs:#10333A}
+:root[data-theme="dark"] [data-bloc="hg-methode"]    {--bc:#B49BFF;--bcs:#2C2350}
 </style>
 
 <div class="app">
