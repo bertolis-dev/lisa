@@ -246,6 +246,117 @@ main{min-width:0;padding-block:34px;padding-left:40px;padding-right:40px;max-wid
 .revue{display:flex;flex-direction:column;gap:8px}
 .rev{display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--amber);border-radius:var(--r);padding:12px 16px;font-size:14.5px}
 .rev .ch{font-size:12px;color:var(--ink-3);margin-left:auto;white-space:nowrap}
+/* ---------- une couleur par domaine ---------- */
+[data-bloc]{--bc:var(--accent);--bcs:var(--accent-soft)}
+[data-bloc="algebre"]   {--bc:#6D4AC9;--bcs:#EEE8FC}
+[data-bloc="analyse"]   {--bc:#2F6FE0;--bcs:#E4EDFC}
+[data-bloc="geometrie"] {--bc:#0F8A5F;--bcs:#DDF2EA}
+[data-bloc="probas"]    {--bc:#C4700A;--bcs:#FBEEDA}
+[data-bloc="transverse"]{--bc:#BC3B84;--bcs:#FBE5F1}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) [data-bloc="algebre"]   {--bc:#B49BFF;--bcs:#2C2350}
+  :root:not([data-theme="light"]) [data-bloc="analyse"]   {--bc:#7FB0FF;--bcs:#1B2C4E}
+  :root:not([data-theme="light"]) [data-bloc="geometrie"] {--bc:#4FD1A0;--bcs:#12352C}
+  :root:not([data-theme="light"]) [data-bloc="probas"]    {--bc:#F0A94C;--bcs:#3A2A12}
+  :root:not([data-theme="light"]) [data-bloc="transverse"]{--bc:#F183BC;--bcs:#3B1C30}
+}
+:root[data-theme="dark"] [data-bloc="algebre"]   {--bc:#B49BFF;--bcs:#2C2350}
+:root[data-theme="dark"] [data-bloc="analyse"]   {--bc:#7FB0FF;--bcs:#1B2C4E}
+:root[data-theme="dark"] [data-bloc="geometrie"] {--bc:#4FD1A0;--bcs:#12352C}
+:root[data-theme="dark"] [data-bloc="probas"]    {--bc:#F0A94C;--bcs:#3A2A12}
+:root[data-theme="dark"] [data-bloc="transverse"]{--bc:#F183BC;--bcs:#3B1C30}
+
+.nav .grp[data-bloc]{color:var(--bc)}
+.bloc[data-bloc] h3{color:var(--bc);border-bottom-color:var(--bc);border-bottom-width:2px}
+.chap[data-bloc]{border-top:3px solid var(--bc)}
+.chap[data-bloc]:hover{border-color:var(--line);border-top-color:var(--bc);box-shadow:0 6px 18px -10px var(--bc)}
+.chead[data-bloc] .eyebrow{color:var(--bc)}
+.chead[data-bloc] h2{color:var(--bc)}
+.qcard[data-bloc]{border-top:4px solid var(--bc)}
+.qcard[data-bloc] .pill.neuf{background:var(--bcs);color:var(--bc)}
+.chap-rank .niv-dots i.on{background:var(--bc)}
+.nav button[data-bloc] .dot.fini{background:var(--bc);border-color:var(--bc)}
+
+/* ---------- ruban des matières ---------- */
+.ruban{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:22px;scrollbar-width:thin}
+.mat{display:flex;align-items:center;gap:7px;flex:0 0 auto;padding:8px 14px;border-radius:999px;
+  border:1px solid var(--line);background:var(--surface);font-size:13.5px;color:var(--ink-2);transition:all .12s}
+.mat:hover{border-color:var(--accent);color:var(--ink)}
+.mat b{font-weight:600}
+.mat .me{font-size:16px;line-height:1}
+.mat.on{background:var(--accent);border-color:var(--accent);color:#fff}
+:root[data-theme="dark"] .mat.on{color:#0E1424}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .mat.on{color:#0E1424}}
+.mat.futur{opacity:.6}
+.mat .mb{font-size:9.5px;text-transform:uppercase;letter-spacing:.07em;font-weight:700;color:var(--amber);
+  background:var(--amber-soft);padding:2px 6px;border-radius:999px}
+.mat.plus{border-style:dashed;color:var(--ink-3)}
+.matcard{display:flex;align-items:center;gap:12px;text-align:left;width:100%;
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:13px 15px;transition:border-color .12s}
+.matcard:hover{border-color:var(--accent)}
+.matcard.prise{border-color:var(--juste);background:var(--juste-soft)}
+.matcard .me{font-size:24px;line-height:1;flex:0 0 auto}
+.matcard .mn{display:flex;flex-direction:column;gap:1px;min-width:0}
+.matcard .mn b{font-family:var(--serif);font-size:15px;font-weight:600;line-height:1.25}
+.matcard .mk{margin-left:auto;font-weight:700;color:var(--juste);font-size:16px;flex:0 0 auto}
+.nav-mat{font-size:12.5px;font-weight:700;color:var(--ink-2);padding:10px 10px 2px;display:flex;gap:6px;align-items:center}
+
+/* ---------- objectif du jour ---------- */
+.jour{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:18px;align-items:center;
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 20px;margin-bottom:14px}
+.anneau{width:74px;height:74px;flex:0 0 auto}
+.anneau .piste{fill:none;stroke:var(--surface-3);stroke-width:8}
+.anneau .jauge{fill:none;stroke:var(--juste);stroke-width:8;stroke-linecap:round;transform:rotate(-90deg);transform-origin:50% 50%;transition:stroke-dashoffset .6s ease}
+.anneau-t{font-family:var(--sans);font-size:19px;font-weight:700;fill:var(--ink);font-variant-numeric:tabular-nums}
+.jour-txt{display:flex;flex-direction:column;gap:2px;min-width:0}
+.jour-txt b{font-family:var(--serif);font-size:17px;font-weight:600}
+.jour-txt span{font-size:13.5px;color:var(--ink-2)}
+.flamme{display:flex;flex-direction:column;align-items:center;gap:0;opacity:.35;flex:0 0 auto}
+.flamme.on{opacity:1}
+.flamme .f{font-size:22px;line-height:1}
+.flamme b{font-family:var(--serif);font-size:22px;font-weight:600;line-height:1.1}
+.flamme .j{font-size:10.5px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.06em;font-weight:700}
+.sr-jours{font-size:11.5px;color:var(--amber);font-weight:700;margin-top:7px}
+.son{font-size:14px;line-height:1;padding:2px 4px;border-radius:6px;opacity:.75}
+.son:hover{opacity:1;background:var(--surface-2)}
+.side-rank .sr-top{align-items:center}
+
+/* ---------- badges ---------- */
+.titre-sec{display:flex;align-items:baseline;gap:10px;font-size:13px;text-transform:uppercase;letter-spacing:.1em;
+  color:var(--ink-3);font-weight:700;margin:4px 0 10px}
+.titre-sec span{font-size:12px;letter-spacing:0;color:var(--accent);font-weight:700;text-transform:none;
+  background:var(--accent-soft);padding:2px 9px;border-radius:999px}
+.badges{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:8px;margin-bottom:28px}
+.badge{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 12px 11px;
+  display:flex;flex-direction:column;align-items:center;text-align:center;gap:3px;opacity:.55;filter:grayscale(1)}
+.badge.eu{opacity:1;filter:none;border-color:var(--amber);background:linear-gradient(180deg,var(--amber-soft),var(--surface) 62%)}
+.badge .be{font-size:26px;line-height:1.1}
+.badge b{font-size:13px;font-family:var(--serif);font-weight:600}
+.badge .bd{font-size:11px;color:var(--ink-3);line-height:1.35}
+
+/* ---------- célébrations ---------- */
+.confettis{position:fixed;inset:0;pointer-events:none;z-index:120}
+.toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,120%);z-index:130;
+  display:flex;align-items:center;gap:13px;max-width:min(420px,92vw);
+  background:var(--surface);border:1px solid var(--amber);border-radius:14px;padding:13px 18px;
+  box-shadow:0 12px 40px -12px rgba(22,34,63,.45);transition:transform .35s cubic-bezier(.2,.9,.3,1.2),opacity .3s;opacity:0}
+.toast.on{transform:translate(-50%,0);opacity:1}
+.toast .te{font-size:28px;line-height:1;flex:0 0 auto}
+.toast b{font-family:var(--serif);font-size:15.5px;font-weight:600}
+.toast span:last-child{font-size:13px;color:var(--ink-2);line-height:1.45}
+@media (prefers-reduced-motion: reduce){.toast{transition:opacity .2s}}
+.verdict .vh .ve{font-size:20px;line-height:1}
+.gain{animation:pop .45s cubic-bezier(.2,.9,.3,1.4)}
+@keyframes pop{0%{transform:scale(.4);opacity:0}60%{transform:scale(1.18)}100%{transform:scale(1);opacity:1}}
+.bemo{font-size:52px;line-height:1.1;margin-bottom:2px;animation:pop .5s cubic-bezier(.2,.9,.3,1.4)}
+.qcard{animation:entree .28s ease}
+@keyframes entree{from{opacity:.3;transform:translateY(7px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){.gain,.bemo,.qcard{animation:none}}
+@media (max-width:560px){
+  .jour{grid-template-columns:auto minmax(0,1fr);row-gap:12px}
+  .flamme{grid-column:1 / -1;flex-direction:row;gap:7px;align-items:baseline;justify-content:center}
+}
+
 /* ---------- rangs et points ---------- */
 .rank{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px 20px 14px;margin-bottom:14px;
   background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
@@ -383,7 +494,9 @@ function fracTxt(p, q){
 }
 
 /* ---------- état de la progression ---------- */
-const VIDE = () => ({ v: 2, statuts: {}, methodes: {}, courant: null, serie: 0, record: 0, maj: 0 });
+const VIDE = () => ({ v: 3, statuts: {}, methodes: {}, courant: null, serie: 0, record: 0,
+                      badges: [], jour: '', joursSuite: 0, recordJours: 0, xpJour: 0, son: true,
+                      matiere: 'maths', mesMatieres: ['maths', 'francais', 'histgeo', 'sciences', 'anglais'], maj: 0 });
 let S = VIDE();
 
 const BOXES = [0, 1, 3, 7, 16];           // révision espacée, en jours
@@ -425,6 +538,8 @@ function mStat(id){
 }
 function enregistrer(mid, juste){
   const st = mStat(mid);
+  const avait = st.ko > 0 && st.ok === 0;      /* notion ratée et jamais réussie jusqu'ici */
+  marquerJour();
   let gain = 0;
   if (juste){
     st.ok++;
@@ -434,6 +549,7 @@ function enregistrer(mid, juste){
     if (S.serie >= 3) gain += 5;
     if (S.serie >= 6) gain += 10;
     st.xp += gain;
+    S.xpJour = (S.xpJour || 0) + gain;
     if (S.serie > (S.record || 0)) S.record = S.serie;
   } else {
     st.ko++; st.box = 0; S.serie = 0;
@@ -441,7 +557,7 @@ function enregistrer(mid, juste){
   st.dernier = Date.now();
   st.due = Date.now() + BOXES[st.box] * JOUR;
   sauver();
-  return gain;
+  return { gain: gain, revanche: juste && avait };
 }
 function xpChap(id){
   let t = 0;
@@ -507,6 +623,15 @@ function adopter(d){
   S.methodes = S.methodes || {};
   S.serie = S.serie || 0;
   S.record = S.record || 0;
+  S.badges = S.badges || [];
+  S.jour = S.jour || '';
+  S.joursSuite = S.joursSuite || 0;
+  S.recordJours = S.recordJours || 0;
+  S.xpJour = S.xpJour || 0;
+  if (S.son === undefined) S.son = true;
+  if (!S.matiere || !MAT[S.matiere] || !MAT[S.matiere].pret) S.matiere = 'maths';
+  if (!S.mesMatieres || !S.mesMatieres.length) S.mesMatieres = ['maths', 'francais', 'histgeo', 'sciences', 'anglais'];
+  if (S.mesMatieres.indexOf('maths') < 0) S.mesMatieres.push('maths');
   for (const mid in S.methodes) if (S.methodes[mid].xp === undefined) S.methodes[mid].xp = 0;
 }
 async function initStore(){
@@ -530,6 +655,32 @@ async function initStore(){
    (arrêté du 17 janvier 2019 — BO spécial n°1 du 22 janvier 2019)
    5 blocs, 12 chapitres. Pour chaque chapitre : capacités attendues + cours.
    ========================================================================= */
+
+/* =========================================================================
+   Les matières de première générale. Chaque matière apporte ses propres
+   blocs et chapitres ; l'application n'en affiche qu'une à la fois.
+   Pour ajouter une matière : ses chapitres avec `matiere: "<id>"`, ses blocs
+   dans BLOCS avec le même champ, et passer `pret` à true.
+   ========================================================================= */
+
+const MATIERES = [
+  { id: 'maths',      nom: 'Spécialité mathématiques', court: 'Maths',       e: '📐', type: 'specialite', pret: true },
+  { id: 'francais',   nom: 'Français',                 court: 'Français',    e: '📖', type: 'commun' },
+  { id: 'histgeo',    nom: 'Histoire-géographie',      court: 'Hist-géo',    e: '🗺️', type: 'commun' },
+  { id: 'sciences',   nom: 'Enseignement scientifique', court: 'Ens. sci.',  e: '🔬', type: 'commun' },
+  { id: 'anglais',    nom: 'Anglais (LVA)',            court: 'Anglais',     e: '💬', type: 'commun' },
+  { id: 'lvb',        nom: 'Langue vivante B',         court: 'LVB',         e: '🌍', type: 'commun' },
+  { id: 'emc',        nom: 'EMC',                      court: 'EMC',         e: '⚖️', type: 'commun' },
+  { id: 'physique',   nom: 'Spécialité physique-chimie', court: 'Physique',  e: '⚗️', type: 'specialite' },
+  { id: 'svt',        nom: 'Spécialité SVT',           court: 'SVT',         e: '🧬', type: 'specialite' },
+  { id: 'ses',        nom: 'Spécialité SES',           court: 'SES',         e: '📊', type: 'specialite' },
+  { id: 'hggsp',      nom: 'Spécialité HGGSP',         court: 'HGGSP',       e: '🏛️', type: 'specialite' },
+  { id: 'hlp',        nom: 'Spécialité HLP',           court: 'HLP',         e: '📜', type: 'specialite' },
+  { id: 'nsi',        nom: 'Spécialité NSI',           court: 'NSI',         e: '💻', type: 'specialite' }
+];
+const MAT = {};
+MATIERES.forEach(m => { MAT[m.id] = m; });
+function matiereCourante(){ return MAT[S.matiere] || MAT.maths; }
 
 const BLOCS = [
   { id: 'algebre',    nom: 'Algèbre' },
@@ -936,7 +1087,11 @@ const CHAPITRES = [
 ];
 
 const CHAP = {};
-CHAPITRES.forEach(c => { c.gens = []; CHAP[c.id] = c; });
+CHAPITRES.forEach(c => { c.gens = []; c.matiere = c.matiere || 'maths'; CHAP[c.id] = c; });
+BLOCS.forEach(b => { b.matiere = b.matiere || 'maths'; });
+/* chapitres et blocs de la matière affichée */
+function chapitresCourants(){ return CHAPITRES.filter(c => c.matiere === S.matiere); }
+function blocsCourants(){ return BLOCS.filter(b => b.matiere === S.matiere); }
 const METHODE = {};
 /* =========================================================================
    Générateurs d'exercices.
@@ -2053,6 +2208,201 @@ G('produit-scalaire', 'ps-norme-somme', 'Norme d\u2019une somme de vecteurs', 'e
   };
 });
 /* =========================================================================
+   Couche motivation : encouragements, badges, confettis, objectif du jour,
+   petits sons. Tout est décoratif — rien ici ne change une correction.
+   ========================================================================= */
+
+/* ---------- messages ---------- */
+const MSG_JUSTE = [
+  'Impeccable !', 'Nickel.', 'Exactement ça.', 'Tu gères.', 'Parfait.',
+  'Bravo !', 'Tranquille.', 'Sans faute.', 'Joli.', 'Pile poil.'
+];
+const MSG_FAUX = [
+  'Presque ! Regarde la correction, elle est détaillée.',
+  'Pas grave — c’est exactement pour ça qu’on s’entraîne.',
+  'Celle-là est piégeuse. Reprends la correction tranquillement.',
+  'On la remettra dans « Réviser » dans quelques jours.',
+  'C’est en se trompant qu’on retient. Lis chaque étape.',
+  'Rien de grave. La prochaine est pour toi.'
+];
+const EMO_JUSTE = ['🎯', '💪', '✨', '👏', '🔥', '⭐', '🙌'];
+
+function unDe(liste){ return liste[Math.floor(Math.random() * liste.length)]; }
+
+function motDeFin(pc){
+  if (pc === 100) return { e: '🏆', t: 'Sans-faute. Chapeau.' };
+  if (pc >= 85)   return { e: '🎉', t: 'Excellent — c’est du niveau DS, ça.' };
+  if (pc >= 70)   return { e: '💪', t: 'Solide. Encore un peu d’entraînement et c’est plié.' };
+  if (pc >= 50)   return { e: '🙂', t: 'Ça avance. Reprends les erreurs, elles reviendront.' };
+  if (pc >= 25)   return { e: '🌱', t: 'Chapitre pas encore digéré — relis la fiche de cours.' };
+  return { e: '📖', t: 'Relis le cours, puis reviens : ça ira beaucoup mieux.' };
+}
+
+/* ---------- objectif du jour ---------- */
+const OBJECTIF_JOUR = 60;
+
+function jourTexte(d){
+  return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+}
+function aujourdhui(){ return jourTexte(new Date()); }
+function hier(){ return jourTexte(new Date(Date.now() - JOUR)); }
+
+/* appelée à chaque réponse : entretient la série de jours */
+function marquerJour(){
+  const j = aujourdhui();
+  if (S.jour === j) return;
+  S.joursSuite = (S.jour === hier()) ? (S.joursSuite || 0) + 1 : 1;
+  if (S.joursSuite > (S.recordJours || 0)) S.recordJours = S.joursSuite;
+  S.jour = j;
+  S.xpJour = 0;
+}
+function xpDuJour(){ return S.jour === aujourdhui() ? (S.xpJour || 0) : 0; }
+function serieJours(){
+  if (S.jour === aujourdhui() || S.jour === hier()) return S.joursSuite || 0;
+  return 0;
+}
+
+/* ---------- badges ---------- */
+const BADGES = [
+  { id: 'premier',   e: '🌟', nom: 'Premier pas',       desc: 'Réussir un premier exercice',
+    test: c => c.totalOk >= 1 },
+  { id: 'serie5',    e: '🔥', nom: 'En feu',            desc: '5 bonnes réponses d’affilée',
+    test: c => (S.record || 0) >= 5 },
+  { id: 'serie10',   e: '⚡', nom: 'Inarrêtable',       desc: '10 bonnes réponses d’affilée',
+    test: c => (S.record || 0) >= 10 },
+  { id: 'parfait',   e: '💯', nom: 'Sans-faute',        desc: 'Terminer une série sans aucune erreur',
+    test: c => c.serieParfaite },
+  { id: 'revanche',  e: '🔁', nom: 'Revanche',          desc: 'Réussir une notion ratée auparavant',
+    test: c => c.revanche },
+  { id: 'coriace',   e: '🧠', nom: 'Chasseuse de pièges', desc: '10 exercices d’Approfondissement réussis',
+    test: c => c.okExp >= 10 },
+  { id: 'chrono',    e: '⏱️', nom: 'Sang-froid',        desc: 'Au moins 8 bonnes réponses en interro chrono',
+    test: c => c.chronoOk >= 8 },
+  { id: 'expertChap',e: '🏅', nom: 'Spécialiste',       desc: 'Atteindre le rang Expert sur un chapitre',
+    test: c => CHAPITRES.some(ch => xpChap(ch.id) >= RANGS_CHAP[3].min) },
+  { id: 'jours3',    e: '📅', nom: 'Trois jours',       desc: 'Travailler 3 jours de suite',
+    test: c => serieJours() >= 3 },
+  { id: 'jours7',    e: '🗓️', nom: 'Une semaine',       desc: 'Travailler 7 jours de suite',
+    test: c => serieJours() >= 7 },
+  { id: 'pts500',    e: '🚀', nom: '500 points',        desc: 'Cumuler 500 points',
+    test: c => xpTotal() >= 500 },
+  { id: 'pts2000',   e: '🛰️', nom: '2 000 points',      desc: 'Cumuler 2 000 points',
+    test: c => xpTotal() >= 2000 },
+  { id: 'tourneur',  e: '🧭', nom: 'Tour du programme', desc: 'Entamer 4 chapitres différents',
+    test: c => CHAPITRES.filter(ch => statutChap(ch.id) !== 'neuf').length >= 4 },
+  { id: 'objectif',  e: '✅', nom: 'Objectif atteint',  desc: 'Atteindre l’objectif de points du jour',
+    test: c => xpDuJour() >= OBJECTIF_JOUR }
+];
+
+function contexteBadges(extra){
+  let totalOk = 0, okExp = 0;
+  for (const mid in S.methodes){
+    const m = S.methodes[mid], g = METHODE[mid];
+    totalOk += m.ok;
+    if (g && g.niveau === 'exp') okExp += m.ok;
+  }
+  return Object.assign({ totalOk: totalOk, okExp: okExp, serieParfaite: false, revanche: false, chronoOk: 0 }, extra || {});
+}
+/* renvoie les badges débloqués à l'instant (et les mémorise) */
+function nouveauxBadges(extra){
+  const ctx = contexteBadges(extra);
+  const gagnes = [];
+  S.badges = S.badges || [];
+  BADGES.forEach(b => {
+    if (S.badges.indexOf(b.id) >= 0) return;
+    let ok = false;
+    try { ok = !!b.test(ctx); } catch (e) { ok = false; }
+    if (ok){ S.badges.push(b.id); gagnes.push(b); }
+  });
+  if (gagnes.length) sauver();
+  return gagnes;
+}
+
+/* ---------- confettis ---------- */
+function confettis(force){
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const cv = document.createElement('canvas');
+  cv.className = 'confettis';
+  cv.width = window.innerWidth; cv.height = window.innerHeight;
+  document.body.appendChild(cv);
+  const ctx = cv.getContext('2d');
+  const couleurs = ['#2F45C5', '#E0A84B', '#0F7A54', '#C13A86', '#2F6FE0', '#D9720B'];
+  const n = force === 'max' ? 140 : 70;
+  const p = [];
+  for (let i = 0; i < n; i++){
+    p.push({
+      x: cv.width * (0.2 + 0.6 * Math.random()),
+      y: cv.height * 0.32 + Math.random() * 40,
+      vx: (Math.random() - 0.5) * 11,
+      vy: -7 - Math.random() * 11,
+      l: 5 + Math.random() * 7,
+      a: Math.random() * Math.PI,
+      va: (Math.random() - 0.5) * 0.35,
+      c: couleurs[Math.floor(Math.random() * couleurs.length)]
+    });
+  }
+  let t = 0;
+  (function boucle(){
+    t++;
+    ctx.clearRect(0, 0, cv.width, cv.height);
+    p.forEach(o => {
+      o.vy += 0.32; o.x += o.vx; o.y += o.vy; o.a += o.va;
+      ctx.save();
+      ctx.translate(o.x, o.y); ctx.rotate(o.a);
+      ctx.globalAlpha = Math.max(0, 1 - t / 110);
+      ctx.fillStyle = o.c;
+      ctx.fillRect(-o.l / 2, -o.l / 4, o.l, o.l / 2);
+      ctx.restore();
+    });
+    if (t < 110) requestAnimationFrame(boucle); else cv.remove();
+  })();
+}
+
+/* ---------- sons (générés, aucun fichier) ---------- */
+let audioCtx = null;
+function bip(genre){
+  if (!S.son) return;
+  try {
+    audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+    const notes = genre === 'juste' ? [660, 880] : genre === 'badge' ? [660, 880, 1100, 1320] : [200, 160];
+    notes.forEach((f, i) => {
+      const o = audioCtx.createOscillator(), g = audioCtx.createGain();
+      o.type = genre === 'faux' ? 'sine' : 'triangle';
+      o.frequency.value = f;
+      const t0 = audioCtx.currentTime + i * 0.085;
+      g.gain.setValueAtTime(0.0001, t0);
+      g.gain.exponentialRampToValueAtTime(0.13, t0 + 0.012);
+      g.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.17);
+      o.connect(g); g.connect(audioCtx.destination);
+      o.start(t0); o.stop(t0 + 0.2);
+    });
+  } catch (e) { /* le son n'est jamais indispensable */ }
+}
+
+/* ---------- bandeaux de récompense ---------- */
+function toast(html, duree){
+  const d = document.createElement('div');
+  d.className = 'toast';
+  d.innerHTML = html;
+  document.body.appendChild(d);
+  requestAnimationFrame(() => d.classList.add('on'));
+  setTimeout(() => { d.classList.remove('on'); setTimeout(() => d.remove(), 350); }, duree || 3600);
+}
+function feterBadges(liste){
+  liste.forEach((b, i) => {
+    setTimeout(() => {
+      toast('<span class="te">' + b.e + '</span><span><b>Badge débloqué — ' + b.nom + '</b><br>' + b.desc + '</span>', 4200);
+      bip('badge');
+      confettis();
+    }, i * 900);
+  });
+}
+function feterRang(nom){
+  toast('<span class="te">👑</span><span><b>Nouveau rang : ' + nom + '</b><br>Bravo, tu montes !</span>', 4600);
+  bip('badge');
+  confettis('max');
+}
+/* =========================================================================
    Interface : navigation, fiches de cours, séries d'exercices, progression.
    ========================================================================= */
 
@@ -2076,16 +2426,21 @@ function fermerMenu(){ elSide.classList.remove('open'); const s = document.query
 /* ---------------- navigation latérale ---------------- */
 function rendreNav(){
   const xpg = xpTotal(), rgg = rang(xpg, RANGS);
-  let h = '<div class="side-rank"><div class="sr-top"><b>' + rgg.nom + '</b><span>' + xpg + ' pts</span></div>' +
-          '<div class="bar"><span style="width:' + rgg.pc + '%"></span></div></div>';
+  let h = '<div class="side-rank"><div class="sr-top"><b>' + rgg.nom + '</b>' +
+          '<span>' + xpg + ' pts</span>' +
+          '<button class="son" data-son="1" title="Sons" aria-label="Activer ou couper les sons">' + (S.son ? '🔊' : '🔇') + '</button></div>' +
+          '<div class="bar"><span style="width:' + rgg.pc + '%"></span></div>' +
+          (serieJours() ? '<div class="sr-jours">🔥 ' + serieJours() + ' jour' + (serieJours() > 1 ? 's' : '') + ' de suite</div>' : '') +
+          '</div>';
   h += '<button class="' + (vue.nom === 'accueil' ? 'on' : '') + '" data-go="accueil">Accueil</button>';
   h += '<button class="' + (vue.nom === 'serie' && serie && serie.mode === 'revision' ? 'on' : '') + '" data-go="revision">Réviser</button>';
   h += '<button class="' + (vue.nom === 'serie' && serie && serie.mode === 'chrono' ? 'on' : '') + '" data-go="chrono">Interro chrono</button>';
-  BLOCS.forEach(b => {
-    h += '<div class="grp">' + b.nom + '</div>';
-    CHAPITRES.filter(c => c.bloc === b.id).forEach(c => {
+  h += '<div class="nav-mat">' + matiereCourante().e + ' ' + matiereCourante().nom + '</div>';
+  blocsCourants().forEach(b => {
+    h += '<div class="grp" data-bloc="' + b.id + '">' + b.nom + '</div>';
+    chapitresCourants().filter(c => c.bloc === b.id).forEach(c => {
       const st = statutChap(c.id), sc = scoreChap(c.id);
-      h += '<button class="' + (vue.nom === 'chapitre' && vue.id === c.id ? 'on' : '') + '" data-chap="' + c.id + '">' +
+      h += '<button class="' + (vue.nom === 'chapitre' && vue.id === c.id ? 'on' : '') + '" data-bloc="' + c.bloc + '" data-chap="' + c.id + '">' +
            '<span class="dot ' + (st === 'encours' ? 'vu' : (st === 'fini' ? 'fini' : '')) + '"></span>' +
            '<span>' + c.titre + '</span>' +
            (sc.pc !== null ? '<span class="meta">' + sc.pc + ' %</span>' : (c.gens.length ? '' : '<span class="meta">cours</span>')) +
@@ -2099,13 +2454,17 @@ function rendreNav(){
 function vueAccueil(){
   const g = scoreGlobal(), rev = aRevoir();
   const cur = S.courant && CHAP[S.courant] ? CHAP[S.courant] : null;
-  const travailles = CHAPITRES.filter(c => statutChap(c.id) !== 'neuf').length;
+  const chaps = chapitresCourants();
+  const travailles = chaps.filter(c => statutChap(c.id) !== 'neuf').length;
   let h = '';
+  h += rubanMatieres();
+  const heure = new Date().getHours();
+  const salut = heure < 13 ? 'Bonjour 👋' : (heure < 18 ? 'Bon après-midi 👋' : 'Bonsoir 👋');
   h += '<div class="home-head"><div>' +
-       '<div class="eyebrow">Spécialité mathématiques &middot; Première générale</div>' +
-       '<h2 style="font-size:31px">Tout le programme, et des exercices qui vont avec</h2>' +
-       '<p class="lede" style="margin-top:8px">Choisis le chapitre sur lequel tu travailles : les exercices sont tirés au sort à chaque fois, ' +
-       'avec la correction détaillée étape par étape.</p></div></div>';
+       '<div class="eyebrow">' + salut + ' &middot; Spécialité maths, première</div>' +
+       '<h2 style="font-size:31px">On travaille quoi aujourd’hui ?</h2>' +
+       '<p class="lede" style="margin-top:8px">Les exercices sont tirés au sort à chaque fois, avec la correction détaillée ' +
+       'étape par étape. Plus c’est difficile, plus ça rapporte de points.</p></div></div>';
 
   const xp = xpTotal(), rg = rang(xp, RANGS);
   h += '<div class="rank"><div class="rank-top">' +
@@ -2116,11 +2475,26 @@ function vueAccueil(){
        '<div class="rank-foot"><span>' + (rg.prochain ? (rg.prochain.min - xp) + ' points avant <b>' + rg.prochain.nom + '</b>' : 'Rang maximal atteint') + '</span>' +
        '<span>' + Object.keys(POINTS).map(n => NIVEAUX[n] + ' ' + POINTS[n] + ' pts').join(' &middot; ') + '</span></div></div>';
 
+  const xj = xpDuJour(), pcj = Math.min(100, Math.round(100 * xj / OBJECTIF_JOUR)), sj = serieJours();
+  const C = 2 * Math.PI * 34;
+  h += '<div class="jour">' +
+       '<svg class="anneau" viewBox="0 0 80 80" aria-hidden="true">' +
+       '<circle cx="40" cy="40" r="34" class="piste"></circle>' +
+       '<circle cx="40" cy="40" r="34" class="jauge" style="stroke-dasharray:' + C + ';stroke-dashoffset:' + (C * (1 - pcj / 100)) + '"></circle>' +
+       '<text x="40" y="46" text-anchor="middle" class="anneau-t">' + (pcj >= 100 ? '✓' : pcj + '%') + '</text></svg>' +
+       '<div class="jour-txt"><b>Objectif du jour</b>' +
+       '<span>' + (xj >= OBJECTIF_JOUR
+          ? 'Atteint — ' + xj + ' points aujourd’hui. Tout ce qui suit est du bonus 🎁'
+          : xj + ' / ' + OBJECTIF_JOUR + ' points — encore ' + (OBJECTIF_JOUR - xj) + ', soit deux ou trois exercices.') + '</span></div>' +
+       '<div class="flamme' + (sj ? ' on' : '') + '"><span class="f">🔥</span><b>' + sj + '</b>' +
+       '<span class="j">jour' + (sj > 1 ? 's' : '') + ' de suite</span></div>' +
+       '</div>';
+
   h += '<div class="stats">' +
        '<div class="stat"><div class="v">' + g.tot + '</div><div class="k">exercices faits</div></div>' +
        '<div class="stat"><div class="v">' + (g.pc === null ? '—' : g.pc + ' %') + '</div><div class="k">de réussite</div></div>' +
        '<div class="stat"><div class="v">' + (S.record || 0) + '</div><div class="k">meilleure série</div></div>' +
-       '<div class="stat"><div class="v">' + travailles + '<span style="font-size:17px;color:var(--ink-3)"> / ' + CHAPITRES.length + '</span></div><div class="k">chapitres entamés</div></div>' +
+       '<div class="stat"><div class="v">' + travailles + '<span style="font-size:17px;color:var(--ink-3)"> / ' + chaps.length + '</span></div><div class="k">chapitres entamés</div></div>' +
        '<div class="stat"><div class="v">' + rev.length + '</div><div class="k">notions à revoir</div></div>' +
        '</div>';
 
@@ -2148,6 +2522,15 @@ function vueAccueil(){
        '<span>Les 12 chapitres du BO et les capacités attendues pour chacun.</span></button>' +
        '</div>';
 
+  S.badges = S.badges || [];
+  h += '<div class="titre-sec">Badges <span>' + S.badges.length + ' / ' + BADGES.length + '</span></div>' +
+       '<div class="badges">' + BADGES.map(b => {
+         const eu = S.badges.indexOf(b.id) >= 0;
+         return '<div class="badge' + (eu ? ' eu' : '') + '" title="' + esc(b.desc) + '">' +
+                '<span class="be">' + (eu ? b.e : '🔒') + '</span>' +
+                '<b>' + b.nom + '</b><span class="bd">' + b.desc + '</span></div>';
+       }).join('') + '</div>';
+
   if (rev.length){
     h += '<h3 style="font-size:13px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-3);font-family:var(--sans);font-weight:700;margin-bottom:10px">À revoir en priorité</h3>' +
          '<div class="revue" style="margin-bottom:30px">' +
@@ -2157,13 +2540,13 @@ function vueAccueil(){
   }
 
   h += '<div class="blocs">';
-  BLOCS.forEach(b => {
-    h += '<div class="bloc"><h3>' + b.nom + '</h3><div class="chaps">';
-    CHAPITRES.filter(c => c.bloc === b.id).forEach(c => {
+  blocsCourants().forEach(b => {
+    h += '<div class="bloc" data-bloc="' + b.id + '"><h3>' + b.nom + '</h3><div class="chaps">';
+    chapitresCourants().filter(c => c.bloc === b.id).forEach(c => {
       const st = statutChap(c.id), sc = scoreChap(c.id);
       const info = STATUTS.find(x => x.id === st);
       const cxp = xpChap(c.id), crg = rang(cxp, RANGS_CHAP);
-      h += '<button class="chap" data-chap="' + c.id + '">' +
+      h += '<button class="chap" data-bloc="' + c.bloc + '" data-chap="' + c.id + '">' +
            '<div class="t">' + c.titre + '</div>' +
            '<div class="tiny" style="line-height:1.4">' + c.resume + '</div>' +
            (c.gens.length && cxp ? '<div class="chap-rank"><span class="niv-dots">' +
@@ -2188,9 +2571,9 @@ function vueProgramme(){
           '<h2 style="font-size:28px">Le programme de spécialité</h2>' +
           '<p class="lede" style="margin:8px 0 24px">Cinq grandes parties, douze chapitres. Pour chacun, les <b>capacités attendues</b> : ' +
           'ce sont elles qui servent de base aux devoirs surveillés.</p><div class="blocs">';
-  BLOCS.forEach(b => {
-    h += '<div class="bloc"><h3>' + b.nom + '</h3><div class="cours">';
-    CHAPITRES.filter(c => c.bloc === b.id).forEach(c => {
+  blocsCourants().forEach(b => {
+    h += '<div class="bloc" data-bloc="' + b.id + '"><h3>' + b.nom + '</h3><div class="cours">';
+    chapitresCourants().filter(c => c.bloc === b.id).forEach(c => {
       h += '<div class="blk def"><div class="h"><span class="k">' + c.titre + '</span></div>' +
            '<div class="body"><ul>' + c.capacites.map(x => '<li>' + x + '</li>').join('') + '</ul>' +
            '<div style="margin-top:6px"><button class="btn sm" data-chap="' + c.id + '">Ouvrir le chapitre</button></div></div></div>';
@@ -2208,7 +2591,7 @@ function vueChapitre(){
   const onglet = vue.onglet || 'cours';
   const st = statutChap(c.id), sc = scoreChap(c.id);
   const cxp = xpChap(c.id), crg = rang(cxp, RANGS_CHAP);
-  let h = '<div class="chead">' +
+  let h = '<div class="chead" data-bloc="' + c.bloc + '">' +
     '<div class="eyebrow">' + BLOCS.find(b => b.id === c.bloc).nom + '</div>' +
     '<h2>' + c.titre + '</h2>' +
     '<p class="lede">' + c.resume + '</p>' +
@@ -2285,8 +2668,48 @@ function vueChapitre(){
 /* ---------------- constitution des séries ---------------- */
 function poolRevision(){
   const out = [];
-  CHAPITRES.forEach(c => { if (statutChap(c.id) !== 'neuf') c.gens.forEach(g => out.push(g)); });
+  chapitresCourants().forEach(c => { if (statutChap(c.id) !== 'neuf') c.gens.forEach(g => out.push(g)); });
   return out;
+}
+
+/* ---------------- matieres ---------------- */
+function rubanMatieres(){
+  const miennes = MATIERES.filter(m => S.mesMatieres.indexOf(m.id) >= 0);
+  return '<div class="ruban">' + miennes.map(m =>
+    '<button class="mat' + (m.id === S.matiere ? ' on' : '') + (m.pret ? '' : ' futur') + '" data-mat="' + m.id + '">' +
+    '<span class="me">' + m.e + '</span><b>' + m.court + '</b>' +
+    (m.pret ? '' : '<span class="mb">bientot</span>') + '</button>').join('') +
+    '<button class="mat plus" data-mat="+"><span class="me">+</span><b>Mes matieres</b></button></div>';
+}
+function vueMatieres(){
+  let h = '<div class="eyebrow">Premiere generale</div>' +
+    '<h2 style="font-size:28px">Mes matieres</h2>' +
+    '<p class="lede" style="margin:8px 0 22px">Coche les matieres que tu suis cette annee : elles apparaissent en haut de l\u2019accueil. ' +
+    'Les mathematiques sont pretes ; les autres programmes arrivent l\u2019un apres l\u2019autre.</p>';
+  [['specialite', 'Specialites'], ['commun', 'Enseignements communs']].forEach(g => {
+    h += '<div class="bloc"><h3>' + g[1] + '</h3><div class="chaps">' +
+      MATIERES.filter(m => m.type === g[0]).map(m => {
+        const prise = S.mesMatieres.indexOf(m.id) >= 0;
+        return '<button class="matcard' + (prise ? ' prise' : '') + '" data-prendre="' + m.id + '">' +
+          '<span class="me">' + m.e + '</span>' +
+          '<span class="mn"><b>' + m.nom + '</b><span class="tiny">' +
+          (m.pret ? CHAPITRES.filter(c => c.matiere === m.id).length + ' chapitres \u00B7 exercices disponibles' : 'Programme a venir') +
+          '</span></span><span class="mk">' + (prise ? '\u2713' : '') + '</span></button>';
+      }).join('') + '</div></div>';
+  });
+  elMain.innerHTML = h;
+  elTop.textContent = 'Mes matieres';
+}
+function vueBientot(){
+  const m = MAT[vue.id];
+  elMain.innerHTML = '<div class="empty" style="padding-block:56px">' +
+    '<div style="font-size:46px;line-height:1.2">' + m.e + '</div>' +
+    '<h2 style="font-size:24px;margin:10px 0 8px">' + m.nom + '</h2>' +
+    '<p style="max-width:54ch;margin:0 auto 18px">Cette matiere n\u2019a pas encore son programme dans l\u2019application. ' +
+    'Les mathematiques ont servi de modele : chapitres officiels, fiches de cours, exercices generes et points. ' +
+    'Les autres matieres suivront sur le meme moule.</p>' +
+    '<button class="btn primary" data-mat="maths">Retour aux maths</button></div>';
+  elTop.textContent = m.nom;
 }
 function tirer(pool, n){
   if (!pool.length) return [];
@@ -2347,7 +2770,7 @@ function vueSerie(){
        (serie.mode === 'chrono' ? '<span class="timer" id="chrono">' + mmss(serie.reste) + '</span>' : '') +
        '<button class="btn sm ghost" data-quitter="1">Quitter</button></div></div>';
 
-  h += '<div class="qcard">';
+  h += '<div class="qcard" data-bloc="' + CHAP[g.chap].bloc + '">';
   h += '<div class="qmeta"><span class="pill neuf">' + NIVEAUX[g.niveau] + '</span>' +
        '<span class="tiny">' + CHAP[g.chap].titre + ' &middot; ' + esc(g.label) + '</span>' +
        '<span class="tiny" style="margin-left:auto">Question ' + (serie.idx + 1) + ' / ' + serie.gens.length + '</span></div>';
@@ -2383,11 +2806,10 @@ function vueSerie(){
          '<button class="btn ghost" data-sechapper="1">Je ne sais pas</button></div>';
   } else {
     h += '<div class="verdict ' + (serie.juste ? 'ok' : 'ko') + '">' +
-         '<div class="vh">' + (serie.juste ? '✓ Juste' : (serie.abandon ? 'Correction' : '✗ Pas tout à fait')) +
+         '<div class="vh"><span class="ve">' + (serie.emo || (serie.juste ? '🎯' : '💡')) + '</span>' +
+         (serie.juste ? 'Juste' : (serie.abandon ? 'Correction' : 'Pas tout à fait')) +
          (serie.juste && serie.gain ? '<span class="gain">+' + serie.gain + ' pts</span>' : '') + '</div>' +
-         '<div class="vb">' + (serie.juste
-            ? (serie.gain > POINTS[g.niveau] ? 'Bien joué — bonus de série inclus.' : 'Bien joué — enchaîne.')
-            : 'Regarde la correction pas à pas, puis continue : cette notion te sera reproposée plus tard.') + '</div></div>';
+         '<div class="vb">' + (serie.msg || '') + '</div></div>';
     h += '<div class="sol"><h4>Correction détaillée</h4><div class="steps">' +
          q.etapes.map(s => '<div class="step"><div>' + s + '</div></div>').join('') + '</div></div>';
     h += '<div class="actions"><button class="btn primary" data-suivante="1">' +
@@ -2428,13 +2850,27 @@ function verifier(abandon){
   if (q.qcm) juste = (q.choix === q.qcm.bon);
   else juste = q.champs.every(champOk);
   if (abandon) juste = false;
+  const rangAvant = rang(xpTotal(), RANGS).index;
   serie.abandon = !!abandon;
   serie.valide = true;
   serie.juste = juste;
   serie.resultats[serie.idx] = juste;
-  serie.gain = enregistrer(q.gen.id, juste);
-  serie.gains = (serie.gains || 0) + serie.gain;
+  const r = enregistrer(q.gen.id, juste);
+  serie.gain = r.gain;
+  serie.gains = (serie.gains || 0) + r.gain;
+  serie.msg = juste
+    ? (r.revanche ? 'Tu l’avais ratée la dernière fois. Plus maintenant !'
+       : (q.gen.niveau === 'exp' ? 'Chapeau — celle-là était coriace.'
+          : (serie.gain > POINTS[q.gen.niveau] ? unDe(MSG_JUSTE) + ' Bonus de série.' : unDe(MSG_JUSTE))))
+    : unDe(MSG_FAUX);
+  serie.emo = juste ? (r.revanche ? '🔁' : unDe(EMO_JUSTE)) : '💡';
+  bip(juste ? 'juste' : 'faux');
   rendre();
+  const gagnes = nouveauxBadges({ revanche: r.revanche });
+  const rangApres = rang(xpTotal(), RANGS).index;
+  if (rangApres > rangAvant){ feterRang(RANGS[rangApres].nom); rendreNav(); }
+  if (gagnes.length) setTimeout(() => feterBadges(gagnes), rangApres > rangAvant ? 1400 : 0);
+  else if (juste && S.serie >= 5 && S.serie % 5 === 0) confettis();
 }
 function suivante(){
   if (serie.idx + 1 >= serie.gens.length){ aller({ nom: 'bilan' }); return; }
@@ -2453,13 +2889,20 @@ function vueBilan(){
   const duree = Math.round((Date.now() - serie.debut) / 1000);
   const rates = serie.gens.filter((g, i) => serie.resultats[i] === false);
   const pc = faits ? Math.round(100 * ok / faits) : 0;
-  const mot = pc >= 90 ? 'Excellent.' : pc >= 70 ? 'Solide — encore un peu d’entraînement.' : pc >= 40 ? 'Il y a de la marge : reprends la correction des erreurs.' : 'Relis le cours avant de refaire une série.';
+  const fin = motDeFin(pc);
+  if (!serie.bilanFait){
+    serie.bilanFait = true;
+    const gagnes = nouveauxBadges({ serieParfaite: (ok === tot && faits === tot), chronoOk: serie.mode === 'chrono' ? ok : 0 });
+    if (pc >= 70) setTimeout(() => confettis(pc === 100 ? 'max' : ''), 200);
+    if (gagnes.length) setTimeout(() => feterBadges(gagnes), 900);
+  }
   const xp = xpTotal(), rg = rang(xp, RANGS);
   let h = '<div class="run"><div class="card bilan">' +
     '<div class="eyebrow">' + esc(serie.titre) + '</div>' +
+    '<div class="bemo">' + fin.e + '</div>' +
     '<div class="score">' + ok + '<span class="sur"> / ' + tot + '</span></div>' +
     '<div class="gain-total">+ ' + (serie.gains || 0) + ' points</div>' +
-    '<p class="lede" style="margin:12px auto 0;text-align:center">' + mot + '</p>' +
+    '<p class="lede" style="margin:12px auto 0;text-align:center">' + fin.t + '</p>' +
     '<p class="tiny" style="margin-top:6px">Durée : ' + mmss(duree) + (faits < tot ? ' &middot; ' + (tot - faits) + ' question(s) non traitée(s)' : '') + '</p>' +
     '<div class="bilan-rank"><div class="rank-top" style="margin-bottom:6px"><b>' + rg.nom + '</b><span class="tiny">' + xp + ' pts</span></div>' +
     '<div class="bar" style="height:7px"><span style="width:' + rg.pc + '%"></span></div>' +
@@ -2483,6 +2926,8 @@ function vueBilan(){
 function rendre(){
   if (vue.nom === 'accueil') vueAccueil();
   else if (vue.nom === 'programme') vueProgramme();
+  else if (vue.nom === 'matieres') vueMatieres();
+  else if (vue.nom === 'bientot') vueBientot();
   else if (vue.nom === 'chapitre') vueChapitre();
   else if (vue.nom === 'serie') vueSerie();
   else if (vue.nom === 'bilan') vueBilan();
@@ -2490,7 +2935,7 @@ function rendre(){
 }
 
 document.addEventListener('click', function(e){
-  const t = e.target.closest('[data-go],[data-chap],[data-onglet],[data-statut],[data-serie],[data-choix],[data-champ],[data-verifier],[data-sechapper],[data-suivante],[data-quitter],[data-refaire]');
+  const t = e.target.closest('[data-mat],[data-prendre],[data-son],[data-go],[data-chap],[data-onglet],[data-statut],[data-serie],[data-choix],[data-champ],[data-verifier],[data-sechapper],[data-suivante],[data-quitter],[data-refaire]');
   if (e.target.closest('#burger')){
     elSide.classList.add('open');
     const s = document.createElement('div'); s.className = 'scrim'; s.addEventListener('click', fermerMenu);
@@ -2511,8 +2956,28 @@ document.addEventListener('click', function(e){
     } else aller({ nom: d.go });
     return;
   }
+  if (d.mat){
+    if (d.mat === '+'){ aller({ nom: 'matieres' }); return; }
+    const m = MAT[d.mat];
+    if (m && m.pret){ S.matiere = d.mat; sauver(); aller({ nom: 'accueil' }); }
+    else aller({ nom: 'bientot', id: d.mat });
+    return;
+  }
+  if (d.prendre){
+    const i = S.mesMatieres.indexOf(d.prendre);
+    if (i >= 0){ if (d.prendre !== 'maths') S.mesMatieres.splice(i, 1); }
+    else S.mesMatieres.push(d.prendre);
+    sauver(); rendre(); return;
+  }
   if (d.chap){ aller({ nom: 'chapitre', id: d.chap, onglet: 'cours' }); return; }
   if (d.onglet){ vue.onglet = d.onglet; window.scrollTo(0, 0); rendre(); return; }
+  if (d.son){
+    S.son = !S.son;
+    sauver();
+    if (S.son) bip('juste');
+    rendre();
+    return;
+  }
   if (d.statut){
     const id = vue.id;
     S.statuts[id] = d.statut;

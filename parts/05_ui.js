@@ -22,16 +22,21 @@ function fermerMenu(){ elSide.classList.remove('open'); const s = document.query
 /* ---------------- navigation latérale ---------------- */
 function rendreNav(){
   const xpg = xpTotal(), rgg = rang(xpg, RANGS);
-  let h = '<div class="side-rank"><div class="sr-top"><b>' + rgg.nom + '</b><span>' + xpg + ' pts</span></div>' +
-          '<div class="bar"><span style="width:' + rgg.pc + '%"></span></div></div>';
+  let h = '<div class="side-rank"><div class="sr-top"><b>' + rgg.nom + '</b>' +
+          '<span>' + xpg + ' pts</span>' +
+          '<button class="son" data-son="1" title="Sons" aria-label="Activer ou couper les sons">' + (S.son ? '🔊' : '🔇') + '</button></div>' +
+          '<div class="bar"><span style="width:' + rgg.pc + '%"></span></div>' +
+          (serieJours() ? '<div class="sr-jours">🔥 ' + serieJours() + ' jour' + (serieJours() > 1 ? 's' : '') + ' de suite</div>' : '') +
+          '</div>';
   h += '<button class="' + (vue.nom === 'accueil' ? 'on' : '') + '" data-go="accueil">Accueil</button>';
   h += '<button class="' + (vue.nom === 'serie' && serie && serie.mode === 'revision' ? 'on' : '') + '" data-go="revision">Réviser</button>';
   h += '<button class="' + (vue.nom === 'serie' && serie && serie.mode === 'chrono' ? 'on' : '') + '" data-go="chrono">Interro chrono</button>';
-  BLOCS.forEach(b => {
-    h += '<div class="grp">' + b.nom + '</div>';
-    CHAPITRES.filter(c => c.bloc === b.id).forEach(c => {
+  h += '<div class="nav-mat">' + matiereCourante().e + ' ' + matiereCourante().nom + '</div>';
+  blocsCourants().forEach(b => {
+    h += '<div class="grp" data-bloc="' + b.id + '">' + b.nom + '</div>';
+    chapitresCourants().filter(c => c.bloc === b.id).forEach(c => {
       const st = statutChap(c.id), sc = scoreChap(c.id);
-      h += '<button class="' + (vue.nom === 'chapitre' && vue.id === c.id ? 'on' : '') + '" data-chap="' + c.id + '">' +
+      h += '<button class="' + (vue.nom === 'chapitre' && vue.id === c.id ? 'on' : '') + '" data-bloc="' + c.bloc + '" data-chap="' + c.id + '">' +
            '<span class="dot ' + (st === 'encours' ? 'vu' : (st === 'fini' ? 'fini' : '')) + '"></span>' +
            '<span>' + c.titre + '</span>' +
            (sc.pc !== null ? '<span class="meta">' + sc.pc + ' %</span>' : (c.gens.length ? '' : '<span class="meta">cours</span>')) +
@@ -45,13 +50,17 @@ function rendreNav(){
 function vueAccueil(){
   const g = scoreGlobal(), rev = aRevoir();
   const cur = S.courant && CHAP[S.courant] ? CHAP[S.courant] : null;
-  const travailles = CHAPITRES.filter(c => statutChap(c.id) !== 'neuf').length;
+  const chaps = chapitresCourants();
+  const travailles = chaps.filter(c => statutChap(c.id) !== 'neuf').length;
   let h = '';
+  h += rubanMatieres();
+  const heure = new Date().getHours();
+  const salut = heure < 13 ? 'Bonjour 👋' : (heure < 18 ? 'Bon après-midi 👋' : 'Bonsoir 👋');
   h += '<div class="home-head"><div>' +
-       '<div class="eyebrow">Spécialité mathématiques &middot; Première générale</div>' +
-       '<h2 style="font-size:31px">Tout le programme, et des exercices qui vont avec</h2>' +
-       '<p class="lede" style="margin-top:8px">Choisis le chapitre sur lequel tu travailles : les exercices sont tirés au sort à chaque fois, ' +
-       'avec la correction détaillée étape par étape.</p></div></div>';
+       '<div class="eyebrow">' + salut + ' &middot; Spécialité maths, première</div>' +
+       '<h2 style="font-size:31px">On travaille quoi aujourd’hui ?</h2>' +
+       '<p class="lede" style="margin-top:8px">Les exercices sont tirés au sort à chaque fois, avec la correction détaillée ' +
+       'étape par étape. Plus c’est difficile, plus ça rapporte de points.</p></div></div>';
 
   const xp = xpTotal(), rg = rang(xp, RANGS);
   h += '<div class="rank"><div class="rank-top">' +
@@ -62,11 +71,26 @@ function vueAccueil(){
        '<div class="rank-foot"><span>' + (rg.prochain ? (rg.prochain.min - xp) + ' points avant <b>' + rg.prochain.nom + '</b>' : 'Rang maximal atteint') + '</span>' +
        '<span>' + Object.keys(POINTS).map(n => NIVEAUX[n] + ' ' + POINTS[n] + ' pts').join(' &middot; ') + '</span></div></div>';
 
+  const xj = xpDuJour(), pcj = Math.min(100, Math.round(100 * xj / OBJECTIF_JOUR)), sj = serieJours();
+  const C = 2 * Math.PI * 34;
+  h += '<div class="jour">' +
+       '<svg class="anneau" viewBox="0 0 80 80" aria-hidden="true">' +
+       '<circle cx="40" cy="40" r="34" class="piste"></circle>' +
+       '<circle cx="40" cy="40" r="34" class="jauge" style="stroke-dasharray:' + C + ';stroke-dashoffset:' + (C * (1 - pcj / 100)) + '"></circle>' +
+       '<text x="40" y="46" text-anchor="middle" class="anneau-t">' + (pcj >= 100 ? '✓' : pcj + '%') + '</text></svg>' +
+       '<div class="jour-txt"><b>Objectif du jour</b>' +
+       '<span>' + (xj >= OBJECTIF_JOUR
+          ? 'Atteint — ' + xj + ' points aujourd’hui. Tout ce qui suit est du bonus 🎁'
+          : xj + ' / ' + OBJECTIF_JOUR + ' points — encore ' + (OBJECTIF_JOUR - xj) + ', soit deux ou trois exercices.') + '</span></div>' +
+       '<div class="flamme' + (sj ? ' on' : '') + '"><span class="f">🔥</span><b>' + sj + '</b>' +
+       '<span class="j">jour' + (sj > 1 ? 's' : '') + ' de suite</span></div>' +
+       '</div>';
+
   h += '<div class="stats">' +
        '<div class="stat"><div class="v">' + g.tot + '</div><div class="k">exercices faits</div></div>' +
        '<div class="stat"><div class="v">' + (g.pc === null ? '—' : g.pc + ' %') + '</div><div class="k">de réussite</div></div>' +
        '<div class="stat"><div class="v">' + (S.record || 0) + '</div><div class="k">meilleure série</div></div>' +
-       '<div class="stat"><div class="v">' + travailles + '<span style="font-size:17px;color:var(--ink-3)"> / ' + CHAPITRES.length + '</span></div><div class="k">chapitres entamés</div></div>' +
+       '<div class="stat"><div class="v">' + travailles + '<span style="font-size:17px;color:var(--ink-3)"> / ' + chaps.length + '</span></div><div class="k">chapitres entamés</div></div>' +
        '<div class="stat"><div class="v">' + rev.length + '</div><div class="k">notions à revoir</div></div>' +
        '</div>';
 
@@ -94,6 +118,15 @@ function vueAccueil(){
        '<span>Les 12 chapitres du BO et les capacités attendues pour chacun.</span></button>' +
        '</div>';
 
+  S.badges = S.badges || [];
+  h += '<div class="titre-sec">Badges <span>' + S.badges.length + ' / ' + BADGES.length + '</span></div>' +
+       '<div class="badges">' + BADGES.map(b => {
+         const eu = S.badges.indexOf(b.id) >= 0;
+         return '<div class="badge' + (eu ? ' eu' : '') + '" title="' + esc(b.desc) + '">' +
+                '<span class="be">' + (eu ? b.e : '🔒') + '</span>' +
+                '<b>' + b.nom + '</b><span class="bd">' + b.desc + '</span></div>';
+       }).join('') + '</div>';
+
   if (rev.length){
     h += '<h3 style="font-size:13px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-3);font-family:var(--sans);font-weight:700;margin-bottom:10px">À revoir en priorité</h3>' +
          '<div class="revue" style="margin-bottom:30px">' +
@@ -103,13 +136,13 @@ function vueAccueil(){
   }
 
   h += '<div class="blocs">';
-  BLOCS.forEach(b => {
-    h += '<div class="bloc"><h3>' + b.nom + '</h3><div class="chaps">';
-    CHAPITRES.filter(c => c.bloc === b.id).forEach(c => {
+  blocsCourants().forEach(b => {
+    h += '<div class="bloc" data-bloc="' + b.id + '"><h3>' + b.nom + '</h3><div class="chaps">';
+    chapitresCourants().filter(c => c.bloc === b.id).forEach(c => {
       const st = statutChap(c.id), sc = scoreChap(c.id);
       const info = STATUTS.find(x => x.id === st);
       const cxp = xpChap(c.id), crg = rang(cxp, RANGS_CHAP);
-      h += '<button class="chap" data-chap="' + c.id + '">' +
+      h += '<button class="chap" data-bloc="' + c.bloc + '" data-chap="' + c.id + '">' +
            '<div class="t">' + c.titre + '</div>' +
            '<div class="tiny" style="line-height:1.4">' + c.resume + '</div>' +
            (c.gens.length && cxp ? '<div class="chap-rank"><span class="niv-dots">' +
@@ -134,9 +167,9 @@ function vueProgramme(){
           '<h2 style="font-size:28px">Le programme de spécialité</h2>' +
           '<p class="lede" style="margin:8px 0 24px">Cinq grandes parties, douze chapitres. Pour chacun, les <b>capacités attendues</b> : ' +
           'ce sont elles qui servent de base aux devoirs surveillés.</p><div class="blocs">';
-  BLOCS.forEach(b => {
-    h += '<div class="bloc"><h3>' + b.nom + '</h3><div class="cours">';
-    CHAPITRES.filter(c => c.bloc === b.id).forEach(c => {
+  blocsCourants().forEach(b => {
+    h += '<div class="bloc" data-bloc="' + b.id + '"><h3>' + b.nom + '</h3><div class="cours">';
+    chapitresCourants().filter(c => c.bloc === b.id).forEach(c => {
       h += '<div class="blk def"><div class="h"><span class="k">' + c.titre + '</span></div>' +
            '<div class="body"><ul>' + c.capacites.map(x => '<li>' + x + '</li>').join('') + '</ul>' +
            '<div style="margin-top:6px"><button class="btn sm" data-chap="' + c.id + '">Ouvrir le chapitre</button></div></div></div>';
@@ -154,7 +187,7 @@ function vueChapitre(){
   const onglet = vue.onglet || 'cours';
   const st = statutChap(c.id), sc = scoreChap(c.id);
   const cxp = xpChap(c.id), crg = rang(cxp, RANGS_CHAP);
-  let h = '<div class="chead">' +
+  let h = '<div class="chead" data-bloc="' + c.bloc + '">' +
     '<div class="eyebrow">' + BLOCS.find(b => b.id === c.bloc).nom + '</div>' +
     '<h2>' + c.titre + '</h2>' +
     '<p class="lede">' + c.resume + '</p>' +
@@ -231,8 +264,48 @@ function vueChapitre(){
 /* ---------------- constitution des séries ---------------- */
 function poolRevision(){
   const out = [];
-  CHAPITRES.forEach(c => { if (statutChap(c.id) !== 'neuf') c.gens.forEach(g => out.push(g)); });
+  chapitresCourants().forEach(c => { if (statutChap(c.id) !== 'neuf') c.gens.forEach(g => out.push(g)); });
   return out;
+}
+
+/* ---------------- matieres ---------------- */
+function rubanMatieres(){
+  const miennes = MATIERES.filter(m => S.mesMatieres.indexOf(m.id) >= 0);
+  return '<div class="ruban">' + miennes.map(m =>
+    '<button class="mat' + (m.id === S.matiere ? ' on' : '') + (m.pret ? '' : ' futur') + '" data-mat="' + m.id + '">' +
+    '<span class="me">' + m.e + '</span><b>' + m.court + '</b>' +
+    (m.pret ? '' : '<span class="mb">bientot</span>') + '</button>').join('') +
+    '<button class="mat plus" data-mat="+"><span class="me">+</span><b>Mes matieres</b></button></div>';
+}
+function vueMatieres(){
+  let h = '<div class="eyebrow">Premiere generale</div>' +
+    '<h2 style="font-size:28px">Mes matieres</h2>' +
+    '<p class="lede" style="margin:8px 0 22px">Coche les matieres que tu suis cette annee : elles apparaissent en haut de l\u2019accueil. ' +
+    'Les mathematiques sont pretes ; les autres programmes arrivent l\u2019un apres l\u2019autre.</p>';
+  [['specialite', 'Specialites'], ['commun', 'Enseignements communs']].forEach(g => {
+    h += '<div class="bloc"><h3>' + g[1] + '</h3><div class="chaps">' +
+      MATIERES.filter(m => m.type === g[0]).map(m => {
+        const prise = S.mesMatieres.indexOf(m.id) >= 0;
+        return '<button class="matcard' + (prise ? ' prise' : '') + '" data-prendre="' + m.id + '">' +
+          '<span class="me">' + m.e + '</span>' +
+          '<span class="mn"><b>' + m.nom + '</b><span class="tiny">' +
+          (m.pret ? CHAPITRES.filter(c => c.matiere === m.id).length + ' chapitres \u00B7 exercices disponibles' : 'Programme a venir') +
+          '</span></span><span class="mk">' + (prise ? '\u2713' : '') + '</span></button>';
+      }).join('') + '</div></div>';
+  });
+  elMain.innerHTML = h;
+  elTop.textContent = 'Mes matieres';
+}
+function vueBientot(){
+  const m = MAT[vue.id];
+  elMain.innerHTML = '<div class="empty" style="padding-block:56px">' +
+    '<div style="font-size:46px;line-height:1.2">' + m.e + '</div>' +
+    '<h2 style="font-size:24px;margin:10px 0 8px">' + m.nom + '</h2>' +
+    '<p style="max-width:54ch;margin:0 auto 18px">Cette matiere n\u2019a pas encore son programme dans l\u2019application. ' +
+    'Les mathematiques ont servi de modele : chapitres officiels, fiches de cours, exercices generes et points. ' +
+    'Les autres matieres suivront sur le meme moule.</p>' +
+    '<button class="btn primary" data-mat="maths">Retour aux maths</button></div>';
+  elTop.textContent = m.nom;
 }
 function tirer(pool, n){
   if (!pool.length) return [];
@@ -293,7 +366,7 @@ function vueSerie(){
        (serie.mode === 'chrono' ? '<span class="timer" id="chrono">' + mmss(serie.reste) + '</span>' : '') +
        '<button class="btn sm ghost" data-quitter="1">Quitter</button></div></div>';
 
-  h += '<div class="qcard">';
+  h += '<div class="qcard" data-bloc="' + CHAP[g.chap].bloc + '">';
   h += '<div class="qmeta"><span class="pill neuf">' + NIVEAUX[g.niveau] + '</span>' +
        '<span class="tiny">' + CHAP[g.chap].titre + ' &middot; ' + esc(g.label) + '</span>' +
        '<span class="tiny" style="margin-left:auto">Question ' + (serie.idx + 1) + ' / ' + serie.gens.length + '</span></div>';
@@ -329,11 +402,10 @@ function vueSerie(){
          '<button class="btn ghost" data-sechapper="1">Je ne sais pas</button></div>';
   } else {
     h += '<div class="verdict ' + (serie.juste ? 'ok' : 'ko') + '">' +
-         '<div class="vh">' + (serie.juste ? '✓ Juste' : (serie.abandon ? 'Correction' : '✗ Pas tout à fait')) +
+         '<div class="vh"><span class="ve">' + (serie.emo || (serie.juste ? '🎯' : '💡')) + '</span>' +
+         (serie.juste ? 'Juste' : (serie.abandon ? 'Correction' : 'Pas tout à fait')) +
          (serie.juste && serie.gain ? '<span class="gain">+' + serie.gain + ' pts</span>' : '') + '</div>' +
-         '<div class="vb">' + (serie.juste
-            ? (serie.gain > POINTS[g.niveau] ? 'Bien joué — bonus de série inclus.' : 'Bien joué — enchaîne.')
-            : 'Regarde la correction pas à pas, puis continue : cette notion te sera reproposée plus tard.') + '</div></div>';
+         '<div class="vb">' + (serie.msg || '') + '</div></div>';
     h += '<div class="sol"><h4>Correction détaillée</h4><div class="steps">' +
          q.etapes.map(s => '<div class="step"><div>' + s + '</div></div>').join('') + '</div></div>';
     h += '<div class="actions"><button class="btn primary" data-suivante="1">' +
@@ -374,13 +446,27 @@ function verifier(abandon){
   if (q.qcm) juste = (q.choix === q.qcm.bon);
   else juste = q.champs.every(champOk);
   if (abandon) juste = false;
+  const rangAvant = rang(xpTotal(), RANGS).index;
   serie.abandon = !!abandon;
   serie.valide = true;
   serie.juste = juste;
   serie.resultats[serie.idx] = juste;
-  serie.gain = enregistrer(q.gen.id, juste);
-  serie.gains = (serie.gains || 0) + serie.gain;
+  const r = enregistrer(q.gen.id, juste);
+  serie.gain = r.gain;
+  serie.gains = (serie.gains || 0) + r.gain;
+  serie.msg = juste
+    ? (r.revanche ? 'Tu l’avais ratée la dernière fois. Plus maintenant !'
+       : (q.gen.niveau === 'exp' ? 'Chapeau — celle-là était coriace.'
+          : (serie.gain > POINTS[q.gen.niveau] ? unDe(MSG_JUSTE) + ' Bonus de série.' : unDe(MSG_JUSTE))))
+    : unDe(MSG_FAUX);
+  serie.emo = juste ? (r.revanche ? '🔁' : unDe(EMO_JUSTE)) : '💡';
+  bip(juste ? 'juste' : 'faux');
   rendre();
+  const gagnes = nouveauxBadges({ revanche: r.revanche });
+  const rangApres = rang(xpTotal(), RANGS).index;
+  if (rangApres > rangAvant){ feterRang(RANGS[rangApres].nom); rendreNav(); }
+  if (gagnes.length) setTimeout(() => feterBadges(gagnes), rangApres > rangAvant ? 1400 : 0);
+  else if (juste && S.serie >= 5 && S.serie % 5 === 0) confettis();
 }
 function suivante(){
   if (serie.idx + 1 >= serie.gens.length){ aller({ nom: 'bilan' }); return; }
@@ -399,13 +485,20 @@ function vueBilan(){
   const duree = Math.round((Date.now() - serie.debut) / 1000);
   const rates = serie.gens.filter((g, i) => serie.resultats[i] === false);
   const pc = faits ? Math.round(100 * ok / faits) : 0;
-  const mot = pc >= 90 ? 'Excellent.' : pc >= 70 ? 'Solide — encore un peu d’entraînement.' : pc >= 40 ? 'Il y a de la marge : reprends la correction des erreurs.' : 'Relis le cours avant de refaire une série.';
+  const fin = motDeFin(pc);
+  if (!serie.bilanFait){
+    serie.bilanFait = true;
+    const gagnes = nouveauxBadges({ serieParfaite: (ok === tot && faits === tot), chronoOk: serie.mode === 'chrono' ? ok : 0 });
+    if (pc >= 70) setTimeout(() => confettis(pc === 100 ? 'max' : ''), 200);
+    if (gagnes.length) setTimeout(() => feterBadges(gagnes), 900);
+  }
   const xp = xpTotal(), rg = rang(xp, RANGS);
   let h = '<div class="run"><div class="card bilan">' +
     '<div class="eyebrow">' + esc(serie.titre) + '</div>' +
+    '<div class="bemo">' + fin.e + '</div>' +
     '<div class="score">' + ok + '<span class="sur"> / ' + tot + '</span></div>' +
     '<div class="gain-total">+ ' + (serie.gains || 0) + ' points</div>' +
-    '<p class="lede" style="margin:12px auto 0;text-align:center">' + mot + '</p>' +
+    '<p class="lede" style="margin:12px auto 0;text-align:center">' + fin.t + '</p>' +
     '<p class="tiny" style="margin-top:6px">Durée : ' + mmss(duree) + (faits < tot ? ' &middot; ' + (tot - faits) + ' question(s) non traitée(s)' : '') + '</p>' +
     '<div class="bilan-rank"><div class="rank-top" style="margin-bottom:6px"><b>' + rg.nom + '</b><span class="tiny">' + xp + ' pts</span></div>' +
     '<div class="bar" style="height:7px"><span style="width:' + rg.pc + '%"></span></div>' +
@@ -429,6 +522,8 @@ function vueBilan(){
 function rendre(){
   if (vue.nom === 'accueil') vueAccueil();
   else if (vue.nom === 'programme') vueProgramme();
+  else if (vue.nom === 'matieres') vueMatieres();
+  else if (vue.nom === 'bientot') vueBientot();
   else if (vue.nom === 'chapitre') vueChapitre();
   else if (vue.nom === 'serie') vueSerie();
   else if (vue.nom === 'bilan') vueBilan();
@@ -436,7 +531,7 @@ function rendre(){
 }
 
 document.addEventListener('click', function(e){
-  const t = e.target.closest('[data-go],[data-chap],[data-onglet],[data-statut],[data-serie],[data-choix],[data-champ],[data-verifier],[data-sechapper],[data-suivante],[data-quitter],[data-refaire]');
+  const t = e.target.closest('[data-mat],[data-prendre],[data-son],[data-go],[data-chap],[data-onglet],[data-statut],[data-serie],[data-choix],[data-champ],[data-verifier],[data-sechapper],[data-suivante],[data-quitter],[data-refaire]');
   if (e.target.closest('#burger')){
     elSide.classList.add('open');
     const s = document.createElement('div'); s.className = 'scrim'; s.addEventListener('click', fermerMenu);
@@ -457,8 +552,28 @@ document.addEventListener('click', function(e){
     } else aller({ nom: d.go });
     return;
   }
+  if (d.mat){
+    if (d.mat === '+'){ aller({ nom: 'matieres' }); return; }
+    const m = MAT[d.mat];
+    if (m && m.pret){ S.matiere = d.mat; sauver(); aller({ nom: 'accueil' }); }
+    else aller({ nom: 'bientot', id: d.mat });
+    return;
+  }
+  if (d.prendre){
+    const i = S.mesMatieres.indexOf(d.prendre);
+    if (i >= 0){ if (d.prendre !== 'maths') S.mesMatieres.splice(i, 1); }
+    else S.mesMatieres.push(d.prendre);
+    sauver(); rendre(); return;
+  }
   if (d.chap){ aller({ nom: 'chapitre', id: d.chap, onglet: 'cours' }); return; }
   if (d.onglet){ vue.onglet = d.onglet; window.scrollTo(0, 0); rendre(); return; }
+  if (d.son){
+    S.son = !S.son;
+    sauver();
+    if (S.son) bip('juste');
+    rendre();
+    return;
+  }
   if (d.statut){
     const id = vue.id;
     S.statuts[id] = d.statut;

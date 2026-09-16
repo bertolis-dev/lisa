@@ -4,6 +4,32 @@
    5 blocs, 12 chapitres. Pour chaque chapitre : capacités attendues + cours.
    ========================================================================= */
 
+/* =========================================================================
+   Les matières de première générale. Chaque matière apporte ses propres
+   blocs et chapitres ; l'application n'en affiche qu'une à la fois.
+   Pour ajouter une matière : ses chapitres avec `matiere: "<id>"`, ses blocs
+   dans BLOCS avec le même champ, et passer `pret` à true.
+   ========================================================================= */
+
+const MATIERES = [
+  { id: 'maths',      nom: 'Spécialité mathématiques', court: 'Maths',       e: '📐', type: 'specialite', pret: true },
+  { id: 'francais',   nom: 'Français',                 court: 'Français',    e: '📖', type: 'commun' },
+  { id: 'histgeo',    nom: 'Histoire-géographie',      court: 'Hist-géo',    e: '🗺️', type: 'commun' },
+  { id: 'sciences',   nom: 'Enseignement scientifique', court: 'Ens. sci.',  e: '🔬', type: 'commun' },
+  { id: 'anglais',    nom: 'Anglais (LVA)',            court: 'Anglais',     e: '💬', type: 'commun' },
+  { id: 'lvb',        nom: 'Langue vivante B',         court: 'LVB',         e: '🌍', type: 'commun' },
+  { id: 'emc',        nom: 'EMC',                      court: 'EMC',         e: '⚖️', type: 'commun' },
+  { id: 'physique',   nom: 'Spécialité physique-chimie', court: 'Physique',  e: '⚗️', type: 'specialite' },
+  { id: 'svt',        nom: 'Spécialité SVT',           court: 'SVT',         e: '🧬', type: 'specialite' },
+  { id: 'ses',        nom: 'Spécialité SES',           court: 'SES',         e: '📊', type: 'specialite' },
+  { id: 'hggsp',      nom: 'Spécialité HGGSP',         court: 'HGGSP',       e: '🏛️', type: 'specialite' },
+  { id: 'hlp',        nom: 'Spécialité HLP',           court: 'HLP',         e: '📜', type: 'specialite' },
+  { id: 'nsi',        nom: 'Spécialité NSI',           court: 'NSI',         e: '💻', type: 'specialite' }
+];
+const MAT = {};
+MATIERES.forEach(m => { MAT[m.id] = m; });
+function matiereCourante(){ return MAT[S.matiere] || MAT.maths; }
+
 const BLOCS = [
   { id: 'algebre',    nom: 'Algèbre' },
   { id: 'analyse',    nom: 'Analyse' },
@@ -409,5 +435,9 @@ const CHAPITRES = [
 ];
 
 const CHAP = {};
-CHAPITRES.forEach(c => { c.gens = []; CHAP[c.id] = c; });
+CHAPITRES.forEach(c => { c.gens = []; c.matiere = c.matiere || 'maths'; CHAP[c.id] = c; });
+BLOCS.forEach(b => { b.matiere = b.matiere || 'maths'; });
+/* chapitres et blocs de la matière affichée */
+function chapitresCourants(){ return CHAPITRES.filter(c => c.matiere === S.matiere); }
+function blocsCourants(){ return BLOCS.filter(b => b.matiere === S.matiere); }
 const METHODE = {};

@@ -79,7 +79,9 @@ function fracTxt(p, q){
 }
 
 /* ---------- état de la progression ---------- */
-const VIDE = () => ({ v: 2, statuts: {}, methodes: {}, courant: null, serie: 0, record: 0, maj: 0 });
+const VIDE = () => ({ v: 3, statuts: {}, methodes: {}, courant: null, serie: 0, record: 0,
+                      badges: [], jour: '', joursSuite: 0, recordJours: 0, xpJour: 0, son: true,
+                      matiere: 'maths', mesMatieres: ['maths', 'francais', 'histgeo', 'sciences', 'anglais'], maj: 0 });
 let S = VIDE();
 
 const BOXES = [0, 1, 3, 7, 16];           // révision espacée, en jours
@@ -121,6 +123,8 @@ function mStat(id){
 }
 function enregistrer(mid, juste){
   const st = mStat(mid);
+  const avait = st.ko > 0 && st.ok === 0;      /* notion ratée et jamais réussie jusqu'ici */
+  marquerJour();
   let gain = 0;
   if (juste){
     st.ok++;
@@ -130,6 +134,7 @@ function enregistrer(mid, juste){
     if (S.serie >= 3) gain += 5;
     if (S.serie >= 6) gain += 10;
     st.xp += gain;
+    S.xpJour = (S.xpJour || 0) + gain;
     if (S.serie > (S.record || 0)) S.record = S.serie;
   } else {
     st.ko++; st.box = 0; S.serie = 0;
@@ -137,7 +142,7 @@ function enregistrer(mid, juste){
   st.dernier = Date.now();
   st.due = Date.now() + BOXES[st.box] * JOUR;
   sauver();
-  return gain;
+  return { gain: gain, revanche: juste && avait };
 }
 function xpChap(id){
   let t = 0;
@@ -203,6 +208,15 @@ function adopter(d){
   S.methodes = S.methodes || {};
   S.serie = S.serie || 0;
   S.record = S.record || 0;
+  S.badges = S.badges || [];
+  S.jour = S.jour || '';
+  S.joursSuite = S.joursSuite || 0;
+  S.recordJours = S.recordJours || 0;
+  S.xpJour = S.xpJour || 0;
+  if (S.son === undefined) S.son = true;
+  if (!S.matiere || !MAT[S.matiere] || !MAT[S.matiere].pret) S.matiere = 'maths';
+  if (!S.mesMatieres || !S.mesMatieres.length) S.mesMatieres = ['maths', 'francais', 'histgeo', 'sciences', 'anglais'];
+  if (S.mesMatieres.indexOf('maths') < 0) S.mesMatieres.push('maths');
   for (const mid in S.methodes) if (S.methodes[mid].xp === undefined) S.methodes[mid].xp = 0;
 }
 async function initStore(){

@@ -246,6 +246,117 @@ main{min-width:0;padding-block:34px;padding-left:40px;padding-right:40px;max-wid
 .revue{display:flex;flex-direction:column;gap:8px}
 .rev{display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--amber);border-radius:var(--r);padding:12px 16px;font-size:14.5px}
 .rev .ch{font-size:12px;color:var(--ink-3);margin-left:auto;white-space:nowrap}
+/* ---------- une couleur par domaine ---------- */
+[data-bloc]{--bc:var(--accent);--bcs:var(--accent-soft)}
+[data-bloc="algebre"]   {--bc:#6D4AC9;--bcs:#EEE8FC}
+[data-bloc="analyse"]   {--bc:#2F6FE0;--bcs:#E4EDFC}
+[data-bloc="geometrie"] {--bc:#0F8A5F;--bcs:#DDF2EA}
+[data-bloc="probas"]    {--bc:#C4700A;--bcs:#FBEEDA}
+[data-bloc="transverse"]{--bc:#BC3B84;--bcs:#FBE5F1}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) [data-bloc="algebre"]   {--bc:#B49BFF;--bcs:#2C2350}
+  :root:not([data-theme="light"]) [data-bloc="analyse"]   {--bc:#7FB0FF;--bcs:#1B2C4E}
+  :root:not([data-theme="light"]) [data-bloc="geometrie"] {--bc:#4FD1A0;--bcs:#12352C}
+  :root:not([data-theme="light"]) [data-bloc="probas"]    {--bc:#F0A94C;--bcs:#3A2A12}
+  :root:not([data-theme="light"]) [data-bloc="transverse"]{--bc:#F183BC;--bcs:#3B1C30}
+}
+:root[data-theme="dark"] [data-bloc="algebre"]   {--bc:#B49BFF;--bcs:#2C2350}
+:root[data-theme="dark"] [data-bloc="analyse"]   {--bc:#7FB0FF;--bcs:#1B2C4E}
+:root[data-theme="dark"] [data-bloc="geometrie"] {--bc:#4FD1A0;--bcs:#12352C}
+:root[data-theme="dark"] [data-bloc="probas"]    {--bc:#F0A94C;--bcs:#3A2A12}
+:root[data-theme="dark"] [data-bloc="transverse"]{--bc:#F183BC;--bcs:#3B1C30}
+
+.nav .grp[data-bloc]{color:var(--bc)}
+.bloc[data-bloc] h3{color:var(--bc);border-bottom-color:var(--bc);border-bottom-width:2px}
+.chap[data-bloc]{border-top:3px solid var(--bc)}
+.chap[data-bloc]:hover{border-color:var(--line);border-top-color:var(--bc);box-shadow:0 6px 18px -10px var(--bc)}
+.chead[data-bloc] .eyebrow{color:var(--bc)}
+.chead[data-bloc] h2{color:var(--bc)}
+.qcard[data-bloc]{border-top:4px solid var(--bc)}
+.qcard[data-bloc] .pill.neuf{background:var(--bcs);color:var(--bc)}
+.chap-rank .niv-dots i.on{background:var(--bc)}
+.nav button[data-bloc] .dot.fini{background:var(--bc);border-color:var(--bc)}
+
+/* ---------- ruban des matières ---------- */
+.ruban{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:22px;scrollbar-width:thin}
+.mat{display:flex;align-items:center;gap:7px;flex:0 0 auto;padding:8px 14px;border-radius:999px;
+  border:1px solid var(--line);background:var(--surface);font-size:13.5px;color:var(--ink-2);transition:all .12s}
+.mat:hover{border-color:var(--accent);color:var(--ink)}
+.mat b{font-weight:600}
+.mat .me{font-size:16px;line-height:1}
+.mat.on{background:var(--accent);border-color:var(--accent);color:#fff}
+:root[data-theme="dark"] .mat.on{color:#0E1424}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .mat.on{color:#0E1424}}
+.mat.futur{opacity:.6}
+.mat .mb{font-size:9.5px;text-transform:uppercase;letter-spacing:.07em;font-weight:700;color:var(--amber);
+  background:var(--amber-soft);padding:2px 6px;border-radius:999px}
+.mat.plus{border-style:dashed;color:var(--ink-3)}
+.matcard{display:flex;align-items:center;gap:12px;text-align:left;width:100%;
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:13px 15px;transition:border-color .12s}
+.matcard:hover{border-color:var(--accent)}
+.matcard.prise{border-color:var(--juste);background:var(--juste-soft)}
+.matcard .me{font-size:24px;line-height:1;flex:0 0 auto}
+.matcard .mn{display:flex;flex-direction:column;gap:1px;min-width:0}
+.matcard .mn b{font-family:var(--serif);font-size:15px;font-weight:600;line-height:1.25}
+.matcard .mk{margin-left:auto;font-weight:700;color:var(--juste);font-size:16px;flex:0 0 auto}
+.nav-mat{font-size:12.5px;font-weight:700;color:var(--ink-2);padding:10px 10px 2px;display:flex;gap:6px;align-items:center}
+
+/* ---------- objectif du jour ---------- */
+.jour{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:18px;align-items:center;
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 20px;margin-bottom:14px}
+.anneau{width:74px;height:74px;flex:0 0 auto}
+.anneau .piste{fill:none;stroke:var(--surface-3);stroke-width:8}
+.anneau .jauge{fill:none;stroke:var(--juste);stroke-width:8;stroke-linecap:round;transform:rotate(-90deg);transform-origin:50% 50%;transition:stroke-dashoffset .6s ease}
+.anneau-t{font-family:var(--sans);font-size:19px;font-weight:700;fill:var(--ink);font-variant-numeric:tabular-nums}
+.jour-txt{display:flex;flex-direction:column;gap:2px;min-width:0}
+.jour-txt b{font-family:var(--serif);font-size:17px;font-weight:600}
+.jour-txt span{font-size:13.5px;color:var(--ink-2)}
+.flamme{display:flex;flex-direction:column;align-items:center;gap:0;opacity:.35;flex:0 0 auto}
+.flamme.on{opacity:1}
+.flamme .f{font-size:22px;line-height:1}
+.flamme b{font-family:var(--serif);font-size:22px;font-weight:600;line-height:1.1}
+.flamme .j{font-size:10.5px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.06em;font-weight:700}
+.sr-jours{font-size:11.5px;color:var(--amber);font-weight:700;margin-top:7px}
+.son{font-size:14px;line-height:1;padding:2px 4px;border-radius:6px;opacity:.75}
+.son:hover{opacity:1;background:var(--surface-2)}
+.side-rank .sr-top{align-items:center}
+
+/* ---------- badges ---------- */
+.titre-sec{display:flex;align-items:baseline;gap:10px;font-size:13px;text-transform:uppercase;letter-spacing:.1em;
+  color:var(--ink-3);font-weight:700;margin:4px 0 10px}
+.titre-sec span{font-size:12px;letter-spacing:0;color:var(--accent);font-weight:700;text-transform:none;
+  background:var(--accent-soft);padding:2px 9px;border-radius:999px}
+.badges{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:8px;margin-bottom:28px}
+.badge{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 12px 11px;
+  display:flex;flex-direction:column;align-items:center;text-align:center;gap:3px;opacity:.55;filter:grayscale(1)}
+.badge.eu{opacity:1;filter:none;border-color:var(--amber);background:linear-gradient(180deg,var(--amber-soft),var(--surface) 62%)}
+.badge .be{font-size:26px;line-height:1.1}
+.badge b{font-size:13px;font-family:var(--serif);font-weight:600}
+.badge .bd{font-size:11px;color:var(--ink-3);line-height:1.35}
+
+/* ---------- célébrations ---------- */
+.confettis{position:fixed;inset:0;pointer-events:none;z-index:120}
+.toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,120%);z-index:130;
+  display:flex;align-items:center;gap:13px;max-width:min(420px,92vw);
+  background:var(--surface);border:1px solid var(--amber);border-radius:14px;padding:13px 18px;
+  box-shadow:0 12px 40px -12px rgba(22,34,63,.45);transition:transform .35s cubic-bezier(.2,.9,.3,1.2),opacity .3s;opacity:0}
+.toast.on{transform:translate(-50%,0);opacity:1}
+.toast .te{font-size:28px;line-height:1;flex:0 0 auto}
+.toast b{font-family:var(--serif);font-size:15.5px;font-weight:600}
+.toast span:last-child{font-size:13px;color:var(--ink-2);line-height:1.45}
+@media (prefers-reduced-motion: reduce){.toast{transition:opacity .2s}}
+.verdict .vh .ve{font-size:20px;line-height:1}
+.gain{animation:pop .45s cubic-bezier(.2,.9,.3,1.4)}
+@keyframes pop{0%{transform:scale(.4);opacity:0}60%{transform:scale(1.18)}100%{transform:scale(1);opacity:1}}
+.bemo{font-size:52px;line-height:1.1;margin-bottom:2px;animation:pop .5s cubic-bezier(.2,.9,.3,1.4)}
+.qcard{animation:entree .28s ease}
+@keyframes entree{from{opacity:.3;transform:translateY(7px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){.gain,.bemo,.qcard{animation:none}}
+@media (max-width:560px){
+  .jour{grid-template-columns:auto minmax(0,1fr);row-gap:12px}
+  .flamme{grid-column:1 / -1;flex-direction:row;gap:7px;align-items:baseline;justify-content:center}
+}
+
 /* ---------- rangs et points ---------- */
 .rank{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px 20px 14px;margin-bottom:14px;
   background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
