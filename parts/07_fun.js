@@ -82,17 +82,22 @@ const BADGES = [
   { id: 'tourneur',  e: '🧭', nom: 'Tour du programme', desc: 'Entamer 4 chapitres différents',
     test: c => CHAPITRES.filter(ch => statutChap(ch.id) !== 'neuf').length >= 4 },
   { id: 'objectif',  e: '✅', nom: 'Objectif atteint',  desc: 'Atteindre l’objectif de points du jour',
-    test: c => xpDuJour() >= OBJECTIF_JOUR }
+    test: c => xpDuJour() >= OBJECTIF_JOUR },
+  { id: 'ds14',      e: '📝', nom: 'Bon devoir',        desc: 'Obtenir au moins 14/20 à un devoir surveillé',
+    test: c => (S.notes || []).some(n => n.note >= 14) },
+  { id: 'demo',      e: '🧩', nom: 'Démonstratrice',    desc: 'Réussir 3 démonstrations rédigées',
+    test: c => c.okDemo >= 3 }
 ];
 
 function contexteBadges(extra){
-  let totalOk = 0, okExp = 0;
+  let totalOk = 0, okExp = 0, okDemo = 0;
   for (const mid in S.methodes){
     const m = S.methodes[mid], g = METHODE[mid];
     totalOk += m.ok;
     if (g && g.niveau === 'exp') okExp += m.ok;
+    if (g && g.niveau === 'demo') okDemo += m.ok;
   }
-  return Object.assign({ totalOk: totalOk, okExp: okExp, serieParfaite: false, revanche: false, chronoOk: 0 }, extra || {});
+  return Object.assign({ totalOk: totalOk, okExp: okExp, okDemo: okDemo, serieParfaite: false, revanche: false, chronoOk: 0 }, extra || {});
 }
 /* renvoie les badges débloqués à l'instant (et les mémorise) */
 function nouveauxBadges(extra){

@@ -395,6 +395,108 @@ main{min-width:0;padding-block:34px;padding-left:40px;padding-right:40px;max-wid
 :root[data-theme="dark"] .seg button.on{color:#0E1424}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .seg button.on{color:#0E1424}}
 .icon{width:34px;height:34px;border-radius:8px;display:grid;place-items:center;border:1px solid var(--line);background:var(--surface-2);font-size:16px;flex:0 0 auto}
+
+/* ---------- menu latéral coloré ---------- */
+.brand{background:linear-gradient(135deg,#2F45C5 0%,#6D4AC9 52%,#BC3B84 100%);border-bottom:none;padding:18px 20px 16px;
+  background-image:linear-gradient(135deg,#2F45C5 0%,#6D4AC9 52%,#BC3B84 100%),
+    linear-gradient(rgba(255,255,255,.10) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.10) 1px,transparent 1px);
+  background-size:cover,20px 20px,20px 20px}
+.brand h1{color:#fff;font-size:22px;letter-spacing:-.015em}
+.brand .sub{color:rgba(255,255,255,.82);margin-top:2px}
+.side{padding-bottom:10px}
+.nav{padding:0 10px 26px;gap:1px}
+
+.side-rank{margin:10px 6px 12px;padding:12px 14px 11px;border-radius:12px;border-bottom:none;
+  background:linear-gradient(140deg,var(--accent-soft),var(--surface-2));border:1px solid var(--line)}
+.side-rank .sr-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:1px}
+.sr-nom{font-family:var(--serif);font-size:15.5px;font-weight:700;color:var(--accent-ink)}
+.sr-pts{font-family:var(--serif);font-size:25px;font-weight:600;line-height:1.1;font-variant-numeric:tabular-nums;color:var(--ink)}
+.sr-pts span{font-family:var(--sans);font-size:11px;font-weight:700;color:var(--ink-3);text-transform:uppercase;letter-spacing:.07em;margin-left:5px}
+.side-rank .bar{margin:7px 0 6px;height:6px;background:rgba(255,255,255,.55)}
+:root[data-theme="dark"] .side-rank .bar{background:rgba(0,0,0,.3)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .side-rank .bar{background:rgba(0,0,0,.3)}}
+.sr-bas{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:11px;color:var(--ink-2);font-weight:600}
+.sr-bas .fl{color:var(--amber);font-weight:700}
+
+.liens{display:flex;flex-direction:column;gap:3px;padding:0 4px 4px}
+.lien{display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:8px 10px;border-radius:9px;
+  font-size:14px;font-weight:600;color:var(--ink-2);transition:background .12s,color .12s,transform .1s}
+.lien .ic{width:26px;height:26px;border-radius:8px;display:grid;place-items:center;font-size:14px;flex:0 0 auto;
+  background:var(--surface-2);border:1px solid var(--line)}
+.lien:hover{background:var(--surface-2);color:var(--ink);transform:translateX(2px)}
+.lien.on{color:#fff;background:var(--accent)}
+.lien.on .ic{background:rgba(255,255,255,.22);border-color:transparent}
+:root[data-theme="dark"] .lien.on{color:#0E1424}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .lien.on{color:#0E1424}}
+.l-revision.on{background:#0F8A5F} .l-chrono.on{background:#C4700A}
+.l-ds.on{background:#BC3B84} .l-notes.on{background:#2F6FE0}
+
+.nav .grp{display:flex;align-items:center;gap:7px;padding:15px 10px 5px}
+.nav .grp i{width:14px;height:3px;border-radius:2px;background:var(--bc);display:block}
+.chl{display:flex;align-items:center;gap:8px;width:100%;text-align:left;padding:6px 10px;border-radius:8px;
+  font-size:13.5px;color:var(--ink-2);transition:background .12s,color .12s}
+.chl:hover{background:var(--surface-2);color:var(--ink)}
+.chl.on{background:var(--bcs);color:var(--bc);font-weight:700}
+.chl .nm{flex:1 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.chl .jg{width:34px;height:4px;border-radius:2px;background:var(--surface-3);flex:0 0 auto;overflow:hidden}
+.chl .jg i{display:block;height:100%;background:var(--bc);border-radius:2px}
+.chl .meta{font-size:10px}
+.nav-mat{font-size:12.5px;font-weight:700;color:var(--ink);padding:14px 10px 0;display:flex;gap:7px;align-items:center}
+.nav-mat span{font-size:15px}
+
+/* ---------- respiration et largeur ---------- */
+main{max-width:1240px;padding-left:34px;padding-right:34px}
+.chaps{grid-template-columns:repeat(auto-fill,minmax(236px,1fr))}
+.badges{grid-template-columns:repeat(auto-fill,minmax(134px,1fr))}
+.modes{grid-template-columns:repeat(auto-fit,minmax(196px,1fr))}
+.mode b{display:flex;align-items:center;gap:7px}
+.mode.m-ds{border-color:#BC3B84}
+.duo{display:grid;grid-template-columns:1.35fr 1fr;gap:12px;align-items:stretch;margin-bottom:14px}
+.duo>.rank,.duo>.jour{margin-bottom:0}
+.duo>.jour{padding:16px 18px}
+@media (max-width:860px){.duo{grid-template-columns:1fr}}
+
+/* ---------- démonstrations et devoirs ---------- */
+.consigne{margin-top:18px;background:var(--amber-soft);border:1px solid var(--amber);border-radius:var(--r);
+  padding:13px 16px;font-size:14.5px;color:var(--ink)}
+.autoeval{display:flex;flex-direction:column;gap:7px;margin-top:16px}
+.ligne{display:grid;grid-template-columns:20px 54px minmax(0,1fr);gap:11px;align-items:start;cursor:pointer;
+  background:var(--surface-2);border:1px solid var(--line-soft);border-radius:10px;padding:12px 14px;font-size:14.5px;color:var(--ink-2)}
+.ligne:hover{border-color:var(--accent)}
+.ligne.ok{background:var(--juste-soft);border-color:var(--juste)}
+.ligne input{width:18px;height:18px;margin:2px 0 0;accent-color:var(--juste)}
+.ligne .lp{font-size:11px;font-weight:700;color:var(--amber);background:var(--amber-soft);border-radius:999px;
+  padding:3px 7px;text-align:center;white-space:nowrap}
+.ligne.ok .lp{color:var(--juste);background:#fff}
+:root[data-theme="dark"] .ligne.ok .lp{background:rgba(0,0,0,.25)}
+.bar-pts{margin-left:auto;font-size:11.5px;font-weight:700;color:var(--accent);background:var(--accent-soft);
+  padding:3px 10px;border-radius:999px;white-space:nowrap}
+.pastille{width:26px;height:26px;border-radius:8px;border:1px solid var(--line);background:var(--surface-2);
+  font-size:12px;font-weight:700;color:var(--ink-3);display:grid;place-items:center}
+.pastille.faite{background:var(--accent-soft);color:var(--accent);border-color:var(--accent-soft)}
+.pastille.now{background:var(--accent);color:#fff;border-color:var(--accent)}
+.dots{gap:6px}
+.copie-q{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--bc);
+  border-radius:var(--r);padding:20px;margin-bottom:14px}
+.reponses{display:flex;flex-direction:column;gap:6px;margin-top:16px}
+.rep{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:14.5px;padding:9px 13px;border-radius:9px;
+  background:var(--surface-2);border:1px solid var(--line-soft)}
+.rep span:first-child{font-size:12px;color:var(--ink-3);font-weight:700;text-transform:uppercase;letter-spacing:.05em;min-width:120px}
+.rep.ok{background:var(--juste-soft);border-color:var(--juste)}
+.rep.ko{background:var(--faux-soft);border-color:var(--faux)}
+.rep .att{color:var(--juste)}
+.note-finale{display:flex;align-items:center;gap:20px;background:var(--surface);border:1px solid var(--line);
+  border-left:5px solid var(--accent);border-radius:var(--r);padding:18px 22px;margin-bottom:20px}
+.note-finale .nf{font-family:var(--serif);font-size:46px;font-weight:600;line-height:1;color:var(--accent);font-variant-numeric:tabular-nums}
+.note-finale .nf span{font-size:16px;color:var(--ink-3);margin-left:5px}
+.note-finale b{font-family:var(--serif);font-size:19px;font-weight:600}
+.courbe{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px}
+.courbe svg{width:100%;height:auto;display:block}
+.courbe .gr{stroke:var(--line);stroke-width:1}
+.courbe .gt,.courbe .gv{font-family:var(--sans);font-size:11px;fill:var(--ink-3);font-weight:600}
+.courbe .gv{fill:var(--ink);font-weight:700}
+.courbe .cl{fill:none;stroke:var(--accent);stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round}
+.courbe .cp{fill:var(--accent)}
 </style>
 
 <div class="app">
@@ -495,7 +597,7 @@ function fracTxt(p, q){
 
 /* ---------- état de la progression ---------- */
 const VIDE = () => ({ v: 3, statuts: {}, methodes: {}, courant: null, serie: 0, record: 0,
-                      badges: [], jour: '', joursSuite: 0, recordJours: 0, xpJour: 0, son: true,
+                      badges: [], notes: [], jour: '', joursSuite: 0, recordJours: 0, xpJour: 0, son: true,
                       matiere: 'maths', mesMatieres: ['maths', 'francais', 'histgeo', 'sciences', 'anglais'], maj: 0 });
 let S = VIDE();
 
@@ -536,7 +638,7 @@ function mStat(id){
   if (S.methodes[id].xp === undefined) S.methodes[id].xp = 0;
   return S.methodes[id];
 }
-function enregistrer(mid, juste){
+function enregistrer(mid, juste, part){
   const st = mStat(mid);
   const avait = st.ko > 0 && st.ok === 0;      /* notion ratée et jamais réussie jusqu'ici */
   marquerJour();
@@ -545,7 +647,7 @@ function enregistrer(mid, juste){
     st.ok++;
     st.box = Math.min(st.box + 1, BOXES.length - 1);
     S.serie = (S.serie || 0) + 1;
-    gain = POINTS[METHODE[mid].niveau] || 10;
+    gain = Math.round((POINTS[METHODE[mid].niveau] || 10) * (part === undefined ? 1 : Math.max(0, Math.min(1, part))));
     if (S.serie >= 3) gain += 5;
     if (S.serie >= 6) gain += 10;
     st.xp += gain;
@@ -624,6 +726,7 @@ function adopter(d){
   S.serie = S.serie || 0;
   S.record = S.record || 0;
   S.badges = S.badges || [];
+  S.notes = S.notes || [];
   S.jour = S.jour || '';
   S.joursSuite = S.joursSuite || 0;
   S.recordJours = S.recordJours || 0;
@@ -2217,6 +2320,180 @@ G('produit-scalaire', 'ps-norme-somme', 'Norme d\u2019une somme de vecteurs', 'e
   };
 });
 /* =========================================================================
+   Démonstrations à rédiger.
+   Une démonstration ne peut pas être corrigée automatiquement : l'élève la
+   rédige sur son cahier, puis compare avec le corrigé et s'auto-évalue
+   ligne par ligne, avec le barème du professeur. C'est exactement ce que
+   fait un correcteur — et ça apprend les attentes de rédaction.
+   ========================================================================= */
+
+NIVEAUX.demo = 'Démonstration';
+ORDRE_NIVEAUX.push('demo');
+POINTS.demo = 50;
+
+function D(chap, id, label, fn){
+  const g = { id: id, label: label, niveau: 'demo', chap: chap, fn: fn, demo: true };
+  CHAP[chap].gens.push(g);
+  METHODE[id] = g;
+}
+
+/* =================== SECOND DEGRÉ =================== */
+
+D('second-degre', 'dm-canonique', 'Démontrer la forme canonique', function(){
+  return {
+    enonce: '<p>Soit ' + M('f(x) = ax^{2} + bx + c') + ' avec ' + M('a ≠ 0') + '.</p>' +
+            '<p><b>Démontre</b> que, pour tout réel ' + M('x') + ' :</p>' +
+            Mc('f(x) = a(x + frac{b}{2a})^{2} - frac{b^{2} - 4ac}{4a}'),
+    aide: 'Méthode : factoriser ' + M('a') + ', puis reconnaître le début d’une identité remarquable ' + M('(x + k)^{2}') + '.',
+    bareme: [
+      { pts: 1, d: 'On factorise ' + M('a') + ' dans les deux premiers termes :' + Mc('f(x) = a(x^{2} + frac{b}{a}x) + c') },
+      { pts: 2, d: 'On reconnaît le début du développement de ' + M('(x + frac{b}{2a})^{2}') + ', car ' +
+                   M('(x + frac{b}{2a})^{2} = x^{2} + frac{b}{a}x + frac{b^{2}}{4a^{2}}') + '.' },
+      { pts: 2, d: 'On ajoute et on retranche le terme manquant :' +
+                   Mc('f(x) = a[(x + frac{b}{2a})^{2} - frac{b^{2}}{4a^{2}}] + c') },
+      { pts: 1, d: 'On développe le facteur ' + M('a') + ' :' + Mc('f(x) = a(x + frac{b}{2a})^{2} - frac{b^{2}}{4a} + c') },
+      { pts: 1, d: 'On réduit au même dénominateur ' + M('4a') + ' :' +
+                   Mc('- frac{b^{2}}{4a} + c = frac{-b^{2} + 4ac}{4a} = - frac{b^{2} - 4ac}{4a}') },
+      { pts: 1, d: 'Conclusion : on retrouve bien l’égalité annoncée, avec ' + M('α = - frac{b}{2a}') + ' et ' + M('β = - frac{Δ}{4a}') + '.' }
+    ]
+  };
+});
+
+D('second-degre', 'dm-racines', 'Démontrer la formule des racines', function(){
+  return {
+    enonce: '<p>On admet la forme canonique ' + M('f(x) = a(x + frac{b}{2a})^{2} - frac{Δ}{4a}') + ', avec ' + M('Δ = b^{2} - 4ac') + '.</p>' +
+            '<p><b>Démontre</b> que, lorsque ' + M('Δ > 0') + ', l’équation ' + M('f(x) = 0') + ' admet exactement deux solutions :</p>' +
+            Mc('x_1 = frac{-b - sqrt{Δ}}{2a}    et    x_2 = frac{-b + sqrt{Δ}}{2a}'),
+    aide: 'Méthode : isoler le carré, puis utiliser l’identité ' + M('A^{2} - B^{2} = (A - B)(A + B)') + '.',
+    bareme: [
+      { pts: 1, d: M('f(x) = 0') + ' équivaut à ' + M('a[(x + frac{b}{2a})^{2} - frac{Δ}{4a^{2}}] = 0') + ', et comme ' + M('a ≠ 0') + ' :' +
+                   Mc('(x + frac{b}{2a})^{2} = frac{Δ}{4a^{2}}') },
+      { pts: 2, d: 'Comme ' + M('Δ > 0') + ', on peut écrire ' + M('frac{Δ}{4a^{2}} = (frac{sqrt{Δ}}{2a})^{2}') + ' : le second membre est bien un carré.' },
+      { pts: 2, d: 'On applique ' + M('A^{2} = B^{2} ⇔ A = B') + ' ou ' + M('A = -B') + ' :' +
+                   Mc('x + frac{b}{2a} = frac{sqrt{Δ}}{2a}    ou    x + frac{b}{2a} = - frac{sqrt{Δ}}{2a}') },
+      { pts: 2, d: 'On isole ' + M('x') + ' dans chaque cas :' + Mc('x = frac{-b + sqrt{Δ}}{2a}    ou    x = frac{-b - sqrt{Δ}}{2a}') },
+      { pts: 1, d: 'Ces deux nombres sont distincts car ' + M('sqrt{Δ} ≠ 0') + ' : il y a donc <b>exactement deux</b> solutions.' }
+    ]
+  };
+});
+
+/* =================== SUITES =================== */
+
+D('suites', 'dm-gauss', 'Démontrer la somme des n premiers entiers', function(){
+  return {
+    enonce: '<p><b>Démontre</b> que, pour tout entier ' + M('n ≥ 1') + ' :</p>' +
+            Mc('1 + 2 + 3 + … + n = frac{n(n+1)}{2}'),
+    aide: 'Méthode dite « de Gauss » : écrire la somme deux fois, la seconde à l’envers, puis additionner.',
+    bareme: [
+      { pts: 1, d: 'On note ' + M('S = 1 + 2 + … + n') + '.' },
+      { pts: 2, d: 'On récrit la même somme dans l’ordre décroissant :' + Mc('S = n + (n-1) + … + 2 + 1') },
+      { pts: 2, d: 'On additionne les deux lignes terme à terme. Chaque colonne donne ' + M('n + 1') + ' :' +
+                   Mc('2S = underbrace(n+1) + (n+1) + … + (n+1)') + '<p class="tiny" style="text-align:center">et il y a exactement ' + M('n') + ' colonnes</p>' },
+      { pts: 1, d: 'Donc ' + M('2S = n(n+1)') + '.' },
+      { pts: 1, d: 'Conclusion : ' + M('S = frac{n(n+1)}{2}') + '.' }
+    ]
+  };
+});
+
+D('suites', 'dm-arithmetico', 'Démontrer qu’une suite auxiliaire est géométrique', function(){
+  const cas = R.pick([[0.5, 4, 8], [3, -4, 2], [2, -6, 6], [0.8, 10, 50], [1.5, -5, 10]]);
+  const a = cas[0], b = cas[1], L = cas[2];
+  const u0 = R.int(1, 20);
+  return {
+    enonce: '<p>Soit ' + M('u_0 = ' + nf(u0)) + ' et ' + M('u_{n+1} = ' + lead(a, 'u_n') + sgn(b, '')) + ' pour tout entier ' + M('n') + '.</p>' +
+            '<p>On pose ' + M('v_n = u_n - ' + nf(L)) + '.</p>' +
+            '<p><b>Démontre</b> que ' + M('(v_n)') + ' est géométrique, puis donne l’expression de ' + M('u_n') + ' en fonction de ' + M('n') + '.</p>',
+    aide: 'Méthode : calculer ' + M('v_{n+1}') + ' et faire apparaître ' + M('v_n') + ' en facteur.',
+    bareme: [
+      { pts: 1, d: 'On part de la définition : ' + M('v_{n+1} = u_{n+1} - ' + nf(L)) + '.' },
+      { pts: 2, d: 'On remplace ' + M('u_{n+1}') + ' par la relation de récurrence :' +
+                   Mc('v_{n+1} = ' + lead(a, 'u_n') + sgn(b, '') + ' - ' + nf(L)) },
+      { pts: 2, d: 'On remplace ' + M('u_n') + ' par ' + M('v_n + ' + nf(L)) + ' (puisque ' + M('v_n = u_n - ' + nf(L)) + ') :' +
+                   Mc('v_{n+1} = ' + nf(a) + '(v_n + ' + nf(L) + ')' + sgn(b, '') + ' - ' + nf(L)) },
+      { pts: 2, d: 'On développe et on constate que les constantes se compensent : ' +
+                   M(nf(a) + ' × ' + nf(L) + sgn(b, '') + ' - ' + nf(L) + ' = 0') + ', il reste' + Mc('v_{n+1} = ' + lead(a, 'v_n')) },
+      { pts: 1, d: 'Conclusion : ' + M('(v_n)') + ' est <b>géométrique de raison ' + M('q = ' + nf(a)) + '</b>, de premier terme ' +
+                   M('v_0 = u_0 - ' + nf(L) + ' = ' + nf(u0 - L)) + '.' },
+      { pts: 2, d: 'On en déduit ' + M('v_n = ' + nf(u0 - L) + ' × ' + nf(a) + '^{n}') + ' puis, en revenant à ' + M('u_n = v_n + ' + nf(L)) + ' :' +
+                   Mc('u_n = ' + nf(u0 - L) + ' × ' + nf(a) + '^{n} + ' + nf(L)) }
+    ]
+  };
+});
+
+/* =================== DÉRIVATION =================== */
+
+D('derivation', 'dm-derivee-carre', 'Démontrer que la dérivée de x² est 2x', function(){
+  return {
+    enonce: '<p>Soit ' + M('f(x) = x^{2}') + ' et ' + M('a') + ' un réel.</p>' +
+            '<p><b>Démontre</b>, en revenant à la définition du nombre dérivé, que ' + M('f′(a) = 2a') + '.</p>',
+    aide: 'Méthode : écrire le taux de variation entre ' + M('a') + ' et ' + M('a + h') + ', le simplifier, puis faire tendre ' + M('h') + ' vers 0.',
+    bareme: [
+      { pts: 2, d: 'On écrit le taux de variation :' + Mc('τ(h) = frac{f(a + h) - f(a)}{h} = frac{(a + h)^{2} - a^{2}}{h}') },
+      { pts: 2, d: 'On développe le numérateur :' + Mc('(a + h)^{2} - a^{2} = a^{2} + 2ah + h^{2} - a^{2} = 2ah + h^{2}') },
+      { pts: 2, d: 'On factorise par ' + M('h') + ' et on simplifie (licite car ' + M('h ≠ 0') + ') :' +
+                   Mc('τ(h) = frac{h(2a + h)}{h} = 2a + h') },
+      { pts: 1, d: 'Quand ' + M('h') + ' tend vers 0, ' + M('2a + h') + ' tend vers ' + M('2a') + '.' },
+      { pts: 1, d: 'Conclusion : ' + M('f') + ' est dérivable en ' + M('a') + ' et ' + M('f′(a) = 2a') + '. Ceci valant pour tout réel ' + M('a') + ', ' + M('f′(x) = 2x') + '.' }
+    ]
+  };
+});
+
+D('derivation', 'dm-derivee-inverse', 'Démontrer la dérivée de 1/x', function(){
+  return {
+    enonce: '<p>Soit ' + M('f(x) = frac{1}{x}') + ' définie sur ' + M('] 0 ; +∞ [') + ' et ' + M('a > 0') + '.</p>' +
+            '<p><b>Démontre</b> que ' + M('f′(a) = - frac{1}{a^{2}}') + '.</p>',
+    aide: 'Méthode : mettre le taux de variation au même dénominateur avant de simplifier par ' + M('h') + '.',
+    bareme: [
+      { pts: 2, d: Mc('τ(h) = frac{f(a+h) - f(a)}{h} = frac{frac{1}{a+h} - frac{1}{a}}{h}') },
+      { pts: 2, d: 'On réduit le numérateur au même dénominateur ' + M('a(a+h)') + ' :' +
+                   Mc('frac{1}{a+h} - frac{1}{a} = frac{a - (a+h)}{a(a+h)} = frac{-h}{a(a+h)}') },
+      { pts: 2, d: 'Diviser par ' + M('h') + ' revient à multiplier par ' + M('frac{1}{h}') + ', et on simplifie :' +
+                   Mc('τ(h) = frac{-h}{a(a+h)} × frac{1}{h} = frac{-1}{a(a+h)}') },
+      { pts: 1, d: 'Quand ' + M('h') + ' tend vers 0, ' + M('a + h') + ' tend vers ' + M('a') + ', donc ' + M('τ(h)') + ' tend vers ' + M('frac{-1}{a^{2}}') + '.' },
+      { pts: 1, d: 'Conclusion : ' + M('f′(a) = - frac{1}{a^{2}}') + ', d’où ' + M('f′(x) = - frac{1}{x^{2}}') + ' sur ' + M('] 0 ; +∞ [') + '.' }
+    ]
+  };
+});
+
+/* =================== PRODUIT SCALAIRE =================== */
+
+D('produit-scalaire', 'dm-alkashi', 'Démontrer le théorème d’Al-Kashi', function(){
+  return {
+    enonce: '<p>Dans un triangle ' + M('ABC') + ', on note ' + M('a = BC') + ', ' + M('b = AC') + ', ' + M('c = AB') + '.</p>' +
+            '<p><b>Démontre</b>, à l’aide du produit scalaire, que :</p>' +
+            Mc('a^{2} = b^{2} + c^{2} - 2bc @cos(Â)'),
+    aide: 'Méthode : écrire ' + M('vec{BC} = vec{AC} - vec{AB}') + ' puis développer le carré scalaire.',
+    bareme: [
+      { pts: 2, d: 'Relation de Chasles : ' + M('vec{BC} = vec{BA} + vec{AC} = vec{AC} - vec{AB}') + '.' },
+      { pts: 2, d: 'On élève au carré scalaire :' + Mc('a^{2} = ‖vec{BC}‖^{2} = ‖vec{AC} - vec{AB}‖^{2}') },
+      { pts: 2, d: 'On développe comme une identité remarquable :' +
+                   Mc('‖vec{AC} - vec{AB}‖^{2} = ‖vec{AC}‖^{2} - 2 vec{AC} · vec{AB} + ‖vec{AB}‖^{2}') },
+      { pts: 2, d: 'On reconnaît ' + M('‖vec{AC}‖ = b') + ', ' + M('‖vec{AB}‖ = c') + ', et par définition du produit scalaire ' +
+                   M('vec{AC} · vec{AB} = bc @cos(Â)') + '.' },
+      { pts: 1, d: 'Conclusion : ' + M('a^{2} = b^{2} + c^{2} - 2bc @cos(Â)') + '.' },
+      { pts: 1, d: 'Remarque attendue : si ' + M('Â = 90°') + ' alors ' + M('@cos(Â) = 0') + ' et on retrouve le théorème de Pythagore.' }
+    ]
+  };
+});
+
+D('produit-scalaire', 'dm-cercle-diametre', 'Démontrer la caractérisation du cercle de diamètre [AB]', function(){
+  return {
+    enonce: '<p>Soit ' + M('A') + ' et ' + M('B') + ' deux points distincts, et ' + M('I') + ' le milieu de ' + M('[AB]') + '.</p>' +
+            '<p><b>Démontre</b> que l’ensemble des points ' + M('M') + ' tels que ' + M('vec{MA} · vec{MB} = 0') +
+            ' est le cercle de centre ' + M('I') + ' et de rayon ' + M('frac{AB}{2}') + '.</p>',
+    aide: 'Méthode : introduire le milieu ' + M('I') + ' avec Chasles, puis reconnaître une identité remarquable.',
+    bareme: [
+      { pts: 2, d: 'Chasles avec le point ' + M('I') + ' : ' + M('vec{MA} = vec{MI} + vec{IA}') + ' et ' + M('vec{MB} = vec{MI} + vec{IB}') + '.' },
+      { pts: 1, d: 'Comme ' + M('I') + ' est le milieu de ' + M('[AB]') + ', on a ' + M('vec{IB} = -vec{IA}') + '.' },
+      { pts: 2, d: 'Donc' + Mc('vec{MA} · vec{MB} = (vec{MI} + vec{IA}) · (vec{MI} - vec{IA})') },
+      { pts: 2, d: 'C’est une identité remarquable ' + M('(X + Y)(X - Y) = X^{2} - Y^{2}') + ' :' +
+                   Mc('vec{MA} · vec{MB} = ‖vec{MI}‖^{2} - ‖vec{IA}‖^{2} = MI^{2} - frac{AB^{2}}{4}') },
+      { pts: 2, d: 'L’égalité ' + M('vec{MA} · vec{MB} = 0') + ' équivaut donc à ' + M('MI^{2} = frac{AB^{2}}{4}') + ', soit ' + M('MI = frac{AB}{2}') + '.' },
+      { pts: 1, d: 'Conclusion : l’ensemble cherché est le cercle de centre ' + M('I') + ' et de rayon ' + M('frac{AB}{2}') + ', c’est-à-dire le cercle de diamètre ' + M('[AB]') + '.' }
+    ]
+  };
+});
+/* =========================================================================
    Couche motivation : encouragements, badges, confettis, objectif du jour,
    petits sons. Tout est décoratif — rien ici ne change une correction.
    ========================================================================= */
@@ -2300,17 +2577,22 @@ const BADGES = [
   { id: 'tourneur',  e: '🧭', nom: 'Tour du programme', desc: 'Entamer 4 chapitres différents',
     test: c => CHAPITRES.filter(ch => statutChap(ch.id) !== 'neuf').length >= 4 },
   { id: 'objectif',  e: '✅', nom: 'Objectif atteint',  desc: 'Atteindre l’objectif de points du jour',
-    test: c => xpDuJour() >= OBJECTIF_JOUR }
+    test: c => xpDuJour() >= OBJECTIF_JOUR },
+  { id: 'ds14',      e: '📝', nom: 'Bon devoir',        desc: 'Obtenir au moins 14/20 à un devoir surveillé',
+    test: c => (S.notes || []).some(n => n.note >= 14) },
+  { id: 'demo',      e: '🧩', nom: 'Démonstratrice',    desc: 'Réussir 3 démonstrations rédigées',
+    test: c => c.okDemo >= 3 }
 ];
 
 function contexteBadges(extra){
-  let totalOk = 0, okExp = 0;
+  let totalOk = 0, okExp = 0, okDemo = 0;
   for (const mid in S.methodes){
     const m = S.methodes[mid], g = METHODE[mid];
     totalOk += m.ok;
     if (g && g.niveau === 'exp') okExp += m.ok;
+    if (g && g.niveau === 'demo') okDemo += m.ok;
   }
-  return Object.assign({ totalOk: totalOk, okExp: okExp, serieParfaite: false, revanche: false, chronoOk: 0 }, extra || {});
+  return Object.assign({ totalOk: totalOk, okExp: okExp, okDemo: okDemo, serieParfaite: false, revanche: false, chronoOk: 0 }, extra || {});
 }
 /* renvoie les badges débloqués à l'instant (et les mémorise) */
 function nouveauxBadges(extra){
@@ -2412,6 +2694,278 @@ function feterRang(nom){
   confettis('max');
 }
 /* =========================================================================
+   Évaluations : un vrai devoir surveillé — plusieurs exercices, un barème,
+   une durée, aucune correction pendant l'épreuve. À la fin : la copie
+   corrigée, la note sur 20, et l'historique des notes.
+   ========================================================================= */
+
+const BAREME = { app: 2, ent: 3, ds: 5, exp: 6, demo: 8 };
+const MINUTES = { app: 5, ent: 7, ds: 10, exp: 12, demo: 15 };
+
+let dsEnCours = null, tickDS = null;
+
+function composerSujet(){
+  const pool = poolRevision();
+  if (pool.length < 3) return null;
+  const par = n => pool.filter(g => g.niveau === n);
+  const choix = [];
+  const prendre = (n, k) => R.shuffle(par(n)).slice(0, k).forEach(g => { if (choix.indexOf(g) < 0) choix.push(g); });
+  prendre('app', 1); prendre('ent', 2); prendre('ds', 1); prendre('exp', 1); prendre('demo', 1);
+  R.shuffle(pool).forEach(g => { if (choix.length < 5 && choix.indexOf(g) < 0) choix.push(g); });
+  /* les démonstrations en dernier, comme dans un vrai sujet */
+  return choix.slice(0, 5).sort((a, b) => (a.niveau === 'demo' ? 1 : 0) - (b.niveau === 'demo' ? 1 : 0));
+}
+
+function lancerEvaluation(){
+  const gens = composerSujet();
+  if (!gens) return;
+  const questions = gens.map(g => {
+    const q = g.fn();
+    q.gen = g;
+    q.bar = BAREME[g.niveau] || 3;
+    if (q.qcm){
+      const idx = R.shuffle(q.qcm.options.map((o, i) => i));
+      q.qcm.options = idx.map(i => q.qcm.options[i]);
+      q.qcm.bon = idx.indexOf(q.qcm.bon);
+      q.choix = null;
+    }
+    if (q.bareme) q.coches = q.bareme.map(() => false);
+    return q;
+  });
+  const minutes = questions.reduce((t, q) => t + (MINUTES[q.gen.niveau] || 7), 0);
+  dsEnCours = {
+    questions: questions, idx: 0, debut: Date.now(),
+    duree: minutes * 60, reste: minutes * 60,
+    total: questions.reduce((t, q) => t + q.bar, 0),
+    rendu: false, note: null
+  };
+  clearInterval(tickDS);
+  tickDS = setInterval(() => {
+    if (!dsEnCours || dsEnCours.rendu){ clearInterval(tickDS); return; }
+    dsEnCours.reste--;
+    const el = document.getElementById('chronoDS');
+    if (el){ el.textContent = mmss(dsEnCours.reste); el.classList.toggle('warn', dsEnCours.reste <= 300); }
+    if (dsEnCours.reste <= 0){ clearInterval(tickDS); rendreCopie(); }
+  }, 1000);
+  aller({ nom: 'ds' });
+}
+
+function lireReponsesDS(){
+  const q = dsEnCours.questions[dsEnCours.idx];
+  if (!q.champs) return;
+  q.champs.forEach((f, i) => {
+    if (f.type === 'choix') return;
+    const el = document.getElementById('d' + i);
+    if (el) f.saisie = el.value;
+  });
+}
+function allerQuestion(i){
+  lireReponsesDS();
+  dsEnCours.idx = Math.max(0, Math.min(dsEnCours.questions.length - 1, i));
+  rendre();
+  window.scrollTo(0, 0);
+}
+function rendreCopie(){
+  lireReponsesDS();
+  dsEnCours.rendu = true;
+  clearInterval(tickDS);
+  aller({ nom: 'copie' });
+}
+
+/* ---------------- passation ---------------- */
+function vueDS(){
+  const d = dsEnCours, q = d.questions[d.idx], g = q.gen;
+  let h = '<div class="run">';
+  h += '<div class="runtop"><div><div class="eyebrow" style="margin-bottom:2px">Devoir surveillé &middot; ' + matiereCourante().nom + '</div>' +
+       '<div class="dots">' + d.questions.map((qq, i) =>
+         '<button class="pastille' + (i === d.idx ? ' now' : '') + (repondu(qq) ? ' faite' : '') + '" data-dsq="' + i + '">' + (i + 1) + '</button>').join('') +
+       '</div></div>' +
+       '<div style="display:flex;align-items:center;gap:10px">' +
+       '<span class="timer" id="chronoDS">' + mmss(d.reste) + '</span>' +
+       '<button class="btn sm ghost" data-dsrendre="1">Rendre la copie</button></div></div>';
+
+  h += '<div class="qcard" data-bloc="' + CHAP[g.chap].bloc + '">';
+  h += '<div class="qmeta"><span class="pill neuf">Exercice ' + (d.idx + 1) + '</span>' +
+       '<span class="tiny">' + CHAP[g.chap].titre + '</span>' +
+       '<span class="bar-pts">' + q.bar + ' point' + (q.bar > 1 ? 's' : '') + '</span></div>';
+  h += '<div class="qtext">' + q.enonce + '</div>';
+
+  if (q.bareme){
+    h += '<div class="consigne">✍️ Rédige cette démonstration <b>sur ta copie</b>. Tu la compareras au corrigé et tu t’auto-évalueras à la fin, ligne par ligne.' +
+         (q.aide ? '<div class="tiny" style="margin-top:6px">' + q.aide + '</div>' : '') + '</div>';
+  } else if (q.qcm){
+    h += '<div class="choices">' + q.qcm.options.map((o, i) =>
+      '<button class="choice' + (q.choix === i ? ' sel' : '') + '" data-dschoix="' + i + '"><span class="k">' + 'ABCD'[i] + '</span><span>' + o + '</span></button>').join('') + '</div>';
+  } else {
+    h += '<div class="fields">' + q.champs.map((f, i) => {
+      if (f.type === 'choix'){
+        return '<div class="field"><label>' + f.label + '</label><div class="seg">' +
+          f.options.map((o, j) => '<button class="' + (f.saisie === j ? 'on' : '') + '" data-dschamp="' + i + '" data-val="' + j + '">' + o + '</button>').join('') + '</div></div>';
+      }
+      return '<div class="field"><label for="d' + i + '">' + f.label + '</label>' +
+        '<input id="d' + i + '" type="text" inputmode="decimal" autocomplete="off" value="' + (f.saisie === undefined ? '' : esc(f.saisie)) + '"></div>';
+    }).join('') + '</div>';
+  }
+
+  h += '<div class="actions">' +
+       (d.idx > 0 ? '<button class="btn" data-dsq="' + (d.idx - 1) + '">← Précédent</button>' : '') +
+       (d.idx < d.questions.length - 1
+          ? '<button class="btn primary" data-dsq="' + (d.idx + 1) + '">Suivant →</button>'
+          : '<button class="btn primary" data-dsrendre="1">Rendre la copie</button>') +
+       '</div>';
+  h += '</div></div>';
+  elMain.innerHTML = h;
+  elTop.textContent = 'Devoir surveillé';
+}
+function repondu(q){
+  if (q.bareme) return false;
+  if (q.qcm) return q.choix !== null && q.choix !== undefined;
+  return q.champs.some(f => f.type === 'choix' ? f.saisie !== undefined : String(f.saisie || '').trim() !== '');
+}
+
+/* ---------------- copie corrigée ---------------- */
+function vueCopie(){
+  const d = dsEnCours;
+  let h = '<div class="run">';
+  h += '<div class="eyebrow">Copie corrigée &middot; ' + matiereCourante().nom + '</div>' +
+       '<h2 style="font-size:27px;margin-bottom:6px">Devoir surveillé</h2>' +
+       '<p class="tiny" style="margin-bottom:20px">Durée utilisée : ' + mmss(Math.round((Date.now() - d.debut) / 1000)) +
+       ' sur ' + Math.round(d.duree / 60) + ' minutes &middot; barème sur ' + d.total + ' points</p>';
+
+  if (d.note !== null){
+    h += '<div class="note-finale"><div class="nf">' + nf(d.note, 1) + '<span>/ 20</span></div>' +
+         '<div><b>' + appreciation(d.note) + '</b><p class="tiny">' + d.detail + '</p></div></div>';
+  }
+
+  d.questions.forEach((q, i) => {
+    const g = q.gen;
+    h += '<div class="copie-q" data-bloc="' + CHAP[g.chap].bloc + '">';
+    h += '<div class="qmeta"><span class="pill neuf">Exercice ' + (i + 1) + '</span>' +
+         '<span class="tiny">' + CHAP[g.chap].titre + ' &middot; ' + esc(g.label) + '</span>' +
+         '<span class="bar-pts">' + (d.note !== null ? nf(pointsQuestion(q), 1) + ' / ' + q.bar : q.bar + ' pts') + '</span></div>';
+    h += '<div class="qtext" style="font-size:15.5px">' + q.enonce + '</div>';
+
+    if (q.bareme){
+      h += '<div class="consigne">Compare ta rédaction au corrigé et coche <b>chaque ligne que tu as écrite</b>. ' +
+           'Sois honnête : c’est ce qui te dira où tu perds des points le jour du DS.</div>';
+      h += '<div class="autoeval">' + q.bareme.map((b, j) =>
+        '<label class="ligne' + (q.coches[j] ? ' ok' : '') + '"><input type="checkbox" data-coche="' + i + '-' + j + '"' +
+        (q.coches[j] ? ' checked' : '') + (d.note !== null ? ' disabled' : '') + '>' +
+        '<span class="lp">' + b.pts + ' pt' + (b.pts > 1 ? 's' : '') + '</span><span class="ld">' + b.d + '</span></label>').join('') + '</div>';
+    } else {
+      h += '<div class="reponses">';
+      if (q.qcm){
+        const bonne = q.qcm.options[q.qcm.bon];
+        const don = (q.choix === null || q.choix === undefined) ? '<i>sans réponse</i>' : q.qcm.options[q.choix];
+        h += '<div class="rep' + (q.choix === q.qcm.bon ? ' ok' : ' ko') + '"><span>Ta réponse</span>' + don + '</div>' +
+             '<div class="rep ok"><span>Réponse attendue</span>' + bonne + '</div>';
+      } else {
+        q.champs.forEach(f => {
+          const ok = champOk(f);
+          const don = (f.type === 'choix')
+            ? (f.saisie === undefined ? '<i>sans réponse</i>' : f.options[f.saisie])
+            : (String(f.saisie || '').trim() === '' ? '<i>sans réponse</i>' : esc(f.saisie));
+          const att = (f.type === 'choix') ? f.options[f.bon] : nf(f.bon);
+          h += '<div class="rep' + (ok ? ' ok' : ' ko') + '"><span>' + f.label + '</span>' + don +
+               (ok ? '' : ' <b class="att">→ ' + att + '</b>') + '</div>';
+        });
+      }
+      h += '</div>';
+      h += '<div class="sol"><h4>Correction</h4><div class="steps">' +
+           q.etapes.map(s => '<div class="step"><div>' + s + '</div></div>').join('') + '</div></div>';
+    }
+    h += '</div>';
+  });
+
+  h += '<div class="actions" style="justify-content:center;margin:24px 0 10px">' +
+       (d.note === null
+          ? '<button class="btn primary" data-noter="1">Calculer ma note</button>'
+          : '<button class="btn primary" data-go="accueil">Retour à l’accueil</button><button class="btn" data-eval="1">Refaire un devoir</button>') +
+       '</div></div>';
+  elMain.innerHTML = h;
+  elTop.textContent = 'Copie corrigée';
+}
+function pointsQuestion(q){
+  if (q.bareme){
+    const tot = q.bareme.reduce((t, b) => t + b.pts, 0);
+    const eus = q.bareme.reduce((t, b, j) => t + (q.coches[j] ? b.pts : 0), 0);
+    return tot ? Math.round(10 * q.bar * eus / tot) / 10 : 0;
+  }
+  if (q.qcm) return q.choix === q.qcm.bon ? q.bar : 0;
+  const n = q.champs.length, bons = q.champs.filter(champOk).length;
+  return Math.round(10 * q.bar * bons / n) / 10;
+}
+function appreciation(n){
+  if (n >= 18) return 'Remarquable 🏆';
+  if (n >= 15) return 'Très bien 🎉';
+  if (n >= 12) return 'Bien 💪';
+  if (n >= 10) return 'Assez bien 🙂';
+  if (n >= 7)  return 'Des bases, mais il faut consolider 🌱';
+  return 'Reprends le cours et refais des séries 📖';
+}
+function calculerNote(){
+  const d = dsEnCours;
+  let obtenu = 0;
+  d.questions.forEach(q => {
+    const p = pointsQuestion(q);
+    obtenu += p;
+    const part = q.bar ? p / q.bar : 0;
+    enregistrer(q.gen.id, part >= 0.7, part);
+  });
+  d.note = Math.round(2 * 20 * obtenu / d.total) / 2;      /* au demi-point */
+  d.detail = nf(Math.round(obtenu * 10) / 10) + ' points sur ' + d.total + ' — ' +
+             d.questions.filter(q => pointsQuestion(q) === q.bar).length + ' exercice(s) parfaitement traité(s) sur ' + d.questions.length + '.';
+  S.notes = S.notes || [];
+  S.notes.push({ t: Date.now(), note: d.note, matiere: S.matiere, duree: Math.round((Date.now() - d.debut) / 1000) });
+  if (S.notes.length > 40) S.notes = S.notes.slice(-40);
+  sauver();
+  const gagnes = nouveauxBadges({ noteMax: d.note });
+  rendre();
+  if (d.note >= 14) confettis(d.note >= 18 ? 'max' : '');
+  bip(d.note >= 10 ? 'badge' : 'faux');
+  if (gagnes.length) setTimeout(() => feterBadges(gagnes), 700);
+}
+
+/* ---------------- historique des notes ---------------- */
+function vueNotes(){
+  const notes = (S.notes || []).filter(n => n.matiere === S.matiere);
+  let h = '<div class="eyebrow">' + matiereCourante().nom + '</div><h2 style="font-size:27px">Mes évaluations</h2>';
+  if (!notes.length){
+    h += '<div class="empty" style="margin-top:18px">Aucun devoir surveillé pour l’instant.' +
+         '<div style="margin-top:14px"><button class="btn primary" data-eval="1">Passer un devoir</button></div></div>';
+    elMain.innerHTML = h; elTop.textContent = 'Mes évaluations'; return;
+  }
+  const moy = notes.reduce((t, n) => t + n.note, 0) / notes.length;
+  const best = Math.max.apply(null, notes.map(n => n.note));
+  h += '<p class="lede" style="margin:8px 0 18px">Moyenne : <b>' + nf(Math.round(moy * 10) / 10) + '/20</b> sur ' +
+       notes.length + ' devoir' + (notes.length > 1 ? 's' : '') + ' &middot; meilleure note : <b>' + nf(best) + '/20</b></p>';
+  /* courbe des notes */
+  const W = 620, H = 150, m = 26;
+  const pts = notes.map((n, i) => {
+    const x = m + (notes.length === 1 ? (W - 2 * m) / 2 : i * (W - 2 * m) / (notes.length - 1));
+    const y = H - m - (n.note / 20) * (H - 2 * m);
+    return [x, y];
+  });
+  h += '<div class="courbe"><svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Évolution des notes">' +
+       [0, 10, 20].map(v => {
+         const y = H - m - (v / 20) * (H - 2 * m);
+         return '<line x1="' + m + '" y1="' + y + '" x2="' + (W - m) + '" y2="' + y + '" class="gr"></line>' +
+                '<text x="' + (m - 6) + '" y="' + (y + 4) + '" text-anchor="end" class="gt">' + v + '</text>';
+       }).join('') +
+       '<polyline points="' + pts.map(p => p.join(',')).join(' ') + '" class="cl"></polyline>' +
+       pts.map((p, i) => '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="4.5" class="cp"></circle>' +
+         '<text x="' + p[0] + '" y="' + (p[1] - 11) + '" text-anchor="middle" class="gv">' + nf(notes[i].note) + '</text>').join('') +
+       '</svg></div>';
+  h += '<div class="methods" style="margin-top:18px">' + notes.slice().reverse().map(n =>
+    '<div class="mrow" style="grid-template-columns:minmax(0,1fr) 90px 70px">' +
+    '<div class="lbl">' + new Date(n.t).toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' }) + '</div>' +
+    '<div class="sc">' + mmss(n.duree) + '</div>' +
+    '<div class="sc" style="font-weight:700;color:' + (n.note >= 10 ? 'var(--juste)' : 'var(--faux)') + '">' + nf(n.note) + '/20</div></div>').join('') + '</div>';
+  h += '<div class="actions" style="margin-top:20px"><button class="btn primary" data-eval="1">Passer un nouveau devoir</button></div>';
+  elMain.innerHTML = h;
+  elTop.textContent = 'Mes évaluations';
+}
+/* =========================================================================
    Interface : navigation, fiches de cours, séries d'exercices, progression.
    ========================================================================= */
 
@@ -2434,31 +2988,52 @@ function fermerMenu(){ elSide.classList.remove('open'); const s = document.query
 
 /* ---------------- navigation latérale ---------------- */
 function rendreNav(){
-  const xpg = xpTotal(), rgg = rang(xpg, RANGS);
-  let h = '<div class="side-rank"><div class="sr-top"><b>' + rgg.nom + '</b>' +
-          '<span>' + xpg + ' pts</span>' +
-          '<button class="son" data-son="1" title="Sons" aria-label="Activer ou couper les sons">' + (S.son ? '🔊' : '🔇') + '</button></div>' +
-          '<div class="bar"><span style="width:' + rgg.pc + '%"></span></div>' +
-          (serieJours() ? '<div class="sr-jours">🔥 ' + serieJours() + ' jour' + (serieJours() > 1 ? 's' : '') + ' de suite</div>' : '') +
-          '</div>';
-  h += '<button class="' + (vue.nom === 'accueil' ? 'on' : '') + '" data-go="accueil">Accueil</button>';
-  h += '<button class="' + (vue.nom === 'serie' && serie && serie.mode === 'revision' ? 'on' : '') + '" data-go="revision">Réviser</button>';
-  h += '<button class="' + (vue.nom === 'serie' && serie && serie.mode === 'chrono' ? 'on' : '') + '" data-go="chrono">Interro chrono</button>';
   const bs = document.getElementById('brandsub');
   if (bs) bs.textContent = classeCourante().nom;
-  h += '<div class="nav-mat">' + matiereCourante().e + ' ' + matiereCourante().nom + '</div>';
+  const xpg = xpTotal(), rgg = rang(xpg, RANGS), sj = serieJours();
+
+  let h = '<div class="side-rank">' +
+    '<div class="sr-top"><span class="sr-nom">' + rgg.nom + '</span>' +
+    '<button class="son" data-son="1" aria-label="Activer ou couper les sons">' + (S.son ? '\uD83D\uDD0A' : '\uD83D\uDD07') + '</button></div>' +
+    '<div class="sr-pts">' + xpg + '<span>points</span></div>' +
+    '<div class="bar"><span style="width:' + rgg.pc + '%"></span></div>' +
+    '<div class="sr-bas"><span>' + (rgg.prochain ? '+' + (rgg.prochain.min - xpg) + ' \u2192 ' + rgg.prochain.nom : 'Rang maximal') + '</span>' +
+    (sj ? '<span class="fl">\uD83D\uDD25 ' + sj + '</span>' : '') + '</div></div>';
+
+  const liens = [
+    { id: 'accueil',  e: '\uD83C\uDFE0', t: 'Accueil',         a: 'data-go="accueil"' },
+    { id: 'revision', e: '\uD83D\uDD01', t: 'R\u00e9viser',   a: 'data-go="revision"' },
+    { id: 'chrono',   e: '\u23F1\uFE0F', t: 'Interro chrono',  a: 'data-go="chrono"' },
+    { id: 'ds',       e: '\uD83D\uDCDD', t: 'Devoir surveill\u00e9', a: 'data-eval="1"' },
+    { id: 'notes',    e: '\uD83D\uDCC8', t: 'Mes notes',       a: 'data-go="notes"' }
+  ];
+  h += '<div class="liens">' + liens.map(l =>
+    '<button class="lien l-' + l.id + (estActif(l.id) ? ' on' : '') + '" ' + l.a + '>' +
+    '<span class="ic">' + l.e + '</span><span>' + l.t + '</span></button>').join('') + '</div>';
+
+  h += '<div class="nav-mat"><span>' + matiereCourante().e + '</span>' + matiereCourante().nom + '</div>';
   blocsCourants().forEach(b => {
-    h += '<div class="grp" data-bloc="' + b.id + '">' + b.nom + '</div>';
-    chapitresCourants().filter(c => c.bloc === b.id).forEach(c => {
+    const chs = chapitresCourants().filter(c => c.bloc === b.id);
+    if (!chs.length) return;
+    h += '<div class="grp" data-bloc="' + b.id + '"><i></i>' + b.nom + '</div>';
+    chs.forEach(c => {
       const st = statutChap(c.id), sc = scoreChap(c.id);
-      h += '<button class="' + (vue.nom === 'chapitre' && vue.id === c.id ? 'on' : '') + '" data-bloc="' + c.bloc + '" data-chap="' + c.id + '">' +
+      h += '<button class="chl' + (vue.nom === 'chapitre' && vue.id === c.id ? ' on' : '') + '" data-bloc="' + c.bloc + '" data-chap="' + c.id + '">' +
            '<span class="dot ' + (st === 'encours' ? 'vu' : (st === 'fini' ? 'fini' : '')) + '"></span>' +
-           '<span>' + c.titre + '</span>' +
-           (sc.pc !== null ? '<span class="meta">' + sc.pc + ' %</span>' : (c.gens.length ? '' : '<span class="meta">cours</span>')) +
+           '<span class="nm">' + c.titre + '</span>' +
+           (c.gens.length
+              ? '<span class="jg"><i style="width:' + (sc.pc === null ? 0 : sc.pc) + '%"></i></span>'
+              : '<span class="meta">cours</span>') +
            '</button>';
     });
   });
   elNav.innerHTML = h;
+}
+function estActif(id){
+  if (id === 'accueil') return vue.nom === 'accueil';
+  if (id === 'notes') return vue.nom === 'notes';
+  if (id === 'ds') return vue.nom === 'ds' || vue.nom === 'copie';
+  return vue.nom === 'serie' && serie && serie.mode === id;
 }
 
 /* ---------------- accueil ---------------- */
@@ -2478,6 +3053,7 @@ function vueAccueil(){
        'étape par étape. Plus c’est difficile, plus ça rapporte de points.</p></div></div>';
 
   const xp = xpTotal(), rg = rang(xp, RANGS);
+  h += '<div class="duo">';
   h += '<div class="rank"><div class="rank-top">' +
        '<div><div class="eyebrow" style="margin-bottom:2px">Niveau ' + (rg.index + 1) + ' sur ' + RANGS.length + '</div>' +
        '<h3 class="rank-nom">' + rg.nom + '</h3></div>' +
@@ -2500,6 +3076,7 @@ function vueAccueil(){
        '<div class="flamme' + (sj ? ' on' : '') + '"><span class="f">🔥</span><b>' + sj + '</b>' +
        '<span class="j">jour' + (sj > 1 ? 's' : '') + ' de suite</span></div>' +
        '</div>';
+  h += '</div>';
 
   h += '<div class="stats">' +
        '<div class="stat"><div class="v">' + g.tot + '</div><div class="k">exercices faits</div></div>' +
@@ -2525,11 +3102,15 @@ function vueAccueil(){
   }
 
   h += '<div class="modes" style="margin-top:14px">' +
-       '<button class="mode" data-go="revision"' + (poolRevision().length ? '' : ' disabled') + '><b>Réviser</b>' +
+       '<button class="mode" data-go="revision"' + (poolRevision().length ? '' : ' disabled') + '><b>🔁 Réviser</b>' +
        '<span>Un mélange tiré dans les chapitres déjà vus, en commençant par ce qui a été raté.</span></button>' +
-       '<button class="mode" data-go="chrono"' + (poolRevision().length ? '' : ' disabled') + '><b>Interro chrono</b>' +
+       '<button class="mode" data-go="chrono"' + (poolRevision().length ? '' : ' disabled') + '><b>⏱️ Interro chrono</b>' +
        '<span>10 questions en 15 minutes, comme un devoir surveillé.</span></button>' +
-       '<button class="mode" data-go="programme"><b>Le programme officiel</b>' +
+       '<button class="mode m-ds" data-eval="1"' + (poolRevision().length ? '' : ' disabled') + '><b>📝 Devoir surveillé</b>' +
+       '<span>Un vrai sujet noté sur 20, avec barème et durée. Correction et note à la fin.</span></button>' +
+       '<button class="mode" data-go="notes"><b>📈 Mes notes</b>' +
+       '<span>L’historique des devoirs et la courbe de progression.</span></button>' +
+       '<button class="mode" data-go="programme"><b>📋 Le programme officiel</b>' +
        '<span>Les 12 chapitres du BO et les capacités attendues pour chacun.</span></button>' +
        '</div>';
 
@@ -2640,7 +3221,8 @@ function vueChapitre(){
            '<p style="max-width:52ch;margin:0 auto">Les exercices générés pour ce chapitre arrivent dans une prochaine version. ' +
            'En attendant, le cours et les capacités attendues sont complets dans l’onglet « Cours ».</p></div>';
     } else {
-      const parNiveau = { app: [], ent: [], ds: [], exp: [] };
+      const parNiveau = {};
+      ORDRE_NIVEAUX.forEach(n => { parNiveau[n] = []; });
       c.gens.forEach(g => parNiveau[g.niveau].push(g));
       h += '<p class="lede" style="margin-bottom:16px">Choisis un niveau. Chaque série comporte 8 questions tirées au sort ' +
            '(les valeurs changent à chaque fois), et rapporte des points selon la difficulté.</p><div class="niveaux">';
@@ -2648,9 +3230,10 @@ function vueChapitre(){
            '<span>Les ' + c.gens.length + ' types d’exercices du chapitre, mélangés.</span></button>';
       ORDRE_NIVEAUX.forEach(n => {
         if (!parNiveau[n].length) return;
-        h += '<button class="niv' + (n === 'exp' ? ' dur' : '') + '" data-serie="' + c.id + '|' + n + '">' +
+        h += '<button class="niv' + (n === 'exp' ? ' dur' : '') + (n === 'demo' ? ' demo' : '') + '" data-serie="' + c.id + '|' + n + '">' +
              '<b>' + NIVEAUX[n] + '<span class="pts">' + POINTS[n] + ' pts</span></b>' +
              (n === 'exp' ? '<span class="avert">Niveau évaluation exigeante</span>' : '') +
+             (n === 'demo' ? '<span class="avert" style="color:var(--accent)">À rédiger sur ton cahier</span>' : '') +
              '<span>' + parNiveau[n].map(g => g.label).join(' &middot; ') + '</span></button>';
       });
       h += '</div>';
@@ -2762,9 +3345,11 @@ function prochaine(){
     q.qcm.bon = idx.indexOf(q.qcm.bon);
   }
   q.choix = null;
+  if (q.bareme) q.coches = q.bareme.map(() => false);
   serie.q = q;
   serie.valide = false;
   serie.juste = null;
+  serie.note = undefined;
 }
 
 /* ---------------- déroulé d'une série ---------------- */
@@ -2787,7 +3372,16 @@ function vueSerie(){
        '<span class="tiny" style="margin-left:auto">Question ' + (serie.idx + 1) + ' / ' + serie.gens.length + '</span></div>';
   h += '<div class="qtext">' + q.enonce + '</div>';
 
-  if (q.qcm){
+  if (q.bareme){
+    h += '<div class="consigne">✍️ Rédige cette démonstration <b>sur ton cahier</b>, puis compare avec le corrigé.' +
+         (q.aide ? '<div class="tiny" style="margin-top:6px">' + q.aide + '</div>' : '') + '</div>';
+    if (serie.valide){
+      h += '<div class="autoeval">' + q.bareme.map((b, j) =>
+        '<label class="ligne' + (q.coches[j] ? ' ok' : '') + '"><input type="checkbox" data-coched="' + j + '"' +
+        (q.coches[j] ? ' checked' : '') + (serie.note !== undefined ? ' disabled' : '') + '>' +
+        '<span class="lp">' + b.pts + ' pt' + (b.pts > 1 ? 's' : '') + '</span><span class="ld">' + b.d + '</span></label>').join('') + '</div>';
+    }
+  } else if (q.qcm){
     h += '<div class="choices">' + q.qcm.options.map((o, i) => {
       let cl = 'choice' + (q.choix === i ? ' sel' : '');
       if (serie.valide){
@@ -2812,7 +3406,23 @@ function vueSerie(){
     }).join('') + '</div>';
   }
 
-  if (!serie.valide){
+  if (q.bareme){
+    if (!serie.valide){
+      h += '<div class="actions"><button class="btn primary" data-corrige="1">J’ai fini — voir le corrigé</button></div>';
+    } else if (serie.note === undefined){
+      h += '<div class="actions"><button class="btn primary" data-autoeval="1">Valider mon auto-évaluation</button></div>';
+    } else {
+      h += '<div class="verdict ' + (serie.juste ? 'ok' : 'ko') + '">' +
+           '<div class="vh"><span class="ve">' + (serie.juste ? '🧩' : '📖') + '</span>' +
+           nf(serie.note) + ' / ' + nf(serie.noteTot) + ' sur le barème' +
+           (serie.gain ? '<span class="gain">+' + serie.gain + ' pts</span>' : '') + '</div>' +
+           '<div class="vb">' + (serie.juste
+              ? 'Rédaction solide. C’est exactement ce qui est attendu le jour du devoir.'
+              : 'Relis les lignes non cochées : ce sont elles qui coûtent des points en DS.') + '</div></div>' +
+           '<div class="actions"><button class="btn primary" data-suivante="1">' +
+           (serie.idx + 1 >= serie.gens.length ? 'Voir le bilan' : 'Question suivante') + '</button></div>';
+    }
+  } else if (!serie.valide){
     h += '<div class="actions"><button class="btn primary" data-verifier="1">Vérifier</button>' +
          '<button class="btn ghost" data-sechapper="1">Je ne sais pas</button></div>';
   } else {
@@ -2821,7 +3431,7 @@ function vueSerie(){
          (serie.juste ? 'Juste' : (serie.abandon ? 'Correction' : 'Pas tout à fait')) +
          (serie.juste && serie.gain ? '<span class="gain">+' + serie.gain + ' pts</span>' : '') + '</div>' +
          '<div class="vb">' + (serie.msg || '') + '</div></div>';
-    h += '<div class="sol"><h4>Correction détaillée</h4><div class="steps">' +
+    if (!q.bareme) h += '<div class="sol"><h4>Correction détaillée</h4><div class="steps">' +
          q.etapes.map(s => '<div class="step"><div>' + s + '</div></div>').join('') + '</div></div>';
     h += '<div class="actions"><button class="btn primary" data-suivante="1">' +
          (serie.idx + 1 >= serie.gens.length ? 'Voir le bilan' : 'Question suivante') + '</button></div>';
@@ -2938,6 +3548,9 @@ function rendre(){
   if (vue.nom === 'accueil') vueAccueil();
   else if (vue.nom === 'programme') vueProgramme();
   else if (vue.nom === 'matieres') vueMatieres();
+  else if (vue.nom === 'ds') vueDS();
+  else if (vue.nom === 'copie') vueCopie();
+  else if (vue.nom === 'notes') vueNotes();
   else if (vue.nom === 'bientot') vueBientot();
   else if (vue.nom === 'chapitre') vueChapitre();
   else if (vue.nom === 'serie') vueSerie();
@@ -2946,7 +3559,7 @@ function rendre(){
 }
 
 document.addEventListener('click', function(e){
-  const t = e.target.closest('[data-mat],[data-prendre],[data-son],[data-go],[data-chap],[data-onglet],[data-statut],[data-serie],[data-choix],[data-champ],[data-verifier],[data-sechapper],[data-suivante],[data-quitter],[data-refaire]');
+  const t = e.target.closest('[data-corrige],[data-coched],[data-autoeval],[data-eval],[data-dsq],[data-dschoix],[data-dschamp],[data-dsrendre],[data-coche],[data-noter],[data-mat],[data-prendre],[data-son],[data-go],[data-chap],[data-onglet],[data-statut],[data-serie],[data-choix],[data-champ],[data-verifier],[data-sechapper],[data-suivante],[data-quitter],[data-refaire]');
   if (e.target.closest('#burger')){
     elSide.classList.add('open');
     const s = document.createElement('div'); s.className = 'scrim'; s.addEventListener('click', fermerMenu);
@@ -3007,6 +3620,27 @@ document.addEventListener('click', function(e){
     if (!serie.valide){ lireChamps(); serie.q.champs[+d.champ].saisie = +d.val; rendre(); }
     return;
   }
+  if (d.corrige){ serie.valide = true; rendre(); return; }
+  if (d.coched !== undefined){
+    const j = +d.coched;
+    serie.q.coches[j] = !serie.q.coches[j];
+    rendre();
+    return;
+  }
+  if (d.autoeval){ validerAutoEval(); return; }
+  if (d.eval){ lancerEvaluation(); return; }
+  if (d.dsq !== undefined){ allerQuestion(+d.dsq); return; }
+  if (d.dschoix !== undefined){ lireReponsesDS(); dsEnCours.questions[dsEnCours.idx].choix = +d.dschoix; rendre(); return; }
+  if (d.dschamp !== undefined){ lireReponsesDS(); dsEnCours.questions[dsEnCours.idx].champs[+d.dschamp].saisie = +d.val; rendre(); return; }
+  if (d.dsrendre){ rendreCopie(); return; }
+  if (d.coche !== undefined){
+    const p = d.coche.split('-');
+    const q = dsEnCours.questions[+p[0]];
+    q.coches[+p[1]] = !q.coches[+p[1]];
+    rendre();
+    return;
+  }
+  if (d.noter){ calculerNote(); return; }
   if (d.verifier){ verifier(false); return; }
   if (d.sechapper){ verifier(true); return; }
   if (d.suivante){ suivante(); return; }
@@ -3018,10 +3652,29 @@ document.addEventListener('click', function(e){
   }
 });
 document.addEventListener('keydown', function(e){
-  if (e.key !== 'Enter' || vue.nom !== 'serie' || !serie) return;
+  if (e.key !== 'Enter' || vue.nom !== 'serie' || !serie || serie.q.bareme) return;
   e.preventDefault();
   if (serie.valide) suivante(); else verifier(false);
 });
+
+/* auto-évaluation d'une démonstration : la note vient du barème coché */
+function validerAutoEval(){
+  const q = serie.q;
+  const tot = q.bareme.reduce((t, b) => t + b.pts, 0);
+  const eus = q.bareme.reduce((t, b, j) => t + (q.coches[j] ? b.pts : 0), 0);
+  const part = tot ? eus / tot : 0;
+  serie.note = eus;
+  serie.noteTot = tot;
+  serie.juste = part >= 0.7;
+  serie.resultats[serie.idx] = serie.juste;
+  const r = enregistrer(q.gen.id, serie.juste, part);
+  serie.gain = r.gain;
+  serie.gains = (serie.gains || 0) + r.gain;
+  bip(serie.juste ? 'juste' : 'faux');
+  rendre();
+  const gagnes = nouveauxBadges({});
+  if (gagnes.length) feterBadges(gagnes);
+}
 
 rendre();
 initStore();

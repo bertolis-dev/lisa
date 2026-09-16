@@ -21,31 +21,52 @@ function fermerMenu(){ elSide.classList.remove('open'); const s = document.query
 
 /* ---------------- navigation latérale ---------------- */
 function rendreNav(){
-  const xpg = xpTotal(), rgg = rang(xpg, RANGS);
-  let h = '<div class="side-rank"><div class="sr-top"><b>' + rgg.nom + '</b>' +
-          '<span>' + xpg + ' pts</span>' +
-          '<button class="son" data-son="1" title="Sons" aria-label="Activer ou couper les sons">' + (S.son ? '🔊' : '🔇') + '</button></div>' +
-          '<div class="bar"><span style="width:' + rgg.pc + '%"></span></div>' +
-          (serieJours() ? '<div class="sr-jours">🔥 ' + serieJours() + ' jour' + (serieJours() > 1 ? 's' : '') + ' de suite</div>' : '') +
-          '</div>';
-  h += '<button class="' + (vue.nom === 'accueil' ? 'on' : '') + '" data-go="accueil">Accueil</button>';
-  h += '<button class="' + (vue.nom === 'serie' && serie && serie.mode === 'revision' ? 'on' : '') + '" data-go="revision">Réviser</button>';
-  h += '<button class="' + (vue.nom === 'serie' && serie && serie.mode === 'chrono' ? 'on' : '') + '" data-go="chrono">Interro chrono</button>';
   const bs = document.getElementById('brandsub');
   if (bs) bs.textContent = classeCourante().nom;
-  h += '<div class="nav-mat">' + matiereCourante().e + ' ' + matiereCourante().nom + '</div>';
+  const xpg = xpTotal(), rgg = rang(xpg, RANGS), sj = serieJours();
+
+  let h = '<div class="side-rank">' +
+    '<div class="sr-top"><span class="sr-nom">' + rgg.nom + '</span>' +
+    '<button class="son" data-son="1" aria-label="Activer ou couper les sons">' + (S.son ? '\uD83D\uDD0A' : '\uD83D\uDD07') + '</button></div>' +
+    '<div class="sr-pts">' + xpg + '<span>points</span></div>' +
+    '<div class="bar"><span style="width:' + rgg.pc + '%"></span></div>' +
+    '<div class="sr-bas"><span>' + (rgg.prochain ? '+' + (rgg.prochain.min - xpg) + ' \u2192 ' + rgg.prochain.nom : 'Rang maximal') + '</span>' +
+    (sj ? '<span class="fl">\uD83D\uDD25 ' + sj + '</span>' : '') + '</div></div>';
+
+  const liens = [
+    { id: 'accueil',  e: '\uD83C\uDFE0', t: 'Accueil',         a: 'data-go="accueil"' },
+    { id: 'revision', e: '\uD83D\uDD01', t: 'R\u00e9viser',   a: 'data-go="revision"' },
+    { id: 'chrono',   e: '\u23F1\uFE0F', t: 'Interro chrono',  a: 'data-go="chrono"' },
+    { id: 'ds',       e: '\uD83D\uDCDD', t: 'Devoir surveill\u00e9', a: 'data-eval="1"' },
+    { id: 'notes',    e: '\uD83D\uDCC8', t: 'Mes notes',       a: 'data-go="notes"' }
+  ];
+  h += '<div class="liens">' + liens.map(l =>
+    '<button class="lien l-' + l.id + (estActif(l.id) ? ' on' : '') + '" ' + l.a + '>' +
+    '<span class="ic">' + l.e + '</span><span>' + l.t + '</span></button>').join('') + '</div>';
+
+  h += '<div class="nav-mat"><span>' + matiereCourante().e + '</span>' + matiereCourante().nom + '</div>';
   blocsCourants().forEach(b => {
-    h += '<div class="grp" data-bloc="' + b.id + '">' + b.nom + '</div>';
-    chapitresCourants().filter(c => c.bloc === b.id).forEach(c => {
+    const chs = chapitresCourants().filter(c => c.bloc === b.id);
+    if (!chs.length) return;
+    h += '<div class="grp" data-bloc="' + b.id + '"><i></i>' + b.nom + '</div>';
+    chs.forEach(c => {
       const st = statutChap(c.id), sc = scoreChap(c.id);
-      h += '<button class="' + (vue.nom === 'chapitre' && vue.id === c.id ? 'on' : '') + '" data-bloc="' + c.bloc + '" data-chap="' + c.id + '">' +
+      h += '<button class="chl' + (vue.nom === 'chapitre' && vue.id === c.id ? ' on' : '') + '" data-bloc="' + c.bloc + '" data-chap="' + c.id + '">' +
            '<span class="dot ' + (st === 'encours' ? 'vu' : (st === 'fini' ? 'fini' : '')) + '"></span>' +
-           '<span>' + c.titre + '</span>' +
-           (sc.pc !== null ? '<span class="meta">' + sc.pc + ' %</span>' : (c.gens.length ? '' : '<span class="meta">cours</span>')) +
+           '<span class="nm">' + c.titre + '</span>' +
+           (c.gens.length
+              ? '<span class="jg"><i style="width:' + (sc.pc === null ? 0 : sc.pc) + '%"></i></span>'
+              : '<span class="meta">cours</span>') +
            '</button>';
     });
   });
   elNav.innerHTML = h;
+}
+function estActif(id){
+  if (id === 'accueil') return vue.nom === 'accueil';
+  if (id === 'notes') return vue.nom === 'notes';
+  if (id === 'ds') return vue.nom === 'ds' || vue.nom === 'copie';
+  return vue.nom === 'serie' && serie && serie.mode === id;
 }
 
 /* ---------------- accueil ---------------- */
@@ -65,6 +86,7 @@ function vueAccueil(){
        'étape par étape. Plus c’est difficile, plus ça rapporte de points.</p></div></div>';
 
   const xp = xpTotal(), rg = rang(xp, RANGS);
+  h += '<div class="duo">';
   h += '<div class="rank"><div class="rank-top">' +
        '<div><div class="eyebrow" style="margin-bottom:2px">Niveau ' + (rg.index + 1) + ' sur ' + RANGS.length + '</div>' +
        '<h3 class="rank-nom">' + rg.nom + '</h3></div>' +
@@ -87,6 +109,7 @@ function vueAccueil(){
        '<div class="flamme' + (sj ? ' on' : '') + '"><span class="f">🔥</span><b>' + sj + '</b>' +
        '<span class="j">jour' + (sj > 1 ? 's' : '') + ' de suite</span></div>' +
        '</div>';
+  h += '</div>';
 
   h += '<div class="stats">' +
        '<div class="stat"><div class="v">' + g.tot + '</div><div class="k">exercices faits</div></div>' +
@@ -112,11 +135,15 @@ function vueAccueil(){
   }
 
   h += '<div class="modes" style="margin-top:14px">' +
-       '<button class="mode" data-go="revision"' + (poolRevision().length ? '' : ' disabled') + '><b>Réviser</b>' +
+       '<button class="mode" data-go="revision"' + (poolRevision().length ? '' : ' disabled') + '><b>🔁 Réviser</b>' +
        '<span>Un mélange tiré dans les chapitres déjà vus, en commençant par ce qui a été raté.</span></button>' +
-       '<button class="mode" data-go="chrono"' + (poolRevision().length ? '' : ' disabled') + '><b>Interro chrono</b>' +
+       '<button class="mode" data-go="chrono"' + (poolRevision().length ? '' : ' disabled') + '><b>⏱️ Interro chrono</b>' +
        '<span>10 questions en 15 minutes, comme un devoir surveillé.</span></button>' +
-       '<button class="mode" data-go="programme"><b>Le programme officiel</b>' +
+       '<button class="mode m-ds" data-eval="1"' + (poolRevision().length ? '' : ' disabled') + '><b>📝 Devoir surveillé</b>' +
+       '<span>Un vrai sujet noté sur 20, avec barème et durée. Correction et note à la fin.</span></button>' +
+       '<button class="mode" data-go="notes"><b>📈 Mes notes</b>' +
+       '<span>L’historique des devoirs et la courbe de progression.</span></button>' +
+       '<button class="mode" data-go="programme"><b>📋 Le programme officiel</b>' +
        '<span>Les 12 chapitres du BO et les capacités attendues pour chacun.</span></button>' +
        '</div>';
 
@@ -227,7 +254,8 @@ function vueChapitre(){
            '<p style="max-width:52ch;margin:0 auto">Les exercices générés pour ce chapitre arrivent dans une prochaine version. ' +
            'En attendant, le cours et les capacités attendues sont complets dans l’onglet « Cours ».</p></div>';
     } else {
-      const parNiveau = { app: [], ent: [], ds: [], exp: [] };
+      const parNiveau = {};
+      ORDRE_NIVEAUX.forEach(n => { parNiveau[n] = []; });
       c.gens.forEach(g => parNiveau[g.niveau].push(g));
       h += '<p class="lede" style="margin-bottom:16px">Choisis un niveau. Chaque série comporte 8 questions tirées au sort ' +
            '(les valeurs changent à chaque fois), et rapporte des points selon la difficulté.</p><div class="niveaux">';
@@ -235,9 +263,10 @@ function vueChapitre(){
            '<span>Les ' + c.gens.length + ' types d’exercices du chapitre, mélangés.</span></button>';
       ORDRE_NIVEAUX.forEach(n => {
         if (!parNiveau[n].length) return;
-        h += '<button class="niv' + (n === 'exp' ? ' dur' : '') + '" data-serie="' + c.id + '|' + n + '">' +
+        h += '<button class="niv' + (n === 'exp' ? ' dur' : '') + (n === 'demo' ? ' demo' : '') + '" data-serie="' + c.id + '|' + n + '">' +
              '<b>' + NIVEAUX[n] + '<span class="pts">' + POINTS[n] + ' pts</span></b>' +
              (n === 'exp' ? '<span class="avert">Niveau évaluation exigeante</span>' : '') +
+             (n === 'demo' ? '<span class="avert" style="color:var(--accent)">À rédiger sur ton cahier</span>' : '') +
              '<span>' + parNiveau[n].map(g => g.label).join(' &middot; ') + '</span></button>';
       });
       h += '</div>';
@@ -349,9 +378,11 @@ function prochaine(){
     q.qcm.bon = idx.indexOf(q.qcm.bon);
   }
   q.choix = null;
+  if (q.bareme) q.coches = q.bareme.map(() => false);
   serie.q = q;
   serie.valide = false;
   serie.juste = null;
+  serie.note = undefined;
 }
 
 /* ---------------- déroulé d'une série ---------------- */
@@ -374,7 +405,16 @@ function vueSerie(){
        '<span class="tiny" style="margin-left:auto">Question ' + (serie.idx + 1) + ' / ' + serie.gens.length + '</span></div>';
   h += '<div class="qtext">' + q.enonce + '</div>';
 
-  if (q.qcm){
+  if (q.bareme){
+    h += '<div class="consigne">✍️ Rédige cette démonstration <b>sur ton cahier</b>, puis compare avec le corrigé.' +
+         (q.aide ? '<div class="tiny" style="margin-top:6px">' + q.aide + '</div>' : '') + '</div>';
+    if (serie.valide){
+      h += '<div class="autoeval">' + q.bareme.map((b, j) =>
+        '<label class="ligne' + (q.coches[j] ? ' ok' : '') + '"><input type="checkbox" data-coched="' + j + '"' +
+        (q.coches[j] ? ' checked' : '') + (serie.note !== undefined ? ' disabled' : '') + '>' +
+        '<span class="lp">' + b.pts + ' pt' + (b.pts > 1 ? 's' : '') + '</span><span class="ld">' + b.d + '</span></label>').join('') + '</div>';
+    }
+  } else if (q.qcm){
     h += '<div class="choices">' + q.qcm.options.map((o, i) => {
       let cl = 'choice' + (q.choix === i ? ' sel' : '');
       if (serie.valide){
@@ -399,7 +439,23 @@ function vueSerie(){
     }).join('') + '</div>';
   }
 
-  if (!serie.valide){
+  if (q.bareme){
+    if (!serie.valide){
+      h += '<div class="actions"><button class="btn primary" data-corrige="1">J’ai fini — voir le corrigé</button></div>';
+    } else if (serie.note === undefined){
+      h += '<div class="actions"><button class="btn primary" data-autoeval="1">Valider mon auto-évaluation</button></div>';
+    } else {
+      h += '<div class="verdict ' + (serie.juste ? 'ok' : 'ko') + '">' +
+           '<div class="vh"><span class="ve">' + (serie.juste ? '🧩' : '📖') + '</span>' +
+           nf(serie.note) + ' / ' + nf(serie.noteTot) + ' sur le barème' +
+           (serie.gain ? '<span class="gain">+' + serie.gain + ' pts</span>' : '') + '</div>' +
+           '<div class="vb">' + (serie.juste
+              ? 'Rédaction solide. C’est exactement ce qui est attendu le jour du devoir.'
+              : 'Relis les lignes non cochées : ce sont elles qui coûtent des points en DS.') + '</div></div>' +
+           '<div class="actions"><button class="btn primary" data-suivante="1">' +
+           (serie.idx + 1 >= serie.gens.length ? 'Voir le bilan' : 'Question suivante') + '</button></div>';
+    }
+  } else if (!serie.valide){
     h += '<div class="actions"><button class="btn primary" data-verifier="1">Vérifier</button>' +
          '<button class="btn ghost" data-sechapper="1">Je ne sais pas</button></div>';
   } else {
@@ -408,7 +464,7 @@ function vueSerie(){
          (serie.juste ? 'Juste' : (serie.abandon ? 'Correction' : 'Pas tout à fait')) +
          (serie.juste && serie.gain ? '<span class="gain">+' + serie.gain + ' pts</span>' : '') + '</div>' +
          '<div class="vb">' + (serie.msg || '') + '</div></div>';
-    h += '<div class="sol"><h4>Correction détaillée</h4><div class="steps">' +
+    if (!q.bareme) h += '<div class="sol"><h4>Correction détaillée</h4><div class="steps">' +
          q.etapes.map(s => '<div class="step"><div>' + s + '</div></div>').join('') + '</div></div>';
     h += '<div class="actions"><button class="btn primary" data-suivante="1">' +
          (serie.idx + 1 >= serie.gens.length ? 'Voir le bilan' : 'Question suivante') + '</button></div>';
@@ -525,6 +581,9 @@ function rendre(){
   if (vue.nom === 'accueil') vueAccueil();
   else if (vue.nom === 'programme') vueProgramme();
   else if (vue.nom === 'matieres') vueMatieres();
+  else if (vue.nom === 'ds') vueDS();
+  else if (vue.nom === 'copie') vueCopie();
+  else if (vue.nom === 'notes') vueNotes();
   else if (vue.nom === 'bientot') vueBientot();
   else if (vue.nom === 'chapitre') vueChapitre();
   else if (vue.nom === 'serie') vueSerie();
@@ -533,7 +592,7 @@ function rendre(){
 }
 
 document.addEventListener('click', function(e){
-  const t = e.target.closest('[data-mat],[data-prendre],[data-son],[data-go],[data-chap],[data-onglet],[data-statut],[data-serie],[data-choix],[data-champ],[data-verifier],[data-sechapper],[data-suivante],[data-quitter],[data-refaire]');
+  const t = e.target.closest('[data-corrige],[data-coched],[data-autoeval],[data-eval],[data-dsq],[data-dschoix],[data-dschamp],[data-dsrendre],[data-coche],[data-noter],[data-mat],[data-prendre],[data-son],[data-go],[data-chap],[data-onglet],[data-statut],[data-serie],[data-choix],[data-champ],[data-verifier],[data-sechapper],[data-suivante],[data-quitter],[data-refaire]');
   if (e.target.closest('#burger')){
     elSide.classList.add('open');
     const s = document.createElement('div'); s.className = 'scrim'; s.addEventListener('click', fermerMenu);
@@ -594,6 +653,27 @@ document.addEventListener('click', function(e){
     if (!serie.valide){ lireChamps(); serie.q.champs[+d.champ].saisie = +d.val; rendre(); }
     return;
   }
+  if (d.corrige){ serie.valide = true; rendre(); return; }
+  if (d.coched !== undefined){
+    const j = +d.coched;
+    serie.q.coches[j] = !serie.q.coches[j];
+    rendre();
+    return;
+  }
+  if (d.autoeval){ validerAutoEval(); return; }
+  if (d.eval){ lancerEvaluation(); return; }
+  if (d.dsq !== undefined){ allerQuestion(+d.dsq); return; }
+  if (d.dschoix !== undefined){ lireReponsesDS(); dsEnCours.questions[dsEnCours.idx].choix = +d.dschoix; rendre(); return; }
+  if (d.dschamp !== undefined){ lireReponsesDS(); dsEnCours.questions[dsEnCours.idx].champs[+d.dschamp].saisie = +d.val; rendre(); return; }
+  if (d.dsrendre){ rendreCopie(); return; }
+  if (d.coche !== undefined){
+    const p = d.coche.split('-');
+    const q = dsEnCours.questions[+p[0]];
+    q.coches[+p[1]] = !q.coches[+p[1]];
+    rendre();
+    return;
+  }
+  if (d.noter){ calculerNote(); return; }
   if (d.verifier){ verifier(false); return; }
   if (d.sechapper){ verifier(true); return; }
   if (d.suivante){ suivante(); return; }
@@ -605,10 +685,29 @@ document.addEventListener('click', function(e){
   }
 });
 document.addEventListener('keydown', function(e){
-  if (e.key !== 'Enter' || vue.nom !== 'serie' || !serie) return;
+  if (e.key !== 'Enter' || vue.nom !== 'serie' || !serie || serie.q.bareme) return;
   e.preventDefault();
   if (serie.valide) suivante(); else verifier(false);
 });
+
+/* auto-évaluation d'une démonstration : la note vient du barème coché */
+function validerAutoEval(){
+  const q = serie.q;
+  const tot = q.bareme.reduce((t, b) => t + b.pts, 0);
+  const eus = q.bareme.reduce((t, b, j) => t + (q.coches[j] ? b.pts : 0), 0);
+  const part = tot ? eus / tot : 0;
+  serie.note = eus;
+  serie.noteTot = tot;
+  serie.juste = part >= 0.7;
+  serie.resultats[serie.idx] = serie.juste;
+  const r = enregistrer(q.gen.id, serie.juste, part);
+  serie.gain = r.gain;
+  serie.gains = (serie.gains || 0) + r.gain;
+  bip(serie.juste ? 'juste' : 'faux');
+  rendre();
+  const gagnes = nouveauxBadges({});
+  if (gagnes.length) feterBadges(gagnes);
+}
 
 rendre();
 initStore();

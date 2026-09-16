@@ -80,7 +80,7 @@ function fracTxt(p, q){
 
 /* ---------- état de la progression ---------- */
 const VIDE = () => ({ v: 3, statuts: {}, methodes: {}, courant: null, serie: 0, record: 0,
-                      badges: [], jour: '', joursSuite: 0, recordJours: 0, xpJour: 0, son: true,
+                      badges: [], notes: [], jour: '', joursSuite: 0, recordJours: 0, xpJour: 0, son: true,
                       matiere: 'maths', mesMatieres: ['maths', 'francais', 'histgeo', 'sciences', 'anglais'], maj: 0 });
 let S = VIDE();
 
@@ -121,7 +121,7 @@ function mStat(id){
   if (S.methodes[id].xp === undefined) S.methodes[id].xp = 0;
   return S.methodes[id];
 }
-function enregistrer(mid, juste){
+function enregistrer(mid, juste, part){
   const st = mStat(mid);
   const avait = st.ko > 0 && st.ok === 0;      /* notion ratée et jamais réussie jusqu'ici */
   marquerJour();
@@ -130,7 +130,7 @@ function enregistrer(mid, juste){
     st.ok++;
     st.box = Math.min(st.box + 1, BOXES.length - 1);
     S.serie = (S.serie || 0) + 1;
-    gain = POINTS[METHODE[mid].niveau] || 10;
+    gain = Math.round((POINTS[METHODE[mid].niveau] || 10) * (part === undefined ? 1 : Math.max(0, Math.min(1, part))));
     if (S.serie >= 3) gain += 5;
     if (S.serie >= 6) gain += 10;
     st.xp += gain;
@@ -209,6 +209,7 @@ function adopter(d){
   S.serie = S.serie || 0;
   S.record = S.record || 0;
   S.badges = S.badges || [];
+  S.notes = S.notes || [];
   S.jour = S.jour || '';
   S.joursSuite = S.joursSuite || 0;
   S.recordJours = S.recordJours || 0;
