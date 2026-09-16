@@ -67,8 +67,9 @@ function rendreNav(){
              '<span class="dot ' + (st === 'encours' ? 'vu' : (st === 'fini' ? 'fini' : '')) + '"></span>' +
              '<span class="nm">' + c.titre + '</span>' +
              (c.gens.length
-                ? '<span class="jg"><i style="width:' + (sc.pc === null ? 0 : sc.pc) + '%"></i></span>'
-                : '<span class="meta">cours</span>') +
+                ? '<span class="jg" title="Réussite : ' + (sc.pc === null ? 0 : sc.pc) + ' %"><i style="width:' +
+                  (sc.pc === null ? 0 : sc.pc) + '%"></i></span>'
+                : '<span class="bientot" title="Fiche de cours disponible, exercices à venir">bientôt</span>') +
              '</button>';
       });
     });
@@ -216,7 +217,7 @@ function vueAccueil(){
            '<div class="row"><span class="pill ' + (st === 'encours' ? 'vu' : (st === 'fini' ? 'fini' : 'neuf')) + '">' + info.court + '</span>' +
            (c.gens.length
              ? (sc.tot ? '<span class="tiny">' + sc.ok + '/' + sc.tot + ' &middot; ' + sc.pc + ' %</span>' : '<span class="tiny">' + c.gens.length + ' types d’exercices</span>')
-             : '<span class="pill soon">fiche de cours</span>') +
+             : '<span class="pill vu">exercices bientôt</span>') +
            '</div></button>';
     });
     h += '</div></div>';

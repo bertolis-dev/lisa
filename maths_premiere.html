@@ -646,6 +646,12 @@ main{padding-bottom:calc(34px + env(safe-area-inset-bottom, 0px))}
 .nav{padding-bottom:calc(34px + env(safe-area-inset-bottom, 0px))}
 .pied{margin-bottom:calc(6px + env(safe-area-inset-bottom, 0px))}
 .version{padding:12px 14px}
+
+/* ---------- menu : ce qui a des exercices, ce qui n'en a pas encore ---------- */
+.chl .bientot{font-size:9.5px;text-transform:uppercase;letter-spacing:.06em;font-weight:700;
+  color:var(--amber);background:var(--amber-soft);padding:2px 7px;border-radius:999px;flex:0 0 auto}
+.chl .jg{width:36px;height:5px;border-radius:3px}
+.chl .jg i{transition:width .3s}
 </style>
 
 <div class="app">
@@ -698,7 +704,7 @@ function M(src){ return '<span class="m">' + mathHtml(src) + '</span>'; }
 function Mc(src){ return '<div class="center">' + M(src) + '</div>'; }
 
 /* version de la construction, remplacée par build.py */
-const VERSION_APP = '16/09/2026 16h05';
+const VERSION_APP = '16/09/2026 16h07';
 
 /* ---------- utilitaires numériques ---------- */
 const R = {
@@ -3687,8 +3693,9 @@ function rendreNav(){
              '<span class="dot ' + (st === 'encours' ? 'vu' : (st === 'fini' ? 'fini' : '')) + '"></span>' +
              '<span class="nm">' + c.titre + '</span>' +
              (c.gens.length
-                ? '<span class="jg"><i style="width:' + (sc.pc === null ? 0 : sc.pc) + '%"></i></span>'
-                : '<span class="meta">cours</span>') +
+                ? '<span class="jg" title="Réussite : ' + (sc.pc === null ? 0 : sc.pc) + ' %"><i style="width:' +
+                  (sc.pc === null ? 0 : sc.pc) + '%"></i></span>'
+                : '<span class="bientot" title="Fiche de cours disponible, exercices à venir">bientôt</span>') +
              '</button>';
       });
     });
@@ -3836,7 +3843,7 @@ function vueAccueil(){
            '<div class="row"><span class="pill ' + (st === 'encours' ? 'vu' : (st === 'fini' ? 'fini' : 'neuf')) + '">' + info.court + '</span>' +
            (c.gens.length
              ? (sc.tot ? '<span class="tiny">' + sc.ok + '/' + sc.tot + ' &middot; ' + sc.pc + ' %</span>' : '<span class="tiny">' + c.gens.length + ' types d’exercices</span>')
-             : '<span class="pill soon">fiche de cours</span>') +
+             : '<span class="pill vu">exercices bientôt</span>') +
            '</div></button>';
     });
     h += '</div></div>';
