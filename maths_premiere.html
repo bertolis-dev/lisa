@@ -330,6 +330,11 @@ ul.dates span{color:var(--ink-1)}
 .db-ligne b{font-family:var(--sans);font-variant-numeric:tabular-nums}
 ul.regles{margin:8px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:7px}
 .l-defi .ic{filter:none}
+
+/* blocs de code (NSI) */
+pre.code{margin:14px 0;padding:14px 16px;background:var(--surface-3);border-radius:10px;overflow-x:auto;font-family:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;font-size:13px;line-height:1.6;color:var(--ink-1);white-space:pre;tab-size:4}
+code{font-family:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;font-size:.92em;background:var(--surface-3);padding:1px 5px;border-radius:5px}
+pre.code code{background:none;padding:0}
 .nav .grp[data-bloc]{color:var(--bc)}
 .bloc[data-bloc] h3{color:var(--bc);border-bottom-color:var(--bc);border-bottom-width:2px}
 .chap[data-bloc]{border-top:3px solid var(--bc)}
@@ -740,6 +745,18 @@ table.tab tr:first-child th{background:var(--accent-soft);color:var(--accent-ink
 [data-bloc="emc-valeurs"]{--bc:#6D4AC9;--bcs:#EEE8FC}
 [data-bloc="emc-nation"] {--bc:#B23A48;--bcs:#FBE6E8}
 [data-bloc="emc-method"] {--bc:#0F7A8A;--bcs:#DCF0F3}
+[data-bloc="pc-matiere"]{--bc:#6D4AC9;--bcs:#EEE8FC}
+[data-bloc="pc-mvt"]    {--bc:#2F6FE0;--bcs:#E4EDFC}
+[data-bloc="pc-energie"]{--bc:#C4700A;--bcs:#FBEEDA}
+[data-bloc="pc-ondes"]  {--bc:#BC3B84;--bcs:#FBE5F1}
+[data-bloc="pc-methode"]{--bc:#0F8A5F;--bcs:#DDF2EA}
+[data-bloc="nsi-donnees"]{--bc:#2F6FE0;--bcs:#E4EDFC}
+[data-bloc="nsi-machine"]{--bc:#C4700A;--bcs:#FBEEDA}
+[data-bloc="nsi-prog"]   {--bc:#0F8A5F;--bcs:#DDF2EA}
+[data-bloc="ses-eco"]    {--bc:#0F7A8A;--bcs:#DCF0F3}
+[data-bloc="ses-socio"]  {--bc:#BC3B84;--bcs:#FBE5F1}
+[data-bloc="ses-croises"]{--bc:#6D4AC9;--bcs:#EEE8FC}
+[data-bloc="ses-outils"] {--bc:#C4700A;--bcs:#FBEEDA}
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]) [data-bloc="es-transverse"]{--bc:#F183BC;--bcs:#3B1C30}
   :root:not([data-theme="light"]) [data-bloc="es-donnees"]   {--bc:#F0A94C;--bcs:#3A2A12}
@@ -761,6 +778,18 @@ table.tab tr:first-child th{background:var(--accent-soft);color:var(--accent-ink
   :root:not([data-theme="light"]) [data-bloc="emc-valeurs"]{--bc:#B49BFF;--bcs:#2C2350}
   :root:not([data-theme="light"]) [data-bloc="emc-nation"] {--bc:#F0808C;--bcs:#3D1A1F}
   :root:not([data-theme="light"]) [data-bloc="emc-method"] {--bc:#57C6D6;--bcs:#10333A}
+  :root:not([data-theme="light"]) [data-bloc="pc-matiere"]{--bc:#B49BFF;--bcs:#2C2350}
+  :root:not([data-theme="light"]) [data-bloc="pc-mvt"]    {--bc:#7FB0FF;--bcs:#1B2C4E}
+  :root:not([data-theme="light"]) [data-bloc="pc-energie"]{--bc:#F0A94C;--bcs:#3A2A12}
+  :root:not([data-theme="light"]) [data-bloc="pc-ondes"]  {--bc:#F183BC;--bcs:#3B1C30}
+  :root:not([data-theme="light"]) [data-bloc="pc-methode"]{--bc:#4FD1A0;--bcs:#12352C}
+  :root:not([data-theme="light"]) [data-bloc="nsi-donnees"]{--bc:#7FB0FF;--bcs:#1B2C4E}
+  :root:not([data-theme="light"]) [data-bloc="nsi-machine"]{--bc:#F0A94C;--bcs:#3A2A12}
+  :root:not([data-theme="light"]) [data-bloc="nsi-prog"]   {--bc:#4FD1A0;--bcs:#12352C}
+  :root:not([data-theme="light"]) [data-bloc="ses-eco"]    {--bc:#57C6D6;--bcs:#10333A}
+  :root:not([data-theme="light"]) [data-bloc="ses-socio"]  {--bc:#F183BC;--bcs:#3B1C30}
+  :root:not([data-theme="light"]) [data-bloc="ses-croises"]{--bc:#B49BFF;--bcs:#2C2350}
+  :root:not([data-theme="light"]) [data-bloc="ses-outils"] {--bc:#F0A94C;--bcs:#3A2A12}
 }
 :root[data-theme="dark"] [data-bloc="es-transverse"]{--bc:#F183BC;--bcs:#3B1C30}
 :root[data-theme="dark"] [data-bloc="es-donnees"]   {--bc:#F0A94C;--bcs:#3A2A12}
@@ -782,6 +811,18 @@ table.tab tr:first-child th{background:var(--accent-soft);color:var(--accent-ink
 :root[data-theme="dark"] [data-bloc="emc-valeurs"]{--bc:#B49BFF;--bcs:#2C2350}
 :root[data-theme="dark"] [data-bloc="emc-nation"] {--bc:#F0808C;--bcs:#3D1A1F}
 :root[data-theme="dark"] [data-bloc="emc-method"] {--bc:#57C6D6;--bcs:#10333A}
+:root[data-theme="dark"] [data-bloc="pc-matiere"]{--bc:#B49BFF;--bcs:#2C2350}
+:root[data-theme="dark"] [data-bloc="pc-mvt"]    {--bc:#7FB0FF;--bcs:#1B2C4E}
+:root[data-theme="dark"] [data-bloc="pc-energie"]{--bc:#F0A94C;--bcs:#3A2A12}
+:root[data-theme="dark"] [data-bloc="pc-ondes"]  {--bc:#F183BC;--bcs:#3B1C30}
+:root[data-theme="dark"] [data-bloc="pc-methode"]{--bc:#4FD1A0;--bcs:#12352C}
+:root[data-theme="dark"] [data-bloc="nsi-donnees"]{--bc:#7FB0FF;--bcs:#1B2C4E}
+:root[data-theme="dark"] [data-bloc="nsi-machine"]{--bc:#F0A94C;--bcs:#3A2A12}
+:root[data-theme="dark"] [data-bloc="nsi-prog"]   {--bc:#4FD1A0;--bcs:#12352C}
+:root[data-theme="dark"] [data-bloc="ses-eco"]    {--bc:#57C6D6;--bcs:#10333A}
+:root[data-theme="dark"] [data-bloc="ses-socio"]  {--bc:#F183BC;--bcs:#3B1C30}
+:root[data-theme="dark"] [data-bloc="ses-croises"]{--bc:#B49BFF;--bcs:#2C2350}
+:root[data-theme="dark"] [data-bloc="ses-outils"] {--bc:#F0A94C;--bcs:#3A2A12}
 </style>
 
 <div class="app">
@@ -834,7 +875,7 @@ function M(src){ return '<span class="m">' + mathHtml(src) + '</span>'; }
 function Mc(src){ return '<div class="center">' + M(src) + '</div>'; }
 
 /* version de la construction, remplacée par build.py */
-const VERSION_APP = '1.24';
+const VERSION_APP = '1.27';
 
 /* ---------- utilitaires numériques ---------- */
 const R = {
@@ -12183,6 +12224,2713 @@ G('emc-debat', 'emc-synthese', 'Situer une notion complètement', 'ds', function
       'Chapitre : <b>' + CHAP[x.ch].titre + '</b>, dans la partie « ' + bloc + ' ».',
       'Le programme de première s’intitule « Cohésion et diversité dans une société démocratique » ' +
         'et comporte deux parties de neuf heures chacune.'
+    ]
+  };
+});
+/* =========================================================================
+   SPÉCIALITÉ PHYSIQUE-CHIMIE, première générale.
+
+   Programme : BO spécial n°1 du 22 janvier 2019, inchangé pour 2026-2027.
+   Vérifié sur la page éduscol « Programmes et ressources en physique-chimie
+   voie GT », datée de mars 2026, rubrique « Programmes en vigueur ».
+
+   Quatre thèmes, plus un chapitre transversal sur la mesure :
+   Constitution et transformations de la matière · Mouvement et interactions
+   L'énergie : conversions et transferts · Ondes et signaux
+   ========================================================================= */
+
+MAT['physique'].pret = true;
+
+BLOCS.push(
+  { id: 'pc-matiere',  nom: 'Constitution et transformations de la matière', matiere: 'physique' },
+  { id: 'pc-mvt',      nom: 'Mouvement et interactions',                     matiere: 'physique' },
+  { id: 'pc-energie',  nom: 'L’énergie : conversions et transferts',         matiere: 'physique' },
+  { id: 'pc-ondes',    nom: 'Ondes et signaux',                              matiere: 'physique' },
+  { id: 'pc-methode',  nom: 'Mesure et méthodes',                            matiere: 'physique' }
+);
+
+/* les formules de ce fichier sont ecrites dans la mini-syntaxe maths :
+   on les fait passer par le moteur de rendu avant de les encadrer */
+function formM(f, leg){ return form(M(f), leg); }
+
+const CHAPITRES_PC = [
+{
+  id: 'pc-suivi', bloc: 'pc-matiere', titre: 'Suivi d’une transformation chimique',
+  resume: 'Quantité de matière, avancement, réactif limitant.',
+  capacites: [
+    'Déterminer la quantité de matière contenue dans un échantillon, à partir de sa masse, de son volume ou de sa concentration.',
+    'Établir un tableau d’avancement et déterminer l’avancement maximal et le réactif limitant.',
+    'Déterminer la composition du système dans l’état final.',
+    'Mettre en œuvre une méthode de suivi de l’évolution d’un système, notamment par spectrophotométrie.',
+    'Réaliser une dilution et déterminer la concentration d’une solution.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'À quoi ça sert ?', c:
+      '<p>Toute la chimie de l’année repose sur une seule question : <b>combien y en a-t-il ?</b> ' +
+      'La quantité de matière est l’unité de compte du chimiste, et le tableau d’avancement est la comptabilité ' +
+      'de la transformation.</p>' },
+    { k: 'def', t: 'Les trois façons de compter la matière', c:
+      formM('n = frac{m}{M}', 'à partir d’une masse · n en mol, m en g, M en g·mol⁻¹') +
+      formM('n = C × V', 'à partir d’une solution · C en mol·L⁻¹, V en L') +
+      formM('n = frac{V}{V_m}', 'pour un gaz · V<sub>m</sub> ≈ 24 L·mol⁻¹ à 20 °C et pression ordinaire') +
+      '<p>La constante d’Avogadro vaut N<sub>A</sub> = 6,02 × 10<sup>23</sup> mol<sup>-1</sup> : ' +
+      'une mole contient ce nombre d’entités.</p>' },
+    { k: 'meth', t: 'Le tableau d’avancement', c:
+      '<p>Pour une réaction <i>a</i> A + <i>b</i> B → <i>c</i> C, on note <i>x</i> l’avancement, en moles.</p>' +
+      '<ul><li>État initial : n(A) = n<sub>0</sub>(A), n(B) = n<sub>0</sub>(B), n(C) = 0.</li>' +
+      '<li>État intermédiaire : n(A) = n<sub>0</sub>(A) - <i>a</i>x · n(B) = n<sub>0</sub>(B) - <i>b</i>x · n(C) = <i>c</i>x.</li>' +
+      '<li>État final : l’un des réactifs s’épuise.</li></ul>' +
+      '<p>Le <b>réactif limitant</b> est celui qui donne le plus petit quotient :</p>' +
+      formM('x_{max} = @min(frac{n_0(A)}{a} ; frac{n_0(B)}{b})', 'on compare les quotients, pas les quantités brutes') },
+    { k: 'prop', t: 'La dilution', c:
+      '<p>Diluer conserve la quantité de matière de soluté : ce qui est dans la fiole vient de la pipette.</p>' +
+      formM('C_1 × V_1 = C_2 × V_2', 'indice 1 = solution mère · indice 2 = solution fille') +
+      '<p>Le <b>facteur de dilution</b> vaut F = C<sub>1</sub>/C<sub>2</sub> = V<sub>2</sub>/V<sub>1</sub>.</p>' },
+    { k: 'prop', t: 'La loi de Beer-Lambert', c:
+      '<p>Pour une espèce colorée en solution, l’absorbance est <b>proportionnelle</b> à la concentration :</p>' +
+      formM('A = k × C', 'A est sans unité · k dépend de l’espèce, de la longueur d’onde et de la cuve') +
+      '<p>C’est ce qui permet de suivre une transformation au spectrophotomètre : on mesure A, on en déduit C.</p>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Toujours <b>convertir avant de calculer</b> : les volumes en litres, les masses en grammes.</li>' +
+      '<li>Le réactif limitant ne se devine pas : il se trouve en <b>divisant par le coefficient stœchiométrique</b>. ' +
+      'Le réactif le moins abondant n’est pas forcément le limitant.</li>' +
+      '<li>Vérifier son avancement final : aucune quantité de matière ne peut être négative.</li></ul>' }
+  ]
+},
+{
+  id: 'pc-entites', bloc: 'pc-matiere', titre: 'Structure des entités et propriétés',
+  resume: 'Électronégativité, polarité, solubilité, solvants.',
+  capacites: [
+    'Déterminer le schéma de Lewis et la géométrie d’entités de type AX₄, AX₃E et AX₂E₂.',
+    'Utiliser l’électronégativité pour prévoir la polarisation d’une liaison.',
+    'Déterminer le caractère polaire ou apolaire d’une entité moléculaire.',
+    'Interpréter la solubilité d’une espèce dans un solvant, et le caractère amphiphile d’une espèce.',
+    'Choisir un solvant adapté à une extraction.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'À quoi ça sert ?', c:
+      '<p>Pourquoi l’huile ne se mélange-t-elle pas à l’eau ? Pourquoi le sel s’y dissout-il ? ' +
+      'Ce chapitre répond par la <b>structure</b> des molécules : la forme et la répartition des charges ' +
+      'expliquent le comportement macroscopique.</p>' },
+    { k: 'def', t: 'Électronégativité et polarité', c:
+      '<p>L’<b>électronégativité</b> mesure la capacité d’un atome à attirer vers lui les électrons d’une liaison. ' +
+      'Elle augmente de la gauche vers la droite d’une période, et du bas vers le haut d’une colonne.</p>' +
+      '<ul><li>Deux atomes <b>identiques</b> → liaison <b>apolaire</b>.</li>' +
+      '<li>Deux atomes d’électronégativités <b>différentes</b> → liaison <b>polarisée</b>, ' +
+      'notée δ+ et δ-.</li></ul>' +
+      '<p>Une molécule est <b>polaire</b> si elle possède des liaisons polarisées <b>et</b> si sa géométrie ' +
+      'ne les compense pas. C’est le cas de l’eau, coudée. Le dioxyde de carbone, linéaire et symétrique, ' +
+      'est apolaire malgré ses liaisons polarisées.</p>' },
+    { k: 'prop', t: 'La géométrie selon le nombre de doublets', c:
+      '<ul><li><b>AX<sub>4</sub></b> : quatre liaisons, aucun doublet non liant → <b>tétraédrique</b>, ' +
+      'comme le méthane.</li>' +
+      '<li><b>AX<sub>3</sub>E</b> : trois liaisons, un doublet non liant → <b>pyramidale</b>, ' +
+      'comme l’ammoniac.</li>' +
+      '<li><b>AX<sub>2</sub>E<sub>2</sub></b> : deux liaisons, deux doublets non liants → <b>coudée</b>, ' +
+      'comme l’eau.</li></ul>' +
+      '<p>Les doublets se repoussent et se placent le plus loin possible les uns des autres : ' +
+      'c’est ce qui impose la forme.</p>' },
+    { k: 'prop', t: 'Qui dissout quoi', c:
+      '<p>La règle tient en une phrase : <b>le semblable dissout le semblable</b>.</p>' +
+      '<ul><li>Un solvant <b>polaire</b>, comme l’eau, dissout les espèces polaires et les composés ioniques.</li>' +
+      '<li>Un solvant <b>apolaire</b>, comme le cyclohexane, dissout les espèces apolaires, ' +
+      'comme les huiles.</li></ul>' +
+      '<p>Une espèce <b>amphiphile</b>, comme un savon, possède une partie hydrophile et une partie ' +
+      'hydrophobe : elle fait le lien entre les deux mondes, et c’est pour cela qu’elle lave.</p>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Ne jamais conclure à la polarité d’une molécule à partir des seules liaisons : ' +
+      'il faut examiner la <b>géométrie</b>. CO<sub>2</sub> est le contre-exemple à retenir.</li>' +
+      '<li>Pour une extraction, deux critères : la <b>solubilité</b> de l’espèce et la <b>miscibilité</b> ' +
+      'des solvants entre eux.</li>' +
+      '<li>Comparer les <b>densités</b> pour savoir quelle phase est au-dessus dans l’ampoule à décanter.</li></ul>' }
+  ]
+},
+{
+  id: 'pc-synthese', bloc: 'pc-matiere', titre: 'Synthèses et combustions',
+  resume: 'Nomenclature, familles fonctionnelles, énergie de combustion.',
+  capacites: [
+    'Passer du nom à la formule semi-développée et inversement, pour des alcanes, alcools, aldéhydes, cétones et acides carboxyliques.',
+    'Identifier le groupe caractéristique et la famille fonctionnelle d’une espèce.',
+    'Écrire et équilibrer l’équation d’une combustion.',
+    'Estimer l’énergie libérée lors d’une combustion et discuter les enjeux associés.'
+  ],
+  cours: [
+    { k: 'def', t: 'Les familles à connaître', c:
+      '<ul><li><b>Alcane</b> : uniquement C et H, liaisons simples. Suffixe <b>-ane</b>.</li>' +
+      '<li><b>Alcool</b> : groupe hydroxyle <b>-OH</b> porté par un carbone tétraédrique. Suffixe <b>-ol</b>.</li>' +
+      '<li><b>Aldéhyde</b> : groupe carbonyle en <b>bout</b> de chaîne. Suffixe <b>-al</b>.</li>' +
+      '<li><b>Cétone</b> : groupe carbonyle <b>à l’intérieur</b> de la chaîne. Suffixe <b>-one</b>.</li>' +
+      '<li><b>Acide carboxylique</b> : groupe <b>-COOH</b>. Préfixe <b>acide</b> et suffixe <b>-oïque</b>.</li></ul>' +
+      '<p>La différence entre aldéhyde et cétone n’est pas le groupe, c’est sa <b>position</b>.</p>' },
+    { k: 'prop', t: 'Nommer une chaîne carbonée', c:
+      '<p>Le préfixe dit le nombre de carbones de la chaîne principale :</p>' +
+      '<ul class="dates">' +
+      '<li><b>méth-</b> <span>1 carbone</span></li><li><b>éth-</b> <span>2</span></li>' +
+      '<li><b>prop-</b> <span>3</span></li><li><b>but-</b> <span>4</span></li>' +
+      '<li><b>pent-</b> <span>5</span></li><li><b>hex-</b> <span>6</span></li>' +
+      '<li><b>hept-</b> <span>7</span></li><li><b>oct-</b> <span>8</span></li></ul>' +
+      '<p>On numérote la chaîne de façon à donner au groupe caractéristique le plus petit indice possible.</p>' },
+    { k: 'meth', t: 'Équilibrer une combustion', c:
+      '<p>Une combustion complète dans le dioxygène donne du dioxyde de carbone et de l’eau.</p>' +
+      formM('C_xH_y + (x + frac{y}{4}) O_2 → x CO_2 + frac{y}{2} H_2O', 'pour un alcane de formule CxHy') +
+      '<p>Méthode : équilibrer d’abord le <b>carbone</b>, puis l’<b>hydrogène</b>, ' +
+      'et enfin l’<b>oxygène</b>, quitte à passer par des coefficients fractionnaires que l’on double ensuite.</p>' },
+    { k: 'prop', t: 'L’énergie libérée', c:
+      formM('E = m × PC', 'énergie libérée = masse brûlée × pouvoir calorifique, en J·g⁻¹ ou MJ·kg⁻¹') +
+      '<p>Une combustion est <b>exothermique</b> : elle libère de l’énergie vers l’extérieur. ' +
+      'Par convention, l’énergie de réaction est alors comptée <b>négativement</b> pour le système.</p>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Pour trancher entre aldéhyde et cétone, regarder si le carbone du groupe C=O porte un <b>H</b> : ' +
+      'si oui, c’est un aldéhyde.</li>' +
+      '<li>Une équation non équilibrée invalide tout le tableau d’avancement qui suit : ' +
+      'vérifier avant de continuer.</li>' +
+      '<li>Combustion <b>incomplète</b> : elle produit du monoxyde de carbone CO, toxique, ' +
+      'et des particules. C’est l’enjeu de santé du chapitre.</li></ul>' }
+  ]
+},
+{
+  id: 'pc-champs', bloc: 'pc-mvt', titre: 'Interactions et champs',
+  resume: 'Gravitation, électrostatique, notion de champ.',
+  capacites: [
+    'Utiliser l’expression de la force de gravitation et celle du champ de gravitation.',
+    'Utiliser l’expression de la force électrostatique et celle du champ électrostatique.',
+    'Caractériser un champ uniforme et représenter des lignes de champ.',
+    'Comparer les intensités des interactions gravitationnelle et électrostatique.'
+  ],
+  cours: [
+    { k: 'def', t: 'Les deux lois en 1/d²', c:
+      formM('F = G × frac{m_A × m_B}{d^{2}}', 'gravitation · G = 6,67 × 10⁻¹¹ N·m²·kg⁻²') +
+      formM('F = k × frac{|q_A × q_B|}{d^{2}}', 'électrostatique · k = 9,0 × 10⁹ N·m²·C⁻²') +
+      '<p>Même forme, deux différences majeures : la gravitation est <b>toujours attractive</b>, ' +
+      'l’interaction électrostatique peut être attractive ou <b>répulsive</b> ; et l’électrostatique ' +
+      'est immensément plus intense à l’échelle des particules.</p>' },
+    { k: 'def', t: 'La notion de champ', c:
+      '<p>Un champ associe une grandeur à <b>chaque point</b> de l’espace. Il permet de décrire une action ' +
+      'à distance sans parler de la seconde masse ou de la seconde charge.</p>' +
+      formM('vec{F} = m × vec{g}&nbsp;&nbsp;·&nbsp;&nbsp;vec{F} = q × vec{E}', 'la force subie se déduit du champ') +
+      formM('g = G × frac{M}{d^{2}}', 'champ de gravitation créé par un astre de masse M') +
+      '<p>Un champ est dit <b>uniforme</b> dans une zone s’il y a partout la même direction, le même sens ' +
+      'et la même valeur. Ses lignes de champ y sont des droites parallèles.</p>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>La distance est <b>au carré</b> : doubler la distance divise la force par <b>4</b>, pas par 2.</li>' +
+      '<li>Le champ ne dépend <b>que</b> de la source, pas de l’objet qui le subit. C’est tout l’intérêt de la notion.</li>' +
+      '<li>Sur Terre, g ≈ 9,8 N·kg⁻¹ : c’est le champ de gravitation, et c’est aussi ' +
+      'l’accélération de la pesanteur.</li></ul>' }
+  ]
+},
+{
+  id: 'pc-fluide', bloc: 'pc-mvt', titre: 'Un fluide au repos',
+  resume: 'Pression, loi de Boyle-Mariotte, statique des fluides.',
+  capacites: [
+    'Utiliser la relation entre pression, force pressante et surface.',
+    'Exploiter la loi de Mariotte pour un gaz à température constante.',
+    'Utiliser la loi fondamentale de la statique des fluides pour un fluide incompressible.',
+    'Expliquer qualitativement l’évolution de la pression avec la profondeur ou l’altitude.'
+  ],
+  cours: [
+    { k: 'def', t: 'La pression', c:
+      formM('p = frac{F}{S}', 'p en pascals (Pa) · F en newtons · S en mètres carrés') +
+      '<p>Repères : 1 bar = 10<sup>5</sup> Pa, et la pression atmosphérique au niveau de la mer vaut ' +
+      'environ <b>1,013 × 10<sup>5</sup> Pa</b>.</p>' },
+    { k: 'prop', t: 'La loi de Mariotte', c:
+      '<p>Pour une quantité fixée de gaz, à <b>température constante</b> :</p>' +
+      formM('p × V = @constante&nbsp;&nbsp;donc&nbsp;&nbsp;p_1 V_1 = p_2 V_2', 'comprimer de moitié double la pression') +
+      '<p>C’est ce qui explique qu’une bulle d’air remonte en grossissant, ou qu’une seringue bouchée résiste.</p>' },
+    { k: 'prop', t: 'La statique des fluides', c:
+      '<p>Dans un fluide <b>incompressible</b> au repos, la pression augmente avec la profondeur :</p>' +
+      formM('p_B - p_A = ρ × g × (z_A - z_B)', 'ρ en kg·m⁻³ · g ≈ 9,8 N·kg⁻¹ · z = altitude') +
+      '<p>Cas courant : à la profondeur h sous la surface,</p>' +
+      formM('p = p_{atm} + ρ g h', 'dans l’eau, ρ = 1000 kg·m⁻³, soit environ +1 bar tous les 10 mètres') },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>La pression dans un liquide ne dépend <b>pas</b> de la forme du récipient, seulement ' +
+      'de la <b>profondeur</b>. C’est le paradoxe hydrostatique.</li>' +
+      '<li>Mariotte ne s’applique qu’aux <b>gaz</b>, et à température constante. ' +
+      'La statique des fluides, elle, vaut pour les fluides <b>incompressibles</b>.</li>' +
+      '<li>Repère utile en plongée : environ 1 bar de plus tous les 10 m d’eau.</li></ul>' }
+  ]
+},
+{
+  id: 'pc-mouvement', bloc: 'pc-mvt', titre: 'Mouvement d’un système',
+  resume: 'Vitesse, variation de vitesse, deuxième loi de Newton.',
+  capacites: [
+    'Caractériser le mouvement d’un système : trajectoire, vitesse, variation de vitesse.',
+    'Construire le vecteur variation de vitesse à partir de deux vecteurs vitesse.',
+    'Relier la variation du vecteur vitesse à l’existence d’une force résultante non nulle.',
+    'Exploiter la deuxième loi de Newton dans des cas simples.'
+  ],
+  cours: [
+    { k: 'def', t: 'Vitesse et variation de vitesse', c:
+      formM('v = frac{d}{Δt}', 'vitesse moyenne, en m·s⁻¹') +
+      '<p>Le <b>vecteur variation de vitesse</b> entre deux instants se construit ainsi :</p>' +
+      formM('Δvec{v} = vec{v_2} - vec{v_1}', 'on trace v₂, puis l’opposé de v₁, et on les additionne') +
+      '<p>Il pointe dans la même direction et le même sens que la <b>force résultante</b>.</p>' },
+    { k: 'prop', t: 'Les deux premières lois de Newton', c:
+      '<p><b>Principe d’inertie</b> : si la somme des forces est nulle, le mouvement est rectiligne uniforme ' +
+      'ou le corps est au repos. Et réciproquement.</p>' +
+      '<p><b>Deuxième loi</b> : la variation du vecteur vitesse est liée à la force résultante.</p>' +
+      formM('Σ vec{F} = m × vec{a}', 'la force résultante et l’accélération ont même direction et même sens') +
+      '<p>Conséquence directe : un mouvement dont la vitesse <b>change de valeur ou de direction</b> ' +
+      'suppose une force résultante non nulle. Un virage à vitesse constante en est un exemple.</p>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>« Vitesse constante » ne veut pas dire « vecteur vitesse constant » : ' +
+      'dans un virage, la valeur ne change pas mais la <b>direction</b> si.</li>' +
+      '<li>Toujours convertir : 1 km·h⁻¹ = 1/3,6 m·s⁻¹. Diviser par 3,6 pour passer des km/h aux m/s.</li>' +
+      '<li>Sur un enregistrement, la vitesse en un point se calcule avec les points <b>encadrants</b>, ' +
+      'pas avec le point lui-même.</li></ul>' }
+  ]
+},
+{
+  id: 'pc-elec', bloc: 'pc-energie', titre: 'Énergie et phénomènes électriques',
+  resume: 'Puissance, énergie, rendement, effet Joule.',
+  capacites: [
+    'Utiliser les expressions de la puissance et de l’énergie électriques.',
+    'Distinguer une source idéale de tension et une source réelle.',
+    'Établir un bilan énergétique pour un dipôle et calculer un rendement.',
+    'Identifier les conversions d’énergie mises en jeu.'
+  ],
+  cours: [
+    { k: 'def', t: 'Puissance et énergie', c:
+      formM('P = U × I', 'P en watts · U en volts · I en ampères') +
+      formM('E = P × Δt = U × I × Δt', 'E en joules si Δt est en secondes') +
+      '<p>Pour un conducteur ohmique de résistance R, la loi d’Ohm U = R I donne aussi :</p>' +
+      formM('P = R I^{2} = frac{U^{2}}{R}', 'c’est l’effet Joule : toute l’énergie est dissipée en chaleur') },
+    { k: 'prop', t: 'Rendement', c:
+      formM('η = frac{E_{utile}}{E_{absorbée}}', 'sans unité, toujours compris entre 0 et 1') +
+      '<p>Le complément est l’énergie <b>perdue</b>, le plus souvent sous forme thermique. ' +
+      'Un rendement supérieur à 1 est impossible : c’est un signal d’erreur de calcul.</p>' +
+      '<p>Conversion utile : 1 kWh = 3,6 × 10<sup>6</sup> J.</p>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Vérifier les <b>unités</b> avant de conclure : des watts multipliés par des heures ' +
+      'donnent des wattheures, pas des joules.</li>' +
+      '<li>Un rendement s’exprime souvent en pourcentage, mais il reste un <b>rapport de deux énergies ' +
+      'de même nature</b>.</li>' +
+      '<li>Une source réelle a une résistance interne : sa tension diminue quand le courant augmente.</li></ul>' }
+  ]
+},
+{
+  id: 'pc-meca', bloc: 'pc-energie', titre: 'Énergie et phénomènes mécaniques',
+  resume: 'Travail, énergie cinétique, énergie potentielle.',
+  capacites: [
+    'Utiliser l’expression du travail d’une force constante.',
+    'Utiliser les expressions de l’énergie cinétique et de l’énergie potentielle de pesanteur.',
+    'Exploiter la conservation de l’énergie mécanique et identifier les cas de non-conservation.',
+    'Établir un bilan énergétique pour un système en mouvement.'
+  ],
+  cours: [
+    { k: 'def', t: 'Les trois énergies', c:
+      formM('E_c = frac{1}{2} m v^{2}', 'énergie cinétique, en joules · m en kg, v en m·s⁻¹') +
+      formM('E_{pp} = m g z', 'énergie potentielle de pesanteur · z mesurée depuis une origine choisie') +
+      formM('E_m = E_c + E_{pp}', 'énergie mécanique') },
+    { k: 'def', t: 'Le travail d’une force', c:
+      formM('W = F × d × @cos(α)', 'α est l’angle entre la force et le déplacement') +
+      '<ul><li>Force dans le <b>sens</b> du déplacement (α = 0) → travail <b>moteur</b>, positif.</li>' +
+      '<li>Force <b>opposée</b> (α = 180°) → travail <b>résistant</b>, négatif.</li>' +
+      '<li>Force <b>perpendiculaire</b> (α = 90°) → travail <b>nul</b>.</li></ul>' },
+    { k: 'prop', t: 'Conservation, ou non', c:
+      '<p>En l’absence de frottements, l’énergie mécanique se <b>conserve</b> : ce que l’on perd en altitude, ' +
+      'on le gagne en vitesse.</p>' +
+      formM('E_m = @constante&nbsp;&nbsp;donc&nbsp;&nbsp;frac{1}{2} m v_A^{2} + m g z_A = frac{1}{2} m v_B^{2} + m g z_B',
+           'la masse se simplifie : la vitesse atteinte ne dépend pas de la masse') +
+      '<p>Avec frottements, l’énergie mécanique <b>diminue</b> : la différence est dissipée sous forme thermique.</p>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>L’énergie cinétique varie comme le <b>carré</b> de la vitesse : rouler deux fois plus vite ' +
+      'multiplie l’énergie à dissiper par <b>quatre</b>. C’est l’argument sécurité routière du chapitre.</li>' +
+      '<li>Le choix de l’origine des altitudes est <b>libre</b>, mais il doit être annoncé et gardé.</li>' +
+      '<li>Si l’énergie mécanique diminue, chercher les frottements : ils sont la réponse attendue.</li></ul>' }
+  ]
+},
+{
+  id: 'pc-ondes', bloc: 'pc-ondes', titre: 'Les ondes mécaniques',
+  resume: 'Célérité, période, longueur d’onde, retard.',
+  capacites: [
+    'Définir une onde mécanique progressive et sa célérité.',
+    'Exploiter la relation entre retard, distance et célérité.',
+    'Utiliser la double périodicité et la relation entre longueur d’onde, célérité et fréquence.',
+    'Exploiter un enregistrement pour déterminer une période, une fréquence ou une célérité.'
+  ],
+  cours: [
+    { k: 'def', t: 'Célérité et retard', c:
+      '<p>Une onde mécanique progressive transporte de l’<b>énergie</b> sans transporter de matière.</p>' +
+      formM('v = frac{d}{Δt}&nbsp;&nbsp;donc&nbsp;&nbsp;Δt = frac{d}{v}', 'le retard entre deux points est le temps de parcours') +
+      '<p>La célérité dépend du <b>milieu</b>, pas de la source. Dans l’air, le son se propage à environ ' +
+      '<b>340 m·s⁻¹</b> ; dans l’eau, environ 1500 m·s⁻¹ ; dans l’acier, environ 5000 m·s⁻¹.</p>' },
+    { k: 'def', t: 'La double périodicité', c:
+      '<p>Une onde périodique est périodique <b>dans le temps</b>, de période T, et <b>dans l’espace</b>, ' +
+      'de longueur d’onde λ.</p>' +
+      formM('λ = v × T = frac{v}{f}', 'λ en mètres · T en secondes · f en hertz') +
+      '<p>La <b>fréquence</b> est imposée par la source et ne change pas quand l’onde change de milieu. ' +
+      'La <b>longueur d’onde</b>, elle, dépend du milieu, puisqu’elle dépend de la célérité.</p>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>λ dépend <b>à la fois</b> de la source et du milieu. La fréquence ne dépend que de la source. ' +
+      'C’est le point que les correcteurs vérifient.</li>' +
+      '<li>f = 1/T : une fréquence en hertz est l’inverse d’une durée en secondes.</li>' +
+      '<li>Pour localiser un séisme ou un orage, on exploite le <b>retard</b> entre deux ondes ' +
+      'de célérités différentes.</li></ul>' }
+  ]
+},
+{
+  id: 'pc-lumiere', bloc: 'pc-ondes', titre: 'La lumière',
+  resume: 'Lentilles, images, couleurs, photon.',
+  capacites: [
+    'Utiliser la relation de conjugaison et le grandissement d’une lentille mince convergente.',
+    'Exploiter le modèle ondulatoire de la lumière et la relation entre longueur d’onde et couleur.',
+    'Exploiter le modèle particulaire et la relation entre énergie d’un photon et longueur d’onde.',
+    'Interpréter un spectre d’émission ou d’absorption.'
+  ],
+  cours: [
+    { k: 'prop', t: 'Les lentilles minces convergentes', c:
+      formM('frac{1}{@OA\'} - frac{1}{@OA} = frac{1}{@OF\'}', 'relation de conjugaison · distances algébriques, en mètres') +
+      formM('γ = frac{@A\'@B\'}{@AB} = frac{@OA\'}{@OA}', 'grandissement · négatif si l’image est renversée') +
+      '<p>La <b>vergence</b> est l’inverse de la distance focale : C = 1/f′, en dioptries. ' +
+      'Une lentille de 5 dioptries a une focale de 20 cm.</p>' },
+    { k: 'def', t: 'Deux modèles pour la lumière', c:
+      '<p><b>Modèle ondulatoire</b> : la lumière est une onde électromagnétique, caractérisée ' +
+      'par sa longueur d’onde. Le visible s’étend d’environ <b>400 nm</b> (violet) à <b>800 nm</b> (rouge).</p>' +
+      '<p><b>Modèle particulaire</b> : la lumière est constituée de photons, grains d’énergie.</p>' +
+      formM('E = frac{h c}{λ}', 'h = 6,63 × 10⁻³⁴ J·s · c = 3,00 × 10⁸ m·s⁻¹ · λ en mètres') +
+      '<p>Plus la longueur d’onde est <b>courte</b>, plus le photon est <b>énergétique</b> : ' +
+      'c’est pourquoi les ultraviolets sont dangereux et pas les infrarouges.</p>' },
+    { k: 'prop', t: 'Les spectres', c:
+      '<ul><li>Un spectre <b>continu</b> est émis par un corps chaud ; son allure dépend de la température.</li>' +
+      '<li>Un spectre de <b>raies d’émission</b> est la signature d’une entité chimique : ' +
+      'chaque raie correspond à une transition d’énergie.</li>' +
+      '<li>Un spectre de <b>raies d’absorption</b> montre les mêmes raies, en sombre : ' +
+      'c’est ainsi que l’on identifie les éléments d’une atmosphère stellaire.</li></ul>' +
+      '<p>L’énergie d’une transition est la différence entre deux niveaux : ΔE = E<sub>2</sub> - E<sub>1</sub> = hc/λ.</p>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Convertir les longueurs d’onde en <b>mètres</b> avant d’appliquer E = hc/λ : ' +
+      '500 nm = 500 × 10<sup>-9</sup> m.</li>' +
+      '<li>Un grandissement <b>négatif</b> signifie une image renversée ; sa valeur absolue supérieure à 1 ' +
+      'signifie une image agrandie.</li>' +
+      '<li>Les raies d’un élément sont les mêmes en émission et en absorption : c’est la clé de l’analyse spectrale.</li></ul>' }
+  ]
+},
+{
+  id: 'pc-mesure', bloc: 'pc-methode', titre: 'Mesure et incertitudes',
+  resume: 'Chiffres significatifs, dispersion, écart relatif.',
+  capacites: [
+    'Exprimer un résultat avec un nombre de chiffres significatifs cohérent.',
+    'Évaluer qualitativement la dispersion d’une série de mesures.',
+    'Calculer un écart relatif entre une valeur mesurée et une valeur de référence.',
+    'Discuter la validité d’un résultat expérimental.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'À quoi ça sert ?', c:
+      '<p>C’est le chapitre transversal du programme : il s’applique à toutes les mesures de l’année, ' +
+      'et il est évalué aux ECE. Une valeur sans unité ni chiffres significatifs cohérents est une valeur fausse.</p>' },
+    { k: 'meth', t: 'Les chiffres significatifs', c:
+      '<ul><li>Dans une <b>multiplication</b> ou une <b>division</b>, le résultat garde autant de chiffres ' +
+      'significatifs que la donnée qui en a le <b>moins</b>.</li>' +
+      '<li>Dans une <b>addition</b>, on garde le nombre de décimales de la donnée la moins précise.</li>' +
+      '<li>Les zéros de tête ne comptent pas : 0,0025 a <b>deux</b> chiffres significatifs.</li></ul>' },
+    { k: 'def', t: 'L’écart relatif', c:
+      formM('écart relatif = frac{|valeur mesurée - valeur de référence|}{valeur de référence} × 100',
+           'en pourcentage') +
+      '<p>C’est lui qui permet de juger un résultat : un écart de quelques pour cent est ordinaire, ' +
+      'un écart de 50 % signale une erreur de méthode ou de conversion.</p>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Répéter la mesure et prendre la <b>moyenne</b> réduit l’effet des erreurs aléatoires. ' +
+      'Cela ne corrige pas une erreur <b>systématique</b>, qui décale toutes les mesures du même côté.</li>' +
+      '<li>Un résultat s’écrit toujours avec son <b>unité</b>.</li>' +
+      '<li>Ne jamais recopier les douze chiffres de la calculatrice : c’est une faute, pas une précision.</li></ul>' }
+  ]
+}
+];
+
+CHAPITRES_PC.forEach(c => {
+  c.gens = [];
+  c.matiere = 'physique';
+  c.classe = 'premiere';
+  CHAPITRES.push(c);
+  CHAP[c.id] = c;
+});
+/* =========================================================================
+   Générateurs d'exercices de spécialité physique-chimie.
+   Presque tous sont des calculs : la valeur attendue est recalculée
+   exactement en même temps que l'énoncé.
+   ========================================================================= */
+
+/* petite aide : écrit un nombre en notation scientifique lisible */
+function sci(x, dec){
+  if (x === 0) return '0';
+  const e = Math.floor(Math.log10(Math.abs(x)));
+  const m = x / Math.pow(10, e);
+  return nf(Math.round(m * Math.pow(10, dec === undefined ? 2 : dec)) / Math.pow(10, dec === undefined ? 2 : dec)) +
+         ' × 10<sup>' + e + '</sup>';
+}
+
+/* ================= 1. TRANSFORMATIONS DE LA MATIÈRE ================= */
+
+const ESPECES = [
+  { n: 'l’eau', f: 'H₂O', M: 18.0 },
+  { n: 'le dioxyde de carbone', f: 'CO₂', M: 44.0 },
+  { n: 'le glucose', f: 'C₆H₁₂O₆', M: 180.0 },
+  { n: 'le chlorure de sodium', f: 'NaCl', M: 58.5 },
+  { n: 'l’éthanol', f: 'C₂H₆O', M: 46.0 },
+  { n: 'le dioxygène', f: 'O₂', M: 32.0 },
+  { n: 'l’acide éthanoïque', f: 'C₂H₄O₂', M: 60.0 },
+  { n: 'le sulfate de cuivre', f: 'CuSO₄', M: 159.5 }
+];
+
+G('pc-suivi', 'pc-quantite', 'Quantité de matière', 'app', function(){
+  const e = R.pick(ESPECES);
+  const m = R.pick([1, 2, 5, 10, 18, 20, 25, 50, 100]);
+  const n = m / e.M;
+  const nr = Math.round(n * 1000) / 1000;
+  return {
+    enonce: '<p>On pèse <b>' + nf(m) + ' g</b> de ' + e.n + ', de formule <b>' + e.f + '</b> ' +
+            'et de masse molaire <b>M = ' + nf(e.M) + ' g·mol<sup>-1</sup></b>.</p>' +
+            '<p>Calcule la quantité de matière correspondante, en moles, arrondie au millième.</p>',
+    champs: [{ type: 'num', label: 'n (mol)', bon: nr, tol: Math.max(0.001, nr * 0.02) }],
+    etapes: [
+      M('n = frac{m}{M}') + ' = ' + nf(m) + ' ÷ ' + nf(e.M) + ' ≈ <b>' + nf(nr) + ' mol</b>.',
+      'Cela représente ' + nr + ' × 6,02 × 10<sup>23</sup> ≈ ' + sci(nr * 6.02e23) + ' entités.',
+      'Réflexe : la masse molaire est en g·mol<sup>-1</sup>, donc la masse doit être en <b>grammes</b>.'
+    ]
+  };
+});
+
+G('pc-suivi', 'pc-concentration', 'Concentration et dilution', 'ent', function(){
+  if (R.int(0, 1)){
+    const C = R.pick([0.010, 0.020, 0.050, 0.10, 0.25, 0.50]);
+    const V = R.pick([50, 100, 200, 250, 500]);
+    const n = C * V / 1000;
+    return {
+      enonce: '<p>Une solution a une concentration <b>C = ' + nf(C) + ' mol·L<sup>-1</sup></b>. ' +
+              'On en prélève <b>V = ' + nf(V) + ' mL</b>.</p>' +
+              '<p>Quelle quantité de matière de soluté ce prélèvement contient-il, en moles ?</p>',
+      champs: [{ type: 'num', label: 'n (mol)', bon: Math.round(n * 1e6) / 1e6, tol: Math.max(1e-5, n * 0.02) }],
+      etapes: [
+        'Conversion indispensable : V = ' + nf(V) + ' mL = ' + nf(V / 1000) + ' L.',
+        M('n = C × V') + ' = ' + nf(C) + ' × ' + nf(V / 1000) + ' = <b>' + nf(Math.round(n * 1e6) / 1e6) + ' mol</b>.',
+        'L’oubli de la conversion mL → L est l’erreur la plus fréquente du chapitre : elle donne un résultat mille fois trop grand.'
+      ]
+    };
+  }
+  const C1 = R.pick([0.10, 0.20, 0.50, 1.0]);
+  const F = R.pick([2, 4, 5, 10, 20]);
+  const V2 = R.pick([50, 100, 200, 250]);
+  const C2 = C1 / F, V1 = V2 / F;
+  return {
+    enonce: '<p>On veut préparer <b>V<sub>2</sub> = ' + nf(V2) + ' mL</b> d’une solution de concentration ' +
+            '<b>C<sub>2</sub> = ' + nf(Math.round(C2 * 1e4) / 1e4) + ' mol·L<sup>-1</sup></b>, ' +
+            'à partir d’une solution mère de concentration <b>C<sub>1</sub> = ' + nf(C1) + ' mol·L<sup>-1</sup></b>.</p>' +
+            '<p>Quel volume de solution mère faut-il prélever, en millilitres ?</p>',
+    champs: [{ type: 'num', label: 'V₁ (mL)', bon: V1, tol: Math.max(0.5, V1 * 0.02) }],
+    etapes: [
+      'La dilution conserve la quantité de matière de soluté : ' + M('C_1 V_1 = C_2 V_2') + '.',
+      M('V_1 = frac{C_2 V_2}{C_1}') + ' = (' + nf(Math.round(C2 * 1e4) / 1e4) + ' × ' + nf(V2) + ') ÷ ' + nf(C1) +
+        ' = <b>' + nf(V1) + ' mL</b>.',
+      'Le facteur de dilution vaut ici F = C<sub>1</sub>/C<sub>2</sub> = <b>' + F + '</b> : ' +
+        'on retrouve V<sub>1</sub> = V<sub>2</sub> ÷ ' + F + '.',
+      'Matériel : une pipette jaugée de ' + nf(V1) + ' mL et une fiole jaugée de ' + nf(V2) + ' mL.'
+    ]
+  };
+});
+
+G('pc-suivi', 'pc-limitant', 'Réactif limitant et avancement', 'ds', function(){
+  const cas = [
+    { eq: '2 H_2 + O_2 → 2 H_2O', a: 2, b: 1, na: 'H₂', nb: 'O₂' },
+    { eq: 'CH_4 + 2 O_2 → CO_2 + 2 H_2O', a: 1, b: 2, na: 'CH₄', nb: 'O₂' },
+    { eq: 'N_2 + 3 H_2 → 2 NH_3', a: 1, b: 3, na: 'N₂', nb: 'H₂' },
+    { eq: '2 Al + 3 Cl_2 → 2 AlCl_3', a: 2, b: 3, na: 'Al', nb: 'Cl₂' },
+    { eq: 'Fe + S → FeS', a: 1, b: 1, na: 'Fe', nb: 'S' }
+  ];
+  const c = R.pick(cas);
+  const n1 = R.int(2, 12) / 10, n2 = R.int(2, 12) / 10;
+  const q1 = n1 / c.a, q2 = n2 / c.b;
+  const xmax = Math.min(q1, q2);
+  const lim = q1 < q2 ? c.na : (q2 < q1 ? c.nb : 'les deux, en proportions stœchiométriques');
+  const xr = Math.round(xmax * 1000) / 1000;
+  const resteA = Math.round((n1 - c.a * xmax) * 1000) / 1000;
+  const noms = [c.na, c.nb, 'les deux, en proportions stœchiométriques'];
+  return {
+    enonce: '<p>On considère la transformation :</p>' + form(M(c.eq)) +
+            '<p>On introduit <b>' + nf(n1) + ' mol</b> de ' + c.na + ' et <b>' + nf(n2) + ' mol</b> de ' + c.nb + '.</p>' +
+            '<p>Détermine le réactif limitant et l’avancement maximal, puis la quantité de ' + c.na +
+            ' restante à l’état final.</p>',
+    champs: [
+      { type: 'choix', label: 'Réactif limitant', options: noms.slice(), bon: noms.indexOf(lim) },
+      { type: 'num', label: 'x max (mol)', bon: xr, tol: Math.max(0.002, xr * 0.03) },
+      { type: 'num', label: 'n(' + c.na + ') restante (mol)', bon: resteA, tol: Math.max(0.002, 0.03) }
+    ],
+    etapes: [
+      'On divise chaque quantité initiale par son <b>coefficient stœchiométrique</b> :',
+      'pour ' + c.na + ' : ' + nf(n1) + ' ÷ ' + c.a + ' = ' + nf(Math.round(q1 * 1000) / 1000) +
+        ' · pour ' + c.nb + ' : ' + nf(n2) + ' ÷ ' + c.b + ' = ' + nf(Math.round(q2 * 1000) / 1000) + '.',
+      'Le plus petit quotient donne le réactif limitant : <b>' + lim + '</b>, et ' +
+        M('x_{max} = ' + nf(xr)) + ' mol.',
+      'Quantité de ' + c.na + ' restante : ' + nf(n1) + ' - ' + c.a + ' × ' + nf(xr) + ' = <b>' + nf(resteA) + ' mol</b>.',
+      'Attention : le réactif le moins abondant n’est pas forcément le limitant. ' +
+        'C’est le <b>quotient</b> qui décide, pas la quantité brute.'
+    ]
+  };
+});
+
+const POLARITE = [
+  { m: 'H₂O, molécule coudée', p: 'Polaire', e: 'Les liaisons O-H sont polarisées et la géométrie coudée ne les compense pas.' },
+  { m: 'CO₂, molécule linéaire', p: 'Apolaire', e: 'Les liaisons C=O sont polarisées, mais la symétrie linéaire annule l’effet global. C’est le contre-exemple à connaître.' },
+  { m: 'CH₄, molécule tétraédrique', p: 'Apolaire', e: 'Les liaisons C-H sont très peu polarisées et la symétrie est parfaite.' },
+  { m: 'NH₃, molécule pyramidale', p: 'Polaire', e: 'Les liaisons N-H sont polarisées et le doublet non liant rompt la symétrie.' },
+  { m: 'O₂, molécule diatomique', p: 'Apolaire', e: 'Deux atomes identiques : la liaison n’est pas polarisée du tout.' },
+  { m: 'HCl, molécule diatomique', p: 'Polaire', e: 'Le chlore est bien plus électronégatif que l’hydrogène.' },
+  { m: 'le cyclohexane', p: 'Apolaire', e: 'Une chaîne carbonée sans groupe fonctionnel est apolaire : c’est un bon solvant des huiles.' }
+];
+
+G('pc-entites', 'pc-polarite', 'Polaire ou apolaire ?', 'app', function(){
+  const x = R.pick(POLARITE);
+  return {
+    enonce: '<p>Cette entité est-elle polaire ou apolaire ?</p>' + form('<b>' + x.m + '</b>'),
+    qcm: { options: ['Polaire', 'Apolaire'], bon: x.p === 'Polaire' ? 0 : 1 },
+    etapes: [
+      'Elle est <b>' + x.p.toLowerCase() + '</b>.', x.e,
+      'La méthode en deux temps : d’abord les <b>liaisons</b> sont-elles polarisées, ' +
+        'puis la <b>géométrie</b> compense-t-elle ou non.'
+    ]
+  };
+});
+
+const FAMILLES = [
+  { n: 'propan-1-ol', f: 'Alcool', g: 'le groupe hydroxyle -OH', c: 3 },
+  { n: 'butan-2-ol', f: 'Alcool', g: 'le groupe hydroxyle -OH', c: 4 },
+  { n: 'propanal', f: 'Aldéhyde', g: 'le groupe carbonyle en bout de chaîne', c: 3 },
+  { n: 'butanal', f: 'Aldéhyde', g: 'le groupe carbonyle en bout de chaîne', c: 4 },
+  { n: 'propanone', f: 'Cétone', g: 'le groupe carbonyle à l’intérieur de la chaîne', c: 3 },
+  { n: 'pentan-2-one', f: 'Cétone', g: 'le groupe carbonyle à l’intérieur de la chaîne', c: 5 },
+  { n: 'acide éthanoïque', f: 'Acide carboxylique', g: 'le groupe carboxyle -COOH', c: 2 },
+  { n: 'acide propanoïque', f: 'Acide carboxylique', g: 'le groupe carboxyle -COOH', c: 3 },
+  { n: 'hexane', f: 'Alcane', g: 'aucun groupe caractéristique, uniquement C et H', c: 6 },
+  { n: 'méthane', f: 'Alcane', g: 'aucun groupe caractéristique, uniquement C et H', c: 1 }
+];
+const NOMS_FAM = ['Alcane', 'Alcool', 'Aldéhyde', 'Cétone', 'Acide carboxylique'];
+
+G('pc-synthese', 'pc-famille', 'Famille fonctionnelle', 'app', function(){
+  const x = R.pick(FAMILLES);
+  return {
+    enonce: '<p>À quelle famille appartient cette espèce, et combien d’atomes de carbone ' +
+            'sa chaîne principale compte-t-elle ?</p>' + form('<b>' + x.n + '</b>'),
+    champs: [
+      { type: 'choix', label: 'Famille', options: NOMS_FAM.slice(), bon: NOMS_FAM.indexOf(x.f) },
+      { type: 'num', label: 'Nombre de carbones', bon: x.c, tol: 0 }
+    ],
+    etapes: [
+      '<b>' + x.n + '</b> est un' + (x.f === 'Cétone' ? 'e ' : ' ') + x.f.toLowerCase() +
+        ', reconnaissable à ' + x.g + '.',
+      'Le préfixe donne le nombre de carbones : méth- 1 · éth- 2 · prop- 3 · but- 4 · pent- 5 · hex- 6 · hept- 7 · oct- 8. ' +
+        'Ici : <b>' + x.c + '</b>.',
+      'Aldéhyde ou cétone ? Regarder si le carbone du groupe C=O porte un <b>H</b> : si oui, c’est un aldéhyde.'
+    ]
+  };
+});
+
+G('pc-synthese', 'pc-combustion', 'Équilibrer une combustion', 'ent', function(){
+  const alcanes = [
+    { n: 'méthane', f: 'CH_4', x: 1, y: 4 },
+    { n: 'éthane', f: 'C_2H_6', x: 2, y: 6 },
+    { n: 'propane', f: 'C_3H_8', x: 3, y: 8 },
+    { n: 'butane', f: 'C_4H_{10}', x: 4, y: 10 },
+    { n: 'pentane', f: 'C_5H_{12}', x: 5, y: 12 },
+    { n: 'octane', f: 'C_8H_{18}', x: 8, y: 18 }
+  ];
+  const a = R.pick(alcanes);
+  const o2 = a.x + a.y / 4;           /* peut être demi-entier */
+  const dbl = (o2 % 1 !== 0);
+  const co2 = dbl ? 2 * a.x : a.x;
+  const h2o = dbl ? a.y : a.y / 2;
+  const nO2 = dbl ? 2 * o2 : o2;
+  const coefAlc = dbl ? 2 : 1;
+  return {
+    enonce: '<p>Équilibre l’équation de la combustion complète du <b>' + a.n + '</b> ' +
+            'dans le dioxygène, avec des coefficients <b>entiers les plus petits possibles</b>.</p>' +
+            form(M(coefAlc === 1 ? a.f : '... ' + a.f) + ' + ... O<sub>2</sub> → ... CO<sub>2</sub> + ... H<sub>2</sub>O'),
+    champs: [
+      { type: 'num', label: 'Coefficient de ' + a.n.charAt(0).toUpperCase() + a.n.slice(1), bon: coefAlc, tol: 0 },
+      { type: 'num', label: 'Coefficient de O₂', bon: nO2, tol: 0 },
+      { type: 'num', label: 'Coefficient de CO₂', bon: co2, tol: 0 },
+      { type: 'num', label: 'Coefficient de H₂O', bon: h2o, tol: 0 }
+    ],
+    etapes: [
+      'Méthode : équilibrer d’abord le <b>carbone</b>, puis l’<b>hydrogène</b>, puis l’<b>oxygène</b>.',
+      'Carbone : ' + a.x + ' atome' + (a.x > 1 ? 's' : '') + ' dans la molécule, donc ' + a.x +
+        ' CO<sub>2</sub> par molécule brûlée.',
+      'Hydrogène : ' + a.y + ' atomes, donc ' + (a.y / 2) + ' H<sub>2</sub>O par molécule brûlée.',
+      'Oxygène : il en faut ' + a.x + ' × 2 + ' + (a.y / 2) + ' = ' + nf(2 * a.x + a.y / 2) +
+        ', soit ' + nf(o2) + ' molécules de O<sub>2</sub>.',
+      dbl ? 'Ce coefficient n’est pas entier : on <b>double toute l’équation</b>. Résultat : ' +
+              coefAlc + ' ' + a.n + ' + ' + nO2 + ' O₂ → ' + co2 + ' CO₂ + ' + h2o + ' H₂O.'
+          : 'Tous les coefficients sont déjà entiers. Résultat : ' + a.n + ' + ' + nO2 +
+              ' O₂ → ' + co2 + ' CO₂ + ' + h2o + ' H₂O.'
+    ]
+  };
+});
+
+/* ================= 2. MOUVEMENT ET INTERACTIONS ================= */
+
+G('pc-champs', 'pc-gravitation', 'Force et champ de gravitation', 'ent', function(){
+  const cas = [
+    { n: 'la Terre', Mm: 5.97e24, R: 6.37e6 },
+    { n: 'la Lune', Mm: 7.35e22, R: 1.74e6 },
+    { n: 'Mars', Mm: 6.42e23, R: 3.39e6 },
+    { n: 'Jupiter', Mm: 1.90e27, R: 6.99e7 }
+  ];
+  const c = R.pick(cas);
+  const m = R.pick([1, 2, 5, 10, 50, 60, 70, 80]);
+  const G = 6.67e-11;
+  const g = G * c.Mm / (c.R * c.R);
+  const F = m * g;
+  const gr = Math.round(g * 100) / 100;
+  const Fr = Math.round(F * 10) / 10;
+  return {
+    enonce: '<p>Un objet de masse <b>m = ' + nf(m) + ' kg</b> est posé à la surface de <b>' + c.n + '</b>, ' +
+            'de masse <b>M = ' + sci(c.Mm) + ' kg</b> et de rayon <b>R = ' + sci(c.R) + ' m</b>.</p>' +
+            '<p>Calcule la valeur du champ de gravitation à la surface, puis celle du poids de l’objet.</p>' +
+            form(M('g = G frac{M}{R^{2}}') + ' avec G = 6,67 × 10<sup>-11</sup> N·m²·kg<sup>-2</sup>'),
+    champs: [
+      { type: 'num', label: 'g (N·kg⁻¹)', bon: gr, tol: Math.max(0.05, gr * 0.03) },
+      { type: 'num', label: 'Poids (N)', bon: Fr, tol: Math.max(0.5, Fr * 0.03) }
+    ],
+    etapes: [
+      'R<sup>2</sup> = (' + sci(c.R) + ')<sup>2</sup> = ' + sci(c.R * c.R) + ' m².',
+      M('g = frac{6,67 × 10^{-11} × ' + sci(c.Mm).replace(' × 10<sup>', 'e').replace('</sup>', '') + '}{R^{2}}') +
+        ' ≈ <b>' + nf(gr) + ' N·kg<sup>-1</sup></b>.',
+      'Poids : P = m × g = ' + nf(m) + ' × ' + nf(gr) + ' ≈ <b>' + nf(Fr) + ' N</b>.',
+      'Le champ ne dépend <b>que</b> de l’astre, jamais de l’objet posé dessus. ' +
+        'Sur Terre on retrouve bien g ≈ 9,8 N·kg<sup>-1</sup>.'
+    ]
+  };
+});
+
+G('pc-champs', 'pc-distance', 'L’effet de la distance', 'app', function(){
+  const k = R.pick([2, 3, 4, 5, 10]);
+  const sens = R.int(0, 1);
+  const f = sens ? 1 / (k * k) : k * k;
+  const opts = ['multipliée par ' + (k * k), 'divisée par ' + (k * k),
+                'multipliée par ' + k, 'divisée par ' + k];
+  const bon = sens ? 'divisée par ' + (k * k) : 'multipliée par ' + (k * k);
+  return {
+    enonce: '<p>Deux corps s’attirent par gravitation. On ' + (sens ? '<b>multiplie</b>' : '<b>divise</b>') +
+            ' leur distance par <b>' + k + '</b>, sans changer les masses.</p>' +
+            '<p>Que devient la valeur de la force ?</p>',
+    qcm: { options: opts, bon: opts.indexOf(bon) },
+    etapes: [
+      'La force varie en <b>1/d²</b> : c’est le carré de la distance qui compte.',
+      (sens ? 'Distance × ' + k + ' → force ÷ ' + k + '² = ÷ ' + (k * k) + '.'
+            : 'Distance ÷ ' + k + ' → force × ' + k + '² = × ' + (k * k) + '.'),
+      'L’erreur classique est d’oublier le carré et de répondre ' + (sens ? '« divisée par ' + k : '« multipliée par ' + k) + ' ».',
+      'La même loi en 1/d² vaut pour l’interaction électrostatique.'
+    ]
+  };
+});
+
+G('pc-fluide', 'pc-pression', 'Pression dans un liquide', 'ent', function(){
+  const liq = [
+    { n: 'l’eau douce', rho: 1000 }, { n: 'l’eau de mer', rho: 1030 },
+    { n: 'l’huile', rho: 920 }, { n: 'le mercure', rho: 13600 }
+  ];
+  const l = R.pick(liq);
+  const h = R.pick([1, 2, 5, 10, 20, 50, 100]);
+  const g = 9.8, patm = 1.013e5;
+  const p = patm + l.rho * g * h;
+  const pr = Math.round(p);
+  return {
+    enonce: '<p>On plonge un capteur à la profondeur <b>h = ' + nf(h) + ' m</b> dans ' + l.n +
+            ', de masse volumique <b>ρ = ' + nf(l.rho) + ' kg·m<sup>-3</sup></b>.</p>' +
+            '<p>Calcule la pression en ce point, en pascals, arrondie à l’unité. ' +
+            'On prend g = 9,8 N·kg<sup>-1</sup> et une pression atmosphérique de 1,013 × 10<sup>5</sup> Pa.</p>',
+    champs: [{ type: 'num', label: 'p (Pa)', bon: pr, tol: Math.max(50, pr * 0.01) }],
+    etapes: [
+      M('p = p_{atm} + ρ g h'),
+      'ρ g h = ' + nf(l.rho) + ' × 9,8 × ' + nf(h) + ' = ' + nf(Math.round(l.rho * g * h)) + ' Pa.',
+      'p = 101 300 + ' + nf(Math.round(l.rho * g * h)) + ' ≈ <b>' + nf(pr) + ' Pa</b>, ' +
+        'soit environ ' + nf(Math.round(pr / 1e5 * 100) / 100) + ' bar.',
+      'Repère à retenir : dans l’eau, la pression augmente d’environ <b>1 bar tous les 10 mètres</b>.'
+    ]
+  };
+});
+
+G('pc-fluide', 'pc-mariotte', 'La loi de Mariotte', 'app', function(){
+  const p1 = R.pick([1.0, 1.5, 2.0, 2.5, 3.0]);
+  const V1 = R.pick([2, 4, 5, 10, 20]);
+  const V2 = R.pick([1, 2, 8, 25, 50]).valueOf();
+  const p2 = p1 * V1 / V2;
+  const pr = Math.round(p2 * 1000) / 1000;
+  return {
+    enonce: '<p>Une quantité de gaz occupe un volume <b>V<sub>1</sub> = ' + nf(V1) + ' L</b> ' +
+            'sous une pression <b>p<sub>1</sub> = ' + nf(p1) + ' bar</b>.</p>' +
+            '<p>À <b>température constante</b>, on modifie le volume jusqu’à <b>V<sub>2</sub> = ' + nf(V2) + ' L</b>. ' +
+            'Quelle est la nouvelle pression, en bar ?</p>',
+    champs: [{ type: 'num', label: 'p₂ (bar)', bon: pr, tol: Math.max(0.01, pr * 0.02) }],
+    etapes: [
+      'À température constante, ' + M('p_1 V_1 = p_2 V_2') + '.',
+      M('p_2 = frac{p_1 V_1}{V_2}') + ' = (' + nf(p1) + ' × ' + nf(V1) + ') ÷ ' + nf(V2) +
+        ' = <b>' + nf(pr) + ' bar</b>.',
+      V2 < V1 ? 'Le volume diminue, donc la pression <b>augmente</b> : c’est cohérent.'
+              : 'Le volume augmente, donc la pression <b>diminue</b> : c’est cohérent.',
+      'La loi de Mariotte ne vaut que pour un <b>gaz</b>, et seulement à température constante.'
+    ]
+  };
+});
+
+G('pc-mouvement', 'pc-vitesse', 'Vitesse et conversion', 'app', function(){
+  const v = R.pick([18, 36, 54, 72, 90, 108, 130]);
+  const ms = Math.round(v / 3.6 * 100) / 100;
+  const t = R.pick([2, 5, 10, 20, 30]);
+  const d = Math.round(ms * t * 10) / 10;
+  return {
+    enonce: '<p>Un véhicule roule à <b>' + nf(v) + ' km·h<sup>-1</sup></b>.</p>' +
+            '<p>Convertis cette vitesse en mètres par seconde, puis calcule la distance parcourue ' +
+            'en <b>' + t + ' s</b> à cette vitesse.</p>',
+    champs: [
+      { type: 'num', label: 'v (m·s⁻¹)', bon: ms, tol: Math.max(0.05, ms * 0.02) },
+      { type: 'num', label: 'd (m)', bon: d, tol: Math.max(0.5, d * 0.02) }
+    ],
+    etapes: [
+      'Pour passer des km·h<sup>-1</sup> aux m·s<sup>-1</sup>, on <b>divise par 3,6</b> : ' +
+        nf(v) + ' ÷ 3,6 ≈ <b>' + nf(ms) + ' m·s<sup>-1</sup></b>.',
+      M('d = v × Δt') + ' = ' + nf(ms) + ' × ' + t + ' ≈ <b>' + nf(d) + ' m</b>.',
+      'Repère utile : 36 km·h<sup>-1</sup> valent exactement 10 m·s<sup>-1</sup>.'
+    ]
+  };
+});
+
+const NEWTON = [
+  { s: 'Une bille tombe en chute libre, de plus en plus vite.', f: 'Non nulle',
+    e: 'La valeur de la vitesse augmente : le vecteur vitesse varie, donc la force résultante n’est pas nulle.' },
+  { s: 'Un palet glisse en ligne droite à vitesse constante sur une table à coussin d’air.', f: 'Nulle',
+    e: 'Mouvement rectiligne uniforme : d’après le principe d’inertie, la somme des forces est nulle.' },
+  { s: 'Une voiture prend un virage à vitesse constante.', f: 'Non nulle',
+    e: 'La <b>direction</b> du vecteur vitesse change, même si sa valeur ne change pas. ' +
+       'C’est le piège classique du chapitre.' },
+  { s: 'Un livre est posé, immobile, sur une table.', f: 'Nulle',
+    e: 'Au repos dans un référentiel galiléen : le poids et la réaction du support se compensent.' },
+  { s: 'Un skieur ralentit sur une portion plate.', f: 'Non nulle',
+    e: 'La vitesse diminue : les frottements exercent une force résultante opposée au mouvement.' },
+  { s: 'Une station spatiale décrit une orbite circulaire à vitesse constante.', f: 'Non nulle',
+    e: 'La trajectoire est courbe, donc la direction du vecteur vitesse change en permanence : ' +
+       'la gravitation fournit la force résultante.' }
+];
+
+G('pc-mouvement', 'pc-newton', 'La force résultante est-elle nulle ?', 'ent', function(){
+  const x = R.pick(NEWTON);
+  return {
+    enonce: '<p>Dans cette situation, la somme des forces exercées sur le système est-elle nulle ?</p>' +
+            cit(x.s),
+    qcm: { options: ['Nulle', 'Non nulle'], bon: x.f === 'Nulle' ? 0 : 1 },
+    etapes: [
+      'La force résultante est <b>' + x.f.toLowerCase() + '</b>.', x.e,
+      'La règle : la somme des forces est nulle <b>si et seulement si</b> le vecteur vitesse ne varie pas, ' +
+        'ni en valeur, ni en direction.'
+    ]
+  };
+});
+
+/* ================= 3. ÉNERGIE ================= */
+
+G('pc-elec', 'pc-puissance', 'Puissance et énergie électriques', 'app', function(){
+  const U = R.pick([5, 12, 24, 230]);
+  const I = R.pick([0.1, 0.5, 1, 2, 5, 10]);
+  const t = R.pick([60, 300, 600, 1800, 3600]);
+  const P = U * I;
+  const E = P * t;
+  return {
+    enonce: '<p>Un appareil fonctionne sous une tension <b>U = ' + nf(U) + ' V</b> ' +
+            'et est traversé par un courant d’intensité <b>I = ' + nf(I) + ' A</b> pendant <b>' + nf(t) + ' s</b>.</p>' +
+            '<p>Calcule la puissance, puis l’énergie consommée en joules.</p>',
+    champs: [
+      { type: 'num', label: 'P (W)', bon: P, tol: Math.max(0.05, P * 0.02) },
+      { type: 'num', label: 'E (J)', bon: E, tol: Math.max(1, E * 0.02) }
+    ],
+    etapes: [
+      M('P = U × I') + ' = ' + nf(U) + ' × ' + nf(I) + ' = <b>' + nf(P) + ' W</b>.',
+      M('E = P × Δt') + ' = ' + nf(P) + ' × ' + nf(t) + ' = <b>' + nf(E) + ' J</b>.',
+      'Soit ' + nf(Math.round(E / 3.6e6 * 10000) / 10000) + ' kWh, puisque 1 kWh = 3,6 × 10<sup>6</sup> J.',
+      'Les joules exigent une durée en <b>secondes</b>. Une durée en heures donne des wattheures.'
+    ]
+  };
+});
+
+G('pc-elec', 'pc-rendement', 'Rendement', 'ent', function(){
+  const Ea = R.pick([100, 200, 500, 1000, 2000, 5000]);
+  const r = R.pick([0.25, 0.30, 0.40, 0.55, 0.60, 0.75, 0.85, 0.90]);
+  const Eu = Math.round(Ea * r);
+  const perdue = Ea - Eu;
+  const rp = Math.round(Eu / Ea * 1000) / 10;
+  return {
+    enonce: '<p>Un convertisseur reçoit <b>' + nf(Ea) + ' J</b> et restitue <b>' + nf(Eu) + ' J</b> ' +
+            'sous la forme utile attendue.</p>' +
+            '<p>Calcule son rendement en pourcentage, et l’énergie perdue en joules.</p>',
+    champs: [
+      { type: 'num', label: 'Rendement (%)', bon: rp, tol: 0.6 },
+      { type: 'num', label: 'Énergie perdue (J)', bon: perdue, tol: 1 }
+    ],
+    etapes: [
+      M('η = frac{E_{utile}}{E_{absorbée}}') + ' = ' + nf(Eu) + ' ÷ ' + nf(Ea) +
+        ' ≈ ' + nf(Math.round(Eu / Ea * 1000) / 1000) + ', soit <b>' + nf(rp) + ' %</b>.',
+      'Énergie perdue : ' + nf(Ea) + ' - ' + nf(Eu) + ' = <b>' + nf(perdue) + ' J</b>, ' +
+        'dissipée essentiellement sous forme thermique.',
+      'Un rendement est toujours compris entre 0 et 1 : une valeur supérieure à 1 signale une erreur de calcul.'
+    ]
+  };
+});
+
+G('pc-meca', 'pc-energie-meca', 'Énergie cinétique et potentielle', 'ent', function(){
+  const m = R.pick([0.5, 1, 2, 5, 10, 60, 70]);
+  const v = R.pick([2, 5, 10, 15, 20]);
+  const z = R.pick([1, 2, 5, 10, 20, 50]);
+  const g = 9.8;
+  const Ec = 0.5 * m * v * v;
+  const Ep = m * g * z;
+  const Em = Ec + Ep;
+  return {
+    enonce: '<p>Un système de masse <b>m = ' + nf(m) + ' kg</b> se déplace à la vitesse ' +
+            '<b>v = ' + nf(v) + ' m·s<sup>-1</sup></b>, à l’altitude <b>z = ' + nf(z) + ' m</b> ' +
+            'au-dessus de l’origine choisie. On prend g = 9,8 N·kg<sup>-1</sup>.</p>' +
+            '<p>Calcule son énergie cinétique, son énergie potentielle de pesanteur et son énergie mécanique.</p>',
+    champs: [
+      { type: 'num', label: 'Ec (J)', bon: Math.round(Ec * 10) / 10, tol: Math.max(0.5, Ec * 0.02) },
+      { type: 'num', label: 'Epp (J)', bon: Math.round(Ep * 10) / 10, tol: Math.max(0.5, Ep * 0.02) },
+      { type: 'num', label: 'Em (J)', bon: Math.round(Em * 10) / 10, tol: Math.max(1, Em * 0.02) }
+    ],
+    etapes: [
+      M('E_c = frac{1}{2} m v^{2}') + ' = 0,5 × ' + nf(m) + ' × ' + nf(v) + '² = <b>' + nf(Math.round(Ec * 10) / 10) + ' J</b>.',
+      M('E_{pp} = m g z') + ' = ' + nf(m) + ' × 9,8 × ' + nf(z) + ' = <b>' + nf(Math.round(Ep * 10) / 10) + ' J</b>.',
+      M('E_m = E_c + E_{pp}') + ' = <b>' + nf(Math.round(Em * 10) / 10) + ' J</b>.',
+      'L’énergie cinétique varie comme le <b>carré</b> de la vitesse : doubler la vitesse la multiplie par 4. ' +
+        'C’est l’argument de sécurité routière du chapitre.'
+    ]
+  };
+});
+
+G('pc-meca', 'pc-chute', 'Conservation de l’énergie mécanique', 'ds', function(){
+  const h = R.pick([1.25, 5, 10, 20, 45, 80]);
+  const g = 9.8;
+  const v = Math.sqrt(2 * g * h);
+  const vr = Math.round(v * 100) / 100;
+  return {
+    enonce: '<p>Un objet est lâché <b>sans vitesse initiale</b> depuis une hauteur <b>h = ' + nf(h) + ' m</b>. ' +
+            'On néglige les frottements et on prend g = 9,8 N·kg<sup>-1</sup>.</p>' +
+            '<p>Quelle est la valeur de sa vitesse juste avant l’impact, en m·s<sup>-1</sup>, arrondie au centième ?</p>',
+    champs: [{ type: 'num', label: 'v (m·s⁻¹)', bon: vr, tol: Math.max(0.05, vr * 0.02) }],
+    etapes: [
+      'Sans frottements, l’énergie mécanique se <b>conserve</b> : ' + M('E_m(@depart) = E_m(@arrivee)') + '.',
+      'Au départ : v = 0, donc ' + M('E_m = m g h') + '. À l’arrivée : z = 0, donc ' + M('E_m = frac{1}{2} m v^{2}') + '.',
+      M('m g h = frac{1}{2} m v^{2}') + ' · la masse se <b>simplifie</b> : ' + M('v = sqrt{2 g h}') + '.',
+      'v = √(2 × 9,8 × ' + nf(h) + ') = √' + nf(Math.round(2 * g * h * 100) / 100) + ' ≈ <b>' + nf(vr) + ' m·s<sup>-1</sup></b>.',
+      'Conséquence remarquable : la vitesse d’arrivée <b>ne dépend pas de la masse</b>. ' +
+        'Une bille de plomb et une bille de bois arrivent à la même vitesse, en l’absence d’air.'
+    ]
+  };
+});
+
+/* ================= 4. ONDES ET SIGNAUX ================= */
+
+G('pc-ondes', 'pc-longueur-onde', 'Longueur d’onde et fréquence', 'ent', function(){
+  const mil = [
+    { n: 'l’air', v: 340 }, { n: 'l’eau', v: 1500 },
+    { n: 'l’acier', v: 5000 }, { n: 'le béton', v: 4000 }
+  ];
+  const m = R.pick(mil);
+  const f = R.pick([100, 200, 440, 500, 1000, 2000, 4000]);
+  const lam = m.v / f;
+  const lr = Math.round(lam * 10000) / 10000;
+  return {
+    enonce: '<p>Une onde sonore de fréquence <b>f = ' + nf(f) + ' Hz</b> se propage dans <b>' + m.n +
+            '</b>, où sa célérité vaut <b>v = ' + nf(m.v) + ' m·s<sup>-1</sup></b>.</p>' +
+            '<p>Calcule sa longueur d’onde, en mètres, arrondie au dix-millième.</p>',
+    champs: [{ type: 'num', label: 'λ (m)', bon: lr, tol: Math.max(0.0005, lr * 0.02) }],
+    etapes: [
+      M('λ = frac{v}{f}') + ' = ' + nf(m.v) + ' ÷ ' + nf(f) + ' ≈ <b>' + nf(lr) + ' m</b>.',
+      'La <b>fréquence</b> est imposée par la source et ne change pas de milieu en milieu.',
+      'La <b>longueur d’onde</b>, elle, dépend du milieu, puisqu’elle dépend de la célérité. ' +
+        'La même note a une longueur d’onde plus grande dans l’eau que dans l’air.',
+      'Autre écriture : ' + M('λ = v × T') + ', avec ' + M('T = frac{1}{f}') + '.'
+    ]
+  };
+});
+
+G('pc-ondes', 'pc-retard', 'Retard et distance', 'app', function(){
+  const mil = [{ n: 'l’air', v: 340 }, { n: 'l’eau', v: 1500 }, { n: 'l’acier', v: 5000 }];
+  const m = R.pick(mil);
+  const d = R.pick([17, 34, 170, 340, 680, 1500, 3000]);
+  const dt = d / m.v;
+  const dr = Math.round(dt * 10000) / 10000;
+  return {
+    enonce: '<p>Une onde se propage dans <b>' + m.n + '</b> à la célérité <b>v = ' + nf(m.v) +
+            ' m·s<sup>-1</sup></b>. Elle parcourt une distance <b>d = ' + nf(d) + ' m</b>.</p>' +
+            '<p>Quel est le retard entre l’émission et la réception, en secondes ?</p>',
+    champs: [{ type: 'num', label: 'Retard (s)', bon: dr, tol: Math.max(0.0005, dr * 0.02) }],
+    etapes: [
+      M('Δt = frac{d}{v}') + ' = ' + nf(d) + ' ÷ ' + nf(m.v) + ' ≈ <b>' + nf(dr) + ' s</b>.',
+      'Une onde transporte de l’<b>énergie</b>, pas de la matière : le milieu oscille sur place.',
+      'Application classique : compter les secondes entre l’éclair et le tonnerre. ' +
+        'Trois secondes correspondent à environ un kilomètre.'
+    ]
+  };
+});
+
+G('pc-lumiere', 'pc-photon', 'Énergie d’un photon', 'ent', function(){
+  const cas = [
+    { n: 'un ultraviolet', l: 300 }, { n: 'une lumière violette', l: 400 },
+    { n: 'une lumière verte', l: 550 }, { n: 'une lumière rouge', l: 700 },
+    { n: 'un infrarouge', l: 1000 }
+  ];
+  const c = R.pick(cas);
+  const h = 6.63e-34, cel = 3.00e8;
+  const E = h * cel / (c.l * 1e-9);
+  const Er = Math.round(E / 1e-19 * 100) / 100;
+  return {
+    enonce: '<p>Un photon correspond à <b>' + c.n + '</b> de longueur d’onde <b>λ = ' + nf(c.l) + ' nm</b>.</p>' +
+            '<p>Calcule son énergie, exprimée en <b>10<sup>-19</sup> J</b>, arrondie au centième.</p>' +
+            form(M('E = frac{h c}{λ}') + ' avec h = 6,63 × 10<sup>-34</sup> J·s et c = 3,00 × 10<sup>8</sup> m·s<sup>-1</sup>'),
+    champs: [{ type: 'num', label: 'E (× 10⁻¹⁹ J)', bon: Er, tol: Math.max(0.02, Er * 0.02) }],
+    etapes: [
+      'Conversion obligatoire : λ = ' + nf(c.l) + ' nm = ' + nf(c.l) + ' × 10<sup>-9</sup> m.',
+      'E = (6,63 × 10<sup>-34</sup> × 3,00 × 10<sup>8</sup>) ÷ (' + nf(c.l) + ' × 10<sup>-9</sup>) ≈ ' +
+        sci(E) + ' J, soit <b>' + nf(Er) + ' × 10<sup>-19</sup> J</b>.',
+      'Plus la longueur d’onde est <b>courte</b>, plus le photon est <b>énergétique</b>. ' +
+        'C’est pourquoi les ultraviolets sont dangereux pour la peau et pas les infrarouges.',
+      'Appliquer la formule en nanomètres donne un résultat 10<sup>9</sup> fois trop grand : ' +
+        'c’est l’erreur la plus fréquente.'
+    ]
+  };
+});
+
+G('pc-lumiere', 'pc-lentille', 'Lentille mince convergente', 'ds', function(){
+  const f = R.pick([0.05, 0.10, 0.20, 0.25, 0.50]);
+  const k = R.pick([2, 3, 4, 5]);
+  const OA = -k * f;                          /* objet réel, avant la lentille */
+  const OAp = 1 / (1 / f + 1 / OA);           /* relation de conjugaison */
+  const gam = OAp / OA;
+  const or_ = Math.round(OAp * 10000) / 10000;
+  const gr = Math.round(gam * 1000) / 1000;
+  return {
+    enonce: '<p>Une lentille mince convergente a une distance focale <b>f′ = ' + nf(f) + ' m</b>. ' +
+            'Un objet est placé à <b>' + nf(k * f) + ' m</b> devant elle, ' +
+            'donc ' + M('@OA = ' + nf(OA)) + ' m en valeur algébrique.</p>' +
+            '<p>Calcule la position de l’image et le grandissement.</p>' +
+            form(M('frac{1}{@OA\'} - frac{1}{@OA} = frac{1}{f\'}') + ' et ' + M('γ = frac{@OA\'}{@OA}')),
+    champs: [
+      { type: 'num', label: 'OA′ (m)', bon: or_, tol: Math.max(0.002, Math.abs(or_) * 0.03) },
+      { type: 'num', label: 'Grandissement γ', bon: gr, tol: Math.max(0.02, Math.abs(gr) * 0.03) }
+    ],
+    etapes: [
+      'On isole : ' + M('frac{1}{@OA\'} = frac{1}{f\'} + frac{1}{@OA}') + ' = 1 ÷ ' + nf(f) +
+        ' + 1 ÷ (' + nf(OA) + ') = ' + nf(Math.round((1 / f + 1 / OA) * 1000) / 1000) + '.',
+      'Donc ' + M('@OA\'') + ' ≈ <b>' + nf(or_) + ' m</b>. La valeur est positive : ' +
+        'l’image se forme <b>après</b> la lentille, elle est réelle.',
+      'Grandissement : γ = ' + nf(or_) + ' ÷ (' + nf(OA) + ') ≈ <b>' + nf(gr) + '</b>.',
+      'γ est <b>négatif</b> : l’image est renversée. Sa valeur absolue ' +
+        (Math.abs(gr) > 1 ? 'est supérieure à 1 : l’image est agrandie.' : 'est inférieure à 1 : l’image est réduite.'),
+      'Toutes les distances sont <b>algébriques</b> : un objet réel placé avant la lentille donne ' +
+        M('@OA') + ' négatif. Oublier ce signe fausse tout.'
+    ]
+  };
+});
+
+/* ================= MESURE ================= */
+
+G('pc-mesure', 'pc-ecart', 'Écart relatif', 'app', function(){
+  const ref = R.pick([9.8, 340, 1000, 6.02, 22.4, 1.013]);
+  const err = R.pick([-0.08, -0.05, -0.02, 0.02, 0.03, 0.06, 0.12]);
+  const mes = Math.round(ref * (1 + err) * 1000) / 1000;
+  const ecart = Math.abs(mes - ref) / ref * 100;
+  const er = Math.round(ecart * 10) / 10;
+  return {
+    enonce: '<p>Une mesure donne <b>' + nf(mes) + '</b> alors que la valeur de référence est <b>' + nf(ref) + '</b>.</p>' +
+            '<p>Calcule l’écart relatif, en pourcentage, arrondi au dixième.</p>',
+    champs: [{ type: 'num', label: 'Écart relatif (%)', bon: er, tol: 0.3 }],
+    etapes: [
+      M('écart = frac{|mesure - référence|}{référence} × 100'),
+      '= |' + nf(mes) + ' - ' + nf(ref) + '| ÷ ' + nf(ref) + ' × 100 ≈ <b>' + nf(er) + ' %</b>.',
+      er < 5 ? 'Un écart inférieur à 5 % est ordinaire : la mesure est compatible avec la référence.'
+             : 'Un écart de cet ordre invite à chercher une cause : erreur de conversion, protocole, ou erreur systématique.',
+      'On prend toujours la <b>valeur absolue</b> : un écart relatif est positif.'
+    ]
+  };
+});
+
+const SIGNIFICATIFS = [
+  { v: '0,0025', n: 2, e: 'Les zéros de tête ne comptent jamais : seuls 2 et 5 sont significatifs.' },
+  { v: '1,050', n: 4, e: 'Le zéro final après la virgule est significatif : il indique la précision.' },
+  { v: '340', n: 2, e: 'Sans indication supplémentaire, on retient 3 et 4 : le zéro final d’un entier est ambigu.' },
+  { v: '6,02', n: 3, e: 'Trois chiffres, tous significatifs.' },
+  { v: '9,81', n: 3, e: 'Trois chiffres significatifs.' },
+  { v: '0,50', n: 2, e: 'Le zéro de tête ne compte pas, le zéro final après la virgule compte.' },
+  { v: '1,013', n: 4, e: 'Le zéro entre deux chiffres significatifs est toujours significatif.' }
+];
+
+G('pc-mesure', 'pc-significatifs', 'Chiffres significatifs', 'app', function(){
+  const x = R.pick(SIGNIFICATIFS);
+  return {
+    enonce: '<p>Combien de chiffres significatifs compte cette valeur ?</p>' + form('<b>' + x.v + '</b>'),
+    champs: [{ type: 'num', label: 'Nombre de chiffres significatifs', bon: x.n, tol: 0 }],
+    etapes: [
+      'Réponse : <b>' + x.n + '</b>.', x.e,
+      'Règle de calcul : dans une multiplication ou une division, le résultat garde autant de chiffres ' +
+        'significatifs que la donnée qui en a le <b>moins</b>.'
+    ]
+  };
+});
+
+/* ================= EXERCICE RÉDIGÉ ================= */
+
+D('pc-mesure', 'pc-protocole', 'Rédiger un protocole et l’analyser', function(){
+  const sujets = [
+    { s: 'Déterminer la concentration en sulfate de cuivre d’une solution inconnue.',
+      m: 'spectrophotomètre, fioles jaugées, pipettes jaugées, solution mère de concentration connue',
+      d: 'préparer une gamme d’étalonnage par dilutions, tracer A = f(C), mesurer A de l’inconnue, lire C',
+      p: 'la loi de Beer-Lambert, A proportionnelle à C' },
+    { s: 'Déterminer la masse volumique d’un liquide inconnu.',
+      m: 'balance, éprouvette graduée ou pipette jaugée',
+      d: 'peser un volume mesuré, répéter la mesure, calculer ρ = m/V et en prendre la moyenne',
+      p: 'la définition de la masse volumique' },
+    { s: 'Déterminer la célérité du son dans l’air.',
+      m: 'deux microphones, une carte d’acquisition ou un smartphone, un mètre ruban',
+      d: 'mesurer le retard entre les deux microphones séparés d’une distance connue, puis v = d/Δt',
+      p: 'la relation entre retard, distance et célérité' },
+    { s: 'Vérifier la conservation de l’énergie mécanique lors d’une chute.',
+      m: 'caméra ou vidéo à fréquence connue, logiciel de pointage, règle de référence',
+      d: 'pointer la position à chaque image, calculer v et z, puis Ec, Epp et Em à plusieurs instants',
+      p: 'la conservation de l’énergie mécanique en l’absence de frottements' }
+  ];
+  const x = R.pick(sujets);
+  return {
+    enonce: '<p><b>Objectif expérimental :</b></p>' + form(x.s) +
+            '<p>Sur ton cahier, rédige le <b>protocole complet</b>, puis indique comment tu exploiterais ' +
+            'les mesures et ce que tu critiquerais.</p>',
+    aide: 'Matériel possible : ' + x.m + '. La loi mobilisée est ' + x.p + '. ' +
+          'N’oublie ni la répétition des mesures, ni l’écart relatif, ni les chiffres significatifs.',
+    bareme: [
+      { pts: 2, d: '<b>Loi ou relation mobilisée</b> écrite explicitement, avec le nom de chaque grandeur et son unité. ' +
+                   'Ici : ' + x.p + '.' },
+      { pts: 2, d: '<b>Matériel</b> listé et adapté, avec la verrerie jaugée quand la précision l’exige ' +
+                   '(pipette et fiole jaugées plutôt qu’éprouvette).' },
+      { pts: 3, d: '<b>Déroulé</b> clair et réalisable, étape par étape : ' + x.d + '.' },
+      { pts: 2, d: '<b>Mesures répétées</b>, et moyenne annoncée. Une mesure unique ne permet aucune conclusion.' },
+      { pts: 2, d: '<b>Exploitation</b> prévue : tableau, graphique, régression ou calcul direct, ' +
+                   'avec la grandeur cherchée isolée.' },
+      { pts: 2, d: '<b>Chiffres significatifs</b> cohérents avec la précision des instruments, et unités partout.' },
+      { pts: 3, d: '<b>Analyse critique</b> : sources d’erreur identifiées, distinction entre erreur ' +
+                   '<b>aléatoire</b> (réduite par la répétition) et erreur <b>systématique</b> ' +
+                   '(qui décale toutes les mesures du même côté).' },
+      { pts: 2, d: '<b>Écart relatif</b> annoncé par rapport à une valeur de référence, et commenté.' },
+      { pts: 2, d: '<b>Sécurité</b> : gants et lunettes si l’on manipule des solutions, ' +
+                   'récupération des déchets, mentionnées quand le sujet s’y prête.' }
+    ]
+  };
+});
+/* =========================================================================
+   SPÉCIALITÉ NUMÉRIQUE ET SCIENCES INFORMATIQUES, première générale.
+
+   Programme : BO spécial n°1 du 22 janvier 2019, inchangé pour 2026-2027.
+
+   Huit parties : histoire de l'informatique · représentation des données,
+   types et valeurs de base · représentation des données, types construits
+   traitement de données en tables · interactions entre l'homme et la
+   machine sur le Web · architectures matérielles et systèmes d'exploitation
+   langages et programmation · algorithmique.
+   ========================================================================= */
+
+MAT['nsi'].pret = true;
+
+BLOCS.push(
+  { id: 'nsi-donnees', nom: 'Représentation des données', matiere: 'nsi' },
+  { id: 'nsi-machine', nom: 'Machines, réseaux et Web',   matiere: 'nsi' },
+  { id: 'nsi-prog',    nom: 'Langages et algorithmique',  matiere: 'nsi' }
+);
+
+/* bloc de code Python */
+function code(src, leg){
+  return '<pre class="code">' + src + '</pre>' +
+         (leg ? '<p class="tiny">' + leg + '</p>' : '');
+}
+
+const CHAPITRES_NSI = [
+{
+  id: 'nsi-binaire', bloc: 'nsi-donnees', titre: 'Écriture binaire et entiers',
+  resume: 'Base 2, base 16, entiers relatifs, débordement.',
+  capacites: [
+    'Passer de la représentation décimale à la représentation binaire d’un entier, et inversement.',
+    'Évaluer le nombre de bits nécessaires à l’écriture en base 2 d’un entier.',
+    'Utiliser la représentation hexadécimale.',
+    'Évaluer le nombre d’entiers représentables sur n bits.',
+    'Comprendre le principe du complément à deux pour les entiers relatifs.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'À quoi ça sert ?', c:
+      '<p>Une machine ne connaît que deux états. Tout le reste, nombres, textes, images, sons, ' +
+      'n’est qu’une <b>convention</b> de codage par-dessus ces deux états. Ce chapitre pose ces conventions.</p>' },
+    { k: 'meth', t: 'Convertir en binaire', c:
+      '<p><b>Décimal vers binaire</b> : on divise par 2 en notant les restes, puis on les lit <b>de bas en haut</b>.</p>' +
+      '<p><b>Binaire vers décimal</b> : on additionne les puissances de 2 correspondant aux bits à 1.</p>' +
+      form('1011_2 = 1×8 + 0×4 + 1×2 + 1×1 = 11_{10}', 'les poids sont 1, 2, 4, 8, 16, 32, 64, 128…') },
+    { k: 'prop', t: 'Combien de valeurs sur n bits ?', c:
+      form('2^{n} @valeurs @differentes', 'de 0 à 2ⁿ - 1 pour des entiers positifs') +
+      '<ul class="dates">' +
+      '<li><b>4 bits</b> <span>16 valeurs, de 0 à 15</span></li>' +
+      '<li><b>8 bits</b> <span>256 valeurs, de 0 à 255 · c’est un octet</span></li>' +
+      '<li><b>16 bits</b> <span>65 536 valeurs</span></li>' +
+      '<li><b>32 bits</b> <span>environ 4,3 milliards</span></li></ul>' +
+      '<p>Sur n bits en <b>complément à deux</b>, on représente les entiers relatifs de -2<sup>n-1</sup> ' +
+      'à 2<sup>n-1</sup> - 1. Sur 8 bits : de -128 à 127.</p>' },
+    { k: 'def', t: 'L’hexadécimal', c:
+      '<p>Base 16, avec les chiffres 0 à 9 puis A à F pour 10 à 15. Son intérêt : ' +
+      '<b>un chiffre hexadécimal vaut exactement quatre bits</b>, ce qui rend la conversion immédiate.</p>' +
+      '<ul class="dates">' +
+      '<li><b>A</b> <span>10, soit 1010</span></li><li><b>B</b> <span>11, soit 1011</span></li>' +
+      '<li><b>C</b> <span>12, soit 1100</span></li><li><b>D</b> <span>13, soit 1101</span></li>' +
+      '<li><b>E</b> <span>14, soit 1110</span></li><li><b>F</b> <span>15, soit 1111</span></li></ul>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Retenir les puissances de 2 jusqu’à 1024 : elles reviennent partout.</li>' +
+      '<li>Un <b>débordement</b> survient quand le résultat dépasse ce que le nombre de bits permet ' +
+      'de représenter. Sur 8 bits non signés, 255 + 1 redonne 0.</li>' +
+      '<li>Pour convertir binaire → hexadécimal, grouper les bits par <b>quatre</b> en partant de la droite.</li></ul>' }
+  ]
+},
+{
+  id: 'nsi-types', bloc: 'nsi-donnees', titre: 'Types de base et types construits',
+  resume: 'Booléens, flottants, texte, tuples, listes, dictionnaires.',
+  capacites: [
+    'Utiliser les opérateurs booléens et dresser une table de vérité.',
+    'Comprendre les limites de la représentation des nombres flottants.',
+    'Distinguer les principaux encodages de caractères.',
+    'Construire et manipuler des p-uplets, des tableaux et des dictionnaires.',
+    'Itérer sur les éléments d’une structure de données.'
+  ],
+  cours: [
+    { k: 'def', t: 'Les opérateurs booléens', c:
+      '<p>Trois opérateurs, et leurs tables de vérité :</p>' +
+      '<ul><li><b>non</b> (<code>not</code>) : inverse la valeur.</li>' +
+      '<li><b>et</b> (<code>and</code>) : vrai seulement si les <b>deux</b> sont vrais.</li>' +
+      '<li><b>ou</b> (<code>or</code>) : vrai si <b>au moins un</b> est vrai. C’est un ou <b>inclusif</b>.</li></ul>' +
+      '<p>Les lois de De Morgan sont au programme :</p>' +
+      form('@non(A @et B) = (@non A) @ou (@non B)', 'et symétriquement pour le ou') },
+    { k: 'piege', t: 'Les flottants ne sont pas les réels', c:
+      '<p>Un nombre à virgule est stocké en base 2, avec un nombre fini de bits. Beaucoup de décimaux ' +
+      'n’ont pas d’écriture binaire finie, exactement comme 1/3 n’a pas d’écriture décimale finie.</p>' +
+      code('>>> 0.1 + 0.2\n0.30000000000000004\n>>> 0.1 + 0.2 == 0.3\nFalse',
+           'Conséquence : on ne teste jamais l’égalité de deux flottants. On compare à une tolérance près.') },
+    { k: 'def', t: 'Les types construits', c:
+      '<ul><li><b>Tuple</b> (p-uplet) : <code>(1, 2, 3)</code>, ordonné et <b>non modifiable</b>.</li>' +
+      '<li><b>Liste</b> (tableau) : <code>[1, 2, 3]</code>, ordonnée et <b>modifiable</b>. ' +
+      'Indices de 0 à n-1.</li>' +
+      '<li><b>Dictionnaire</b> : <code>{"nom": "Lisa", "age": 16}</code>, ensemble de couples ' +
+      '<b>clé-valeur</b>, accès direct par la clé.</li></ul>' +
+      code('t = [4, 8, 15, 16]\nt[0]        # 4, le premier\nt[-1]       # 16, le dernier\nt[1:3]      # [8, 15], la borne de droite est exclue\nlen(t)      # 4',
+           'La tranche t[a:b] contient les indices a à b-1.') },
+    { k: 'prop', t: 'Le codage des caractères', c:
+      '<ul><li><b>ASCII</b> : 7 bits, 128 caractères. Suffisant pour l’anglais, pas pour les accents.</li>' +
+      '<li><b>Latin-1</b> : 8 bits, 256 caractères, ajoute les caractères d’Europe occidentale.</li>' +
+      '<li><b>Unicode et UTF-8</b> : codage à nombre d’octets variable, de 1 à 4, ' +
+      'qui couvre tous les systèmes d’écriture. C’est le standard du Web.</li></ul>' +
+      '<p>En UTF-8, un caractère ASCII tient toujours sur <b>un</b> octet : le codage est compatible avec l’existant.</p>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Une liste est <b>mutable</b>, un tuple ne l’est pas. C’est la question de cours la plus posée.</li>' +
+      '<li>Dans un dictionnaire, on accède par <b>clé</b>, pas par position : l’ordre n’est pas le sujet.</li>' +
+      '<li>Ne jamais écrire <code>if x == 0.3</code> avec des flottants.</li></ul>' }
+  ]
+},
+{
+  id: 'nsi-tables', bloc: 'nsi-donnees', titre: 'Traitement de données en tables',
+  resume: 'CSV, recherche, tri, fusion de tables.',
+  capacites: [
+    'Importer une table depuis un fichier au format CSV.',
+    'Rechercher les lignes d’une table qui vérifient une condition.',
+    'Trier une table selon une colonne.',
+    'Fusionner deux tables ayant un attribut commun.',
+    'Interroger la validité et la provenance des données.'
+  ],
+  cours: [
+    { k: 'def', t: 'Ce qu’est une table', c:
+      '<p>Une table est une collection de <b>lignes</b> (les enregistrements) partageant les mêmes ' +
+      '<b>colonnes</b> (les descripteurs, ou attributs).</p>' +
+      '<p>Le format <b>CSV</b> stocke une table en texte : une ligne par enregistrement, ' +
+      'des valeurs séparées par des virgules ou des points-virgules. La première ligne donne ' +
+      'en général les noms des colonnes.</p>' +
+      code('nom;matiere;note\nLisa;maths;17\nSami;physique;14\nJade;maths;19') },
+    { k: 'prop', t: 'En Python, une table est une liste de dictionnaires', c:
+      code('table = [\n    {"nom": "Lisa", "matiere": "maths", "note": 17},\n' +
+           '    {"nom": "Sami", "matiere": "physique", "note": 14},\n' +
+           '    {"nom": "Jade", "matiere": "maths", "note": 19}\n]\n\n' +
+           '# recherche : les lignes qui vérifient une condition\nmatheux = [l for l in table if l["matiere"] == "maths"]\n\n' +
+           '# tri selon une colonne, du plus grand au plus petit\nclasse = sorted(table, key=lambda l: l["note"], reverse=True)') },
+    { k: 'meth', t: 'Fusionner deux tables', c:
+      '<p>Fusionner, c’est rapprocher deux tables par un <b>attribut commun</b>, souvent un identifiant. ' +
+      'Chaque ligne de la première est complétée par les informations de la seconde qui partagent la même clé.</p>' +
+      '<p>Le piège : si la clé n’est pas unique, une ligne peut être <b>dupliquée</b>. ' +
+      'Une bonne clé identifie une ligne et une seule.</p>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Les valeurs lues dans un CSV sont des <b>chaînes de caractères</b> : ' +
+      'il faut convertir avant tout calcul, avec <code>int()</code> ou <code>float()</code>.</li>' +
+      '<li>Le programme demande d’interroger la <b>provenance</b> et la <b>validité</b> des données : ' +
+      'qui les a produites, quand, et avec quelle méthode.</li>' +
+      '<li><code>sorted()</code> renvoie une nouvelle liste ; <code>.sort()</code> modifie la liste en place.</li></ul>' }
+  ]
+},
+{
+  id: 'nsi-machine', bloc: 'nsi-machine', titre: 'Architecture et système',
+  resume: 'Modèle de von Neumann, processeur, système, commandes.',
+  capacites: [
+    'Distinguer les rôles du processeur, de la mémoire vive et des mémoires de stockage.',
+    'Identifier les principaux composants d’une architecture de von Neumann.',
+    'Décrire le rôle d’un système d’exploitation.',
+    'Utiliser les commandes de base en ligne de commande.',
+    'Décrire le principe du transfert de données par paquets dans un réseau.'
+  ],
+  cours: [
+    { k: 'def', t: 'Le modèle de von Neumann', c:
+      '<ul><li>l’<b>unité de contrôle</b>, qui séquence les instructions ;</li>' +
+      '<li>l’<b>unité arithmétique et logique</b>, qui effectue les calculs ;</li>' +
+      '<li>la <b>mémoire</b>, qui contient à la fois les données <b>et</b> le programme ;</li>' +
+      '<li>les <b>dispositifs d’entrée et de sortie</b>.</li></ul>' +
+      '<p>L’idée décisive du modèle : le programme est stocké <b>dans la même mémoire</b> que les données. ' +
+      'C’est ce qui rend une machine universelle plutôt que spécialisée.</p>' },
+    { k: 'prop', t: 'Mémoire vive et stockage', c:
+      '<ul><li>La <b>mémoire vive</b> (RAM) est rapide mais <b>volatile</b> : son contenu disparaît ' +
+      'à l’extinction.</li>' +
+      '<li>Les <b>mémoires de stockage</b> (disque dur, SSD) sont plus lentes mais <b>persistantes</b>.</li></ul>' +
+      '<p>Ordres de grandeur : 1 ko = 10<sup>3</sup> octets · 1 Mo = 10<sup>6</sup> · 1 Go = 10<sup>9</sup> · ' +
+      '1 To = 10<sup>12</sup>.</p>' },
+    { k: 'def', t: 'Le système d’exploitation', c:
+      '<p>Il fait l’interface entre le matériel et les programmes. Ses rôles : gérer les <b>processus</b>, ' +
+      'la <b>mémoire</b>, les <b>fichiers</b>, les <b>périphériques</b> et les <b>droits</b> des utilisateurs.</p>' +
+      code('pwd          # où suis-je ?\nls           # lister le contenu du répertoire\ncd dossier   # se déplacer\nmkdir nom    # créer un répertoire\nrm fichier   # supprimer',
+           'Les commandes de base attendues au programme.') },
+    { k: 'prop', t: 'Les réseaux', c:
+      '<p>Les données circulent découpées en <b>paquets</b>, qui peuvent emprunter des routes différentes ' +
+      'et arriver dans le désordre : le destinataire les réassemble.</p>' +
+      '<p>Avantages : on utilise mieux les liaisons, et une panne locale n’interrompt pas la communication, ' +
+      'car les paquets sont réacheminés autrement.</p>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>La caractéristique du modèle de von Neumann à citer : <b>programme et données ' +
+      'dans la même mémoire</b>.</li>' +
+      '<li>RAM = volatile et rapide · stockage = persistant et lent. Ne pas les confondre.</li>' +
+      '<li>Le découpage en paquets explique la <b>robustesse</b> d’Internet, pas sa vitesse.</li></ul>' }
+  ]
+},
+{
+  id: 'nsi-web', bloc: 'nsi-machine', titre: 'Le Web et l’interaction',
+  resume: 'HTML, CSS, requêtes, client et serveur.',
+  capacites: [
+    'Distinguer le rôle du client et celui du serveur.',
+    'Distinguer les requêtes GET et POST.',
+    'Identifier les éléments de base d’une page HTML et le rôle du CSS.',
+    'Analyser le fonctionnement d’un formulaire.',
+    'Identifier les principaux risques liés à la navigation.'
+  ],
+  cours: [
+    { k: 'def', t: 'Client et serveur', c:
+      '<p>Le <b>client</b>, c’est ton navigateur : il envoie une requête. Le <b>serveur</b> la reçoit, ' +
+      'la traite et renvoie une réponse. Le calcul peut se faire des deux côtés :</p>' +
+      '<ul><li>côté <b>client</b> : JavaScript, exécuté dans le navigateur ;</li>' +
+      '<li>côté <b>serveur</b> : le traitement est fait avant l’envoi de la page.</li></ul>' },
+    { k: 'prop', t: 'GET et POST', c:
+      '<ul><li><b>GET</b> : les paramètres sont visibles <b>dans l’URL</b>, après un point d’interrogation. ' +
+      'La requête peut être mise en favori, partagée, mise en cache. À réserver aux consultations.</li>' +
+      '<li><b>POST</b> : les paramètres sont dans le <b>corps</b> de la requête, donc pas visibles dans l’URL. ' +
+      'À employer pour envoyer des données, notamment un mot de passe.</li></ul>' +
+      '<p>Attention : POST n’est pas chiffré pour autant. C’est <b>HTTPS</b> qui chiffre, pas la méthode.</p>' },
+    { k: 'def', t: 'HTML et CSS', c:
+      '<p><b>HTML</b> décrit la <b>structure</b> et le contenu. <b>CSS</b> décrit la <b>présentation</b>.</p>' +
+      code('&lt;h1&gt;Un titre&lt;/h1&gt;\n&lt;p&gt;Un paragraphe avec un &lt;a href="page.html"&gt;lien&lt;/a&gt;.&lt;/p&gt;\n' +
+           '&lt;ul&gt;&lt;li&gt;un élément de liste&lt;/li&gt;&lt;/ul&gt;') },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Question de cours classique : <b>pourquoi POST plutôt que GET</b> pour un mot de passe ? ' +
+      'Parce que GET l’écrirait dans l’URL, l’historique et les journaux du serveur.</li>' +
+      '<li>Séparer le fond (HTML) de la forme (CSS) est le principe à citer.</li>' +
+      '<li>Ne jamais faire confiance aux données envoyées par un client : elles peuvent être falsifiées.</li></ul>' }
+  ]
+},
+{
+  id: 'nsi-python', bloc: 'nsi-prog', titre: 'Langages et programmation',
+  resume: 'Variables, fonctions, boucles, spécification, tests.',
+  capacites: [
+    'Écrire et utiliser une fonction avec des paramètres et une valeur de retour.',
+    'Distinguer variable locale et variable globale.',
+    'Utiliser les instructions conditionnelles et les boucles bornées et non bornées.',
+    'Spécifier une fonction et écrire des tests pour la valider.',
+    'Repérer et corriger une erreur de programmation.'
+  ],
+  cours: [
+    { k: 'def', t: 'Une fonction bien écrite', c:
+      code('def maximum(tab):\n' +
+           '    """Renvoie le plus grand élément de tab.\n' +
+           '    Précondition : tab est une liste non vide de nombres."""\n' +
+           '    m = tab[0]\n' +
+           '    for x in tab:\n' +
+           '        if x > m:\n' +
+           '            m = x\n' +
+           '    return m',
+           'La docstring est la spécification : ce que la fonction fait, et ce qu’elle exige de ses arguments.') },
+    { k: 'prop', t: 'Les deux sortes de boucles', c:
+      '<ul><li><b>Boucle bornée</b> (<code>for</code>) : on connaît à l’avance le nombre de tours.</li>' +
+      '<li><b>Boucle non bornée</b> (<code>while</code>) : on répète tant qu’une condition est vraie. ' +
+      'Il faut garantir que la condition finira par devenir fausse, sinon la boucle est infinie.</li></ul>' +
+      code('for i in range(5):     # i vaut 0, 1, 2, 3, 4 : jamais 5\n    print(i)\n\n' +
+           'n = 100\nwhile n > 1:          # on divise jusqu’à atteindre 1\n    n = n // 2') },
+    { k: 'meth', t: 'Tester une fonction', c:
+      '<p>Un programme n’est pas correct parce qu’il s’exécute : il faut le <b>tester</b>.</p>' +
+      code('assert maximum([3, 7, 2]) == 7\nassert maximum([5]) == 5\nassert maximum([-4, -9]) == -4',
+           'On teste le cas ordinaire, le cas limite, et les valeurs négatives.') },
+    { k: 'piege', t: 'Les erreurs classiques', c:
+      '<ul><li><code>range(5)</code> donne 0, 1, 2, 3, 4, <b>jamais 5</b>.</li>' +
+      '<li>Confondre <code>=</code> (affectation) et <code>==</code> (comparaison).</li>' +
+      '<li>Oublier le <code>return</code> : la fonction renvoie alors <code>None</code>.</li>' +
+      '<li>Modifier une liste pendant qu’on la parcourt.</li>' +
+      '<li>Une variable définie dans une fonction est <b>locale</b> : elle n’existe pas à l’extérieur.</li></ul>' }
+  ]
+},
+{
+  id: 'nsi-algo', bloc: 'nsi-prog', titre: 'Algorithmique',
+  resume: 'Recherche, tri, coût, terminaison.',
+  capacites: [
+    'Écrire un algorithme de recherche séquentielle et de recherche dichotomique.',
+    'Écrire un algorithme de tri par insertion ou par sélection.',
+    'Comparer le coût de ces algorithmes.',
+    'Justifier la terminaison d’un algorithme par un variant de boucle.',
+    'Mettre en œuvre un algorithme glouton sur un exemple simple.'
+  ],
+  cours: [
+    { k: 'prop', t: 'Chercher dans un tableau', c:
+      '<p><b>Recherche séquentielle</b> : on parcourt du début à la fin. Coût <b>linéaire</b> : ' +
+      'au pire n comparaisons.</p>' +
+      '<p><b>Recherche dichotomique</b> : uniquement dans un tableau <b>trié</b>. On compare au milieu ' +
+      'et on élimine la moitié à chaque étape. Coût <b>logarithmique</b> : environ log₂(n) comparaisons.</p>' +
+      form('n = 1000 → environ 10 comparaisons &nbsp;·&nbsp; n = 1 000 000 → environ 20',
+           'chaque doublement de la taille ne coûte qu’une comparaison de plus') },
+    { k: 'def', t: 'Les tris du programme', c:
+      '<p><b>Tri par sélection</b> : on cherche le minimum du reste et on le place. ' +
+      '<b>Tri par insertion</b> : on insère chaque élément à sa place dans la partie déjà triée.</p>' +
+      '<p>Les deux ont un coût <b>quadratique</b> : de l’ordre de n² opérations. ' +
+      'Doubler la taille multiplie le temps par environ 4.</p>' +
+      code('def tri_selection(t):\n' +
+           '    for i in range(len(t)):\n' +
+           '        mini = i\n' +
+           '        for j in range(i + 1, len(t)):\n' +
+           '            if t[j] < t[mini]:\n' +
+           '                mini = j\n' +
+           '        t[i], t[mini] = t[mini], t[i]\n' +
+           '    return t') },
+    { k: 'def', t: 'Terminaison et invariant', c:
+      '<p>Un <b>variant de boucle</b> est une quantité entière positive qui <b>décroît strictement</b> ' +
+      'à chaque tour. Puisqu’elle ne peut pas décroître indéfiniment en restant positive, la boucle termine.</p>' +
+      '<p>Un <b>invariant</b> est une propriété vraie avant la boucle, conservée à chaque tour, ' +
+      'et qui donne la correction du résultat à la sortie.</p>' },
+    { k: 'prop', t: 'Les algorithmes gloutons', c:
+      '<p>Un algorithme <b>glouton</b> fait, à chaque étape, le choix qui paraît le meilleur ' +
+      'sur le moment, sans jamais revenir en arrière.</p>' +
+      '<p>Exemple : rendre la monnaie en prenant toujours la plus grosse pièce possible. ' +
+      'Avec le système européen, cela donne le nombre minimal de pièces. ' +
+      'Avec d’autres systèmes, <b>non</b> : un glouton n’est pas toujours optimal, et c’est le point du cours.</p>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>La dichotomie exige un tableau <b>trié</b>. L’oublier invalide toute la réponse.</li>' +
+      '<li>Comparer des coûts, c’est comparer des <b>ordres de grandeur</b> : linéaire, logarithmique, ' +
+      'quadratique. Pas des durées en secondes.</li>' +
+      '<li>Pour justifier la terminaison, exhiber le variant. Pour la correction, exhiber l’invariant.</li></ul>' }
+  ]
+},
+{
+  id: 'nsi-histoire', bloc: 'nsi-machine', titre: 'Histoire de l’informatique',
+  resume: 'Les étapes et les figures à connaître.',
+  capacites: [
+    'Situer dans le temps les principales étapes de l’informatique.',
+    'Associer une innovation à son contexte et à ses conséquences.',
+    'Identifier les principales figures de l’histoire de la discipline.'
+  ],
+  cours: [
+    { k: 'reperes', t: 'Les repères', c:
+      '<ul class="dates">' +
+      '<li><b>1642</b> <span>Pascal construit la Pascaline, machine à additionner</span></li>' +
+      '<li><b>1801</b> <span>métier à tisser de Jacquard, programmé par cartes perforées</span></li>' +
+      '<li><b>1843</b> <span>Ada Lovelace écrit ce que l’on considère comme le premier algorithme ' +
+      'destiné à une machine</span></li>' +
+      '<li><b>1936</b> <span>Alan Turing définit la machine de Turing et la notion de calculabilité</span></li>' +
+      '<li><b>1945</b> <span>architecture de von Neumann : programme enregistré en mémoire</span></li>' +
+      '<li><b>1947</b> <span>invention du transistor</span></li>' +
+      '<li><b>1969</b> <span>Arpanet, ancêtre d’Internet</span></li>' +
+      '<li><b>1971</b> <span>premier microprocesseur</span></li>' +
+      '<li><b>1989-1991</b> <span>Tim Berners-Lee invente le Web au CERN</span></li>' +
+      '<li><b>1991</b> <span>premier noyau Linux, par Linus Torvalds</span></li></ul>' },
+    { k: 'piege', t: 'Ne pas confondre', c:
+      '<p><b>Internet</b> est le réseau physique et ses protocoles, né à la fin des années 1960. ' +
+      '<b>Le Web</b> est un service qui fonctionne sur ce réseau, inventé vingt ans plus tard.</p>' +
+      '<p>Dire que Tim Berners-Lee a inventé Internet est une erreur fréquente et sanctionnée.</p>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>La loi de Moore n’est pas une loi physique : c’est un <b>constat empirique</b> ' +
+      'sur le doublement du nombre de transistors, et elle ralentit aujourd’hui.</li>' +
+      '<li>Relier chaque innovation à sa <b>conséquence</b> : le transistor rend les machines ' +
+      'petites et fiables, le microprocesseur les rend personnelles.</li></ul>' }
+  ]
+}
+];
+
+CHAPITRES_NSI.forEach(c => {
+  c.gens = [];
+  c.matiere = 'nsi';
+  c.classe = 'premiere';
+  CHAPITRES.push(c);
+  CHAP[c.id] = c;
+});
+/* =========================================================================
+   Générateurs d'exercices de spécialité NSI.
+   Conversions, booléens, Python, structures de données, coûts.
+   Tout est recalculé exactement : les sorties de code sont simulées en JS.
+   ========================================================================= */
+
+function bin(n, bits){
+  let s = (n >>> 0).toString(2);
+  while (bits && s.length < bits) s = '0' + s;
+  return s;
+}
+
+G('nsi-binaire', 'nsi-dec-bin', 'Décimal vers binaire', 'app', function(){
+  const n = R.int(5, 255);
+  const b = bin(n);
+  const restes = [];
+  let q = n;
+  while (q > 0){ restes.push(q % 2); q = Math.floor(q / 2); }
+  return {
+    enonce: '<p>Écris ce nombre en <b>binaire</b>, sans zéro inutile devant.</p>' +
+            form('<b>' + n + '</b><span class="form-leg">en base 10</span>'),
+    champs: [{ type: 'texte', label: 'Écriture binaire', bon: b }],
+    etapes: [
+      'On divise par 2 en notant les restes, puis on les lit <b>de bas en haut</b> : ' +
+        restes.join(', ') + ' → <b>' + b + '</b>.',
+      'Vérification par les puissances de 2 : ' +
+        b.split('').map((c, i) => c === '1' ? Math.pow(2, b.length - 1 - i) : null)
+          .filter(x => x).join(' + ') + ' = ' + n + '.',
+      'Ce nombre tient sur <b>' + b.length + ' bits</b>.'
+    ]
+  };
+});
+
+G('nsi-binaire', 'nsi-bin-dec', 'Binaire vers décimal', 'app', function(){
+  const bits = R.pick([4, 5, 6, 7, 8]);
+  const n = R.int(1, Math.pow(2, bits) - 1);
+  const b = bin(n, bits);
+  const dec = b.split('').map((c, i) => c === '1' ? Math.pow(2, b.length - 1 - i) : 0);
+  return {
+    enonce: '<p>Quelle est la valeur décimale de cet entier écrit en binaire ?</p>' +
+            form('<b>' + b + '</b><span class="form-leg">en base 2</span>'),
+    champs: [{ type: 'num', label: 'Valeur décimale', bon: n, tol: 0 }],
+    etapes: [
+      'Les poids, de gauche à droite : ' +
+        b.split('').map((c, i) => Math.pow(2, b.length - 1 - i)).join(' · ') + '.',
+      'On additionne les poids des bits à 1 : ' + dec.filter(x => x).join(' + ') + ' = <b>' + n + '</b>.',
+      'Sur ' + bits + ' bits, on peut représenter 2<sup>' + bits + '</sup> = ' + Math.pow(2, bits) +
+        ' valeurs, de 0 à ' + (Math.pow(2, bits) - 1) + '.'
+    ]
+  };
+});
+
+G('nsi-binaire', 'nsi-hexa', 'Hexadécimal', 'ent', function(){
+  const n = R.int(16, 255);
+  const h = n.toString(16).toUpperCase();
+  const b = bin(n, 8);
+  return {
+    enonce: '<p>Convertis cet octet en <b>hexadécimal</b>.</p>' +
+            form('<b>' + b + '</b><span class="form-leg">en base 2</span>'),
+    champs: [{ type: 'texte', label: 'Écriture hexadécimale', bon: h, alt: [h.toLowerCase(), '0x' + h, '0x' + h.toLowerCase()] }],
+    etapes: [
+      'On groupe les bits par <b>quatre</b> en partant de la droite : ' +
+        b.slice(0, 4) + ' et ' + b.slice(4) + '.',
+      'Chaque groupe de quatre bits donne un chiffre hexadécimal : ' +
+        b.slice(0, 4) + ' → ' + parseInt(b.slice(0, 4), 2).toString(16).toUpperCase() + ' · ' +
+        b.slice(4) + ' → ' + parseInt(b.slice(4), 2).toString(16).toUpperCase() + '.',
+      'Donc <b>' + h + '</b>, soit ' + n + ' en décimal.',
+      'Les chiffres au-delà de 9 : A = 10 · B = 11 · C = 12 · D = 13 · E = 14 · F = 15.'
+    ]
+  };
+});
+
+G('nsi-binaire', 'nsi-bits', 'Combien de bits, combien de valeurs ?', 'ent', function(){
+  if (R.int(0, 1)){
+    const bits = R.pick([4, 6, 8, 10, 12, 16]);
+    return {
+      enonce: '<p>Combien de valeurs différentes peut-on représenter sur <b>' + bits + ' bits</b> ?</p>',
+      champs: [
+        { type: 'num', label: 'Nombre de valeurs', bon: Math.pow(2, bits), tol: 0 },
+        { type: 'num', label: 'Plus grand entier positif représentable', bon: Math.pow(2, bits) - 1, tol: 0 }
+      ],
+      etapes: [
+        'Sur n bits, il y a ' + M('2^{n}') + ' combinaisons possibles : 2<sup>' + bits + '</sup> = <b>' +
+          Math.pow(2, bits) + '</b>.',
+        'Les entiers positifs vont de 0 à 2<sup>' + bits + '</sup> - 1 = <b>' + (Math.pow(2, bits) - 1) + '</b>.',
+        'Repères : 8 bits, un octet, donnent 256 valeurs, de 0 à 255.'
+      ]
+    };
+  }
+  const n = R.int(20, 4000);
+  const bits = Math.floor(Math.log2(n)) + 1;
+  return {
+    enonce: '<p>Combien de bits faut-il au minimum pour écrire l’entier <b>' + n + '</b> en binaire ?</p>',
+    champs: [{ type: 'num', label: 'Nombre de bits', bon: bits, tol: 0 }],
+    etapes: [
+      'Il faut le plus petit n tel que 2<sup>n</sup> > ' + n + '.',
+      '2<sup>' + (bits - 1) + '</sup> = ' + Math.pow(2, bits - 1) + ' ≤ ' + n +
+        ' < 2<sup>' + bits + '</sup> = ' + Math.pow(2, bits) + '.',
+      'Il faut donc <b>' + bits + ' bits</b>. Son écriture binaire est ' + bin(n) + '.'
+    ]
+  };
+});
+
+/* ---------- booléens ---------- */
+G('nsi-types', 'nsi-booleen', 'Expressions booléennes', 'ent', function(){
+  const a = R.int(0, 1), b = R.int(0, 1), c = R.int(0, 1);
+  const cas = [
+    { e: 'a and b', v: a && b },
+    { e: 'a or b', v: a || b },
+    { e: 'not a', v: !a },
+    { e: 'a and (b or c)', v: a && (b || c) },
+    { e: '(a or b) and not c', v: (a || b) && !c },
+    { e: 'not (a and b)', v: !(a && b) },
+    { e: 'not a or not b', v: !a || !b }
+  ];
+  const x = R.pick(cas);
+  const vb = v => v ? 'True' : 'False';
+  return {
+    enonce: '<p>On pose <code>a = ' + vb(a) + '</code>, <code>b = ' + vb(b) + '</code> ' +
+            'et <code>c = ' + vb(c) + '</code>.</p>' +
+            '<p>Que vaut cette expression ?</p>' + form('<code>' + x.e + '</code>'),
+    qcm: { options: ['True', 'False'], bon: x.v ? 0 : 1 },
+    etapes: [
+      'L’expression vaut <b>' + vb(x.v) + '</b>.',
+      '<b>and</b> est vrai seulement si les deux opérandes sont vrais. ' +
+        '<b>or</b> est vrai dès qu’au moins un l’est : c’est un ou <b>inclusif</b>.',
+      'Lois de De Morgan : <code>not (a and b)</code> équivaut à <code>not a or not b</code>, ' +
+        'et <code>not (a or b)</code> équivaut à <code>not a and not b</code>.'
+    ]
+  };
+});
+
+/* ---------- Python : listes et tranches ---------- */
+G('nsi-types', 'nsi-liste', 'Indices et tranches', 'ent', function(){
+  const t = [];
+  while (t.length < R.int(5, 8)) t.push(R.int(1, 40));
+  const ops = [
+    { e: 't[0]', v: t[0], d: 'L’indice 0 désigne le <b>premier</b> élément.' },
+    { e: 't[-1]', v: t[t.length - 1], d: 'Un indice négatif compte depuis la fin : -1 est le dernier.' },
+    { e: 't[1]', v: t[1], d: 'L’indice 1 désigne le deuxième élément, pas le premier.' },
+    { e: 'len(t)', v: t.length, d: '<code>len</code> donne le nombre d’éléments.' },
+    { e: 'sum(t)', v: t.reduce((s, x) => s + x, 0), d: '<code>sum</code> additionne tous les éléments.' },
+    { e: 'max(t)', v: Math.max.apply(null, t), d: '<code>max</code> renvoie le plus grand élément.' },
+    { e: 'min(t)', v: Math.min.apply(null, t), d: '<code>min</code> renvoie le plus petit élément.' },
+    { e: 'len(t[1:4])', v: Math.max(0, Math.min(4, t.length) - 1),
+      d: 'La tranche <code>t[a:b]</code> contient les indices a à <b>b-1</b> : la borne de droite est <b>exclue</b>.' }
+  ];
+  const x = R.pick(ops);
+  return {
+    enonce: '<p>On définit la liste suivante :</p>' +
+            form('<code>t = [' + t.join(', ') + ']</code>') +
+            '<p>Que vaut cette expression ?</p>' + form('<code>' + x.e + '</code>'),
+    champs: [{ type: 'num', label: 'Valeur', bon: x.v, tol: 0 }],
+    etapes: [
+      '<code>' + x.e + '</code> vaut <b>' + x.v + '</b>.', x.d,
+      'Les indices vont de 0 à len(t) - 1, soit de 0 à ' + (t.length - 1) + ' ici. ' +
+        '<code>t[' + t.length + ']</code> provoquerait une erreur.'
+    ]
+  };
+});
+
+G('nsi-python', 'nsi-boucle', 'Que fait cette boucle ?', 'ent', function(){
+  const cas = [];
+  const n1 = R.int(3, 8), p1 = R.int(2, 5);
+  let s1 = 0; for (let i = 0; i < n1; i++) s1 += i * p1;
+  cas.push({ c: 's = 0\nfor i in range(' + n1 + '):\n    s = s + i * ' + p1 + '\nprint(s)', v: s1,
+             d: '<code>range(' + n1 + ')</code> fait prendre à i les valeurs 0 à ' + (n1 - 1) +
+                ', <b>jamais</b> ' + n1 + '. On somme ' +
+                Array.from({ length: n1 }, (_, i) => i * p1).join(' + ') + '.' });
+  const n2 = R.int(4, 9);
+  let s2 = 1; for (let i = 1; i <= n2; i++) s2 *= i;
+  cas.push({ c: 'p = 1\nfor i in range(1, ' + (n2 + 1) + '):\n    p = p * i\nprint(p)', v: s2,
+             d: '<code>range(1, ' + (n2 + 1) + ')</code> va de 1 à ' + n2 + ' : c’est la factorielle de ' + n2 + '.' });
+  const n3 = R.pick([64, 100, 128, 200, 256, 1000]);
+  let c3 = 0, q3 = n3; while (q3 > 1){ q3 = Math.floor(q3 / 2); c3++; }
+  cas.push({ c: 'n = ' + n3 + '\nc = 0\nwhile n > 1:\n    n = n // 2\n    c = c + 1\nprint(c)', v: c3,
+             d: 'On divise par 2 jusqu’à atteindre 1 : le compteur donne environ log₂(' + n3 + '). ' +
+                'C’est exactement le coût d’une recherche dichotomique.' });
+  const t4 = []; while (t4.length < 6) t4.push(R.int(1, 30));
+  const seuil = R.int(10, 20);
+  const c4 = t4.filter(x => x > seuil).length;
+  cas.push({ c: 't = [' + t4.join(', ') + ']\nc = 0\nfor x in t:\n    if x > ' + seuil + ':\n        c = c + 1\nprint(c)',
+             v: c4, d: 'On compte les éléments strictement supérieurs à ' + seuil + ' : ' +
+                (t4.filter(x => x > seuil).join(', ') || 'aucun') + '.' });
+  const x = R.pick(cas);
+  return {
+    enonce: '<p>Qu’affiche ce programme ?</p>' + code(x.c),
+    champs: [{ type: 'num', label: 'Valeur affichée', bon: x.v, tol: 0 }],
+    etapes: [
+      'Le programme affiche <b>' + x.v + '</b>.', x.d,
+      'Le piège permanent de Python : <code>range(n)</code> s’arrête à <b>n-1</b>.'
+    ]
+  };
+});
+
+G('nsi-python', 'nsi-fonction', 'Lire une fonction', 'ds', function(){
+  const t = []; while (t.length < R.int(5, 7)) t.push(R.int(-20, 40));
+  const cas = [
+    { n: 'maximum', c: 'def f(t):\n    m = t[0]\n    for x in t:\n        if x > m:\n            m = x\n    return m',
+      v: Math.max.apply(null, t), d: 'La fonction parcourt la liste en gardant le plus grand vu jusque-là : ' +
+        'c’est une recherche de maximum.' },
+    { n: 'somme des positifs', c: 'def f(t):\n    s = 0\n    for x in t:\n        if x > 0:\n            s = s + x\n    return s',
+      v: t.filter(x => x > 0).reduce((s, x) => s + x, 0),
+      d: 'Seuls les éléments strictement positifs sont ajoutés : ' + (t.filter(x => x > 0).join(' + ') || '0') + '.' },
+    { n: 'nombre d’éléments négatifs', c: 'def f(t):\n    c = 0\n    for x in t:\n        if x < 0:\n            c = c + 1\n    return c',
+      v: t.filter(x => x < 0).length, d: 'La fonction compte les éléments strictement négatifs.' },
+    { n: 'indice du minimum', c: 'def f(t):\n    i = 0\n    for j in range(len(t)):\n        if t[j] < t[i]:\n            i = j\n    return i',
+      v: t.indexOf(Math.min.apply(null, t)), d: 'La fonction renvoie l’<b>indice</b> du minimum, pas sa valeur. ' +
+        'Le minimum vaut ' + Math.min.apply(null, t) + ', situé à l’indice ' + t.indexOf(Math.min.apply(null, t)) + '.' }
+  ];
+  const x = R.pick(cas);
+  return {
+    enonce: '<p>On exécute ce programme. Que renvoie l’appel ?</p>' +
+            code(x.c + '\n\nf([' + t.join(', ') + '])'),
+    champs: [{ type: 'num', label: 'Valeur renvoyée', bon: x.v, tol: 0 }],
+    etapes: [
+      'La fonction renvoie <b>' + x.v + '</b>.',
+      'Ce que fait cette fonction : <b>' + x.n + '</b>. ' + x.d,
+      'Méthode de lecture : identifier l’<b>initialisation</b>, ce que fait le corps de la boucle, ' +
+        'puis ce qui est <b>renvoyé</b>. Trois lignes suffisent souvent à comprendre.',
+      'Une spécification en docstring aurait évité de deviner : c’est ce que le programme attend de toi ' +
+        'quand tu écris une fonction.'
+    ]
+  };
+});
+
+/* ---------- coûts et algorithmes ---------- */
+const ALGOS = [
+  { q: 'Quel est le coût, dans le pire des cas, d’une recherche séquentielle dans un tableau de n éléments ?',
+    b: 'Linéaire : de l’ordre de n comparaisons',
+    v: ['Linéaire : de l’ordre de n comparaisons', 'Logarithmique : de l’ordre de log n',
+        'Quadratique : de l’ordre de n²', 'Constant : une seule comparaison'] },
+  { q: 'Quel est le coût d’une recherche dichotomique dans un tableau trié de n éléments ?',
+    b: 'Logarithmique : de l’ordre de log₂(n)',
+    v: ['Logarithmique : de l’ordre de log₂(n)', 'Linéaire : de l’ordre de n',
+        'Quadratique : de l’ordre de n²', 'Constant'] },
+  { q: 'Quelle condition la recherche dichotomique exige-t-elle ?',
+    b: 'Que le tableau soit trié',
+    v: ['Que le tableau soit trié', 'Que le tableau ne contienne pas de doublons',
+        'Que le tableau soit de taille paire', 'Aucune condition particulière'] },
+  { q: 'Quel est le coût du tri par sélection ou par insertion ?',
+    b: 'Quadratique : de l’ordre de n²',
+    v: ['Quadratique : de l’ordre de n²', 'Linéaire', 'Logarithmique', 'Constant'] },
+  { q: 'Qu’est-ce qu’un variant de boucle ?',
+    b: 'Une quantité entière positive qui décroît strictement à chaque tour, ce qui prouve la terminaison',
+    v: ['Une quantité entière positive qui décroît strictement à chaque tour, ce qui prouve la terminaison',
+        'Une propriété vraie à chaque tour, qui prouve la correction',
+        'Une variable qui change de type pendant la boucle',
+        'Le nombre total de tours effectués'] },
+  { q: 'Qu’est-ce qu’un invariant de boucle ?',
+    b: 'Une propriété conservée à chaque tour, qui permet de prouver la correction',
+    v: ['Une propriété conservée à chaque tour, qui permet de prouver la correction',
+        'Une quantité qui décroît à chaque tour', 'Une variable qui ne change jamais de valeur',
+        'Une constante du programme'] },
+  { q: 'Un algorithme glouton donne-t-il toujours la solution optimale ?',
+    b: 'Non : cela dépend du problème et des données',
+    v: ['Non : cela dépend du problème et des données', 'Oui, toujours',
+        'Oui, si les données sont triées', 'Oui, si le problème admet une solution'] }
+];
+
+G('nsi-algo', 'nsi-couts', 'Coûts et propriétés des algorithmes', 'app', function(){
+  const x = R.pick(ALGOS);
+  const opts = R.shuffle(x.v.slice());
+  return {
+    enonce: '<p>' + x.q + '</p>',
+    qcm: { options: opts, bon: opts.indexOf(x.b) },
+    etapes: ['Réponse : <b>' + x.b + '</b>.',
+             'Pour retenir : <b>variant</b> → terminaison · <b>invariant</b> → correction.']
+  };
+});
+
+G('nsi-algo', 'nsi-dichotomie', 'Compter les étapes d’une dichotomie', 'ent', function(){
+  const n = R.pick([16, 32, 64, 100, 128, 256, 1000, 1024, 10000]);
+  const etapes = Math.ceil(Math.log2(n + 1));
+  const seq = n;
+  return {
+    enonce: '<p>Un tableau <b>trié</b> contient <b>' + nf(n) + ' éléments</b>.</p>' +
+            '<p>Combien de comparaisons faut-il au maximum pour y trouver une valeur par ' +
+            '<b>recherche dichotomique</b> ? Et par <b>recherche séquentielle</b> ?</p>',
+    champs: [
+      { type: 'num', label: 'Dichotomie (au pire)', bon: etapes, tol: 1 },
+      { type: 'num', label: 'Recherche séquentielle (au pire)', bon: seq, tol: 0 }
+    ],
+    etapes: [
+      'Chaque comparaison divise la zone de recherche par <b>deux</b>. ' +
+        'Il faut donc le plus petit k tel que 2<sup>k</sup> ≥ ' + nf(n) + ' + 1, soit k ≈ <b>' + etapes + '</b>.',
+      'La recherche séquentielle parcourt tout le tableau : au pire <b>' + nf(seq) + '</b> comparaisons.',
+      'L’écart est spectaculaire : ' + nf(seq) + ' contre ' + etapes + '. ' +
+        'Et il grandit avec la taille, puisque doubler n n’ajoute qu’une seule comparaison à la dichotomie.',
+      'Mais la dichotomie exige un tableau <b>trié</b> : c’est le prix à payer.'
+    ]
+  };
+});
+
+G('nsi-algo', 'nsi-glouton', 'Rendu de monnaie glouton', 'ent', function(){
+  const pieces = [200, 100, 50, 20, 10, 5, 2, 1];
+  const somme = R.int(7, 199);
+  let reste = somme, nb = 0;
+  const detail = [];
+  pieces.forEach(p => {
+    const k = Math.floor(reste / p);
+    if (k > 0){ detail.push(k + ' × ' + p); nb += k; reste -= k * p; }
+  });
+  return {
+    enonce: '<p>On rend la monnaie sur <b>' + somme + ' centimes</b> avec le système européen : ' +
+            'pièces de 1, 2, 5, 10, 20, 50, 100 et 200 centimes.</p>' +
+            '<p>L’algorithme glouton prend à chaque étape la plus grosse pièce possible. ' +
+            'Combien de pièces rend-il au total ?</p>',
+    champs: [{ type: 'num', label: 'Nombre de pièces', bon: nb, tol: 0 }],
+    etapes: [
+      'Détail du rendu : ' + detail.join(' · ') + '.',
+      'Soit <b>' + nb + ' pièce' + (nb > 1 ? 's' : '') + '</b> au total.',
+      'Avec le système européen, ce glouton donne bien le <b>nombre minimal</b> de pièces. ' +
+        'Ce n’est pas une propriété générale : avec un système comme 1, 3, 4, ' +
+        'le glouton rend 6 = 4 + 1 + 1, soit trois pièces, alors que 3 + 3 en suffirait deux.',
+      'Un algorithme glouton ne revient jamais en arrière : c’est ce qui le rend rapide, et parfois faux.'
+    ]
+  };
+});
+
+/* ---------- tables, Web, machine, histoire ---------- */
+const TABLES_NSI = [
+  { q: 'Dans un fichier CSV, que contient généralement la première ligne ?', b: 'Les noms des colonnes, c’est-à-dire les descripteurs',
+    v: ['Les noms des colonnes, c’est-à-dire les descripteurs', 'Le premier enregistrement',
+        'Le nombre de lignes du fichier', 'Le type de chaque colonne'] },
+  { q: 'Sous quelle forme lit-on les valeurs d’un CSV en Python ?', b: 'Sous forme de chaînes de caractères, à convertir avant tout calcul',
+    v: ['Sous forme de chaînes de caractères, à convertir avant tout calcul', 'Sous forme d’entiers',
+        'Sous forme de flottants', 'Sous forme de booléens'] },
+  { q: 'Que faut-il pour fusionner deux tables ?', b: 'Un attribut commun servant de clé',
+    v: ['Un attribut commun servant de clé', 'Le même nombre de lignes',
+        'Le même nombre de colonnes', 'Que les deux soient triées'] },
+  { q: 'Quelle est la différence entre sorted(t) et t.sort() ?', b: 'sorted renvoie une nouvelle liste, sort modifie la liste en place',
+    v: ['sorted renvoie une nouvelle liste, sort modifie la liste en place',
+        'Il n’y a aucune différence', 'sorted trie en ordre décroissant',
+        'sort ne fonctionne que sur des nombres'] }
+];
+
+G('nsi-tables', 'nsi-tables-qcm', 'Données en tables', 'app', function(){
+  const x = R.pick(TABLES_NSI);
+  const opts = R.shuffle(x.v.slice());
+  return {
+    enonce: '<p>' + x.q + '</p>',
+    qcm: { options: opts, bon: opts.indexOf(x.b) },
+    etapes: ['Réponse : <b>' + x.b + '</b>.',
+             'Le programme demande aussi d’interroger la <b>provenance</b> et la <b>validité</b> des données.']
+  };
+});
+
+const WEB_NSI = [
+  { q: 'Où se trouvent les paramètres d’une requête GET ?', b: 'Dans l’URL, après un point d’interrogation',
+    v: ['Dans l’URL, après un point d’interrogation', 'Dans le corps de la requête',
+        'Dans un fichier séparé', 'Dans les en-têtes uniquement'] },
+  { q: 'Pourquoi préfère-t-on POST à GET pour envoyer un mot de passe ?', b: 'Parce que GET l’écrirait dans l’URL, l’historique et les journaux du serveur',
+    v: ['Parce que GET l’écrirait dans l’URL, l’historique et les journaux du serveur',
+        'Parce que POST chiffre les données', 'Parce que GET est plus lent',
+        'Parce que POST est plus récent'] },
+  { q: 'Qu’est-ce qui chiffre réellement les échanges avec un site ?', b: 'Le protocole HTTPS',
+    v: ['Le protocole HTTPS', 'La méthode POST', 'Le langage JavaScript', 'Le format HTML'] },
+  { q: 'Quel est le rôle du CSS ?', b: 'Décrire la présentation, alors que HTML décrit la structure',
+    v: ['Décrire la présentation, alors que HTML décrit la structure',
+        'Décrire la structure de la page', 'Exécuter des calculs côté serveur',
+        'Stocker les données du site'] },
+  { q: 'Où s’exécute JavaScript dans une page Web classique ?', b: 'Côté client, dans le navigateur',
+    v: ['Côté client, dans le navigateur', 'Côté serveur uniquement',
+        'Dans le système d’exploitation', 'Dans la base de données'] }
+];
+
+G('nsi-web', 'nsi-web-qcm', 'Le Web : client, serveur, requêtes', 'app', function(){
+  const x = R.pick(WEB_NSI);
+  const opts = R.shuffle(x.v.slice());
+  return {
+    enonce: '<p>' + x.q + '</p>',
+    qcm: { options: opts, bon: opts.indexOf(x.b) },
+    etapes: ['Réponse : <b>' + x.b + '</b>.',
+             'À retenir : POST cache les paramètres de l’URL, mais <b>ne chiffre rien</b>. C’est HTTPS qui chiffre.']
+  };
+});
+
+const MACHINE_NSI = [
+  { q: 'Quelle est l’idée centrale de l’architecture de von Neumann ?', b: 'Le programme est stocké dans la même mémoire que les données',
+    v: ['Le programme est stocké dans la même mémoire que les données',
+        'Le processeur possède plusieurs cœurs', 'Les données circulent par paquets',
+        'La mémoire est volatile'] },
+  { q: 'Quelle est la propriété de la mémoire vive ?', b: 'Elle est rapide mais volatile : son contenu disparaît à l’extinction',
+    v: ['Elle est rapide mais volatile : son contenu disparaît à l’extinction',
+        'Elle est lente mais persistante', 'Elle contient le système d’exploitation en permanence',
+        'Elle ne stocke que les programmes'] },
+  { q: 'Que gère un système d’exploitation ?', b: 'Les processus, la mémoire, les fichiers, les périphériques et les droits',
+    v: ['Les processus, la mémoire, les fichiers, les périphériques et les droits',
+        'Uniquement l’affichage', 'Uniquement les fichiers',
+        'Uniquement la connexion réseau'] },
+  { q: 'Quel est l’intérêt du découpage des données en paquets ?', b: 'La robustesse : une panne locale n’interrompt pas la communication, les paquets sont réacheminés',
+    v: ['La robustesse : une panne locale n’interrompt pas la communication, les paquets sont réacheminés',
+        'La confidentialité des échanges', 'La réduction de la taille des données',
+        'La suppression des erreurs de transmission'] },
+  { q: 'Que fait la commande ls en ligne de commande ?', b: 'Elle liste le contenu du répertoire courant',
+    v: ['Elle liste le contenu du répertoire courant', 'Elle affiche le répertoire courant',
+        'Elle change de répertoire', 'Elle supprime un fichier'] }
+];
+
+G('nsi-machine', 'nsi-machine-qcm', 'Architecture, système, réseau', 'app', function(){
+  const x = R.pick(MACHINE_NSI);
+  const opts = R.shuffle(x.v.slice());
+  return {
+    enonce: '<p>' + x.q + '</p>',
+    qcm: { options: opts, bon: opts.indexOf(x.b) },
+    etapes: ['Réponse : <b>' + x.b + '</b>.',
+             'La formule à retenir pour von Neumann : <b>programme et données dans la même mémoire</b>.']
+  };
+});
+
+const HISTOIRE_NSI = [
+  { d: '1936', e: 'Alan Turing définit la machine de Turing et la calculabilité' },
+  { d: '1843', e: 'Ada Lovelace écrit le premier algorithme destiné à une machine' },
+  { d: '1945', e: 'L’architecture de von Neumann est décrite' },
+  { d: '1947', e: 'Invention du transistor' },
+  { d: '1969', e: 'Arpanet, ancêtre d’Internet, est mis en service' },
+  { d: '1971', e: 'Premier microprocesseur' },
+  { d: '1989', e: 'Tim Berners-Lee invente le Web au CERN' },
+  { d: '1991', e: 'Premier noyau Linux, par Linus Torvalds' }
+];
+
+G('nsi-histoire', 'nsi-histoire-qcm', 'Les repères de l’informatique', 'app', function(){
+  const x = R.pick(HISTOIRE_NSI);
+  return {
+    enonce: '<p>De quand date cet évènement ?</p>' + cit(x.e),
+    qcm: qcm4(x.d, HISTOIRE_NSI.map(y => y.d)),
+    etapes: ['<b>' + x.d + '</b> : ' + x.e + '.',
+             'Erreur à ne pas commettre : <b>Internet</b> est le réseau, né à la fin des années 1960 ; ' +
+               '<b>le Web</b> est un service qui fonctionne dessus, inventé vingt ans plus tard.']
+  };
+});
+
+/* ---------- exercice rédigé ---------- */
+D('nsi-algo', 'nsi-ecrire', 'Écrire et justifier une fonction', function(){
+  const sujets = [
+    { s: 'Écrire une fonction moyenne(t) qui renvoie la moyenne des éléments d’une liste de nombres.',
+      p: 'la liste ne doit pas être vide, sinon la division est impossible',
+      i: 's contient la somme des éléments déjà parcourus',
+      t: 'moyenne([2, 4, 6]) == 4 · moyenne([5]) == 5 · moyenne([-2, 2]) == 0' },
+    { s: 'Écrire une fonction indice_min(t) qui renvoie l’indice du plus petit élément d’une liste.',
+      p: 'la liste ne doit pas être vide',
+      i: 'i est l’indice du minimum parmi les éléments déjà parcourus',
+      t: 'indice_min([3, 1, 2]) == 1 · indice_min([7]) == 0 · indice_min([2, 2]) == 0' },
+    { s: 'Écrire une fonction recherche(t, v) qui renvoie True si la valeur v figure dans la liste t, et False sinon.',
+      p: 'aucune : la liste peut être vide, la fonction renvoie alors False',
+      i: 'aucun élément parmi ceux déjà parcourus n’est égal à v',
+      t: 'recherche([1, 2], 2) == True · recherche([], 5) == False · recherche([1], 9) == False' },
+    { s: 'Écrire une fonction compte(t, v) qui renvoie le nombre d’occurrences de v dans la liste t.',
+      p: 'aucune : une liste vide donne 0',
+      i: 'c contient le nombre d’occurrences parmi les éléments déjà parcourus',
+      t: 'compte([1, 2, 1], 1) == 2 · compte([], 3) == 0 · compte([4], 4) == 1' }
+  ];
+  const x = R.pick(sujets);
+  return {
+    enonce: '<p><b>Sujet :</b></p>' + form(x.s) +
+            '<p>Sur ton cahier, écris la fonction <b>avec sa spécification</b>, puis justifie ' +
+            'sa terminaison et propose des tests.</p>',
+    aide: 'Une fonction complète, c’est : une docstring qui dit ce qu’elle fait et ce qu’elle exige, ' +
+          'un corps correct, et des tests qui couvrent le cas ordinaire et les cas limites.',
+    bareme: [
+      { pts: 2, d: '<b>Signature</b> correcte : <code>def</code>, le nom demandé, les bons paramètres.' },
+      { pts: 2, d: '<b>Docstring</b> qui indique ce que la fonction <b>renvoie</b>, et non ce qu’elle affiche.' },
+      { pts: 2, d: '<b>Précondition</b> énoncée. Ici : ' + x.p + '.' },
+      { pts: 2, d: '<b>Initialisation</b> correcte des variables avant la boucle.' },
+      { pts: 3, d: '<b>Boucle</b> correcte : parcours complet, aucun indice hors bornes, ' +
+                   'et pas de <code>range</code> décalé d’un cran.' },
+      { pts: 2, d: '<b>Valeur renvoyée</b> par <code>return</code>, et pas seulement affichée par <code>print</code>. ' +
+                   'C’est l’erreur qui coûte le plus souvent des points.' },
+      { pts: 2, d: '<b>Terminaison</b> justifiée : la boucle est bornée par la longueur de la liste, ' +
+                   'donc elle s’arrête.' },
+      { pts: 2, d: '<b>Invariant</b> proposé, même informel. Ici : ' + x.i + '.' },
+      { pts: 3, d: '<b>Tests</b> écrits avec <code>assert</code>, couvrant le cas ordinaire <b>et</b> ' +
+                   'les cas limites. Par exemple : ' + x.t + '.' }
+    ]
+  };
+});
+/* =========================================================================
+   SPÉCIALITÉ SCIENCES ÉCONOMIQUES ET SOCIALES, première générale.
+
+   Programme : BO spécial n°1 du 22 janvier 2019, inchangé pour 2026-2027.
+
+   Dix questions réparties en trois ensembles : science économique (4),
+   sociologie et science politique (4), regards croisés (2).
+   S'y ajoutent les objectifs d'apprentissage sur les données quantitatives,
+   qui sont évalués dans toutes les questions.
+   ========================================================================= */
+
+MAT['ses'].pret = true;
+
+BLOCS.push(
+  { id: 'ses-eco',     nom: 'Science économique',                matiere: 'ses' },
+  { id: 'ses-socio',   nom: 'Sociologie et science politique',   matiere: 'ses' },
+  { id: 'ses-croises', nom: 'Regards croisés',                   matiere: 'ses' },
+  { id: 'ses-outils',  nom: 'Les outils quantitatifs',           matiere: 'ses' }
+);
+
+const CHAPITRES_SES = [
+{
+  id: 'ses-marche', bloc: 'ses-eco', titre: 'Comment un marché concurrentiel fonctionne-t-il ?',
+  resume: 'Offre, demande, prix d’équilibre, surplus.',
+  capacites: [
+    'Connaître les caractéristiques d’un marché concurrentiel.',
+    'Savoir interpréter les courbes d’offre et de demande et leurs pentes.',
+    'Comprendre la notion d’équilibre et le rôle du prix dans l’allocation des ressources.',
+    'Comprendre les notions de surplus du producteur et du consommateur.',
+    'Comprendre l’effet d’une variation de l’offre ou de la demande sur l’équilibre.'
+  ],
+  cours: [
+    { k: 'def', t: 'Les conditions de la concurrence parfaite', c:
+      '<ul><li><b>Atomicité</b> : de nombreux acheteurs et vendeurs, aucun n’étant assez gros pour ' +
+      'influencer le prix.</li>' +
+      '<li><b>Homogénéité</b> du produit : les biens échangés sont identiques.</li>' +
+      '<li><b>Libre entrée et sortie</b> sur le marché.</li>' +
+      '<li><b>Transparence</b> de l’information : tous connaissent les prix et les qualités.</li>' +
+      '<li><b>Libre circulation</b> des facteurs de production.</li></ul>' +
+      '<p>Sur un tel marché, les agents sont <b>preneurs de prix</b> : ils subissent le prix, ils ne le fixent pas.</p>' },
+    { k: 'prop', t: 'Offre, demande, équilibre', c:
+      '<p>La courbe de <b>demande</b> est <b>décroissante</b> : plus le prix est élevé, moins on achète. ' +
+      'La courbe d’<b>offre</b> est <b>croissante</b> : plus le prix est élevé, plus on produit.</p>' +
+      '<p>Le <b>prix d’équilibre</b> est celui qui égalise les quantités offertes et demandées.</p>' +
+      '<ul><li>Prix <b>au-dessus</b> de l’équilibre → offre excédentaire, le prix baisse.</li>' +
+      '<li>Prix <b>en dessous</b> → demande excédentaire, pénurie, le prix monte.</li></ul>' },
+    { k: 'def', t: 'Les surplus', c:
+      '<p>Le <b>surplus du consommateur</b> est la différence entre ce qu’il était prêt à payer ' +
+      'et ce qu’il paie réellement.</p>' +
+      '<p>Le <b>surplus du producteur</b> est la différence entre le prix reçu et le prix minimal ' +
+      'auquel il aurait accepté de vendre.</p>' +
+      '<p>Leur somme mesure le <b>gain à l’échange</b> : c’est l’argument central en faveur du marché.</p>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Distinguer <b>déplacement le long</b> de la courbe (le prix change) et ' +
+      '<b>déplacement de la courbe</b> (autre chose change : revenu, goûts, coûts, nombre d’acteurs). ' +
+      'C’est l’erreur la plus sanctionnée du chapitre.</li>' +
+      '<li>Un choc d’offre positif fait <b>baisser</b> le prix et <b>augmenter</b> les quantités.</li>' +
+      '<li>Un choc de demande positif fait <b>monter</b> le prix <b>et</b> les quantités.</li></ul>' }
+  ]
+},
+{
+  id: 'ses-imparfait', bloc: 'ses-eco', titre: 'Les marchés imparfaitement concurrentiels',
+  resume: 'Monopole, oligopole, pouvoir de marché.',
+  capacites: [
+    'Comprendre les principales sources du pouvoir de marché : concentration, barrières à l’entrée, différenciation.',
+    'Comprendre les caractéristiques du monopole et de l’oligopole.',
+    'Comprendre comment le pouvoir de marché permet de fixer un prix supérieur au coût marginal.',
+    'Connaître le rôle de la politique de la concurrence.'
+  ],
+  cours: [
+    { k: 'def', t: 'Le pouvoir de marché', c:
+      '<p>Une entreprise a du <b>pouvoir de marché</b> quand elle peut fixer un prix supérieur ' +
+      'à celui qui prévaudrait en concurrence, sans perdre tous ses clients.</p>' +
+      '<p>Trois sources principales :</p>' +
+      '<ul><li>la <b>concentration</b> : peu d’offreurs sur le marché ;</li>' +
+      '<li>les <b>barrières à l’entrée</b> : coûts fixes élevés, brevets, réglementation, réputation ;</li>' +
+      '<li>la <b>différenciation</b> du produit : marque, qualité perçue, innovation.</li></ul>' },
+    { k: 'prop', t: 'Monopole et oligopole', c:
+      '<ul><li><b>Monopole</b> : un seul offreur. Il fixe le prix, mais reste contraint par la demande.</li>' +
+      '<li><b>Oligopole</b> : quelques offreurs, dont les décisions sont <b>interdépendantes</b>. ' +
+      'Chacun doit anticiper la réaction des autres.</li></ul>' +
+      '<p>D’où deux issues possibles en oligopole : la <b>guerre des prix</b>, qui profite au consommateur, ' +
+      'ou l’<b>entente</b>, illégale, qui lui nuit.</p>' },
+    { k: 'prop', t: 'La politique de la concurrence', c:
+      '<p>Elle sanctionne les <b>ententes</b> et les <b>abus de position dominante</b>, et contrôle ' +
+      'les <b>concentrations</b>, c’est-à-dire les fusions et acquisitions.</p>' +
+      '<p>Objectif : préserver le surplus du consommateur et l’incitation à innover. ' +
+      'Être en monopole n’est pas illégal en soi ; en <b>abuser</b> l’est.</p>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Le monopole ne fixe pas un prix infini : il reste limité par la <b>demande</b>. ' +
+      'Trop cher, il ne vend plus.</li>' +
+      '<li>L’interdépendance est le mot clé de l’oligopole : c’est ce qui le distingue des autres structures.</li>' +
+      '<li>Un monopole peut être <b>naturel</b> si les coûts fixes sont si élevés qu’un seul producteur ' +
+      'est efficace : les réseaux ferroviaires ou électriques.</li></ul>' }
+  ]
+},
+{
+  id: 'ses-defaillances', bloc: 'ses-eco', titre: 'Les défaillances du marché',
+  resume: 'Externalités, biens collectifs, asymétries d’information.',
+  capacites: [
+    'Comprendre les effets externes, positifs et négatifs, et les moyens d’y remédier.',
+    'Comprendre ce qu’est un bien collectif et pourquoi le marché ne le produit pas spontanément.',
+    'Comprendre les asymétries d’information : sélection adverse et aléa moral.',
+    'Connaître les principaux instruments de l’action publique face à ces défaillances.'
+  ],
+  cours: [
+    { k: 'def', t: 'Les externalités', c:
+      '<p>Une <b>externalité</b> est l’effet d’une activité sur un tiers, <b>sans compensation monétaire</b>.</p>' +
+      '<ul><li><b>Négative</b> : pollution d’une usine. Le coût social dépasse le coût privé, ' +
+      'donc le marché produit <b>trop</b>.</li>' +
+      '<li><b>Positive</b> : vaccination, recherche, éducation. Le bénéfice social dépasse le bénéfice privé, ' +
+      'donc le marché produit <b>trop peu</b>.</li></ul>' +
+      '<p>Remèdes : <b>taxe</b> (principe pollueur-payeur), <b>subvention</b>, <b>réglementation</b>, ' +
+      'ou <b>marché de quotas</b> d’émission.</p>' },
+    { k: 'def', t: 'Les biens collectifs', c:
+      '<p>Un bien collectif pur est <b>non rival</b> (ma consommation ne réduit pas celle des autres) ' +
+      'et <b>non excluable</b> (on ne peut empêcher personne d’en profiter).</p>' +
+      '<p>Exemples : l’éclairage public, la défense nationale, un phare.</p>' +
+      '<p>D’où le problème du <b>passager clandestin</b> : chacun a intérêt à profiter sans payer, ' +
+      'donc le marché ne finance pas ces biens. C’est pourquoi ils relèvent de l’action publique.</p>' },
+    { k: 'def', t: 'Les asymétries d’information', c:
+      '<ul><li><b>Sélection adverse</b> : l’asymétrie existe <b>avant</b> le contrat. ' +
+      'Le vendeur d’une voiture d’occasion connaît son état, pas l’acheteur. Les bonnes voitures ' +
+      'quittent le marché : c’est le « marché des tacots » d’Akerlof.</li>' +
+      '<li><b>Aléa moral</b> : l’asymétrie apparaît <b>après</b> le contrat. Bien assuré, ' +
+      'on prend plus de risques.</li></ul>' +
+      '<p>Remèdes : <b>signaux</b> et <b>labels</b>, garanties, franchises, contrôles.</p>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Retenir la chronologie : sélection adverse <b>avant</b> le contrat, aléa moral <b>après</b>. ' +
+      'C’est le moyen le plus sûr de ne pas les confondre.</li>' +
+      '<li>Une externalité suppose l’<b>absence de compensation monétaire</b> : si l’on paie, ' +
+      'ce n’est plus une externalité.</li>' +
+      '<li>Non rival et non excluable : les deux critères sont nécessaires pour un bien collectif pur.</li></ul>' }
+  ]
+},
+{
+  id: 'ses-financement', bloc: 'ses-eco', titre: 'Comment les agents se financent-ils ?',
+  resume: 'Autofinancement, crédit, marchés, taux d’intérêt.',
+  capacites: [
+    'Distinguer les agents à capacité et à besoin de financement.',
+    'Distinguer financement interne et externe, direct et indirect.',
+    'Comprendre le rôle du taux d’intérêt et la distinction entre taux nominal et taux réel.',
+    'Comprendre le rôle des banques dans la création monétaire.'
+  ],
+  cours: [
+    { k: 'prop', t: 'Qui finance qui', c:
+      '<p>Les <b>ménages</b> ont en général une <b>capacité</b> de financement : ils épargnent. ' +
+      'Les <b>entreprises</b> et les <b>administrations publiques</b> ont le plus souvent un ' +
+      '<b>besoin</b> de financement.</p>' +
+      '<ul><li><b>Financement interne</b> : l’autofinancement, par les bénéfices non distribués.</li>' +
+      '<li><b>Financement externe direct</b> : sur les marchés, par émission d’actions ou d’obligations.</li>' +
+      '<li><b>Financement externe indirect</b> : par le crédit bancaire, la banque s’intercalant ' +
+      'entre prêteurs et emprunteurs.</li></ul>' },
+    { k: 'def', t: 'Action et obligation', c:
+      '<ul><li>Une <b>action</b> est un titre de <b>propriété</b> : elle donne droit à un dividende, ' +
+      'variable, et à un droit de vote. Le risque est élevé.</li>' +
+      '<li>Une <b>obligation</b> est un titre de <b>créance</b> : elle donne droit à un intérêt, ' +
+      'en général fixe, et au remboursement. Le risque est plus faible.</li></ul>' },
+    { k: 'def', t: 'Taux nominal et taux réel', c:
+      '<p>C’est l’un des objectifs quantitatifs explicites du programme :</p>' +
+      form('taux réel ≈ taux nominal − taux d’inflation', 'approximation suffisante au lycée') +
+      '<p>Un taux nominal de 3 % avec une inflation de 2 % donne un taux réel d’environ <b>1 %</b>. ' +
+      'Si l’inflation dépasse le taux nominal, le taux réel devient <b>négatif</b> : ' +
+      'le prêteur perd du pouvoir d’achat.</p>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>« Les crédits font les dépôts » : une banque crée de la monnaie en accordant un crédit. ' +
+      'Elle ne se contente pas de prêter l’épargne existante.</li>' +
+      '<li>Action = propriété · obligation = créance. Ne jamais les confondre.</li>' +
+      '<li>Toujours préciser <b>nominal</b> ou <b>réel</b> quand on parle d’un taux : ' +
+      'c’est ce que le correcteur vérifie.</li></ul>' }
+  ]
+},
+{
+  id: 'ses-socialisation', bloc: 'ses-socio', titre: 'La socialisation',
+  resume: 'Comment elle explique les différences de comportement.',
+  capacites: [
+    'Comprendre le processus de socialisation, primaire et secondaire.',
+    'Connaître les principales instances de socialisation.',
+    'Comprendre que la socialisation est différenciée selon le milieu social et le genre.',
+    'Comprendre les effets de la socialisation sur les trajectoires individuelles.'
+  ],
+  cours: [
+    { k: 'def', t: 'Ce qu’est la socialisation', c:
+      '<p>C’est le processus par lequel un individu intériorise les <b>normes</b>, les <b>valeurs</b> ' +
+      'et les <b>rôles</b> de son groupe, et construit ainsi son identité sociale.</p>' +
+      '<ul><li>La socialisation <b>primaire</b>, dans l’enfance, est la plus durable. ' +
+      'Instances principales : la famille, l’école, les pairs, les médias.</li>' +
+      '<li>La socialisation <b>secondaire</b>, à l’âge adulte, se fait notamment par le travail, ' +
+      'le couple, les associations. Elle peut prolonger ou <b>reconfigurer</b> la première.</li></ul>' },
+    { k: 'prop', t: 'Une socialisation différenciée', c:
+      '<p>Le point central du chapitre : on n’est pas socialisé de la même façon selon son ' +
+      '<b>milieu social</b> et selon son <b>genre</b>.</p>' +
+      '<p>Les pratiques éducatives, les loisirs proposés, les attentes scolaires diffèrent. ' +
+      'Ces différences contribuent à reproduire les positions sociales, sans les déterminer entièrement.</p>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Ne jamais présenter la socialisation comme un <b>déterminisme absolu</b> : ' +
+      'elle rend certains comportements plus probables, elle ne les impose pas.</li>' +
+      '<li>Distinguer <b>norme</b> (règle de comportement) et <b>valeur</b> (idéal auquel on adhère). ' +
+      'Les normes découlent des valeurs.</li>' +
+      '<li>Toujours illustrer par une donnée chiffrée : c’est ce qui distingue la sociologie ' +
+      'de l’opinion personnelle.</li></ul>' }
+  ]
+},
+{
+  id: 'ses-liens', bloc: 'ses-socio', titre: 'Les liens sociaux',
+  resume: 'Comment ils se construisent et évoluent.',
+  capacites: [
+    'Connaître les différents types de liens sociaux.',
+    'Comprendre la distinction entre solidarité mécanique et solidarité organique.',
+    'Comprendre les évolutions du lien social et les processus d’intégration.',
+    'Comprendre ce qu’est la disqualification sociale.'
+  ],
+  cours: [
+    { k: 'def', t: 'Durkheim : deux formes de solidarité', c:
+      '<ul><li><b>Solidarité mécanique</b> : dans les sociétés traditionnelles, les individus se ressemblent ' +
+      'et partagent une conscience collective forte. La cohésion vient de la <b>similitude</b>.</li>' +
+      '<li><b>Solidarité organique</b> : dans les sociétés modernes, la division du travail rend les individus ' +
+      'différents et <b>interdépendants</b>. La cohésion vient de la <b>complémentarité</b>.</li></ul>' },
+    { k: 'prop', t: 'Les instances d’intégration', c:
+      '<p>Quatre grandes instances relient l’individu à la société : la <b>famille</b>, ' +
+      'l’<b>école</b>, le <b>travail</b> et la <b>protection sociale</b>.</p>' +
+      '<p>Leur affaiblissement fragilise le lien social. Le chômage de longue durée, par exemple, ' +
+      'ne prive pas seulement d’un revenu : il prive d’un statut et de relations.</p>' +
+      '<p>La <b>disqualification sociale</b> désigne ce processus par lequel une personne perd ' +
+      'progressivement sa place reconnue dans la société.</p>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Mécanique = similitude · organique = complémentarité. Le vocabulaire de Durkheim ' +
+      'est contre-intuitif : « organique » désigne les sociétés <b>modernes</b>.</li>' +
+      '<li>Intégration et cohésion ne sont pas synonymes : l’intégration concerne l’individu ' +
+      'dans le groupe, la cohésion concerne la société entière.</li></ul>' }
+  ]
+},
+{
+  id: 'ses-deviance', bloc: 'ses-socio', titre: 'Les processus qui contribuent à la déviance',
+  resume: 'Norme, déviance, étiquetage, mesure de la délinquance.',
+  capacites: [
+    'Distinguer normes sociales et normes juridiques, déviance et délinquance.',
+    'Comprendre que la déviance est relative et construite socialement.',
+    'Comprendre les processus d’étiquetage et de stigmatisation.',
+    'Connaître les difficultés de la mesure de la délinquance.'
+  ],
+  cours: [
+    { k: 'def', t: 'Déviance et délinquance', c:
+      '<p>Est <b>déviant</b> un comportement qui transgresse une <b>norme sociale</b> et suscite ' +
+      'une réaction de réprobation. Est <b>délinquant</b> un comportement qui transgresse une ' +
+      '<b>norme juridique</b>, donc la loi.</p>' +
+      '<p>Toute délinquance est une déviance, mais l’inverse est faux : arriver systématiquement ' +
+      'en retard est déviant sans être délinquant.</p>' },
+    { k: 'prop', t: 'La déviance est relative', c:
+      '<p>Un même comportement peut être déviant ici et non ailleurs, aujourd’hui et non hier. ' +
+      'La déviance n’est pas une propriété de l’acte, mais le <b>produit d’une réaction sociale</b>.</p>' +
+      '<p>C’est la thèse de l’<b>étiquetage</b> de Howard Becker : c’est le groupe qui, en désignant ' +
+      'un comportement comme déviant, fabrique le déviant. L’étiquette peut ensuite enfermer la personne ' +
+      'dans une <b>carrière déviante</b>.</p>' },
+    { k: 'prop', t: 'Mesurer la délinquance', c:
+      '<p>Trois instruments, et trois limites :</p>' +
+      '<ul><li>les <b>statistiques policières</b> dépendent de l’activité des services et des dépôts de plainte ;</li>' +
+      '<li>les <b>statistiques judiciaires</b> ne comptent que les affaires jugées ;</li>' +
+      '<li>les <b>enquêtes de victimation</b>, qui interrogent les personnes, révèlent le ' +
+      '<b>chiffre noir</b> : les faits non déclarés.</li></ul>' +
+      '<p>Une hausse des chiffres peut donc traduire une hausse des faits, ou simplement une hausse ' +
+      'des plaintes ou des contrôles.</p>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Le <b>chiffre noir</b> est l’argument clé sur la mesure : le citer montre ' +
+      'que l’on comprend la construction des données.</li>' +
+      '<li>Becker et l’étiquetage : « le déviant est celui à qui l’étiquette a été appliquée avec succès ».</li></ul>' }
+  ]
+},
+{
+  id: 'ses-opinion', bloc: 'ses-socio', titre: 'L’opinion publique',
+  resume: 'Comment elle se forme et s’exprime.',
+  capacites: [
+    'Comprendre comment se construit l’opinion publique.',
+    'Comprendre le rôle et les limites des sondages.',
+    'Comprendre les critiques adressées à la notion d’opinion publique.',
+    'Connaître les principes de la représentativité d’un échantillon.'
+  ],
+  cours: [
+    { k: 'prop', t: 'Les sondages et leurs limites', c:
+      '<p>Un sondage interroge un <b>échantillon</b> censé représenter une population. ' +
+      'Deux méthodes : l’échantillon <b>aléatoire</b> (tirage au sort) et la méthode des <b>quotas</b> ' +
+      '(on reproduit la structure de la population).</p>' +
+      '<p>Les limites tiennent surtout à la <b>formulation</b> des questions, à l’ordre dans lequel ' +
+      'elles sont posées, aux non-réponses, et au fait que les personnes interrogées se forgent parfois ' +
+      'une opinion <b>au moment même</b> où on la leur demande.</p>' },
+    { k: 'prop', t: 'La critique de Bourdieu', c:
+      '<p>Dans une conférence de 1972, Bourdieu avance que « l’opinion publique n’existe pas », ' +
+      'en s’appuyant sur trois postulats qu’il juge infondés :</p>' +
+      '<ul><li>tout le monde peut avoir une opinion sur toute question ;</li>' +
+      '<li>toutes les opinions se valent, et peuvent être additionnées ;</li>' +
+      '<li>il y a consensus sur les questions qui méritent d’être posées.</li></ul>' +
+      '<p>La critique ne dit pas que les sondages sont faux : elle dit qu’ils <b>fabriquent</b> ' +
+      'en partie ce qu’ils prétendent mesurer.</p>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Un échantillon de 1000 personnes bien construit vaut mieux qu’un sondage en ligne ' +
+      'à 100 000 répondants auto-sélectionnés : c’est la <b>représentativité</b> qui compte, pas la taille.</li>' +
+      '<li>Toujours vérifier la <b>marge d’erreur</b> avant de commenter un écart de deux points.</li></ul>' }
+  ]
+},
+{
+  id: 'ses-protection', bloc: 'ses-croises', titre: 'Assurance et protection sociale',
+  resume: 'La gestion collective des risques.',
+  capacites: [
+    'Comprendre la notion de risque et les principes de l’assurance.',
+    'Distinguer logique d’assurance et logique d’assistance.',
+    'Comprendre le rôle de la protection sociale dans la gestion des risques.',
+    'Comprendre les effets de l’assurance sur les comportements : aléa moral, sélection adverse.'
+  ],
+  cours: [
+    { k: 'def', t: 'Mutualiser un risque', c:
+      '<p>Assurer, c’est <b>mutualiser</b> : beaucoup cotisent, peu sont indemnisés, et le risque ' +
+      'individuel devient supportable collectivement.</p>' +
+      '<ul><li><b>Logique d’assurance</b> : on cotise, on est couvert. Les prestations dépendent ' +
+      'des cotisations versées.</li>' +
+      '<li><b>Logique d’assistance</b> : la solidarité nationale verse une prestation sous condition ' +
+      'de ressources, sans cotisation préalable.</li></ul>' +
+      '<p>En France, la protection sociale combine les deux.</p>' },
+    { k: 'prop', t: 'Les effets sur les comportements', c:
+      '<p>Le chapitre relie explicitement l’assurance aux asymétries d’information :</p>' +
+      '<ul><li><b>Aléa moral</b> : une fois assuré, on prend davantage de risques ou l’on consomme plus. ' +
+      'D’où les <b>franchises</b> et les tickets modérateurs.</li>' +
+      '<li><b>Sélection adverse</b> : ce sont les plus exposés au risque qui s’assurent le plus. ' +
+      'D’où l’intérêt d’une assurance <b>obligatoire</b>, qui force la mutualisation.</li></ul>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Le caractère <b>obligatoire</b> de la Sécurité sociale est la réponse directe ' +
+      'à la sélection adverse. C’est l’argument le plus solide du chapitre.</li>' +
+      '<li>Assurance ≠ assistance : la première repose sur la cotisation, la seconde sur la solidarité.</li></ul>' }
+  ]
+},
+{
+  id: 'ses-entreprise', bloc: 'ses-croises', titre: 'Organisation et gouvernance des entreprises',
+  resume: 'Hiérarchie, coordination, parties prenantes.',
+  capacites: [
+    'Comprendre que l’entreprise est un lieu de relations sociales entre acteurs aux intérêts distincts.',
+    'Comprendre les modes de coordination : hiérarchie, marché, coopération.',
+    'Connaître les principales parties prenantes et leurs intérêts.',
+    'Comprendre les enjeux de la gouvernance d’entreprise.'
+  ],
+  cours: [
+    { k: 'prop', t: 'L’entreprise, une organisation', c:
+      '<p>Une entreprise n’est pas seulement une fonction de production : c’est une <b>organisation</b> ' +
+      'où se rencontrent des acteurs aux intérêts en partie divergents.</p>' +
+      '<p>Les <b>parties prenantes</b> citées par le programme : les <b>salariés</b>, les <b>managers</b>, ' +
+      'les <b>propriétaires et actionnaires</b>, et les <b>partenaires d’une coopérative</b>.</p>' },
+    { k: 'def', t: 'Coordonner l’activité', c:
+      '<ul><li>par la <b>hiérarchie</b> : l’autorité tranche et donne des ordres ;</li>' +
+      '<li>par le <b>marché</b> : on achète à l’extérieur plutôt que de produire soi-même ;</li>' +
+      '<li>par la <b>coopération</b> : la coordination vient de l’ajustement mutuel, ' +
+      'comme dans une coopérative où chaque associé a une voix.</li></ul>' +
+      '<p>Le choix entre produire et acheter dépend des <b>coûts de transaction</b>.</p>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Le conflit d’intérêts entre <b>actionnaires</b> (rentabilité à court terme) ' +
+      'et <b>salariés</b> (emploi, salaires) est l’exemple attendu de la gouvernance.</li>' +
+      '<li>Dans une coopérative, le principe est « une personne, une voix », et non ' +
+      '« une action, une voix » : c’est ce qui change tout.</li></ul>' }
+  ]
+},
+{
+  id: 'ses-quanti', bloc: 'ses-outils', titre: 'Les outils quantitatifs',
+  resume: 'Pourcentages, taux de variation, indices, moyennes.',
+  capacites: [
+    'Calculer, lire et interpréter une proportion et un pourcentage de répartition.',
+    'Calculer, lire et interpréter un taux de variation, un taux de variation cumulé, un coefficient multiplicateur et un indice simple.',
+    'Calculer, lire et interpréter une moyenne arithmétique simple et pondérée.',
+    'Lire et interpréter un indice synthétique, une médiane, un tableau à double entrée.',
+    'Distinguer valeur nominale et valeur réelle, notamment pour un taux d’intérêt.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'À quoi ça sert ?', c:
+      '<p>Ces outils sont listés à part dans le programme, mais ils sont évalués dans <b>toutes</b> ' +
+      'les questions. Une erreur de calcul de taux de variation coûte des points en économie ' +
+      'comme en sociologie.</p>' },
+    { k: 'def', t: 'Taux de variation et coefficient multiplicateur', c:
+      formM('TV = frac{V_A - V_D}{V_D} × 100', 'en pourcentage · VD = valeur de départ, VA = valeur d’arrivée') +
+      formM('CM = frac{V_A}{V_D} = 1 + frac{TV}{100}', 'coefficient multiplicateur') +
+      '<p>Une hausse de 20 % correspond à un coefficient de 1,2. Une baisse de 20 % correspond à 0,8.</p>' },
+    { k: 'def', t: 'Taux de variation cumulé', c:
+      '<p>Les taux de variation <b>ne s’additionnent pas</b> : on multiplie les coefficients.</p>' +
+      formM('CM_{global} = CM_1 × CM_2', 'puis on revient au taux global') +
+      '<p>Une hausse de 10 % suivie d’une baisse de 10 % donne 1,10 × 0,90 = 0,99, ' +
+      'soit une baisse de <b>1 %</b>, et non un retour au point de départ.</p>' },
+    { k: 'def', t: 'Indices, moyennes, médiane', c:
+      formM('@Indice = frac{V_A}{V_D} × 100', 'base 100 à la date de départ') +
+      '<p>Un indice de 130 signifie une hausse de 30 % depuis la base.</p>' +
+      '<p>La <b>moyenne pondérée</b> tient compte des effectifs de chaque groupe. ' +
+      'La <b>médiane</b> partage la population en deux parts égales : elle n’est pas sensible ' +
+      'aux valeurs extrêmes, contrairement à la moyenne. Sur les revenus, la médiane est donc ' +
+      'plus parlante que la moyenne.</p>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Distinguer une variation <b>en points</b> et une variation <b>en pourcentage</b> : ' +
+      'passer de 10 % à 12 %, c’est +2 <b>points</b>, mais +20 <b>%</b>. C’est l’erreur classique.</li>' +
+      '<li>Toujours faire une phrase d’interprétation complète : « en France, entre telle et telle date, ' +
+      'telle grandeur a augmenté de tant ».</li>' +
+      '<li>Ne jamais additionner des taux de variation successifs : on multiplie les coefficients.</li></ul>' }
+  ]
+}
+];
+
+CHAPITRES_SES.forEach(c => {
+  c.gens = [];
+  c.matiere = 'ses';
+  c.classe = 'premiere';
+  CHAPITRES.push(c);
+  CHAP[c.id] = c;
+});
+/* =========================================================================
+   Générateurs d'exercices de spécialité SES.
+   Les outils quantitatifs sont calculés exactement ; les notions sont
+   vérifiées par des QCM tirés du programme.
+   ========================================================================= */
+
+/* ---------- outils quantitatifs ---------- */
+
+G('ses-quanti', 'ses-taux', 'Taux de variation', 'app', function(){
+  const vd = R.pick([50, 80, 120, 150, 200, 250, 400, 500, 1200, 2500]);
+  const tv = R.pick([-40, -25, -20, -15, -10, -5, 5, 8, 10, 15, 20, 25, 50, 80]);
+  const va = Math.round(vd * (1 + tv / 100) * 100) / 100;
+  const cm = Math.round((1 + tv / 100) * 1000) / 1000;
+  return {
+    enonce: '<p>Une grandeur passe de <b>' + nf(vd) + '</b> à <b>' + nf(va) + '</b>.</p>' +
+            '<p>Calcule le taux de variation en pourcentage, puis le coefficient multiplicateur.</p>',
+    champs: [
+      { type: 'num', label: 'Taux de variation (%)', bon: tv, tol: 0.4 },
+      { type: 'num', label: 'Coefficient multiplicateur', bon: cm, tol: 0.006 }
+    ],
+    etapes: [
+      formM('TV = frac{V_A - V_D}{V_D} × 100') + ' = (' + nf(va) + ' - ' + nf(vd) + ') ÷ ' + nf(vd) +
+        ' × 100 ≈ <b>' + nf(tv) + ' %</b>.',
+      formM('CM = frac{V_A}{V_D}') + ' = ' + nf(va) + ' ÷ ' + nf(vd) + ' ≈ <b>' + nf(cm) + '</b>.',
+      'On vérifie : CM = 1 + TV/100 = 1 ' + (tv >= 0 ? '+ ' : '- ') + nf(Math.abs(tv) / 100) + ' = ' + nf(cm) + '.',
+      'Phrase d’interprétation attendue : « cette grandeur a ' + (tv >= 0 ? 'augmenté' : 'diminué') +
+        ' de ' + nf(Math.abs(tv)) + ' % sur la période ».'
+    ]
+  };
+});
+
+G('ses-quanti', 'ses-cumule', 'Taux de variation cumulé', 'ds', function(){
+  const t1 = R.pick([-20, -10, -5, 5, 10, 15, 20, 25]);
+  const t2 = R.pick([-20, -15, -10, -5, 5, 10, 20, 30]);
+  const cm = (1 + t1 / 100) * (1 + t2 / 100);
+  const tg = (cm - 1) * 100;
+  const tgr = Math.round(tg * 100) / 100;
+  const somme = t1 + t2;
+  return {
+    enonce: '<p>Une grandeur varie de <b>' + nf(t1) + ' %</b> la première année, ' +
+            'puis de <b>' + nf(t2) + ' %</b> la seconde.</p>' +
+            '<p>Quel est le taux de variation <b>global</b> sur les deux années, en pourcentage, ' +
+            'arrondi au centième ?</p>',
+    champs: [{ type: 'num', label: 'Taux global (%)', bon: tgr, tol: 0.15 }],
+    etapes: [
+      'Les taux de variation <b>ne s’additionnent pas</b> : on multiplie les coefficients.',
+      'CM₁ = ' + nf(Math.round((1 + t1 / 100) * 1000) / 1000) + ' · CM₂ = ' +
+        nf(Math.round((1 + t2 / 100) * 1000) / 1000) + '.',
+      'CM global = ' + nf(Math.round((1 + t1 / 100) * 1000) / 1000) + ' × ' +
+        nf(Math.round((1 + t2 / 100) * 1000) / 1000) + ' ≈ ' + nf(Math.round(cm * 10000) / 10000) + '.',
+      'Taux global = (CM - 1) × 100 ≈ <b>' + nf(tgr) + ' %</b>.',
+      'À comparer avec la somme naïve des deux taux, ' + nf(somme) + ' %, qui est <b>fausse</b>. ' +
+        'L’écart vient de l’effet du second taux sur la valeur déjà modifiée.'
+    ]
+  };
+});
+
+G('ses-quanti', 'ses-indice', 'Indice base 100', 'ent', function(){
+  const vd = R.pick([120, 150, 200, 240, 300, 450, 800]);
+  const tv = R.pick([-30, -20, -12, -5, 6, 10, 18, 25, 40, 60]);
+  const va = Math.round(vd * (1 + tv / 100) * 100) / 100;
+  const ind = Math.round(va / vd * 100 * 10) / 10;
+  return {
+    enonce: '<p>Une grandeur vaut <b>' + nf(vd) + '</b> en année de base et <b>' + nf(va) + '</b> ' +
+            'l’année étudiée.</p>' +
+            '<p>Calcule l’indice de l’année étudiée, en base 100 à l’année de base, arrondi au dixième.</p>',
+    champs: [{ type: 'num', label: 'Indice', bon: ind, tol: 0.3 }],
+    etapes: [
+      formM('@Indice = frac{V_A}{V_D} × 100') + ' = ' + nf(va) + ' ÷ ' + nf(vd) + ' × 100 ≈ <b>' + nf(ind) + '</b>.',
+      'Lecture : un indice de ' + nf(ind) + ' signifie une ' + (ind >= 100 ? 'hausse' : 'baisse') +
+        ' de ' + nf(Math.round(Math.abs(ind - 100) * 10) / 10) + ' % depuis l’année de base.',
+      'L’indice est un <b>taux de variation déguisé</b> : indice - 100 donne directement ' +
+        'le pourcentage de variation depuis la base.'
+    ]
+  };
+});
+
+G('ses-quanti', 'ses-points', 'Points ou pourcentage ?', 'ent', function(){
+  const p1 = R.pick([5, 8, 10, 12, 15, 20, 25, 40]);
+  const p2 = R.pick([6, 9, 12, 14, 18, 24, 30, 48]).valueOf();
+  const pts = Math.round((p2 - p1) * 10) / 10;
+  const pc = Math.round((p2 - p1) / p1 * 100 * 10) / 10;
+  return {
+    enonce: '<p>Le taux de chômage d’un pays passe de <b>' + nf(p1) + ' %</b> à <b>' + nf(p2) + ' %</b>.</p>' +
+            '<p>Exprime cette évolution en <b>points de pourcentage</b>, puis en <b>pourcentage</b>.</p>',
+    champs: [
+      { type: 'num', label: 'Variation en points', bon: pts, tol: 0.15 },
+      { type: 'num', label: 'Variation en pourcentage', bon: pc, tol: 0.4 }
+    ],
+    etapes: [
+      'En <b>points</b>, on soustrait : ' + nf(p2) + ' - ' + nf(p1) + ' = <b>' + nf(pts) + ' points</b>.',
+      'En <b>pourcentage</b>, on calcule un taux de variation : (' + nf(p2) + ' - ' + nf(p1) + ') ÷ ' +
+        nf(p1) + ' × 100 ≈ <b>' + nf(pc) + ' %</b>.',
+      'C’est l’erreur la plus fréquente de la discipline. Dire « le chômage a augmenté de ' + nf(pts) +
+        ' % » est <b>faux</b> : il a augmenté de ' + nf(pts) + ' <b>points</b>, soit ' + nf(pc) + ' %.',
+      'Règle : quand la grandeur est <b>déjà</b> un pourcentage, on parle en points pour la différence.'
+    ]
+  };
+});
+
+G('ses-quanti', 'ses-moyenne', 'Moyenne pondérée et médiane', 'ent', function(){
+  const g = [
+    { n: R.int(10, 60), v: R.int(1000, 1600) },
+    { n: R.int(20, 80), v: R.int(1700, 2400) },
+    { n: R.int(5, 30), v: R.int(2500, 4000) }
+  ];
+  const tot = g.reduce((s, x) => s + x.n, 0);
+  const moy = g.reduce((s, x) => s + x.n * x.v, 0) / tot;
+  const moyr = Math.round(moy * 100) / 100;
+  const simple = Math.round(g.reduce((s, x) => s + x.v, 0) / 3 * 100) / 100;
+  return {
+    enonce: '<p>Dans une entreprise, les salaires mensuels se répartissent ainsi :</p>' +
+            '<ul><li><b>' + g[0].n + '</b> salariés à <b>' + nf(g[0].v) + ' €</b></li>' +
+            '<li><b>' + g[1].n + '</b> salariés à <b>' + nf(g[1].v) + ' €</b></li>' +
+            '<li><b>' + g[2].n + '</b> salariés à <b>' + nf(g[2].v) + ' €</b></li></ul>' +
+            '<p>Calcule le salaire moyen de l’entreprise, en euros, arrondi au centime.</p>',
+    champs: [{ type: 'num', label: 'Salaire moyen (€)', bon: moyr, tol: Math.max(1, moyr * 0.005) }],
+    etapes: [
+      'Il faut une moyenne <b>pondérée</b> par les effectifs, et non la moyenne des trois valeurs.',
+      'Masse salariale : ' + g.map(x => x.n + ' × ' + nf(x.v)).join(' + ') + ' = ' +
+        nf(g.reduce((s, x) => s + x.n * x.v, 0)) + ' €.',
+      'Effectif total : ' + g.map(x => x.n).join(' + ') + ' = ' + tot + ' salariés.',
+      'Moyenne = ' + nf(g.reduce((s, x) => s + x.n * x.v, 0)) + ' ÷ ' + tot + ' ≈ <b>' + nf(moyr) + ' €</b>.',
+      'La moyenne <b>simple</b> des trois valeurs donnerait ' + nf(simple) + ' €, ce qui est faux : ' +
+        'elle donnerait le même poids à un groupe de ' + g[2].n + ' personnes et à un groupe de ' + g[1].n + '.',
+      'Rappel : sur des revenus, la <b>médiane</b> est souvent plus parlante, car elle n’est pas ' +
+        'tirée vers le haut par les valeurs extrêmes.'
+    ]
+  };
+});
+
+G('ses-financement', 'ses-taux-reel', 'Taux d’intérêt réel', 'ent', function(){
+  const nom = R.pick([1, 1.5, 2, 2.5, 3, 4, 5, 6]);
+  const inf = R.pick([0.5, 1, 1.5, 2, 3, 4, 5, 6]);
+  const reel = Math.round((nom - inf) * 100) / 100;
+  return {
+    enonce: '<p>Un prêt est consenti à un taux d’intérêt <b>nominal de ' + nf(nom) + ' %</b>, ' +
+            'dans une économie où l’inflation est de <b>' + nf(inf) + ' %</b>.</p>' +
+            '<p>Quel est le taux d’intérêt <b>réel</b> approché, en pourcentage ?</p>',
+    champs: [{ type: 'num', label: 'Taux réel (%)', bon: reel, tol: 0.15 }],
+    etapes: [
+      'Approximation au programme : taux réel ≈ taux nominal − taux d’inflation.',
+      '= ' + nf(nom) + ' − ' + nf(inf) + ' = <b>' + nf(reel) + ' %</b>.',
+      reel < 0 ? 'Le taux réel est <b>négatif</b> : le prêteur perd du pouvoir d’achat, ' +
+                   'et l’emprunteur y gagne. Cela arrive réellement en période de forte inflation.'
+               : 'Le taux réel est positif : le prêteur gagne effectivement du pouvoir d’achat.',
+      'Distinguer <b>nominal</b> et <b>réel</b> est un objectif explicite du programme : ' +
+        'un taux annoncé sans précision est toujours nominal.'
+    ]
+  };
+});
+
+/* ---------- notions d'économie ---------- */
+const ECO_QCM = [
+  { q: 'Que se passe-t-il si le prix est supérieur au prix d’équilibre ?', b: 'L’offre est excédentaire, ce qui pousse le prix à la baisse',
+    v: ['L’offre est excédentaire, ce qui pousse le prix à la baisse', 'La demande est excédentaire, il y a pénurie',
+        'Le marché reste à l’équilibre', 'Les quantités échangées augmentent'], ch: 'ses-marche' },
+  { q: 'Qu’est-ce qui déplace la courbe de demande, plutôt que d’y faire glisser le point ?', b: 'Une variation du revenu ou des goûts des consommateurs',
+    v: ['Une variation du revenu ou des goûts des consommateurs', 'Une variation du prix du bien',
+        'Une variation des quantités échangées', 'Le passage à l’équilibre'], ch: 'ses-marche' },
+  { q: 'Quel effet a un choc d’offre positif sur l’équilibre ?', b: 'Le prix baisse et les quantités augmentent',
+    v: ['Le prix baisse et les quantités augmentent', 'Le prix et les quantités augmentent',
+        'Le prix monte et les quantités baissent', 'Rien ne change'], ch: 'ses-marche' },
+  { q: 'Qu’est-ce que le surplus du consommateur ?', b: 'La différence entre ce qu’il était prêt à payer et ce qu’il paie réellement',
+    v: ['La différence entre ce qu’il était prêt à payer et ce qu’il paie réellement',
+        'Le bénéfice réalisé par le producteur', 'La quantité achetée en trop',
+        'La différence entre l’offre et la demande'], ch: 'ses-marche' },
+  { q: 'Qu’est-ce qui caractérise un oligopole ?', b: 'Quelques offreurs dont les décisions sont interdépendantes',
+    v: ['Quelques offreurs dont les décisions sont interdépendantes', 'Un seul offreur',
+        'De nombreux offreurs preneurs de prix', 'Un seul demandeur'], ch: 'ses-imparfait' },
+  { q: 'Que sanctionne la politique de la concurrence ?', b: 'Les ententes et les abus de position dominante',
+    v: ['Les ententes et les abus de position dominante', 'Le simple fait d’être en monopole',
+        'Les prix trop bas', 'La différenciation des produits'], ch: 'ses-imparfait' },
+  { q: 'Une externalité négative conduit le marché à…', b: 'Produire trop, car le coût social dépasse le coût privé',
+    v: ['Produire trop, car le coût social dépasse le coût privé', 'Produire trop peu',
+        'Produire la quantité optimale', 'Cesser de produire'], ch: 'ses-defaillances' },
+  { q: 'Quelles sont les deux propriétés d’un bien collectif pur ?', b: 'Non rival et non excluable',
+    v: ['Non rival et non excluable', 'Rival et excluable', 'Non rival et excluable', 'Gratuit et illimité'], ch: 'ses-defaillances' },
+  { q: 'Quand parle-t-on de sélection adverse ?', b: 'Quand l’asymétrie d’information existe avant la signature du contrat',
+    v: ['Quand l’asymétrie d’information existe avant la signature du contrat',
+        'Quand elle apparaît après la signature du contrat', 'Quand les deux parties sont également informées',
+        'Quand le prix est trop élevé'], ch: 'ses-defaillances' },
+  { q: 'Quand parle-t-on d’aléa moral ?', b: 'Quand le comportement change après la signature du contrat',
+    v: ['Quand le comportement change après la signature du contrat',
+        'Quand l’asymétrie existe avant le contrat', 'Quand le contrat est illégal',
+        'Quand l’assureur ment à l’assuré'], ch: 'ses-defaillances' },
+  { q: 'Qu’est-ce qu’une action ?', b: 'Un titre de propriété donnant droit à un dividende et à un droit de vote',
+    v: ['Un titre de propriété donnant droit à un dividende et à un droit de vote',
+        'Un titre de créance donnant droit à un intérêt', 'Un prêt bancaire',
+        'Une part de l’épargne des ménages'], ch: 'ses-financement' },
+  { q: 'Qu’est-ce qu’une obligation ?', b: 'Un titre de créance donnant droit à un intérêt et au remboursement',
+    v: ['Un titre de créance donnant droit à un intérêt et au remboursement',
+        'Un titre de propriété', 'Une action sans droit de vote', 'Un compte d’épargne'], ch: 'ses-financement' },
+  { q: 'Qu’appelle-t-on financement externe indirect ?', b: 'Le financement par le crédit bancaire',
+    v: ['Le financement par le crédit bancaire', 'Le financement par émission d’actions',
+        'L’autofinancement', 'Le financement par émission d’obligations'], ch: 'ses-financement' }
+];
+
+['ses-marche', 'ses-imparfait', 'ses-defaillances', 'ses-financement'].forEach(function(ch){
+  G(ch, ch + '-qcm', 'Les notions du chapitre', 'app', function(){
+    const x = R.pick(ECO_QCM.filter(y => y.ch === ch));
+    const opts = R.shuffle(x.v.slice());
+    return {
+      enonce: '<p>' + x.q + '</p>',
+      qcm: { options: opts, bon: opts.indexOf(x.b) },
+      etapes: ['Réponse : <b>' + x.b + '</b>.',
+               'En SES, une définition juste vaut des points : le vocabulaire est évalué comme tel.']
+    };
+  });
+});
+
+/* ---------- notions de sociologie et science politique ---------- */
+const SOCIO_QCM = [
+  { q: 'Qu’est-ce que la socialisation primaire ?', b: 'Celle de l’enfance, la plus durable, portée par la famille, l’école et les pairs',
+    v: ['Celle de l’enfance, la plus durable, portée par la famille, l’école et les pairs',
+        'Celle de l’âge adulte, par le travail et le couple', 'La socialisation par les médias uniquement',
+        'La socialisation qui échoue'], ch: 'ses-socialisation' },
+  { q: 'Quelle est la différence entre une norme et une valeur ?', b: 'La valeur est un idéal, la norme est la règle de comportement qui en découle',
+    v: ['La valeur est un idéal, la norme est la règle de comportement qui en découle',
+        'La norme est un idéal, la valeur est une règle', 'Ce sont deux synonymes',
+        'La valeur est juridique, la norme est morale'], ch: 'ses-socialisation' },
+  { q: 'La socialisation est dite différenciée selon…', b: 'Le milieu social et le genre',
+    v: ['Le milieu social et le genre', 'L’âge uniquement', 'La région de résidence uniquement',
+        'Le niveau de revenu uniquement'], ch: 'ses-socialisation' },
+  { q: 'Qu’est-ce que la solidarité organique chez Durkheim ?', b: 'Celle des sociétés modernes, fondée sur la complémentarité issue de la division du travail',
+    v: ['Celle des sociétés modernes, fondée sur la complémentarité issue de la division du travail',
+        'Celle des sociétés traditionnelles, fondée sur la similitude',
+        'La solidarité entre membres d’une même famille', 'La protection sociale obligatoire'], ch: 'ses-liens' },
+  { q: 'Qu’est-ce que la solidarité mécanique ?', b: 'Celle des sociétés traditionnelles, fondée sur la similitude des individus',
+    v: ['Celle des sociétés traditionnelles, fondée sur la similitude des individus',
+        'Celle des sociétés modernes, fondée sur l’interdépendance', 'La solidarité imposée par l’État',
+        'La solidarité entre entreprises'], ch: 'ses-liens' },
+  { q: 'Quelle est la différence entre déviance et délinquance ?', b: 'La déviance transgresse une norme sociale, la délinquance une norme juridique',
+    v: ['La déviance transgresse une norme sociale, la délinquance une norme juridique',
+        'La délinquance transgresse une norme sociale, la déviance une loi', 'Ce sont deux synonymes',
+        'La déviance est toujours punie par la loi'], ch: 'ses-deviance' },
+  { q: 'Que dit la théorie de l’étiquetage de Becker ?', b: 'C’est la réaction sociale qui fabrique le déviant, pas l’acte en lui-même',
+    v: ['C’est la réaction sociale qui fabrique le déviant, pas l’acte en lui-même',
+        'La déviance est innée', 'La déviance vient uniquement de la pauvreté',
+        'Les normes sont les mêmes partout'], ch: 'ses-deviance' },
+  { q: 'Qu’est-ce que le chiffre noir de la délinquance ?', b: 'Les faits réellement commis mais non déclarés, que révèlent les enquêtes de victimation',
+    v: ['Les faits réellement commis mais non déclarés, que révèlent les enquêtes de victimation',
+        'Le nombre de condamnations prononcées', 'Le nombre de plaintes déposées',
+        'Le coût financier de la délinquance'], ch: 'ses-deviance' },
+  { q: 'Qu’est-ce qui garantit la qualité d’un sondage ?', b: 'La représentativité de l’échantillon, pas sa taille',
+    v: ['La représentativité de l’échantillon, pas sa taille', 'Le nombre de répondants, avant tout',
+        'La notoriété de l’institut', 'La rapidité de la collecte'], ch: 'ses-opinion' },
+  { q: 'Que critique Bourdieu à propos de l’opinion publique ?', b: 'Les trois postulats des sondages : que chacun ait une opinion, que toutes se valent, et qu’il y ait consensus sur les questions à poser',
+    v: ['Les trois postulats des sondages : que chacun ait une opinion, que toutes se valent, et qu’il y ait consensus sur les questions à poser',
+        'Que les sondeurs mentent délibérément', 'Que les échantillons soient trop petits',
+        'Que les sondages coûtent trop cher'], ch: 'ses-opinion' }
+];
+
+['ses-socialisation', 'ses-liens', 'ses-deviance', 'ses-opinion'].forEach(function(ch){
+  G(ch, ch + '-qcm', 'Les notions du chapitre', 'app', function(){
+    const x = R.pick(SOCIO_QCM.filter(y => y.ch === ch));
+    const opts = R.shuffle(x.v.slice());
+    return {
+      enonce: '<p>' + x.q + '</p>',
+      qcm: { options: opts, bon: opts.indexOf(x.b) },
+      etapes: ['Réponse : <b>' + x.b + '</b>.',
+               'En sociologie, toute affirmation doit s’appuyer sur une <b>donnée</b> ou une <b>enquête</b>, ' +
+                 'jamais sur une impression personnelle.']
+    };
+  });
+});
+
+const CROISES_QCM = [
+  { q: 'Quelle est la différence entre logique d’assurance et logique d’assistance ?', b: 'L’assurance repose sur des cotisations préalables, l’assistance sur la solidarité sans cotisation',
+    v: ['L’assurance repose sur des cotisations préalables, l’assistance sur la solidarité sans cotisation',
+        'L’assistance repose sur des cotisations, l’assurance sur l’impôt', 'Ce sont deux synonymes',
+        'L’assurance est publique, l’assistance est privée'], ch: 'ses-protection' },
+  { q: 'Pourquoi rendre une assurance obligatoire ?', b: 'Pour éviter la sélection adverse, qui verrait seuls les plus exposés s’assurer',
+    v: ['Pour éviter la sélection adverse, qui verrait seuls les plus exposés s’assurer',
+        'Pour augmenter les recettes de l’État', 'Pour supprimer l’aléa moral',
+        'Pour réduire le nombre de sinistres'], ch: 'ses-protection' },
+  { q: 'À quoi servent les franchises dans un contrat d’assurance ?', b: 'À limiter l’aléa moral, en laissant une part du risque à l’assuré',
+    v: ['À limiter l’aléa moral, en laissant une part du risque à l’assuré',
+        'À limiter la sélection adverse', 'À augmenter le nombre d’assurés',
+        'À simplifier la gestion administrative'], ch: 'ses-protection' },
+  { q: 'Quels sont les trois modes de coordination dans une organisation ?', b: 'La hiérarchie, le marché et la coopération',
+    v: ['La hiérarchie, le marché et la coopération', 'Le capital, le travail et la terre',
+        'L’offre, la demande et le prix', 'L’État, les entreprises et les ménages'], ch: 'ses-entreprise' },
+  { q: 'Quel principe distingue une coopérative d’une société par actions ?', b: 'Une personne, une voix, au lieu d’une action, une voix',
+    v: ['Une personne, une voix, au lieu d’une action, une voix', 'L’absence de salariés',
+        'L’absence de bénéfices', 'L’interdiction d’emprunter'], ch: 'ses-entreprise' }
+];
+
+['ses-protection', 'ses-entreprise'].forEach(function(ch){
+  G(ch, ch + '-qcm', 'Les notions du chapitre', 'app', function(){
+    const x = R.pick(CROISES_QCM.filter(y => y.ch === ch));
+    const opts = R.shuffle(x.v.slice());
+    return {
+      enonce: '<p>' + x.q + '</p>',
+      qcm: { options: opts, bon: opts.indexOf(x.b) },
+      etapes: ['Réponse : <b>' + x.b + '</b>.',
+               'Les regards croisés mobilisent <b>à la fois</b> l’économie et la sociologie : ' +
+                 'le correcteur attend les deux approches.']
+    };
+  });
+});
+
+/* ---------- lecture de données ---------- */
+G('ses-quanti', 'ses-lecture', 'Lire une donnée correctement', 'ent', function(){
+  const cas = [
+    { d: 'En 2023, en France, 38 % des cadres déclarent avoir lu au moins un livre par mois.',
+      t: 'Une proportion', e: 'Un pourcentage de la population des cadres qui vérifie un critère.' },
+    { d: 'En 2023, en France, les cadres représentent 22 % de la population active occupée.',
+      t: 'Un pourcentage de répartition', e: 'La part d’un groupe dans un ensemble : la somme de tous les groupes fait 100 %.' },
+    { d: 'Entre 2010 et 2023, le nombre de cadres a augmenté de 35 % en France.',
+      t: 'Un taux de variation', e: 'Une évolution entre deux dates, exprimée en pourcentage.' },
+    { d: 'En base 100 en 2010, l’indice du nombre de cadres atteint 135 en 2023 en France.',
+      t: 'Un indice', e: 'Une évolution rapportée à 100 à la date de base : 135 signifie +35 %.' },
+    { d: 'En 2023, en France, le salaire médian s’élève à 2 100 euros nets par mois.',
+      t: 'Une médiane', e: 'La valeur qui partage la population en deux parts égales : ' +
+        'la moitié gagne moins, la moitié gagne plus.' },
+    { d: 'En 2023, en France, le salaire moyen s’élève à 2 600 euros nets par mois.',
+      t: 'Une moyenne', e: 'La masse totale divisée par l’effectif. Elle est tirée vers le haut ' +
+        'par les très hauts salaires : c’est pourquoi elle dépasse la médiane.' }
+  ];
+  const x = R.pick(cas);
+  const noms = ['Une proportion', 'Un pourcentage de répartition', 'Un taux de variation',
+                'Un indice', 'Une médiane', 'Une moyenne'];
+  return {
+    enonce: '<p>De quel type de donnée s’agit-il ?</p>' + cit(x.d),
+    qcm: { options: noms.slice(), bon: noms.indexOf(x.t) },
+    etapes: [
+      'C’est <b>' + x.t.toLowerCase() + '</b>.', x.e,
+      'Toute lecture de donnée doit préciser la <b>date</b>, le <b>lieu</b>, la <b>source</b> ' +
+        'et l’<b>unité</b>. Une phrase sans ces éléments ne rapporte pas de point.'
+    ]
+  };
+});
+
+/* ---------- exercice rédigé ---------- */
+D('ses-quanti', 'ses-ec3', 'Raisonnement s’appuyant sur un dossier documentaire', function(){
+  const sujets = [
+    { s: 'Vous montrerez que le marché peut être défaillant.', ch: 'ses-defaillances',
+      a: 'externalités, biens collectifs, asymétries d’information',
+      d: 'un tableau sur les émissions de CO₂, un texte sur le marché de l’occasion' },
+    { s: 'Vous montrerez comment la socialisation contribue à expliquer les différences de comportement des individus.',
+      ch: 'ses-socialisation', a: 'socialisation primaire et secondaire, socialisation différenciée selon le milieu social et le genre',
+      d: 'un tableau sur les pratiques culturelles selon la catégorie sociale, un texte sur les jouets genrés' },
+    { s: 'Vous montrerez que la mesure de la délinquance est délicate.', ch: 'ses-deviance',
+      a: 'statistiques policières et judiciaires, enquêtes de victimation, chiffre noir',
+      d: 'un graphique des plaintes enregistrées, un extrait d’enquête de victimation' },
+    { s: 'Vous montrerez comment les entreprises sont gouvernées.', ch: 'ses-entreprise',
+      a: 'parties prenantes, modes de coordination, conflits d’intérêts',
+      d: 'un organigramme, un texte sur une coopérative' },
+    { s: 'Vous montrerez que le pouvoir de marché limite la concurrence.', ch: 'ses-imparfait',
+      a: 'concentration, barrières à l’entrée, différenciation, politique de la concurrence',
+      d: 'un tableau de parts de marché, une décision d’autorité de la concurrence' }
+  ];
+  const x = R.pick(sujets);
+  return {
+    enonce: '<p><b>Sujet de raisonnement</b>, en lien avec le chapitre « ' + CHAP[x.ch].titre + ' » :</p>' +
+            form(x.s) +
+            '<p>Sur ton cahier, rédige le devoir complet. Tu t’appuieras sur tes connaissances ' +
+            'et sur les documents que tu aurais eus : ' + x.d + '.</p>',
+    aide: 'Structure attendue : introduction courte, deux ou trois paragraphes argumentés, ' +
+          'conclusion. Chaque paragraphe : une idée, un mécanisme expliqué, une donnée chiffrée lue correctement. ' +
+          'Notions à mobiliser : ' + x.a + '.',
+    bareme: [
+      { pts: 2, d: '<b>Introduction</b> : le sujet est reformulé, les termes sont définis, ' +
+                   'et le plan est annoncé. Trois à cinq lignes suffisent.' },
+      { pts: 3, d: '<b>Deux ou trois paragraphes</b>, chacun portant <b>une seule idée</b>, ' +
+                   'annoncée en première phrase.' },
+      { pts: 4, d: '<b>Mécanismes expliqués</b>, et non simplement affirmés. ' +
+                   'Le correcteur cherche les enchaînements de cause à effet, pas des définitions juxtaposées. ' +
+                   'Notions attendues ici : ' + x.a + '.' },
+      { pts: 3, d: '<b>Données chiffrées</b> mobilisées et <b>lues correctement</b> : date, lieu, source, unité, ' +
+                   'et distinction entre points et pourcentage quand la grandeur est déjà un taux.' },
+      { pts: 2, d: '<b>Vocabulaire</b> de la discipline employé à bon escient, sans contresens.' },
+      { pts: 2, d: '<b>Exemples concrets</b> qui illustrent les mécanismes, pris dans l’actualité ' +
+                   'ou dans les documents.' },
+      { pts: 2, d: '<b>Conclusion</b> qui répond au sujet, sans introduire d’idée nouvelle.' },
+      { pts: 2, d: '<b>Rédaction</b> : phrases complètes, connecteurs logiques, aucun style télégraphique ' +
+                   'ni liste à puces.' }
     ]
   };
 });

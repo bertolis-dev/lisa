@@ -330,6 +330,11 @@ ul.dates span{color:var(--ink-1)}
 .db-ligne b{font-family:var(--sans);font-variant-numeric:tabular-nums}
 ul.regles{margin:8px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:7px}
 .l-defi .ic{filter:none}
+
+/* blocs de code (NSI) */
+pre.code{margin:14px 0;padding:14px 16px;background:var(--surface-3);border-radius:10px;overflow-x:auto;font-family:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;font-size:13px;line-height:1.6;color:var(--ink-1);white-space:pre;tab-size:4}
+code{font-family:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;font-size:.92em;background:var(--surface-3);padding:1px 5px;border-radius:5px}
+pre.code code{background:none;padding:0}
 .nav .grp[data-bloc]{color:var(--bc)}
 .bloc[data-bloc] h3{color:var(--bc);border-bottom-color:var(--bc);border-bottom-width:2px}
 .chap[data-bloc]{border-top:3px solid var(--bc)}
@@ -740,6 +745,18 @@ table.tab tr:first-child th{background:var(--accent-soft);color:var(--accent-ink
 [data-bloc="emc-valeurs"]{--bc:#6D4AC9;--bcs:#EEE8FC}
 [data-bloc="emc-nation"] {--bc:#B23A48;--bcs:#FBE6E8}
 [data-bloc="emc-method"] {--bc:#0F7A8A;--bcs:#DCF0F3}
+[data-bloc="pc-matiere"]{--bc:#6D4AC9;--bcs:#EEE8FC}
+[data-bloc="pc-mvt"]    {--bc:#2F6FE0;--bcs:#E4EDFC}
+[data-bloc="pc-energie"]{--bc:#C4700A;--bcs:#FBEEDA}
+[data-bloc="pc-ondes"]  {--bc:#BC3B84;--bcs:#FBE5F1}
+[data-bloc="pc-methode"]{--bc:#0F8A5F;--bcs:#DDF2EA}
+[data-bloc="nsi-donnees"]{--bc:#2F6FE0;--bcs:#E4EDFC}
+[data-bloc="nsi-machine"]{--bc:#C4700A;--bcs:#FBEEDA}
+[data-bloc="nsi-prog"]   {--bc:#0F8A5F;--bcs:#DDF2EA}
+[data-bloc="ses-eco"]    {--bc:#0F7A8A;--bcs:#DCF0F3}
+[data-bloc="ses-socio"]  {--bc:#BC3B84;--bcs:#FBE5F1}
+[data-bloc="ses-croises"]{--bc:#6D4AC9;--bcs:#EEE8FC}
+[data-bloc="ses-outils"] {--bc:#C4700A;--bcs:#FBEEDA}
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]) [data-bloc="es-transverse"]{--bc:#F183BC;--bcs:#3B1C30}
   :root:not([data-theme="light"]) [data-bloc="es-donnees"]   {--bc:#F0A94C;--bcs:#3A2A12}
@@ -761,6 +778,18 @@ table.tab tr:first-child th{background:var(--accent-soft);color:var(--accent-ink
   :root:not([data-theme="light"]) [data-bloc="emc-valeurs"]{--bc:#B49BFF;--bcs:#2C2350}
   :root:not([data-theme="light"]) [data-bloc="emc-nation"] {--bc:#F0808C;--bcs:#3D1A1F}
   :root:not([data-theme="light"]) [data-bloc="emc-method"] {--bc:#57C6D6;--bcs:#10333A}
+  :root:not([data-theme="light"]) [data-bloc="pc-matiere"]{--bc:#B49BFF;--bcs:#2C2350}
+  :root:not([data-theme="light"]) [data-bloc="pc-mvt"]    {--bc:#7FB0FF;--bcs:#1B2C4E}
+  :root:not([data-theme="light"]) [data-bloc="pc-energie"]{--bc:#F0A94C;--bcs:#3A2A12}
+  :root:not([data-theme="light"]) [data-bloc="pc-ondes"]  {--bc:#F183BC;--bcs:#3B1C30}
+  :root:not([data-theme="light"]) [data-bloc="pc-methode"]{--bc:#4FD1A0;--bcs:#12352C}
+  :root:not([data-theme="light"]) [data-bloc="nsi-donnees"]{--bc:#7FB0FF;--bcs:#1B2C4E}
+  :root:not([data-theme="light"]) [data-bloc="nsi-machine"]{--bc:#F0A94C;--bcs:#3A2A12}
+  :root:not([data-theme="light"]) [data-bloc="nsi-prog"]   {--bc:#4FD1A0;--bcs:#12352C}
+  :root:not([data-theme="light"]) [data-bloc="ses-eco"]    {--bc:#57C6D6;--bcs:#10333A}
+  :root:not([data-theme="light"]) [data-bloc="ses-socio"]  {--bc:#F183BC;--bcs:#3B1C30}
+  :root:not([data-theme="light"]) [data-bloc="ses-croises"]{--bc:#B49BFF;--bcs:#2C2350}
+  :root:not([data-theme="light"]) [data-bloc="ses-outils"] {--bc:#F0A94C;--bcs:#3A2A12}
 }
 :root[data-theme="dark"] [data-bloc="es-transverse"]{--bc:#F183BC;--bcs:#3B1C30}
 :root[data-theme="dark"] [data-bloc="es-donnees"]   {--bc:#F0A94C;--bcs:#3A2A12}
@@ -782,6 +811,18 @@ table.tab tr:first-child th{background:var(--accent-soft);color:var(--accent-ink
 :root[data-theme="dark"] [data-bloc="emc-valeurs"]{--bc:#B49BFF;--bcs:#2C2350}
 :root[data-theme="dark"] [data-bloc="emc-nation"] {--bc:#F0808C;--bcs:#3D1A1F}
 :root[data-theme="dark"] [data-bloc="emc-method"] {--bc:#57C6D6;--bcs:#10333A}
+:root[data-theme="dark"] [data-bloc="pc-matiere"]{--bc:#B49BFF;--bcs:#2C2350}
+:root[data-theme="dark"] [data-bloc="pc-mvt"]    {--bc:#7FB0FF;--bcs:#1B2C4E}
+:root[data-theme="dark"] [data-bloc="pc-energie"]{--bc:#F0A94C;--bcs:#3A2A12}
+:root[data-theme="dark"] [data-bloc="pc-ondes"]  {--bc:#F183BC;--bcs:#3B1C30}
+:root[data-theme="dark"] [data-bloc="pc-methode"]{--bc:#4FD1A0;--bcs:#12352C}
+:root[data-theme="dark"] [data-bloc="nsi-donnees"]{--bc:#7FB0FF;--bcs:#1B2C4E}
+:root[data-theme="dark"] [data-bloc="nsi-machine"]{--bc:#F0A94C;--bcs:#3A2A12}
+:root[data-theme="dark"] [data-bloc="nsi-prog"]   {--bc:#4FD1A0;--bcs:#12352C}
+:root[data-theme="dark"] [data-bloc="ses-eco"]    {--bc:#57C6D6;--bcs:#10333A}
+:root[data-theme="dark"] [data-bloc="ses-socio"]  {--bc:#F183BC;--bcs:#3B1C30}
+:root[data-theme="dark"] [data-bloc="ses-croises"]{--bc:#B49BFF;--bcs:#2C2350}
+:root[data-theme="dark"] [data-bloc="ses-outils"] {--bc:#F0A94C;--bcs:#3A2A12}
 </style>
 
 <div class="app">
