@@ -288,6 +288,48 @@ ul.dates li:last-child{border-bottom:0;padding-bottom:0}
 ul.dates b{color:var(--bc,var(--accent));font-variant-numeric:tabular-nums;font-family:var(--sans);font-size:13px;letter-spacing:.02em}
 ul.dates span{color:var(--ink-1)}
 @media (max-width:560px){ul.dates li{grid-template-columns:minmax(0,1fr)}}
+
+/* notation des noyaux et encadres de formule (sciences) */
+.nuc{display:inline-flex;align-items:center;gap:2px;font-family:var(--sans);white-space:nowrap}
+.nuc .az{display:inline-flex;flex-direction:column;align-items:flex-end;font-size:.66em;line-height:1.02;font-style:normal}
+.nuc .az i{font-style:normal;font-variant-numeric:tabular-nums}
+.form{margin:14px 0;padding:14px 16px;background:var(--bcs,var(--surface-2));border-radius:12px;text-align:center;font-size:16px;line-height:1.8;color:var(--ink-1);overflow-x:auto}
+.form-leg{display:block;margin-top:8px;font-size:12px;color:var(--ink-3);line-height:1.5}
+
+/* --- le defi du jour --- */
+[data-bloc="defi"]{--bc:#C4700A;--bcs:#FBEEDA}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) [data-bloc="defi"]{--bc:#F0A94C;--bcs:#3A2A12}
+}
+:root[data-theme="dark"] [data-bloc="defi"]{--bc:#F0A94C;--bcs:#3A2A12}
+.defi-tete{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:12px}
+.defi-points{display:flex;gap:6px;flex-wrap:wrap}
+.defi-points i{width:11px;height:11px;border-radius:50%;background:var(--surface-3);
+  border:1px solid var(--line);display:block}
+.defi-points i.ok{background:var(--juste);border-color:var(--juste)}
+.defi-points i.ko{background:var(--faux);border-color:var(--faux)}
+.defi-points i.now{background:var(--accent);border-color:var(--accent);
+  box-shadow:0 0 0 4px color-mix(in srgb, var(--accent) 22%, transparent)}
+.defi-score{font-family:var(--sans);font-weight:800;font-size:15px;color:var(--ink-1);
+  font-variant-numeric:tabular-nums;display:flex;align-items:center;gap:8px}
+.defi-score .combo{font-size:12px;font-weight:700;color:#fff;background:var(--accent);
+  padding:3px 9px;border-radius:999px;letter-spacing:.02em}
+.defi-barre{height:8px;border-radius:999px;background:var(--surface-3);overflow:hidden}
+.defi-barre>span{display:block;height:100%;border-radius:999px;background:var(--accent);
+  transition:width 1s linear}
+.defi-barre.fige>span{background:var(--surface-3);transition:none}
+.defi-sec{margin:6px 0 16px;font-family:var(--sans);font-size:12px;color:var(--ink-3);
+  text-align:right;font-variant-numeric:tabular-nums}
+.defi-origine{font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.04em;
+  color:var(--bc,var(--accent));margin-bottom:12px}
+.defi-mats{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.defi-bilan{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.db-ligne{display:flex;justify-content:space-between;align-items:baseline;gap:12px;
+  padding-bottom:8px;border-bottom:1px solid var(--line)}
+.db-ligne:last-child{border-bottom:0;padding-bottom:0}
+.db-ligne b{font-family:var(--sans);font-variant-numeric:tabular-nums}
+ul.regles{margin:8px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:7px}
+.l-defi .ic{filter:none}
 .nav .grp[data-bloc]{color:var(--bc)}
 .bloc[data-bloc] h3{color:var(--bc);border-bottom-color:var(--bc);border-bottom-width:2px}
 .chap[data-bloc]{border-top:3px solid var(--bc)}
@@ -687,6 +729,11 @@ table.tab tr:first-child th{background:var(--accent-soft);color:var(--accent-ink
 [data-bloc="hg-histoire"]   {--bc:#A2541C;--bcs:#F7E8DA}
 [data-bloc="hg-geographie"] {--bc:#0F7A8A;--bcs:#DCF0F3}
 [data-bloc="hg-methode"]    {--bc:#6D4AC9;--bcs:#EEE8FC}
+[data-bloc="sci-matiere"]{--bc:#6D4AC9;--bcs:#EEE8FC}
+[data-bloc="sci-soleil"] {--bc:#C4700A;--bcs:#FBEEDA}
+[data-bloc="sci-terre"]  {--bc:#0F8A5F;--bcs:#DDF2EA}
+[data-bloc="sci-son"]    {--bc:#BC3B84;--bcs:#FBE5F1}
+[data-bloc="sci-projet"] {--bc:#2F6FE0;--bcs:#E4EDFC}
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]) [data-bloc="es-transverse"]{--bc:#F183BC;--bcs:#3B1C30}
   :root:not([data-theme="light"]) [data-bloc="es-donnees"]   {--bc:#F0A94C;--bcs:#3A2A12}
@@ -697,6 +744,11 @@ table.tab tr:first-child th{background:var(--accent-soft);color:var(--accent-ink
   :root:not([data-theme="light"]) [data-bloc="hg-histoire"]   {--bc:#E09A5F;--bcs:#3A2716}
   :root:not([data-theme="light"]) [data-bloc="hg-geographie"] {--bc:#57C6D6;--bcs:#10333A}
   :root:not([data-theme="light"]) [data-bloc="hg-methode"]    {--bc:#B49BFF;--bcs:#2C2350}
+  :root:not([data-theme="light"]) [data-bloc="sci-matiere"]{--bc:#B49BFF;--bcs:#2C2350}
+  :root:not([data-theme="light"]) [data-bloc="sci-soleil"] {--bc:#F0A94C;--bcs:#3A2A12}
+  :root:not([data-theme="light"]) [data-bloc="sci-terre"]  {--bc:#4FD1A0;--bcs:#12352C}
+  :root:not([data-theme="light"]) [data-bloc="sci-son"]    {--bc:#F183BC;--bcs:#3B1C30}
+  :root:not([data-theme="light"]) [data-bloc="sci-projet"] {--bc:#7FB0FF;--bcs:#1B2C4E}
 }
 :root[data-theme="dark"] [data-bloc="es-transverse"]{--bc:#F183BC;--bcs:#3B1C30}
 :root[data-theme="dark"] [data-bloc="es-donnees"]   {--bc:#F0A94C;--bcs:#3A2A12}
@@ -707,6 +759,11 @@ table.tab tr:first-child th{background:var(--accent-soft);color:var(--accent-ink
 :root[data-theme="dark"] [data-bloc="hg-histoire"]   {--bc:#E09A5F;--bcs:#3A2716}
 :root[data-theme="dark"] [data-bloc="hg-geographie"] {--bc:#57C6D6;--bcs:#10333A}
 :root[data-theme="dark"] [data-bloc="hg-methode"]    {--bc:#B49BFF;--bcs:#2C2350}
+:root[data-theme="dark"] [data-bloc="sci-matiere"]{--bc:#B49BFF;--bcs:#2C2350}
+:root[data-theme="dark"] [data-bloc="sci-soleil"] {--bc:#F0A94C;--bcs:#3A2A12}
+:root[data-theme="dark"] [data-bloc="sci-terre"]  {--bc:#4FD1A0;--bcs:#12352C}
+:root[data-theme="dark"] [data-bloc="sci-son"]    {--bc:#F183BC;--bcs:#3B1C30}
+:root[data-theme="dark"] [data-bloc="sci-projet"] {--bc:#7FB0FF;--bcs:#1B2C4E}
 </style>
 
 <div class="app">

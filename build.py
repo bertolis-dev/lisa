@@ -17,7 +17,8 @@ CORPS = ['01_shell.html', '02_core.js', '03_programme.js', '04_generateurs.js',
          '12_prog2026.js', '13_gen2026.js', '14_gen_analyse.js', '15_gen_divers.js',
          '16_demos2026.js', '17_maths_es.js', '18_francais.js', '19_gen_francais.js',
          '20_histgeo.js', '21_histgeo_geo.js', '22_gen_histgeo.js', '23_gen_histgeo_plus.js',
-         '07_fun.js', '09_evaluation.js', '05_ui.js']
+         '24_sciences.js', '25_gen_sciences.js',
+         '07_fun.js', '09_evaluation.js', '26_defi.js', '05_ui.js']
 
 def lire(nom):
     return io.open(os.path.join(PARTS, nom), encoding='utf-8').read()

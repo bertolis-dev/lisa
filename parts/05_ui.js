@@ -57,6 +57,7 @@ function rendreNav(){
     { id: 'accueil',  e: '\uD83C\uDFE0', t: 'Accueil',                a: 'data-go="accueil"' },
     { id: 'revision', e: '\uD83D\uDD01', t: 'R\u00e9viser',          a: 'data-go="revision"' },
     { id: 'chrono',   e: '\u23F1\uFE0F', t: 'Interro chrono',         a: 'data-go="chrono"' },
+    { id: 'defi',     e: '🎯', t: 'Défi du jour',      a: 'data-defi="vue"' },
     { id: 'ds',       e: '\uD83D\uDCDD', t: 'Devoir surveill\u00e9', a: 'data-eval="1"' },
     { id: 'notes',    e: '\uD83D\uDCC8', t: 'Mes notes',              a: 'data-go="notes"' }
   ];
@@ -102,6 +103,7 @@ function rendreNav(){
 function estActif(id){
   if (id === 'accueil') return vue.nom === 'accueil';
   if (id === 'notes') return vue.nom === 'notes';
+  if (id === 'defi') return vue.nom === 'defi';
   if (id === 'ds') return vue.nom === 'ds' || vue.nom === 'copie';
   return vue.nom === 'serie' && serie && serie.mode === id;
 }
@@ -650,6 +652,7 @@ function rendre(){
   else if (vue.nom === 'chapitre') vueChapitre();
   else if (vue.nom === 'serie') vueSerie();
   else if (vue.nom === 'bilan') vueBilan();
+  else if (vue.nom === 'defi') vueDefi();
   rendreNav();
 }
 

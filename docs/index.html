@@ -310,6 +310,48 @@ ul.dates li:last-child{border-bottom:0;padding-bottom:0}
 ul.dates b{color:var(--bc,var(--accent));font-variant-numeric:tabular-nums;font-family:var(--sans);font-size:13px;letter-spacing:.02em}
 ul.dates span{color:var(--ink-1)}
 @media (max-width:560px){ul.dates li{grid-template-columns:minmax(0,1fr)}}
+
+/* notation des noyaux et encadres de formule (sciences) */
+.nuc{display:inline-flex;align-items:center;gap:2px;font-family:var(--sans);white-space:nowrap}
+.nuc .az{display:inline-flex;flex-direction:column;align-items:flex-end;font-size:.66em;line-height:1.02;font-style:normal}
+.nuc .az i{font-style:normal;font-variant-numeric:tabular-nums}
+.form{margin:14px 0;padding:14px 16px;background:var(--bcs,var(--surface-2));border-radius:12px;text-align:center;font-size:16px;line-height:1.8;color:var(--ink-1);overflow-x:auto}
+.form-leg{display:block;margin-top:8px;font-size:12px;color:var(--ink-3);line-height:1.5}
+
+/* --- le defi du jour --- */
+[data-bloc="defi"]{--bc:#C4700A;--bcs:#FBEEDA}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) [data-bloc="defi"]{--bc:#F0A94C;--bcs:#3A2A12}
+}
+:root[data-theme="dark"] [data-bloc="defi"]{--bc:#F0A94C;--bcs:#3A2A12}
+.defi-tete{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:12px}
+.defi-points{display:flex;gap:6px;flex-wrap:wrap}
+.defi-points i{width:11px;height:11px;border-radius:50%;background:var(--surface-3);
+  border:1px solid var(--line);display:block}
+.defi-points i.ok{background:var(--juste);border-color:var(--juste)}
+.defi-points i.ko{background:var(--faux);border-color:var(--faux)}
+.defi-points i.now{background:var(--accent);border-color:var(--accent);
+  box-shadow:0 0 0 4px color-mix(in srgb, var(--accent) 22%, transparent)}
+.defi-score{font-family:var(--sans);font-weight:800;font-size:15px;color:var(--ink-1);
+  font-variant-numeric:tabular-nums;display:flex;align-items:center;gap:8px}
+.defi-score .combo{font-size:12px;font-weight:700;color:#fff;background:var(--accent);
+  padding:3px 9px;border-radius:999px;letter-spacing:.02em}
+.defi-barre{height:8px;border-radius:999px;background:var(--surface-3);overflow:hidden}
+.defi-barre>span{display:block;height:100%;border-radius:999px;background:var(--accent);
+  transition:width 1s linear}
+.defi-barre.fige>span{background:var(--surface-3);transition:none}
+.defi-sec{margin:6px 0 16px;font-family:var(--sans);font-size:12px;color:var(--ink-3);
+  text-align:right;font-variant-numeric:tabular-nums}
+.defi-origine{font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.04em;
+  color:var(--bc,var(--accent));margin-bottom:12px}
+.defi-mats{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.defi-bilan{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.db-ligne{display:flex;justify-content:space-between;align-items:baseline;gap:12px;
+  padding-bottom:8px;border-bottom:1px solid var(--line)}
+.db-ligne:last-child{border-bottom:0;padding-bottom:0}
+.db-ligne b{font-family:var(--sans);font-variant-numeric:tabular-nums}
+ul.regles{margin:8px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:7px}
+.l-defi .ic{filter:none}
 .nav .grp[data-bloc]{color:var(--bc)}
 .bloc[data-bloc] h3{color:var(--bc);border-bottom-color:var(--bc);border-bottom-width:2px}
 .chap[data-bloc]{border-top:3px solid var(--bc)}
@@ -709,6 +751,11 @@ table.tab tr:first-child th{background:var(--accent-soft);color:var(--accent-ink
 [data-bloc="hg-histoire"]   {--bc:#A2541C;--bcs:#F7E8DA}
 [data-bloc="hg-geographie"] {--bc:#0F7A8A;--bcs:#DCF0F3}
 [data-bloc="hg-methode"]    {--bc:#6D4AC9;--bcs:#EEE8FC}
+[data-bloc="sci-matiere"]{--bc:#6D4AC9;--bcs:#EEE8FC}
+[data-bloc="sci-soleil"] {--bc:#C4700A;--bcs:#FBEEDA}
+[data-bloc="sci-terre"]  {--bc:#0F8A5F;--bcs:#DDF2EA}
+[data-bloc="sci-son"]    {--bc:#BC3B84;--bcs:#FBE5F1}
+[data-bloc="sci-projet"] {--bc:#2F6FE0;--bcs:#E4EDFC}
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]) [data-bloc="es-transverse"]{--bc:#F183BC;--bcs:#3B1C30}
   :root:not([data-theme="light"]) [data-bloc="es-donnees"]   {--bc:#F0A94C;--bcs:#3A2A12}
@@ -719,6 +766,11 @@ table.tab tr:first-child th{background:var(--accent-soft);color:var(--accent-ink
   :root:not([data-theme="light"]) [data-bloc="hg-histoire"]   {--bc:#E09A5F;--bcs:#3A2716}
   :root:not([data-theme="light"]) [data-bloc="hg-geographie"] {--bc:#57C6D6;--bcs:#10333A}
   :root:not([data-theme="light"]) [data-bloc="hg-methode"]    {--bc:#B49BFF;--bcs:#2C2350}
+  :root:not([data-theme="light"]) [data-bloc="sci-matiere"]{--bc:#B49BFF;--bcs:#2C2350}
+  :root:not([data-theme="light"]) [data-bloc="sci-soleil"] {--bc:#F0A94C;--bcs:#3A2A12}
+  :root:not([data-theme="light"]) [data-bloc="sci-terre"]  {--bc:#4FD1A0;--bcs:#12352C}
+  :root:not([data-theme="light"]) [data-bloc="sci-son"]    {--bc:#F183BC;--bcs:#3B1C30}
+  :root:not([data-theme="light"]) [data-bloc="sci-projet"] {--bc:#7FB0FF;--bcs:#1B2C4E}
 }
 :root[data-theme="dark"] [data-bloc="es-transverse"]{--bc:#F183BC;--bcs:#3B1C30}
 :root[data-theme="dark"] [data-bloc="es-donnees"]   {--bc:#F0A94C;--bcs:#3A2A12}
@@ -729,6 +781,11 @@ table.tab tr:first-child th{background:var(--accent-soft);color:var(--accent-ink
 :root[data-theme="dark"] [data-bloc="hg-histoire"]   {--bc:#E09A5F;--bcs:#3A2716}
 :root[data-theme="dark"] [data-bloc="hg-geographie"] {--bc:#57C6D6;--bcs:#10333A}
 :root[data-theme="dark"] [data-bloc="hg-methode"]    {--bc:#B49BFF;--bcs:#2C2350}
+:root[data-theme="dark"] [data-bloc="sci-matiere"]{--bc:#B49BFF;--bcs:#2C2350}
+:root[data-theme="dark"] [data-bloc="sci-soleil"] {--bc:#F0A94C;--bcs:#3A2A12}
+:root[data-theme="dark"] [data-bloc="sci-terre"]  {--bc:#4FD1A0;--bcs:#12352C}
+:root[data-theme="dark"] [data-bloc="sci-son"]    {--bc:#F183BC;--bcs:#3B1C30}
+:root[data-theme="dark"] [data-bloc="sci-projet"] {--bc:#7FB0FF;--bcs:#1B2C4E}
 </style>
 
 <div class="app">
@@ -781,7 +838,7 @@ function M(src){ return '<span class="m">' + mathHtml(src) + '</span>'; }
 function Mc(src){ return '<div class="center">' + M(src) + '</div>'; }
 
 /* version de la construction, remplacée par build.py */
-const VERSION_APP = '1.19';
+const VERSION_APP = '1.21';
 
 /* ---------- utilitaires numériques ---------- */
 const R = {
@@ -8246,6 +8303,1690 @@ TITRES_HG_H.forEach(function(ch){
   });
 });
 /* =========================================================================
+   MATIÈRE : enseignement scientifique, première générale.
+
+   Programme : BO n°25 du 22 juin 2023 (et non la version de 2019).
+   Inchangé pour 2026-2027 côté sciences.
+
+   Nouveauté 2026-2027 : un module de mathématiques de 1 h 30 est intégré
+   à l'enseignement scientifique (arrêté du 26 février 2026, NOR
+   MENE2602916A, BO n°14 du 2 avril 2026), mais UNIQUEMENT pour les élèves
+   qui ne suivent pas la spécialité mathématiques. Dans l'application, ce
+   module est la matière « Maths (enseignement scientifique) ».
+
+   Cinq parties : une longue histoire de la matière · le Soleil, notre
+   source d'énergie · la Terre, un astre singulier · son, musique et
+   audition · projet expérimental et numérique.
+   ========================================================================= */
+
+MAT['sciences'].pret = true;
+
+BLOCS.push(
+  { id: 'sci-matiere', nom: 'Une longue histoire de la matière', matiere: 'sciences' },
+  { id: 'sci-soleil',  nom: 'Le Soleil, notre source d’énergie', matiere: 'sciences' },
+  { id: 'sci-terre',   nom: 'La Terre, un astre singulier',      matiere: 'sciences' },
+  { id: 'sci-son',     nom: 'Son, musique et audition',          matiere: 'sciences' },
+  { id: 'sci-projet',  nom: 'Projet expérimental et numérique',  matiere: 'sciences' }
+);
+
+/* notation d'un noyau : A en haut, Z en bas, devant le symbole */
+function nuc(a, z, s){
+  return '<span class="nuc"><span class="az"><i>' + a + '</i><i>' + z + '</i></span>' + s + '</span>';
+}
+/* encadré de formule */
+function form(f, leg){
+  return '<div class="form">' + f + (leg ? '<span class="form-leg">' + leg + '</span>' : '') + '</div>';
+}
+
+const CHAPITRES_SCI = [
+
+/* ================= 1. UNE LONGUE HISTOIRE DE LA MATIÈRE ================= */
+{
+  id: 'sci-elements', bloc: 'sci-matiere',
+  titre: 'Les éléments chimiques',
+  resume: '1.1 Du seul hydrogène à la centaine d’éléments.',
+  capacites: [
+    'Produire et analyser des représentations graphiques de l’abondance des éléments chimiques dans l’Univers, la Terre et les êtres vivants.',
+    'L’équation d’une réaction nucléaire stellaire étant fournie, reconnaître s’il s’agit d’une fusion ou d’une fission.',
+    'Calculer le nombre de noyaux restants au bout de n demi-vies.',
+    'Utiliser une représentation graphique pour déterminer une demi-vie.',
+    'Utiliser une décroissance radioactive pour une datation.',
+    'Expliquer l’utilisation de noyaux radioactifs dans un contexte médical et citer des précautions.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'À quoi ça sert ?', c:
+      '<p>Toute la matière vient de l’hydrogène. Ce chapitre explique comment on passe d’un seul élément à la centaine ' +
+      'd’éléments stables qui composent les étoiles, la Terre et ton corps.</p>' +
+      '<p class="tiny">À savoir : depuis 2026, un module de mathématiques de 1 h 30 s’ajoute à l’enseignement scientifique, ' +
+      'mais seulement pour les élèves <b>sans</b> spécialité mathématiques. Il figure dans l’application comme une matière à part.</p>' },
+    { k: 'prop', t: 'D’où viennent les éléments', c:
+      '<ul><li>Les noyaux des éléments stables se forment par <b>réactions nucléaires dans les étoiles</b>, ' +
+      'à partir de l’hydrogène initial.</li>' +
+      '<li>L’Univers connu est fait surtout d’<b>hydrogène et d’hélium</b>.</li>' +
+      '<li>La <b>Terre</b> est surtout constituée d’oxygène, d’hydrogène, de fer, de silicium et de magnésium.</li>' +
+      '<li>Les <b>êtres vivants</b> sont surtout faits de carbone, d’hydrogène, d’oxygène et d’azote.</li></ul>' +
+      '<p>Trois compositions très différentes : c’est exactement ce que demande le programme de savoir comparer.</p>' },
+    { k: 'def', t: 'Fusion ou fission ?', c:
+      '<p><b>Fusion</b> : des noyaux légers s’assemblent en un noyau plus lourd. C’est ce qui se passe dans les étoiles.</p>' +
+      form(nuc(2, 1, 'H') + ' + ' + nuc(3, 1, 'H') + ' → ' + nuc(4, 2, 'He') + ' + ' + nuc(1, 0, 'n'),
+           'deux petits noyaux donnent un plus gros') +
+      '<p><b>Fission</b> : un noyau lourd se casse en noyaux plus légers. C’est ce qui se passe dans une centrale nucléaire.</p>' +
+      form(nuc(235, 92, 'U') + ' + ' + nuc(1, 0, 'n') + ' → ' + nuc(94, 38, 'Sr') + ' + ' + nuc(140, 54, 'Xe') + ' + 2 ' + nuc(1, 0, 'n'),
+           'un gros noyau se casse en plusieurs') +
+      '<p>Dans les deux cas, <b>A et Z se conservent</b> : la somme des nombres du haut est la même des deux côtés, ' +
+      'et celle des nombres du bas aussi.</p>' },
+    { k: 'def', t: 'La radioactivité et la demi-vie', c:
+      '<p>Certains noyaux sont <b>instables</b> et se désintègrent. L’instant où un noyau donné se désintègre est ' +
+      '<b>aléatoire</b> : on ne peut rien prévoir pour un noyau seul, seulement pour une grande population.</p>' +
+      '<p>La <b>demi-vie</b> est la durée au bout de laquelle la moitié des noyaux présents se sont désintégrés. ' +
+      'Elle est caractéristique du noyau.</p>' +
+      form('N = N<sub>0</sub> × (1/2)<sup>n</sup>', 'nombre de noyaux restants après n demi-vies') +
+      '<p>Après 1 demi-vie il reste la moitié · après 2, le quart · après 3, le huitième. ' +
+      'C’est une <b>suite géométrique</b> de raison 1/2, donc une décroissance exponentielle.</p>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Pour dater : chercher combien de fois il faut diviser par 2 pour tomber sur la fraction restante. ' +
+      'Il reste 1/8 ? Alors 3 demi-vies se sont écoulées.</li>' +
+      '<li>Une demi-vie ne dépend ni de la température, ni de la pression, ni de la quantité : ' +
+      'c’est une propriété du noyau seul.</li>' +
+      '<li>En médecine, on utilise des noyaux à <b>demi-vie courte</b> pour l’imagerie, afin que l’activité disparaisse vite. ' +
+      'Précautions : blindage, distance, durée d’exposition limitée.</li></ul>' }
+  ]
+},
+{
+  id: 'sci-cristaux', bloc: 'sci-matiere',
+  titre: 'Des édifices ordonnés : les cristaux',
+  resume: '1.2 De la maille au minéral et à la roche.',
+  capacites: [
+    'Utiliser une représentation en trois dimensions du cristal de chlorure de sodium.',
+    'Relier l’organisation de la maille au niveau microscopique à la structure du cristal au niveau macroscopique.',
+    'Distinguer, en matière d’échelle et d’organisation spatiale, atome ou molécule, maille, cristal, minéral, roche.',
+    'Identifier des structures cristallines sur un échantillon, sur une image, et chez les êtres vivants.',
+    'Mettre en relation la structure amorphe ou cristalline d’une roche et les conditions de son refroidissement.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'À quoi ça sert ?', c:
+      '<p>Le sel, le quartz, un os, un calcul rénal : ce sont tous des empilements réguliers. Ce chapitre montre comment ' +
+      'une organisation <b>microscopique</b> explique des propriétés <b>macroscopiques</b>, à commencer par la masse volumique.</p>' },
+    { k: 'def', t: 'Les mots, du plus petit au plus grand', c:
+      '<ul><li><b>Atome ou ion</b> : l’entité de base, de l’ordre de 10<sup>-10</sup> m.</li>' +
+      '<li><b>Maille</b> : le plus petit motif qui, répété, reconstruit tout le cristal.</li>' +
+      '<li><b>Cristal</b> : l’empilement régulier de ces mailles.</li>' +
+      '<li><b>Minéral</b> : une espèce définie par sa composition chimique <b>et</b> son organisation cristalline.</li>' +
+      '<li><b>Roche</b> : l’association de cristaux d’un même minéral ou de plusieurs minéraux.</li></ul>' +
+      '<p>Un même composé peut cristalliser sous <b>plusieurs structures</b> : même formule chimique, minéraux différents.</p>' },
+    { k: 'prop', t: 'De la maille à la masse volumique', c:
+      '<p>Connaître la maille, c’est pouvoir calculer la masse volumique du cristal :</p>' +
+      form('ρ = m<sub>maille</sub> / V<sub>maille</sub>', 'masse des entités de la maille divisée par son volume') +
+      '<p>Pour une maille cubique d’arête <i>a</i>, le volume vaut <i>a</i><sup>3</sup>. ' +
+      'C’est le lien que le programme demande d’établir entre le microscopique et le macroscopique.</p>' },
+    { k: 'prop', t: 'Cristallin ou amorphe', c:
+      '<p>Dans un solide <b>amorphe</b>, l’empilement se fait <b>sans ordre géométrique</b>. Le verre en est l’exemple type.</p>' +
+      '<p>La différence vient de la <b>vitesse de refroidissement</b> :</p>' +
+      '<ul><li>refroidissement <b>lent</b> → les atomes ont le temps de s’organiser → structure <b>cristalline</b>, ' +
+      'gros cristaux visibles ;</li>' +
+      '<li>refroidissement <b>très rapide</b> → ils sont figés en désordre → structure <b>amorphe</b>, du verre. ' +
+      'Certaines roches volcaniques en contiennent.</li></ul>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Devant une roche volcanique, la question est toujours la même : <b>a-t-elle refroidi vite ou lentement ?</b> ' +
+      'La taille des cristaux répond.</li>' +
+      '<li>Des cristaux existent aussi chez les vivants : coquilles, squelettes, calculs rénaux. Le programme le demande explicitement.</li>' +
+      '<li>Attention à l’échelle : une maille mesure quelques dixièmes de nanomètre, une roche des centimètres. ' +
+      'Huit ordres de grandeur les séparent.</li></ul>' }
+  ]
+},
+{
+  id: 'sci-cellule', bloc: 'sci-matiere',
+  titre: 'Une structure complexe : la cellule vivante',
+  resume: '1.3 L’unité fondamentale du vivant.',
+  capacites: [
+    'Analyser et interpréter des documents historiques relatifs à la théorie cellulaire.',
+    'Situer les ordres de grandeur : atome, molécule, organite, cellule, organisme.',
+    'Relier l’échelle de la cellule, de ses organites et des molécules qui la constituent.',
+    'Mettre en évidence des échanges au travers de la membrane plasmique.',
+    'Discuter du statut des virus : vivants ou non vivants.',
+    'Relier la présence de molécules exogènes au bon fonctionnement cellulaire ou à des dysfonctionnements.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'À quoi ça sert ?', c:
+      '<p>Après l’atome et le cristal, la cellule est le degré suivant d’organisation de la matière. ' +
+      'C’est aussi la frontière entre le <b>vivant</b> et le <b>non-vivant</b>, et cette frontière est moins nette qu’on croit : ' +
+      'le cas des virus est au programme.</p>' },
+    { k: 'prop', t: 'La théorie cellulaire, une histoire d’instruments', c:
+      '<ul><li>L’unité cellulaire est découverte grâce à l’invention du <b>microscope optique</b>.</li>' +
+      '<li>L’observation de structures semblables chez de très nombreux organismes conduit à énoncer le concept général ' +
+      'de cellule, puis la <b>théorie cellulaire</b>.</li>' +
+      '<li>Le <b>microscope électronique</b>, bien plus récent, permet d’explorer l’intérieur de la cellule et de relier ' +
+      'l’échelle moléculaire à l’échelle cellulaire.</li></ul>' +
+      '<p>Le savoir scientifique progresse ici au rythme des instruments : c’est l’un des messages du programme.</p>' },
+    { k: 'def', t: 'Les ordres de grandeur à connaître', c:
+      '<ul class="dates">' +
+      '<li><b>10<sup>-10</sup> m</b> <span>un atome</span></li>' +
+      '<li><b>10<sup>-9</sup> m</b> <span>une molécule, un nanomètre</span></li>' +
+      '<li><b>10<sup>-7</sup> à 10<sup>-6</sup> m</b> <span>un organite, un virus</span></li>' +
+      '<li><b>10<sup>-5</sup> m</b> <span>une cellule, quelques dizaines de micromètres</span></li>' +
+      '<li><b>1 m</b> <span>un organisme</span></li></ul>' +
+      '<p>Du nanomètre à l’atome, du micromètre à la cellule : ce sont ces repères que les exercices vérifient.</p>' },
+    { k: 'prop', t: 'La cellule, un milieu séparé mais ouvert', c:
+      '<p>La cellule est un <b>milieu réactionnel aqueux</b>, séparé de l’extérieur par la <b>membrane plasmique</b>.</p>' +
+      '<p>Son fonctionnement exige un <b>apport d’énergie</b> : elle est donc en interaction permanente avec son environnement, ' +
+      'avec lequel elle réalise de nombreux échanges à travers cette membrane.</p>' +
+      '<p>Des molécules venues de l’extérieur peuvent être nécessaires au bon fonctionnement, ou au contraire le perturber : ' +
+      'alcool, solvants, métaux lourds, composés de la cigarette.</p>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Le <b>statut des virus</b> est une question de cours, pas d’opinion : un virus n’a ni cellule, ni métabolisme, ' +
+      'ni reproduction autonome. Il a en revanche un matériel génétique et il évolue. La réponse attendue est une discussion, ' +
+      'pas un oui ou un non.</li>' +
+      '<li>« Séparé mais ouvert » résume la membrane en trois mots. La formule vaut mieux qu’un long paragraphe.</li></ul>' }
+  ]
+},
+
+/* ================= 2. LE SOLEIL ================= */
+{
+  id: 'sci-rayonnement', bloc: 'sci-soleil',
+  titre: 'Le rayonnement solaire',
+  resume: '2.1 Corps noir, loi de Wien, loi de Stefan.',
+  capacites: [
+    'À partir du spectre d’émission du corps noir, déterminer la longueur d’onde d’émission maximale.',
+    'Appliquer la loi de Wien pour déterminer la température de surface d’un objet assimilé à un corps noir.',
+    'Sur un schéma, identifier les configurations pour lesquelles la puissance reçue par une surface est maximale ou minimale.',
+    'Analyser, représenter graphiquement des données de températures et calculer des moyennes temporelles.',
+    'Étudier des effets liés à l’exposition des êtres humains au rayonnement solaire.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'À quoi ça sert ?', c:
+      '<p>Deux lois, deux calculs, et on connaît la température de surface d’une étoile qu’on ne touchera jamais. ' +
+      'C’est le chapitre le plus calculatoire de l’année, et le plus rentable en devoir.</p>' },
+    { k: 'def', t: 'La loi de Wien', c:
+      '<p>Le spectre du rayonnement émis par la surface d’une étoile ne dépend que de sa <b>température</b>. ' +
+      'La longueur d’onde du maximum d’émission est <b>inversement proportionnelle</b> à la température :</p>' +
+      form('λ<sub>max</sub> × T = 2,90 × 10<sup>-3</sup> m·K', 'λ en mètres, T en kelvins') +
+      '<p>Plus un corps est chaud, plus il émet vers le <b>bleu</b> ; plus il est froid, plus il émet vers le <b>rouge</b>. ' +
+      'C’est pour cela que les étoiles bleues sont les plus chaudes.</p>' },
+    { k: 'def', t: 'La loi de Stefan', c:
+      '<p>La puissance émise par unité de surface est proportionnelle à la puissance <b>quatrième</b> de la température :</p>' +
+      form('P / S = σ × T<sup>4</sup>&nbsp;&nbsp;avec σ = 5,67 × 10<sup>-8</sup> W·m<sup>-2</sup>·K<sup>-4</sup>',
+           'doubler la température multiplie la puissance par 16') +
+      '<p>C’est la loi qui explique pourquoi une petite différence de température change énormément l’énergie rayonnée.</p>' },
+    { k: 'prop', t: 'Pourquoi il fait plus chaud à midi qu’au lever du soleil', c:
+      '<p>La puissance reçue par une surface plane est proportionnelle à son aire, et dépend de l’<b>angle</b> ' +
+      'entre la direction du Soleil et la normale à la surface.</p>' +
+      '<ul><li>Rayons <b>perpendiculaires</b> à la surface → puissance reçue <b>maximale</b>.</li>' +
+      '<li>Rayons <b>rasants</b> → la même énergie s’étale sur une plus grande surface → puissance par mètre carré <b>minimale</b>.</li></ul>' +
+      '<p>Ce seul mécanisme explique trois choses : la variation <b>journalière</b> (l’heure), la variation <b>saisonnière</b> ' +
+      '(le moment de l’année) et la <b>zonation climatique</b> (la latitude).</p>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Toujours convertir en <b>kelvins</b> : T(K) = θ(°C) + 273. Une loi de Wien appliquée en degrés Celsius est fausse.</li>' +
+      '<li>Et en <b>mètres</b> pour la longueur d’onde : 500 nm = 500 × 10<sup>-9</sup> m.</li>' +
+      '<li>Ordre de grandeur à retenir : le Soleil a une température de surface d’environ <b>5 800 K</b>, ' +
+      'et son maximum d’émission tombe dans le <b>visible</b>, vers 500 nm. Ce n’est pas un hasard : notre œil s’y est adapté.</li></ul>' }
+  ]
+},
+{
+  id: 'sci-bilan', bloc: 'sci-soleil',
+  titre: 'Le bilan radiatif terrestre',
+  resume: '2.2 Albédo, effet de serre, équilibre dynamique.',
+  capacites: [
+    'Calculer la proportion de la puissance émise par le Soleil qui atteint la Terre.',
+    'L’albédo terrestre étant donné, déterminer la puissance totale reçue par la surface terrestre.',
+    'Commenter la courbe d’absorption de l’atmosphère terrestre en fonction de la longueur d’onde.',
+    'Représenter sur un schéma les rayonnements reçus et émis par le sol.',
+    'Expliquer qualitativement l’influence de l’albédo et de l’effet de serre sur la température terrestre moyenne.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'À quoi ça sert ?', c:
+      '<p>C’est le chapitre qui fonde tout le programme de terminale sur le climat. Comprendre l’équilibre <b>maintenant</b>, ' +
+      'c’est pouvoir comprendre sa perturbation l’an prochain.</p>' },
+    { k: 'def', t: 'L’albédo', c:
+      '<p>L’<b>albédo</b> est la fraction de la puissance reçue qui est <b>diffusée vers l’espace</b> sans être absorbée. ' +
+      'L’albédo terrestre moyen vaut environ <b>0,30</b>.</p>' +
+      form('P<sub>absorbée</sub> = (1 - a) × P<sub>reçue</sub>', 'ce qui n’est pas renvoyé est absorbé') +
+      '<p>La neige et la glace ont un albédo élevé, proche de 0,8 : elles renvoient presque tout. ' +
+      'L’océan a un albédo faible, proche de 0,1 : il absorbe presque tout. D’où l’enjeu de la fonte des glaces.</p>' },
+    { k: 'prop', t: 'L’effet de serre', c:
+      '<p>La surface terrestre émet un rayonnement <b>infrarouge</b>, dont la puissance par unité de surface augmente ' +
+      'avec la température.</p>' +
+      '<p>Une partie de ce rayonnement est <b>absorbée par l’atmosphère</b>, qui émet à son tour de l’infrarouge, ' +
+      'vers l’espace <b>et vers le sol</b>. C’est l’effet de serre.</p>' +
+      '<p>Le point clé, explicitement au programme : la puissance reçue par le sol est la <b>somme</b> de celle reçue du Soleil ' +
+      'et de celle reçue de l’atmosphère, et ces deux-là sont du <b>même ordre de grandeur</b>.</p>' },
+    { k: 'def', t: 'L’équilibre dynamique', c:
+      '<p>L’équilibre est atteint quand la surface terrestre <b>reçoit</b> en moyenne autant de puissance qu’elle en <b>émet</b>. ' +
+      'La température moyenne est alors constante.</p>' +
+      '<p>On le dit <b>dynamique</b> parce que rien ne s’arrête : les échanges continuent, ce sont les deux totaux qui s’égalisent.</p>' +
+      '<ul><li>Albédo qui augmente → moins d’énergie absorbée → la température baisse.</li>' +
+      '<li>Effet de serre qui augmente → plus d’infrarouge renvoyé vers le sol → la température monte.</li></ul>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>La Terre intercepte le rayonnement solaire sur un <b>disque</b> de surface πR², mais elle rayonne ' +
+      'depuis toute sa <b>sphère</b>, de surface 4πR². Ce facteur 4 est l’erreur classique du chapitre.</li>' +
+      '<li>L’effet de serre n’est pas une anomalie : sans lui, la température moyenne serait d’environ -18 °C au lieu de 15 °C. ' +
+      'C’est son <b>renforcement</b> qui pose problème.</li>' +
+      '<li>Sur un schéma, toujours distinguer les flèches <b>visibles</b> venant du Soleil des flèches <b>infrarouges</b> ' +
+      'émises par le sol et l’atmosphère.</li></ul>' }
+  ]
+},
+{
+  id: 'sci-photosynthese', bloc: 'sci-soleil',
+  titre: 'Photosynthèse et énergie des êtres vivants',
+  resume: '2.3 De l’énergie solaire à l’assiette.',
+  capacites: [
+    'Recenser, extraire et organiser des informations pour prendre conscience de l’importance planétaire de la photosynthèse.',
+    'Utiliser des données quantitatives sur l’apport énergétique d’aliments dans un bilan d’énergie correspondant à des activités variées.',
+    'Mettre en évidence des aspects qualitatifs de l’équilibre alimentaire.',
+    'Relier des déséquilibres alimentaires à la prévalence de la dénutrition, des maladies cardiovasculaires, des diabètes ou de l’obésité.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'À quoi ça sert ?', c:
+      '<p>Une infime partie de l’énergie solaire reçue par la Terre est captée par les organismes chlorophylliens. ' +
+      'Cette fraction minuscule nourrit <b>presque toute la vie</b> de la planète, et alimente ton propre corps.</p>' },
+    { k: 'prop', t: 'La photosynthèse', c:
+      '<p>Les organismes chlorophylliens utilisent l’énergie solaire pour synthétiser de la <b>matière organique</b> ' +
+      'à partir de <b>matière minérale</b> : eau, ions, dioxyde de carbone.</p>' +
+      form('matière minérale + énergie lumineuse → matière organique + dioxygène',
+           'la photosynthèse permet la nutrition de presque toutes les formes de vie') +
+      '<p>Ces molécules organiques peuvent ensuite être transformées pour <b>libérer l’énergie</b> nécessaire ' +
+      'au fonctionnement des êtres vivants. L’alimentation apporte ces molécules.</p>' },
+    { k: 'meth', t: 'Faire un bilan énergétique', c:
+      '<p>Le principe est une simple comparaison entre ce qui entre et ce qui sort :</p>' +
+      form('bilan = énergie apportée par les aliments - énergie dépensée',
+           'en kilojoules (kJ) ou en kilocalories (kcal)') +
+      '<ul><li>Bilan <b>positif</b> durable → stockage, prise de masse.</li>' +
+      '<li>Bilan <b>négatif</b> durable → puisage dans les réserves, perte de masse.</li></ul>' +
+      '<p>Conversion utile : <b>1 kcal ≈ 4,18 kJ</b>.</p>' },
+    { k: 'prop', t: 'L’équilibre alimentaire', c:
+      '<p>L’équilibre n’est pas seulement quantitatif. Il est aussi <b>qualitatif</b> : il faut des glucides, des lipides, ' +
+      'des protéines, des vitamines, des minéraux, dans de bonnes proportions.</p>' +
+      '<p>Le programme demande de relier les déséquilibres à des problèmes de santé à l’échelle mondiale : ' +
+      '<b>dénutrition</b>, <b>maladies cardiovasculaires</b>, <b>diabètes</b>, <b>obésité</b>.</p>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Ne jamais écrire que la photosynthèse « fabrique de l’énergie » : elle <b>convertit</b> l’énergie lumineuse ' +
+      'en énergie chimique. L’énergie ne se crée pas.</li>' +
+      '<li>Un bilan énergétique se fait toujours dans la <b>même unité</b> : convertir avant de soustraire.</li>' +
+      '<li>Le déclin du <b>phytoplancton</b> est l’exemple attendu pour discuter de l’importance planétaire de la photosynthèse.</li></ul>' }
+  ]
+},
+{
+  id: 'sci-energies', bloc: 'sci-soleil',
+  titre: 'Les sources d’énergie',
+  resume: '2.4 Renouvelable ou non, et pourquoi.',
+  capacites: [
+    'Citer quelques sources d’énergie renouvelables et non renouvelables.',
+    'Étudier des atouts et des limites liés à l’utilisation de ces sources.',
+    'À partir de l’étude d’un combustible fossile ou d’une roche, débattre de l’origine biologique ou non des matériaux analysés.',
+    'Comparer différents pouvoirs calorifiques par unité de masse suivant la nature de la biomasse.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'À quoi ça sert ?', c:
+      '<p>Presque toute l’énergie que nous utilisons vient du Soleil, directement ou indirectement, ' +
+      'y compris le pétrole. Ce chapitre donne les mots justes pour en débattre sans dire de bêtises.</p>' },
+    { k: 'def', t: 'Renouvelable ou non : le vrai critère', c:
+      '<p>Le critère du programme n’est pas « propre » ou « sale », c’est une <b>comparaison de durées</b> :</p>' +
+      form('durée de formation de la source &nbsp;contre&nbsp; durée prévisible d’épuisement',
+           'formation lente et épuisement rapide = non renouvelable') +
+      '<ul><li><b>Non renouvelables</b> : les combustibles fossiles, formés il y a plusieurs dizaines à plusieurs centaines ' +
+      'de millions d’années, et consommés en quelques siècles.</li>' +
+      '<li><b>Renouvelables</b> : la biomasse, le vent, le rayonnement solaire, l’eau, qui se reconstituent ' +
+      'à l’échelle de temps humaine.</li></ul>' },
+    { k: 'prop', t: 'L’origine solaire, directe ou indirecte', c:
+      '<ul><li><b>Directement solaire</b> : le photovoltaïque, le solaire thermique.</li>' +
+      '<li><b>Indirectement solaire</b> : le vent (dû aux différences de température), l’hydraulique (le cycle de l’eau), ' +
+      'la biomasse (la photosynthèse), et même les <b>combustibles fossiles</b>, formés à partir de matière organique ' +
+      'produite par photosynthèse.</li>' +
+      '<li><b>Non solaire</b> : la géothermie (chaleur interne de la Terre), les marées (attraction de la Lune), ' +
+      'le nucléaire (noyaux lourds).</li></ul>' +
+      '<p>Cette distinction est très souvent demandée telle quelle en devoir.</p>' },
+    { k: 'def', t: 'Le pouvoir calorifique', c:
+      '<p>C’est l’énergie libérée par la combustion d’un kilogramme de combustible, en mégajoules par kilogramme.</p>' +
+      form('E = m × PC', 'énergie libérée = masse × pouvoir calorifique') +
+      '<p>La biomasse fournit de l’énergie principalement par <b>combustion</b> ou par <b>fermentation</b>.</p>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>« Énergie propre » est un terme du langage courant, pas un terme scientifique. ' +
+      'Le programme demande explicitement d’en faire l’<b>analyse critique</b>.</li>' +
+      '<li>Le pétrole est d’origine solaire : c’est contre-intuitif, et c’est exactement pour cela que c’est demandé.</li>' +
+      '<li>Une source renouvelable n’est pas sans impact : emprise au sol, matériaux, intermittence. ' +
+      'Le programme demande « atouts <b>et</b> limites ».</li></ul>' }
+  ]
+},
+
+/* ================= 3. LA TERRE ================= */
+{
+  id: 'sci-forme', bloc: 'sci-terre',
+  titre: 'La forme de la Terre',
+  resume: '3.1 Ératosthène, triangulation, coordonnées.',
+  capacites: [
+    'Donner des preuves de la rotondité de la Terre, de l’Antiquité à nos jours.',
+    'Calculer la longueur du méridien terrestre par la méthode d’Ératosthène.',
+    'Expliquer la méthode de triangulation utilisée par Delambre et Méchain.',
+    'Calculer le rayon de la Terre à partir de la longueur du méridien.',
+    'Calculer la distance à l’horizon à partir du rayon de la Terre.',
+    'Comparer les longueurs de différents chemins reliant deux points à la surface de la Terre.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'À quoi ça sert ?', c:
+      '<p>Vers 200 avant notre ère, avec un bâton et une mesure de distance, Ératosthène a trouvé la taille de la Terre ' +
+      'à quelques pour cent près. C’est la plus belle démonstration du programme, et elle se calcule en trois lignes.</p>' },
+    { k: 'meth', t: 'La méthode d’Ératosthène', c:
+      '<p>Deux villes sur le <b>même méridien</b>, séparées par une distance <i>d</i>. Le même jour à midi, le Soleil est ' +
+      'à la verticale dans l’une, et fait un angle α avec la verticale dans l’autre.</p>' +
+      '<p>L’angle α est alors aussi l’angle au centre entre les deux villes. Un simple rapport de proportionnalité donne :</p>' +
+      form('L / 360° = d / α&nbsp;&nbsp;donc&nbsp;&nbsp;L = d × 360 / α', 'L = longueur du méridien, α en degrés') +
+      '<p>Ératosthène avait trouvé α ≈ 7,2° entre Syène et Alexandrie, distantes d’environ 800 km. ' +
+      'Cela donne 800 × 360 / 7,2 = <b>40 000 km</b>. La valeur réelle est d’environ 40 008 km.</p>' },
+    { k: 'prop', t: 'Du méridien au rayon, et à l’horizon', c:
+      '<p>Le méridien est un grand cercle, donc :</p>' +
+      form('R = L / (2π)', 'environ 6 371 km pour la Terre') +
+      '<p>La distance à l’horizon, pour un observateur à la hauteur <i>h</i>, se trouve par le <b>théorème de Pythagore</b> ' +
+      'dans le triangle rectangle formé par le centre de la Terre, l’observateur et le point d’horizon :</p>' +
+      form('d = √((R + h)² - R²) ≈ √(2 R h)', 'valable tant que h est très petit devant R') },
+    { k: 'def', t: 'Se repérer sur la sphère', c:
+      '<p>Un point de la surface se repère par deux <b>coordonnées angulaires</b>, la <b>latitude</b> et la <b>longitude</b>, ' +
+      'et par son <b>altitude</b> par rapport à un niveau de référence.</p>' +
+      '<p>Le plus court chemin entre deux points de la sphère est l’<b>arc du grand cercle</b> qui les relie. ' +
+      'C’est pour cela que les avions semblent faire des détours sur une carte plate : ils ne font pas de détour du tout.</p>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Dans Ératosthène, le piège est de croire qu’il faut une mesure compliquée. Il n’y a qu’une <b>proportionnalité</b> : ' +
+      'l’angle est à 360° ce que la distance est au méridien complet.</li>' +
+      '<li>Les preuves de rotondité à citer : l’ombre circulaire de la Terre sur la Lune lors d’une éclipse, ' +
+      'la disparition progressive d’un navire par le bas à l’horizon, la variation de la hauteur des étoiles selon la latitude, ' +
+      'et aujourd’hui les photographies satellitaires.</li>' +
+      '<li>La <b>triangulation</b> de Delambre et Méchain mesure de proche en proche, par une chaîne de triangles dont on ne mesure ' +
+      'que des angles et une seule longueur de base. C’est ainsi qu’a été défini le mètre.</li></ul>' }
+  ]
+},
+{
+  id: 'sci-age', bloc: 'sci-terre',
+  titre: 'L’histoire de l’âge de la Terre',
+  resume: '3.2 Une controverse résolue par la radioactivité.',
+  capacites: [
+    'Interpréter des documents présentant les arguments historiques utilisés pour comprendre l’âge de la Terre.',
+    'Identifier diverses théories impliquées dans la controverse scientifique de l’âge de la Terre.',
+    'Situer l’ordre de grandeur de l’âge de la Terre.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'À quoi ça sert ?', c:
+      '<p>Ce chapitre ne sert pas à retenir un nombre, mais à comprendre <b>comment une controverse scientifique se tranche</b>. ' +
+      'Pendant deux siècles, des savants sérieux ont donné des réponses fausses avec des méthodes honnêtes.</p>' },
+    { k: 'prop', t: 'Quatre familles d’arguments', c:
+      '<ul><li><b>Le temps de refroidissement</b> : Buffon chauffe des boulets et mesure leur refroidissement ; ' +
+      'Kelvin calcule à partir de la chaleur interne. Tous deux trouvent bien trop peu, car ils ignoraient la radioactivité, ' +
+      'source de chaleur interne.</li>' +
+      '<li><b>Les empilements sédimentaires</b> : estimer la durée de dépôt des couches.</li>' +
+      '<li><b>L’évolution biologique</b> : Darwin juge qu’il faut énormément de temps pour produire la diversité observée.</li>' +
+      '<li><b>La radioactivité</b> : à partir de Rutherford, la datation des minéraux tranche définitivement la question.</li></ul>' },
+    { k: 'def', t: 'La valeur actuelle', c:
+      '<p>Grâce aux noyaux radioactifs contenus dans les minéraux des roches, l’âge de la Terre est aujourd’hui ' +
+      'déterminé précisément :</p>' +
+      form('4,57 × 10<sup>9</sup> ans', 'soit environ 4,57 milliards d’années') +
+      '<p>La datation des <b>météorites</b>, formées en même temps que le système solaire et non remaniées depuis, ' +
+      'permet de préciser cette valeur.</p>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Expliquer <b>pourquoi Kelvin s’est trompé</b> vaut plus de points que de citer sa valeur : ' +
+      'il ignorait une source de chaleur, la radioactivité, découverte après lui.</li>' +
+      '<li>Le message du chapitre : une théorie peut être « discutée, amendée et même réfutée ». ' +
+      'C’est ce qui distingue un savoir scientifique d’une croyance.</li>' +
+      '<li>Retenir l’ordre de grandeur : <b>4,5 milliards d’années</b>, soit 10<sup>9</sup>, ' +
+      'à comparer à 10<sup>2</sup> pour une vie humaine.</li></ul>' }
+  ]
+},
+{
+  id: 'sci-univers', bloc: 'sci-terre',
+  titre: 'La Terre dans l’Univers',
+  resume: '3.3 Héliocentrisme, la Lune, l’eau liquide.',
+  capacites: [
+    'Interpréter des documents présentant des arguments historiques pour discuter la théorie héliocentrique.',
+    'Interpréter l’aspect de la Lune dans le ciel en fonction de sa position par rapport à la Terre et au Soleil.',
+    'Étudier des données actuelles sur les exoplanètes en lien avec la zone d’habitabilité.',
+    'Décrire la répartition de l’eau douce dans le monde.',
+    'Estimer le volume d’une réserve d’eau douce à partir de données fournies.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'À quoi ça sert ?', c:
+      '<p>La Terre est singulière parce qu’elle a de l’<b>eau liquide</b> en surface. Ce chapitre explique pourquoi, ' +
+      'et raconte la controverse qui a déplacé la Terre du centre du monde.</p>' },
+    { k: 'prop', t: 'Du géocentrisme à l’héliocentrisme', c:
+      '<p>Observée dans un référentiel fixe par rapport aux étoiles, la Terre parcourt une trajectoire <b>quasi circulaire</b> ' +
+      'autour du Soleil.</p>' +
+      '<p>Le passage d’une conception <b>géocentrique</b> (la Terre au centre) à une conception <b>héliocentrique</b> ' +
+      '(le Soleil au centre) est l’une des controverses majeures de l’histoire des sciences. ' +
+      'Les noms au programme : Ptolémée, Copernic, Tycho Brahe, Kepler, Galilée, Newton.</p>' },
+    { k: 'prop', t: 'La Lune', c:
+      '<p>Dans le référentiel géocentrique, la Lune décrit une trajectoire quasi circulaire autour de la Terre. ' +
+      'Son aspect varie au cours de ce mouvement : ce sont les <b>phases</b>.</p>' +
+      '<p>La Lune tourne aussi sur elle-même, dans le même temps qu’elle fait le tour de la Terre : ' +
+      'elle nous présente donc <b>toujours la même face</b>.</p>' +
+      '<p>Point essentiel : les phases ne sont <b>pas</b> l’ombre de la Terre. Elles viennent de la portion de la moitié éclairée ' +
+      'de la Lune que nous voyons depuis la Terre.</p>' },
+    { k: 'prop', t: 'L’eau liquide et sa répartition', c:
+      '<p>Trois conditions permettent à la Terre de conserver de l’eau liquide en surface : la <b>puissance lumineuse</b> ' +
+      'émise par le Soleil, la <b>distance</b> au Soleil, et la <b>gravité</b> de la Terre, qui retient son atmosphère.</p>' +
+      '<p>L’eau est très inégalement répartie, dans l’espace comme dans le temps. Les ordres de grandeur à retenir :</p>' +
+      '<ul class="dates">' +
+      '<li><b>≈ 97 %</b> <span>de l’eau de la planète est salée</span></li>' +
+      '<li><b>≈ 3 %</b> <span>est douce, dont l’essentiel en glaciers et en eaux souterraines</span></li>' +
+      '<li><b>&lt; 1 %</b> <span>de l’eau douce est directement accessible et potable</span></li></ul>' +
+      '<p>La gestion et la protection des ressources hydriques sont un enjeu majeur pour l’humanité.</p>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>La <b>zone d’habitabilité</b> est l’intervalle de distances à une étoile où l’eau liquide peut exister ' +
+      'en surface. C’est le critère utilisé pour trier les exoplanètes.</li>' +
+      '<li>Distinguer soigneusement <b>phase</b> de la Lune et <b>éclipse</b> : la première est permanente et cyclique, ' +
+      'la seconde est rare et due à un alignement.</li>' +
+      '<li>Sur l’influence de la Lune, le programme demande explicitement de <b>distinguer les arguments scientifiques ' +
+      'des croyances</b>.</li></ul>' }
+  ]
+},
+
+/* ================= 4. SON, MUSIQUE ET AUDITION ================= */
+{
+  id: 'sci-son', bloc: 'sci-son',
+  titre: 'Son et musique',
+  resume: '4.1 Fondamentale, harmoniques, octave, décibels.',
+  capacites: [
+    'Utiliser un logiciel permettant de visualiser le spectre d’un son.',
+    'Utiliser l’échelle logarithmique de niveau d’intensité sonore pour relier l’intensité au niveau d’intensité sonore.',
+    'Relier qualitativement la fréquence fondamentale du signal émis aux caractéristiques d’une corde vibrante.',
+    'Identifier deux notes à l’octave à l’aide de leur spectre.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'À quoi ça sert ?', c:
+      '<p>Pourquoi deux notes séparées d’une octave portent-elles le même nom ? Pourquoi une corde plus courte sonne-t-elle ' +
+      'plus aigu ? Ce chapitre répond par des rapports de nombres, et c’est ce qui le rend calculable.</p>' },
+    { k: 'def', t: 'Son pur, son composé, harmoniques', c:
+      '<ul><li>Un <b>son pur</b> correspond à un signal <b>sinusoïdal</b> : une seule fréquence.</li>' +
+      '<li>Un <b>son composé</b> est périodique de fréquence <i>f</i>. Il se décompose en une somme de signaux sinusoïdaux ' +
+      'de fréquences <b>multiples entiers</b> de <i>f</i>.</li>' +
+      '<li><i>f</i> est la <b>fréquence fondamentale</b> ; les autres sont les <b>harmoniques</b>.</li></ul>' +
+      form('f<sub>n</sub> = n × f<sub>1</sub>', 'la 3e harmonique vaut trois fois la fondamentale') +
+      '<p>C’est la répartition des harmoniques qui fait qu’un piano et un violon jouant la même note ne sonnent pas pareil : ' +
+      'c’est le <b>timbre</b>.</p>' },
+    { k: 'def', t: 'Intervalles et octave', c:
+      '<p>En musique, un <b>intervalle</b> entre deux sons est défini par le <b>rapport de leurs fréquences fondamentales</b>, ' +
+      'et non par leur différence.</p>' +
+      '<p>Deux sons dont les fréquences sont dans le rapport <b>2 pour 1</b> correspondent à la <b>même note</b>, ' +
+      'à deux hauteurs différentes. L’intervalle qui les sépare est l’<b>octave</b>.</p>' +
+      form('f<sub>octave</sub> = 2 × f&nbsp;&nbsp;·&nbsp;&nbsp;quinte = 3/2&nbsp;·&nbsp;quarte = 4/3',
+           'une gamme est une suite finie de notes réparties sur une octave') },
+    { k: 'prop', t: 'La corde vibrante', c:
+      '<p>La fréquence fondamentale d’une corde tendue ne dépend que de ses caractéristiques :</p>' +
+      '<ul><li>corde plus <b>courte</b> → son plus <b>aigu</b> ;</li>' +
+      '<li>corde plus <b>tendue</b> → son plus <b>aigu</b> ;</li>' +
+      '<li>corde plus <b>lourde</b> par unité de longueur → son plus <b>grave</b>.</li></ul>' +
+      '<p>Dans un instrument à vent, un phénomène analogue se produit par vibration de l’air dans un tuyau.</p>' },
+    { k: 'def', t: 'Le niveau d’intensité sonore', c:
+      '<p>L’intensité sonore est la puissance transportée par unité de surface, en W·m<sup>-2</sup>. ' +
+      'L’oreille couvrant une gamme énorme, on utilise une échelle <b>logarithmique</b>, en décibels :</p>' +
+      form('L = 10 × log(I / I<sub>0</sub>)&nbsp;&nbsp;avec I<sub>0</sub> = 1,0 × 10<sup>-12</sup> W·m<sup>-2</sup>',
+           'I0 est le seuil d’audibilité') +
+      '<p>Conséquences à retenir :</p>' +
+      '<ul><li>intensité <b>multipliée par 10</b> → niveau <b>+ 10 dB</b> ;</li>' +
+      '<li>intensité <b>doublée</b> → niveau <b>+ 3 dB</b> environ ;</li>' +
+      '<li>deux sources identiques ensemble → + 3 dB, et non le double du niveau.</li></ul>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Les décibels <b>ne s’additionnent pas</b> : 60 dB + 60 dB ne font pas 120 dB, mais 63 dB. ' +
+      'C’est l’erreur la plus fréquente du chapitre.</li>' +
+      '<li>Un intervalle musical est un <b>rapport</b>, jamais une différence. Deux octaves au-dessus, c’est ×4, pas ×3.</li>' +
+      '<li>Sur un spectre, la fondamentale est la <b>première</b> raie, pas la plus haute : la plus intense peut être une harmonique.</li></ul>' }
+  ]
+},
+{
+  id: 'sci-numerisation', bloc: 'sci-son',
+  titre: 'Le son, une information à coder',
+  resume: '4.2 Échantillonnage, quantification, compression.',
+  capacites: [
+    'Justifier le choix des paramètres de numérisation d’un son.',
+    'Estimer la taille d’un fichier audio.',
+    'Calculer un taux de compression.',
+    'Comparer des caractéristiques de fichiers audio compressés.',
+    'Discuter des échanges de fichiers numériques audio et vidéo d’un point de vue énergétique.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'À quoi ça sert ?', c:
+      '<p>Tout le son que tu écoutes est une suite de nombres. Ce chapitre explique comment on passe d’une vibration ' +
+      'continue de l’air à un fichier, et pourquoi ce fichier pèse ce qu’il pèse.</p>' },
+    { k: 'def', t: 'Les deux opérations de la numérisation', c:
+      '<p>Numériser, c’est <b>discrétiser</b> le signal analogique, en deux temps :</p>' +
+      '<ul><li>l’<b>échantillonnage</b> découpe le temps : on relève la valeur du signal à intervalles réguliers. ' +
+      'La <b>fréquence d’échantillonnage</b> <i>f<sub>e</sub></i>, en hertz, dit combien de mesures par seconde.</li>' +
+      '<li>la <b>quantification</b> découpe l’amplitude : chaque valeur relevée est arrondie et codée sur un nombre ' +
+      'de <b>bits</b> <i>q</i>. Avec q bits, on dispose de 2<sup>q</sup> niveaux.</li></ul>' +
+      '<p>Plus <i>f<sub>e</sub></i> est élevée et plus <i>q</i> est grand, plus la numérisation est fidèle, ' +
+      '<b>mais plus le fichier est gros</b>. Tout le chapitre tient dans ce compromis.</p>' },
+    { k: 'meth', t: 'Calculer la taille d’un fichier audio', c:
+      form('taille = f<sub>e</sub> × q × durée × nombre de voies',
+           'en bits, si fe est en Hz, q en bits et la durée en secondes') +
+      '<p>Exemple, la qualité d’un CD : <i>f<sub>e</sub></i> = 44 100 Hz, <i>q</i> = 16 bits, 2 voies (stéréo).</p>' +
+      '<p>Pour une seconde : 44 100 × 16 × 1 × 2 = 1 411 200 bits, soit environ <b>1,4 Mbit</b> par seconde, ' +
+      'ou 176 kilooctets. Un octet vaut 8 bits.</p>' },
+    { k: 'def', t: 'La compression', c:
+      '<p>Comprimer, c’est diminuer la taille d’un fichier pour faciliter son stockage et sa transmission.</p>' +
+      form('taux de compression = (1 - taille comprimée / taille initiale) × 100',
+           'en pourcentage de réduction') +
+      '<p>Les techniques propres au son sont dites <b>avec perte d’information</b> : elles éliminent les informations ' +
+      'sonores auxquelles l’oreille est peu sensible. Le son n’est donc pas identique à l’original, ' +
+      'mais la différence est peu perceptible.</p>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Vérifier les <b>unités</b> avant de conclure : la formule donne des <b>bits</b>. ' +
+      'Pour des octets, diviser par 8. Pour des mégaoctets, diviser encore par 10<sup>6</sup>.</li>' +
+      '<li>Doubler la fréquence d’échantillonnage <b>double</b> la taille du fichier : la relation est proportionnelle. ' +
+      'Ajouter un bit de quantification ajoute 1/q de taille, mais <b>double</b> le nombre de niveaux.</li>' +
+      '<li>Le programme demande de discuter l’aspect <b>énergétique</b> : stocker et transmettre ces quantités énormes ' +
+      'de données consomme de l’électricité, dans les centres de données et les réseaux.</li></ul>' }
+  ]
+},
+{
+  id: 'sci-audition', bloc: 'sci-son',
+  titre: 'Entendre et protéger son audition',
+  resume: '4.3 L’oreille, les cellules ciliées, les risques.',
+  capacites: [
+    'Relier l’organisation de l’oreille externe et de l’oreille moyenne à la réception et à la transmission de la vibration sonore.',
+    'Analyser des anomalies et des pathologies auditives.',
+    'Interpréter des données de microscopie sur les cellules ciliées et la fragilité du système auditif.',
+    'Interpréter des données d’imagerie cérébrale relatives au traitement de l’information sonore.',
+    'Relier l’intensité du son et la durée d’écoute au risque encouru par l’oreille interne.',
+    'Mesurer le niveau d’intensité sonore perçu en fonction de la distance à la source, avec ou sans protection.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'À quoi ça sert ?', c:
+      '<p>Les cellules ciliées sont en <b>quantité limitée</b> et ne se régénèrent pas. Ce chapitre est le seul du programme ' +
+      'dont la leçon se applique directement à ta soirée de samedi.</p>' },
+    { k: 'prop', t: 'Le trajet du son dans l’oreille', c:
+      '<ul><li>L’<b>oreille externe</b> canalise les sons du milieu extérieur vers le <b>tympan</b>.</li>' +
+      '<li>Cette membrane vibrante transmet les vibrations jusqu’à l’oreille interne par l’intermédiaire ' +
+      'de l’<b>oreille moyenne</b>, dont les osselets amplifient le mouvement.</li>' +
+      '<li>Dans l’<b>oreille interne</b>, les <b>cellules ciliées</b> traduisent les vibrations reçues en un ' +
+      '<b>message nerveux</b>, qui se propage vers des aires cérébrales spécialisées.</li>' +
+      '<li>Certaines de ces aires permettent, <b>après apprentissage</b>, l’interprétation de l’univers sonore : ' +
+      'parole, voix, musique.</li></ul>' +
+      '<p>Vibration mécanique, puis message nerveux, puis interprétation : trois étapes, trois natures différentes.</p>' },
+    { k: 'def', t: 'Ce que l’oreille humaine perçoit', c:
+      '<p>L’être humain ne perçoit que les sons situés dans une gamme de fréquences comprise entre ' +
+      '<b>20 Hz et 20 000 Hz</b>, et au-dessus d’une intensité seuil.</p>' +
+      '<p>Cette perception <b>varie selon l’âge et l’état auditif</b> : les fréquences aiguës sont les premières perdues.</p>' },
+    { k: 'prop', t: 'Le risque, une affaire d’intensité ET de durée', c:
+      '<p>Au-delà de <b>80 dB</b>, un son peut devenir nocif, selon son intensité <b>et</b> sa durée d’écoute. ' +
+      'Les deux comptent : c’est le point du programme.</p>' +
+      '<p>Les cellules ciliées, en quantité limitée, sont fragiles et facilement endommagées par des sons trop intenses. ' +
+      'Les dégâts peuvent être <b>irréversibles</b> : acouphènes, perte auditive, voire surdité.</p>' +
+      '<p>Des mesures d’atténuation du bruit et des dispositifs individuels de protection existent, et les technologies ' +
+      'de protection comme d’appareillage ne cessent d’évoluer.</p>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Ne jamais parler seulement de l’intensité : la réponse attendue associe toujours <b>intensité et durée</b>.</li>' +
+      '<li>Le caractère <b>irréversible</b> des dégâts est la notion clé. Les cellules ciliées ne se remplacent pas.</li>' +
+      '<li>S’éloigner de la source est la protection la plus simple : l’intensité diminue rapidement avec la distance.</li></ul>' }
+  ]
+},
+
+/* ================= 5. PROJET ================= */
+{
+  id: 'sci-projet', bloc: 'sci-projet',
+  titre: 'Projet expérimental et numérique',
+  resume: '5. Mesurer, traiter les données, critiquer.',
+  capacites: [
+    'Mettre en œuvre une démarche scientifique expérimentale.',
+    'Utiliser des capteurs et des logiciels, ou des données expérimentales mises à disposition par des scientifiques.',
+    'Traiter et représenter des données de mesure.',
+    'Porter une analyse critique sur les résultats obtenus.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'Ce que c’est', c:
+      '<p>C’est la cinquième partie du programme, et la seule qui ne soit pas une liste de savoirs. Elle s’articule autour ' +
+      'de la <b>mesure</b> et des <b>données</b> qu’elle produit, qui sont au cœur des sciences expérimentales.</p>' +
+      '<p>L’objectif est de te confronter à une vraie démarche : utiliser du matériel ou des données réelles, ' +
+      'puis porter un regard <b>critique</b> sur ce que tu obtiens.</p>' },
+    { k: 'meth', t: 'La démarche, étape par étape', c:
+      '<ul><li>1. <b>Une question</b> précise, à laquelle une mesure peut répondre.</li>' +
+      '<li>2. Une <b>hypothèse</b>, formulée de manière testable.</li>' +
+      '<li>3. Un <b>protocole</b> : ce que l’on mesure, avec quoi, combien de fois, et surtout ce que l’on ' +
+      '<b>fait varier</b> et ce que l’on <b>garde constant</b>.</li>' +
+      '<li>4. Les <b>mesures</b>, répétées, consignées avec leurs unités.</li>' +
+      '<li>5. Le <b>traitement</b> : moyenne, graphique, tendance.</li>' +
+      '<li>6. L’<b>analyse critique</b> : l’hypothèse est-elle validée ? Quelles sont les sources d’erreur ? ' +
+      'Quelles sont les limites du dispositif ?</li></ul>' },
+    { k: 'def', t: 'Les mots de la mesure', c:
+      '<ul><li>Une <b>mesure unique ne vaut rien</b> : on répète, et on prend la <b>moyenne</b>.</li>' +
+      '<li>La <b>dispersion</b> des mesures renseigne sur leur fiabilité.</li>' +
+      '<li>Un résultat s’écrit toujours avec son <b>unité</b> et un nombre de chiffres significatifs cohérent ' +
+      'avec la précision de l’appareil.</li>' +
+      '<li>Le <b>témoin</b> est l’expérience de référence, où le facteur testé est absent. Sans témoin, on ne conclut rien.</li></ul>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Un protocole valable ne fait varier <b>qu’un seul facteur</b> à la fois. Tout le reste est maintenu constant. ' +
+      'C’est le critère que le correcteur cherche en premier.</li>' +
+      '<li>L’analyse critique n’est pas facultative : elle est dans le titre même de la partie du programme.</li>' +
+      '<li>Un écart entre la mesure et la valeur attendue n’est pas un échec : il faut l’<b>expliquer</b>. ' +
+      'C’est même là que se gagnent les points.</li></ul>' }
+  ]
+}
+];
+
+CHAPITRES_SCI.forEach(c => {
+  c.gens = [];
+  c.matiere = 'sciences';
+  c.classe = 'premiere';
+  CHAPITRES.push(c);
+  CHAP[c.id] = c;
+});
+/* =========================================================================
+   Générateurs d'exercices d'enseignement scientifique.
+   La plupart sont des calculs : la réponse est recalculée exactement en
+   même temps que l'énoncé, donc la correction est toujours juste.
+   ========================================================================= */
+
+/* ================= 1.1 LES ÉLÉMENTS CHIMIQUES ================= */
+
+const REACTIONS = [
+  { e: nuc(2,1,'H') + ' + ' + nuc(3,1,'H') + ' → ' + nuc(4,2,'He') + ' + ' + nuc(1,0,'n'), t: 'Fusion',
+    d: 'Deux noyaux légers s’assemblent en un noyau plus lourd : c’est la réaction qui alimente les étoiles et le projet ITER.' },
+  { e: '3 ' + nuc(4,2,'He') + ' → ' + nuc(12,6,'C'), t: 'Fusion',
+    d: 'Trois noyaux d’hélium forment un noyau de carbone. C’est ainsi que le carbone de ton corps a été fabriqué.' },
+  { e: nuc(12,6,'C') + ' + ' + nuc(4,2,'He') + ' → ' + nuc(16,8,'O'), t: 'Fusion',
+    d: 'Un noyau léger s’ajoute à un autre : l’oxygène se forme dans les étoiles massives.' },
+  { e: nuc(16,8,'O') + ' + ' + nuc(4,2,'He') + ' → ' + nuc(20,10,'Ne'), t: 'Fusion',
+    d: 'Encore une addition de noyaux légers : la nucléosynthèse stellaire procède ainsi, de proche en proche.' },
+  { e: nuc(235,92,'U') + ' + ' + nuc(1,0,'n') + ' → ' + nuc(94,38,'Sr') + ' + ' + nuc(140,54,'Xe') + ' + 2 ' + nuc(1,0,'n'), t: 'Fission',
+    d: 'Un noyau lourd se casse en noyaux plus légers : c’est la réaction des centrales nucléaires.' },
+  { e: nuc(235,92,'U') + ' + ' + nuc(1,0,'n') + ' → ' + nuc(92,36,'Kr') + ' + ' + nuc(141,56,'Ba') + ' + 3 ' + nuc(1,0,'n'), t: 'Fission',
+    d: 'Le noyau d’uranium se brise en deux fragments plus petits, en libérant des neutrons.' },
+  { e: nuc(239,94,'Pu') + ' + ' + nuc(1,0,'n') + ' → ' + nuc(103,42,'Mo') + ' + ' + nuc(134,52,'Te') + ' + 3 ' + nuc(1,0,'n'), t: 'Fission',
+    d: 'Le plutonium se casse également : le noyau de départ est lourd, les produits sont plus légers.' }
+];
+
+G('sci-elements', 'sci-fusion-fission', 'Fusion ou fission ?', 'app', function(){
+  const r = R.pick(REACTIONS);
+  return {
+    enonce: '<p>De quel type de réaction nucléaire s’agit-il ?</p>' + form(r.e),
+    qcm: { options: ['Fusion', 'Fission'], bon: r.t === 'Fusion' ? 0 : 1 },
+    etapes: [
+      'C’est une <b>' + r.t.toLowerCase() + '</b>.', r.d,
+      'Le réflexe : regarder les noyaux de <b>départ</b>. Légers qui s’assemblent → fusion. ' +
+        'Un noyau lourd qui se casse → fission.'
+    ]
+  };
+});
+
+/* équations à trou : A et Z se conservent */
+const EQ_TROU = [
+  { g: [[14,7,'N'], [1,0,'n']], d: [[14,6,'C']], x: [1,1,'H'],
+    c: 'C’est la réaction qui produit en permanence le carbone 14 dans la haute atmosphère.' },
+  { g: [[2,1,'H'], [3,1,'H']], d: [[4,2,'He']], x: [1,0,'n'],
+    c: 'La fusion deutérium-tritium, celle que vise le projet ITER.' },
+  { g: [[235,92,'U'], [1,0,'n']], d: [[94,38,'Sr'], [1,0,'n'], [1,0,'n']], x: [140,54,'Xe'],
+    c: 'Une fission de l’uranium 235.' },
+  { g: [[12,6,'C'], [4,2,'He']], d: [], x: [16,8,'O'],
+    c: 'La formation de l’oxygène par fusion dans les étoiles.' },
+  { g: [[9,4,'Be'], [4,2,'He']], d: [[1,0,'n']], x: [12,6,'C'],
+    c: 'La réaction par laquelle Chadwick a mis en évidence le neutron en 1932.' }
+];
+
+G('sci-elements', 'sci-conservation', 'Compléter une équation nucléaire', 'ent', function(){
+  const r = R.pick(EQ_TROU);
+  const gA = r.g.reduce((s, x) => s + x[0], 0), gZ = r.g.reduce((s, x) => s + x[1], 0);
+  const dA = r.d.reduce((s, x) => s + x[0], 0), dZ = r.d.reduce((s, x) => s + x[1], 0);
+  const A = gA - dA, Z = gZ - dZ;
+  const gauche = r.g.map(x => nuc(x[0], x[1], x[2])).join(' + ');
+  const droite = r.d.map(x => nuc(x[0], x[1], x[2])).concat(['<b>?</b>']).join(' + ');
+  return {
+    enonce: '<p>Complète cette équation nucléaire : donne le nombre de masse <b>A</b> et le numéro atomique <b>Z</b> ' +
+            'du noyau manquant.</p>' + form(gauche + ' → ' + droite),
+    champs: [
+      { type: 'num', label: 'A (nombre du haut)', bon: A, tol: 0 },
+      { type: 'num', label: 'Z (nombre du bas)', bon: Z, tol: 0 }
+    ],
+    etapes: [
+      'Dans une réaction nucléaire, <b>A et Z se conservent</b> : la somme des nombres du haut est la même des deux côtés, ' +
+        'et celle des nombres du bas aussi.',
+      'À gauche : A = ' + gA + ' et Z = ' + gZ + '.',
+      'À droite, sans le noyau manquant : A = ' + dA + ' et Z = ' + dZ + '.',
+      'Donc le noyau manquant a A = ' + gA + ' - ' + dA + ' = <b>' + A + '</b> et Z = ' + gZ + ' - ' + dZ + ' = <b>' + Z + '</b>. ' +
+        'Il s’agit de ' + nuc(r.x[0], r.x[1], r.x[2]) + '.',
+      r.c
+    ]
+  };
+});
+
+G('sci-elements', 'sci-demi-vie', 'Combien de noyaux restent ?', 'app', function(){
+  const n = R.int(1, 6);
+  const N0 = R.pick([1000, 2000, 4000, 8000, 6400, 12800, 32000, 64000]);
+  const N = N0 / Math.pow(2, n);
+  return {
+    enonce: '<p>Un échantillon contient au départ <b>' + nf(N0) + '</b> noyaux radioactifs.</p>' +
+            '<p>Combien en reste-t-il au bout de <b>' + n + ' demi-vie' + (n > 1 ? 's' : '') + '</b> ?</p>',
+    champs: [{ type: 'num', label: 'Noyaux restants', bon: N, tol: 0.5 }],
+    etapes: [
+      'À chaque demi-vie, il reste la <b>moitié</b> des noyaux présents.',
+      'Après ' + n + ' demi-vie' + (n > 1 ? 's' : '') + ' : N = N<sub>0</sub> × (1/2)<sup>' + n + '</sup> = ' +
+        nf(N0) + ' ÷ ' + Math.pow(2, n) + ' = <b>' + nf(N) + '</b>.',
+      'C’est une suite géométrique de raison 1/2 : une décroissance exponentielle.',
+      'Attention : la demi-vie ne dépend ni de la température, ni de la quantité. C’est une propriété du noyau seul.'
+    ]
+  };
+});
+
+G('sci-elements', 'sci-datation', 'Dater par la radioactivité', 'ent', function(){
+  const noyaux = [
+    { n: 'le carbone 14', t: 5730, u: 'ans' },
+    { n: 'le potassium 40', t: 1.3e9, u: 'ans' },
+    { n: 'l’uranium 238', t: 4.5e9, u: 'ans' },
+    { n: 'le césium 137', t: 30, u: 'ans' },
+    { n: 'l’iode 131', t: 8, u: 'jours' }
+  ];
+  const x = R.pick(noyaux);
+  const n = R.int(1, 5);
+  const age = x.t * n;
+  const frac = Math.pow(2, n);
+  return {
+    enonce: '<p>La demi-vie de <b>' + x.n + '</b> est de <b>' + nf(x.t) + ' ' + x.u + '</b>.</p>' +
+            '<p>Dans un échantillon, il ne reste plus que <b>1/' + frac + '</b> des noyaux initiaux. ' +
+            'Quel est l’âge de cet échantillon, en ' + x.u + ' ?</p>',
+    champs: [{ type: 'num', label: 'Âge (en ' + x.u + ')', bon: age, tol: Math.max(0.5, age * 1e-9) }],
+    etapes: [
+      'Il faut chercher <b>combien de fois on a divisé par 2</b> pour arriver à 1/' + frac + '.',
+      '1/' + frac + ' = (1/2)<sup>' + n + '</sup>, donc <b>' + n + ' demi-vie' + (n > 1 ? 's' : '') + '</b> se sont écoulées.',
+      'Âge = ' + n + ' × ' + nf(x.t) + ' = <b>' + nf(age) + ' ' + x.u + '</b>.',
+      'Méthode générale : reste 1/2 → 1 demi-vie · 1/4 → 2 · 1/8 → 3 · 1/16 → 4 · 1/32 → 5.'
+    ]
+  };
+});
+
+const ABONDANCE = [
+  { q: 'Quels sont les deux éléments les plus abondants dans l’Univers ?', b: 'L’hydrogène et l’hélium',
+    v: ['L’hydrogène et l’hélium', 'Le carbone et l’oxygène', 'Le fer et le silicium', 'L’oxygène et l’azote'] },
+  { q: 'Quels éléments constituent principalement la Terre ?', b: 'Oxygène, hydrogène, fer, silicium et magnésium',
+    v: ['Oxygène, hydrogène, fer, silicium et magnésium', 'Hydrogène et hélium',
+        'Carbone, hydrogène, oxygène et azote', 'Uranium, plomb et or'] },
+  { q: 'Quels éléments constituent principalement les êtres vivants ?', b: 'Carbone, hydrogène, oxygène et azote',
+    v: ['Carbone, hydrogène, oxygène et azote', 'Hydrogène et hélium',
+        'Fer, silicium et magnésium', 'Calcium, sodium et potassium'] },
+  { q: 'Où se forment les noyaux des éléments chimiques stables ?', b: 'Dans les étoiles, à partir de l’hydrogène initial',
+    v: ['Dans les étoiles, à partir de l’hydrogène initial', 'Dans le noyau terrestre',
+        'Dans les océans', 'Dans les centrales nucléaires'] },
+  { q: 'L’instant de désintégration d’un noyau radioactif donné est-il prévisible ?', b: 'Non, il est aléatoire',
+    v: ['Non, il est aléatoire', 'Oui, il vaut exactement une demi-vie',
+        'Oui, il dépend de la température', 'Oui, si l’on connaît la masse de l’échantillon'] }
+];
+
+G('sci-elements', 'sci-abondance', 'D’où vient la matière ?', 'app', function(){
+  const x = R.pick(ABONDANCE);
+  const opts = R.shuffle(x.v.slice());
+  return {
+    enonce: '<p>' + x.q + '</p>',
+    qcm: { options: opts, bon: opts.indexOf(x.b) },
+    etapes: ['Réponse : <b>' + x.b + '</b>.',
+             'Trois compositions très différentes à connaître : l’Univers, la Terre, les êtres vivants.']
+  };
+});
+
+/* ================= 1.2 LES CRISTAUX ================= */
+
+G('sci-cristaux', 'sci-masse-volumique', 'Masse volumique d’un cristal', 'ds', function(){
+  const cas = [
+    { n: 'chlorure de sodium', a: 564, m: 3.88 },
+    { n: 'fer', a: 287, m: 1.86 },
+    { n: 'cuivre', a: 361, m: 4.22 },
+    { n: 'aluminium', a: 405, m: 1.79 }
+  ];
+  const x = R.pick(cas);
+  const a = x.a * 1e-12;               /* arête en mètres */
+  const m = x.m * 1e-25;               /* masse de la maille en kg */
+  const V = a * a * a;
+  const rho = m / V;                   /* kg/m3 */
+  const rk = Math.round(rho);
+  return {
+    enonce: '<p>Une maille cubique de <b>' + x.n + '</b> a une arête <b>a = ' + x.a + ' pm</b> ' +
+            '(1 pm = 10<sup>-12</sup> m) et contient une masse totale <b>m = ' + nf(x.m) + ' × 10<sup>-25</sup> kg</b>.</p>' +
+            '<p>Calcule la masse volumique de ce cristal, en kg·m<sup>-3</sup>, arrondie à l’unité.</p>',
+    champs: [{ type: 'num', label: 'ρ (kg·m⁻³)', bon: rk, tol: Math.max(5, rk * 0.02) }],
+    etapes: [
+      'La maille est un cube d’arête a, donc son volume vaut V = a<sup>3</sup>.',
+      'Conversion : a = ' + x.a + ' pm = ' + x.a + ' × 10<sup>-12</sup> m, donc ' +
+        'V = (' + x.a + ' × 10<sup>-12</sup>)<sup>3</sup> ≈ ' + V.toExponential(2).replace('.', ',').replace('e', ' × 10^') + ' m<sup>3</sup>.',
+      'ρ = m / V = ' + nf(x.m) + ' × 10<sup>-25</sup> ÷ ' + V.toExponential(2).replace('.', ',').replace('e', ' × 10^') +
+        ' ≈ <b>' + nf(rk) + ' kg·m<sup>-3</sup></b>.',
+      'C’est exactement le lien demandé par le programme : l’organisation <b>microscopique</b> de la maille ' +
+        'explique une propriété <b>macroscopique</b> du cristal.'
+    ]
+  };
+});
+
+const CRISTAUX_QCM = [
+  { q: 'Dans quel ordre de taille croissante faut-il ranger ces objets ?', b: 'Atome, maille, cristal, roche',
+    v: ['Atome, maille, cristal, roche', 'Maille, atome, roche, cristal',
+        'Cristal, maille, atome, roche', 'Roche, cristal, maille, atome'] },
+  { q: 'Qu’est-ce qu’une maille ?', b: 'Le plus petit motif qui, répété, reconstruit tout le cristal',
+    v: ['Le plus petit motif qui, répété, reconstruit tout le cristal', 'Un assemblage de plusieurs roches',
+        'La surface extérieure d’un cristal', 'Un atome isolé'] },
+  { q: 'Qu’est-ce qu’une roche ?', b: 'L’association de cristaux d’un même minéral ou de plusieurs minéraux',
+    v: ['L’association de cristaux d’un même minéral ou de plusieurs minéraux', 'Un cristal de très grande taille',
+        'Un solide toujours amorphe', 'Une maille répétée une seule fois'] },
+  { q: 'Une lave qui refroidit très rapidement donne une structure…', b: 'Amorphe, comme le verre',
+    v: ['Amorphe, comme le verre', 'Cristalline, à gros cristaux',
+        'Toujours cristalline', 'Ni amorphe ni cristalline'] },
+  { q: 'Un refroidissement lent d’un magma produit…', b: 'De gros cristaux bien formés',
+    v: ['De gros cristaux bien formés', 'Du verre volcanique',
+        'Une structure amorphe', 'Aucun solide'] },
+  { q: 'Un même composé chimique peut-il cristalliser sous plusieurs structures ?', b: 'Oui, et cela donne des minéraux différents',
+    v: ['Oui, et cela donne des minéraux différents', 'Non, la formule impose la structure',
+        'Non, sauf pour le verre', 'Oui, mais seulement à très haute pression'] },
+  { q: 'Trouve-t-on des structures cristallines chez les êtres vivants ?', b: 'Oui : coquilles, squelettes, calculs rénaux',
+    v: ['Oui : coquilles, squelettes, calculs rénaux', 'Non, jamais',
+        'Seulement chez les végétaux', 'Seulement chez les bactéries'] }
+];
+
+G('sci-cristaux', 'sci-cristaux-qcm', 'Cristallin, amorphe, échelles', 'app', function(){
+  const x = R.pick(CRISTAUX_QCM);
+  const opts = R.shuffle(x.v.slice());
+  return {
+    enonce: '<p>' + x.q + '</p>',
+    qcm: { options: opts, bon: opts.indexOf(x.b) },
+    etapes: ['Réponse : <b>' + x.b + '</b>.',
+             'Le réflexe du chapitre : devant une roche, se demander <b>à quelle vitesse elle a refroidi</b>. ' +
+               'La taille des cristaux répond.']
+  };
+});
+
+/* ================= 1.3 LA CELLULE ================= */
+
+const ORDRES = [
+  { o: 'un atome', p: -10 },
+  { o: 'une molécule simple', p: -9 },
+  { o: 'un virus', p: -7 },
+  { o: 'un organite', p: -6 },
+  { o: 'une cellule animale', p: -5 },
+  { o: 'un organisme humain', p: 0 }
+];
+
+G('sci-cellule', 'sci-ordres', 'Les ordres de grandeur du vivant', 'app', function(){
+  const x = R.pick(ORDRES);
+  const bon = '10<sup>' + x.p + '</sup> m';
+  const opts = R.shuffle([bon].concat(autres(ORDRES.map(y => '10<sup>' + y.p + '</sup> m'), bon, 3)));
+  return {
+    enonce: '<p>Quel est l’ordre de grandeur de la taille de <b>' + x.o + '</b> ?</p>',
+    qcm: { options: opts, bon: opts.indexOf(bon) },
+    etapes: [
+      'Ordre de grandeur : <b>' + bon + '</b>.',
+      'Les repères du programme : atome 10<sup>-10</sup> m · molécule 10<sup>-9</sup> m (le nanomètre) · ' +
+        'virus et organite 10<sup>-7</sup> à 10<sup>-6</sup> m · cellule 10<sup>-5</sup> m (quelques dizaines de micromètres) · ' +
+        'organisme 1 m.',
+      'De l’atome à la cellule, il y a cinq ordres de grandeur, soit un facteur 100 000.'
+    ]
+  };
+});
+
+const CELLULE_QCM = [
+  { q: 'Qu’est-ce qui a permis la découverte de l’unité cellulaire ?', b: 'L’invention du microscope optique',
+    v: ['L’invention du microscope optique', 'L’invention du microscope électronique',
+        'La découverte de l’ADN', 'L’invention du télescope'] },
+  { q: 'Qu’a permis l’invention du microscope électronique ?', b: 'L’exploration de l’intérieur de la cellule et le lien entre échelle moléculaire et cellulaire',
+    v: ['L’exploration de l’intérieur de la cellule et le lien entre échelle moléculaire et cellulaire',
+        'La découverte des premières cellules', 'L’observation des organismes vivants entiers',
+        'La mesure de la taille des atomes'] },
+  { q: 'Qu’est-ce qui sépare la cellule de son environnement ?', b: 'La membrane plasmique',
+    v: ['La membrane plasmique', 'La paroi osseuse', 'Le noyau', 'Le cytoplasme'] },
+  { q: 'Pourquoi la cellule échange-t-elle en permanence avec son environnement ?', b: 'Parce que son fonctionnement nécessite un apport d’énergie',
+    v: ['Parce que son fonctionnement nécessite un apport d’énergie', 'Parce qu’elle n’a pas de membrane',
+        'Pour évacuer ses cristaux', 'Uniquement pendant sa division'] },
+  { q: 'Quel argument fait douter du caractère vivant d’un virus ?', b: 'Il n’a pas de structure cellulaire ni de métabolisme propre',
+    v: ['Il n’a pas de structure cellulaire ni de métabolisme propre', 'Il ne possède aucun matériel génétique',
+        'Il est trop petit pour être observé', 'Il ne se multiplie jamais'] }
+];
+
+G('sci-cellule', 'sci-cellule-qcm', 'La cellule et les virus', 'app', function(){
+  const x = R.pick(CELLULE_QCM);
+  const opts = R.shuffle(x.v.slice());
+  return {
+    enonce: '<p>' + x.q + '</p>',
+    qcm: { options: opts, bon: opts.indexOf(x.b) },
+    etapes: ['Réponse : <b>' + x.b + '</b>.',
+             'Sur les virus, le programme demande une <b>discussion</b>, pas un verdict : pas de cellule ni de métabolisme, ' +
+               'mais un matériel génétique et une capacité à évoluer.']
+  };
+});
+
+/* ================= 2.1 LE RAYONNEMENT SOLAIRE ================= */
+
+const ETOILES = [
+  { n: 'Bételgeuse, une supergéante rouge', T: 3500 },
+  { n: 'une naine rouge', T: 3000 },
+  { n: 'le Soleil', T: 5800 },
+  { n: 'Sirius A, une étoile blanche', T: 9900 },
+  { n: 'Rigel, une supergéante bleue', T: 11000 },
+  { n: 'une étoile très chaude', T: 20000 }
+];
+
+G('sci-rayonnement', 'sci-wien', 'La loi de Wien', 'ent', function(){
+  const e = R.pick(ETOILES);
+  const lam = 2.90e-3 / e.T;                 /* en mètres */
+  const nm = Math.round(lam * 1e9);
+  if (R.int(0, 1)) {
+    return {
+      enonce: '<p>On assimile <b>' + e.n + '</b> à un corps noir de température de surface ' +
+              '<b>T = ' + nf(e.T) + ' K</b>.</p>' +
+              '<p>Calcule la longueur d’onde de son maximum d’émission, en nanomètres, arrondie à l’unité.</p>' +
+              form('λ<sub>max</sub> × T = 2,90 × 10<sup>-3</sup> m·K'),
+      champs: [{ type: 'num', label: 'λmax (nm)', bon: nm, tol: Math.max(2, nm * 0.01) }],
+      etapes: [
+        'λ<sub>max</sub> = 2,90 × 10<sup>-3</sup> / T = 2,90 × 10<sup>-3</sup> ÷ ' + nf(e.T) +
+          ' ≈ ' + lam.toExponential(2).replace('.', ',').replace('e', ' × 10^') + ' m.',
+        'Conversion en nanomètres : on multiplie par 10<sup>9</sup>, donc λ<sub>max</sub> ≈ <b>' + nm + ' nm</b>.',
+        nm < 400 ? 'Ce maximum est dans l’<b>ultraviolet</b> : l’étoile est très chaude et apparaît bleue.'
+                 : (nm > 700 ? 'Ce maximum est dans l’<b>infrarouge</b> : l’étoile est froide et apparaît rouge.'
+                             : 'Ce maximum est dans le <b>visible</b>.'),
+        'Rappel : plus un corps est chaud, plus il émet vers le bleu, donc vers les petites longueurs d’onde.'
+      ]
+    };
+  }
+  return {
+    enonce: '<p>Le spectre d’une étoile assimilée à un corps noir présente un maximum d’émission à ' +
+            '<b>λ<sub>max</sub> = ' + nm + ' nm</b>.</p>' +
+            '<p>Calcule sa température de surface, en kelvins, arrondie à la dizaine.</p>' +
+            form('λ<sub>max</sub> × T = 2,90 × 10<sup>-3</sup> m·K'),
+    champs: [{ type: 'num', label: 'T (K)', bon: Math.round(2.90e-3 / (nm * 1e-9) / 10) * 10,
+               tol: Math.max(20, e.T * 0.02) }],
+    etapes: [
+      'Conversion : λ<sub>max</sub> = ' + nm + ' nm = ' + nm + ' × 10<sup>-9</sup> m. ' +
+        'Une loi de Wien appliquée en nanomètres est fausse.',
+      'T = 2,90 × 10<sup>-3</sup> / λ<sub>max</sub> = 2,90 × 10<sup>-3</sup> ÷ (' + nm + ' × 10<sup>-9</sup>) ' +
+        '≈ <b>' + nf(Math.round(2.90e-3 / (nm * 1e-9))) + ' K</b>.',
+      'Il s’agit d’un objet du type : ' + e.n + '.'
+    ]
+  };
+});
+
+G('sci-rayonnement', 'sci-stefan', 'La loi de Stefan', 'ent', function(){
+  const T = R.pick([250, 260, 270, 280, 288, 300, 320, 350, 400]);
+  const P = 5.67e-8 * Math.pow(T, 4);
+  const Pr = Math.round(P);
+  return {
+    enonce: '<p>Un corps assimilé à un corps noir est à la température <b>T = ' + T + ' K</b>.</p>' +
+            '<p>Calcule la puissance qu’il émet par unité de surface, en W·m<sup>-2</sup>, arrondie à l’unité.</p>' +
+            form('P / S = σ × T<sup>4</sup>&nbsp;&nbsp;avec σ = 5,67 × 10<sup>-8</sup> W·m<sup>-2</sup>·K<sup>-4</sup>'),
+    champs: [{ type: 'num', label: 'P/S (W·m⁻²)', bon: Pr, tol: Math.max(2, Pr * 0.02) }],
+    etapes: [
+      'T<sup>4</sup> = ' + T + '<sup>4</sup> ≈ ' +
+        Math.pow(T, 4).toExponential(2).replace('.', ',').replace('e+', ' × 10^') + '.',
+      'P/S = 5,67 × 10<sup>-8</sup> × ' + Math.pow(T, 4).toExponential(2).replace('.', ',').replace('e+', ' × 10^') +
+        ' ≈ <b>' + nf(Pr) + ' W·m<sup>-2</sup></b>.',
+      'Retiens la conséquence : comme la puissance varie en T<sup>4</sup>, <b>doubler la température ' +
+        'multiplie la puissance émise par 16</b>.',
+      'La température doit toujours être en <b>kelvins</b> : T(K) = θ(°C) + 273.'
+    ]
+  };
+});
+
+/* ================= 2.2 LE BILAN RADIATIF ================= */
+
+G('sci-bilan', 'sci-albedo', 'Albédo et puissance absorbée', 'ent', function(){
+  const surf = [
+    { n: 'la neige fraîche', a: 0.85 }, { n: 'la banquise', a: 0.60 },
+    { n: 'un désert de sable', a: 0.40 }, { n: 'la Terre en moyenne', a: 0.30 },
+    { n: 'une forêt', a: 0.15 }, { n: 'l’océan', a: 0.10 }
+  ];
+  const s = R.pick(surf);
+  const P = R.pick([1360, 1000, 800, 600, 500, 400]);
+  const abs = Math.round(P * (1 - s.a));
+  return {
+    enonce: '<p>Une surface reçoit une puissance de <b>' + nf(P) + ' W·m<sup>-2</sup></b>. ' +
+            'Il s’agit de <b>' + s.n + '</b>, dont l’albédo vaut <b>a = ' + nf(s.a) + '</b>.</p>' +
+            '<p>Quelle puissance par mètre carré cette surface <b>absorbe</b>-t-elle ?</p>',
+    champs: [{ type: 'num', label: 'Puissance absorbée (W·m⁻²)', bon: abs, tol: Math.max(1, abs * 0.02) }],
+    etapes: [
+      'L’albédo est la fraction <b>renvoyée</b> vers l’espace. Ce qui reste est absorbé.',
+      'P<sub>absorbée</sub> = (1 - a) × P = (1 - ' + nf(s.a) + ') × ' + nf(P) + ' = ' +
+        nf(1 - s.a) + ' × ' + nf(P) + ' ≈ <b>' + nf(abs) + ' W·m<sup>-2</sup></b>.',
+      'Cette surface renvoie donc ' + nf(Math.round(s.a * 100)) + ' % et absorbe ' +
+        nf(Math.round((1 - s.a) * 100)) + ' % de ce qu’elle reçoit.',
+      'C’est l’enjeu de la fonte des glaces : remplacer une banquise très réfléchissante par un océan très absorbant ' +
+        'fait absorber davantage d’énergie.'
+    ]
+  };
+});
+
+const BILAN_QCM = [
+  { q: 'Qu’appelle-t-on l’albédo ?', b: 'La fraction de la puissance reçue qui est renvoyée vers l’espace',
+    v: ['La fraction de la puissance reçue qui est renvoyée vers l’espace', 'La puissance absorbée par l’atmosphère',
+        'La température moyenne de la Terre', 'Le rayonnement infrarouge émis par le sol'] },
+  { q: 'Dans quel domaine la surface terrestre émet-elle son rayonnement ?', b: 'Dans l’infrarouge',
+    v: ['Dans l’infrarouge', 'Dans le visible', 'Dans l’ultraviolet', 'Dans le domaine des rayons X'] },
+  { q: 'Qu’est-ce que l’effet de serre ?', b: 'L’absorption par l’atmosphère du rayonnement infrarouge du sol, qu’elle réémet en partie vers le sol',
+    v: ['L’absorption par l’atmosphère du rayonnement infrarouge du sol, qu’elle réémet en partie vers le sol',
+        'La réflexion du rayonnement solaire par les nuages', 'Le réchauffement dû à la chaleur interne de la Terre',
+        'La diminution de l’albédo terrestre'] },
+  { q: 'La puissance reçue par le sol est égale à…', b: 'La somme de celle reçue du Soleil et de celle reçue de l’atmosphère',
+    v: ['La somme de celle reçue du Soleil et de celle reçue de l’atmosphère', 'Celle reçue du Soleil uniquement',
+        'Celle reçue de l’atmosphère uniquement', 'La différence entre les deux'] },
+  { q: 'Quand l’équilibre dynamique est-il atteint ?', b: 'Quand la surface reçoit en moyenne autant de puissance qu’elle en émet',
+    v: ['Quand la surface reçoit en moyenne autant de puissance qu’elle en émet', 'Quand l’albédo vaut zéro',
+        'Quand l’atmosphère cesse d’émettre', 'Quand la Terre n’émet plus de rayonnement'] },
+  { q: 'Si l’albédo terrestre augmente, la température moyenne…', b: 'Diminue, car moins d’énergie est absorbée',
+    v: ['Diminue, car moins d’énergie est absorbée', 'Augmente, car plus d’énergie est piégée',
+        'Ne change pas', 'Augmente puis diminue'] },
+  { q: 'Pourquoi un facteur 4 apparaît-il dans le bilan radiatif ?', b: 'La Terre intercepte le rayonnement sur un disque de surface πR², mais rayonne depuis toute sa sphère, de surface 4πR²',
+    v: ['La Terre intercepte le rayonnement sur un disque de surface πR², mais rayonne depuis toute sa sphère, de surface 4πR²',
+        'Parce qu’il y a quatre saisons', 'Parce que l’albédo vaut 0,25',
+        'Parce que la Terre tourne sur elle-même en 24 heures'] }
+];
+
+G('sci-bilan', 'sci-bilan-qcm', 'Comprendre le bilan radiatif', 'app', function(){
+  const x = R.pick(BILAN_QCM);
+  const opts = R.shuffle(x.v.slice());
+  return {
+    enonce: '<p>' + x.q + '</p>',
+    qcm: { options: opts, bon: opts.indexOf(x.b) },
+    etapes: ['Réponse : <b>' + x.b + '</b>.',
+             'Sans effet de serre, la température moyenne serait d’environ -18 °C au lieu de 15 °C. ' +
+               'C’est son <b>renforcement</b> qui pose problème, pas son existence.']
+  };
+});
+
+/* ================= 2.3 PHOTOSYNTHÈSE ET ALIMENTATION ================= */
+
+G('sci-photosynthese', 'sci-bilan-alim', 'Bilan énergétique', 'ent', function(){
+  const apport = R.int(18, 30) * 100;            /* kcal/jour, entre 1800 et 3000 */
+  const base = R.int(13, 17) * 100;
+  const sport = R.pick([200, 300, 450, 600, 750]);
+  const depense = base + sport;
+  const bilan = apport - depense;
+  return {
+    enonce: '<p>Sur une journée, une personne consomme <b>' + nf(apport) + ' kcal</b> par son alimentation.</p>' +
+            '<p>Ses dépenses sont de <b>' + nf(base) + ' kcal</b> pour le métabolisme de base ' +
+            'et de <b>' + nf(sport) + ' kcal</b> pour son activité physique.</p>' +
+            '<p>Calcule son bilan énergétique de la journée, en kcal, puis convertis-le en kilojoules ' +
+            '(1 kcal = 4,18 kJ), arrondi à l’unité.</p>',
+    champs: [
+      { type: 'num', label: 'Bilan (kcal)', bon: bilan, tol: 0.5 },
+      { type: 'num', label: 'Bilan (kJ)', bon: Math.round(bilan * 4.18), tol: Math.max(2, Math.abs(bilan * 4.18) * 0.02) }
+    ],
+    etapes: [
+      'Dépense totale = ' + nf(base) + ' + ' + nf(sport) + ' = ' + nf(depense) + ' kcal.',
+      'Bilan = apport - dépense = ' + nf(apport) + ' - ' + nf(depense) + ' = <b>' + nf(bilan) + ' kcal</b>.',
+      'Conversion : ' + nf(bilan) + ' × 4,18 ≈ <b>' + nf(Math.round(bilan * 4.18)) + ' kJ</b>.',
+      bilan > 0 ? 'Le bilan est <b>positif</b> : l’excédent est stocké. Maintenu longtemps, cela conduit à une prise de masse.'
+                : (bilan < 0 ? 'Le bilan est <b>négatif</b> : l’organisme puise dans ses réserves.'
+                             : 'Le bilan est <b>nul</b> : apports et dépenses s’équilibrent exactement.'),
+      'Un bilan se calcule toujours dans la <b>même unité</b> : convertir avant de soustraire, jamais après.'
+    ]
+  };
+});
+
+const PHOTO_QCM = [
+  { q: 'Que produit la photosynthèse à partir de matière minérale ?', b: 'De la matière organique et du dioxygène',
+    v: ['De la matière organique et du dioxygène', 'Du dioxyde de carbone et de l’eau',
+        'De l’énergie lumineuse', 'Des ions minéraux'] },
+  { q: 'Quelles matières premières minérales la photosynthèse utilise-t-elle ?', b: 'L’eau, les ions et le dioxyde de carbone',
+    v: ['L’eau, les ions et le dioxyde de carbone', 'Le dioxygène et le glucose',
+        'Uniquement le dioxyde de carbone', 'Les protéines et les lipides'] },
+  { q: 'La photosynthèse « fabrique »-t-elle de l’énergie ?', b: 'Non, elle convertit l’énergie lumineuse en énergie chimique',
+    v: ['Non, elle convertit l’énergie lumineuse en énergie chimique', 'Oui, elle crée de l’énergie à partir de rien',
+        'Oui, à partir du dioxyde de carbone', 'Non, elle ne met en jeu aucune énergie'] },
+  { q: 'Quelle part de l’énergie solaire reçue par la Terre la photosynthèse utilise-t-elle ?', b: 'Une part infime, qui suffit pourtant à nourrir presque toute la vie',
+    v: ['Une part infime, qui suffit pourtant à nourrir presque toute la vie', 'Environ la moitié',
+        'La quasi-totalité', 'Environ 30 %, comme l’albédo'] },
+  { q: 'À quels problèmes de santé les déséquilibres alimentaires sont-ils reliés par le programme ?', b: 'Dénutrition, maladies cardiovasculaires, diabètes, obésité',
+    v: ['Dénutrition, maladies cardiovasculaires, diabètes, obésité', 'Uniquement l’obésité',
+        'Les maladies infectieuses', 'Les pathologies auditives'] }
+];
+
+G('sci-photosynthese', 'sci-photo-qcm', 'Photosynthèse et alimentation', 'app', function(){
+  const x = R.pick(PHOTO_QCM);
+  const opts = R.shuffle(x.v.slice());
+  return {
+    enonce: '<p>' + x.q + '</p>',
+    qcm: { options: opts, bon: opts.indexOf(x.b) },
+    etapes: ['Réponse : <b>' + x.b + '</b>.',
+             'Le mot juste est <b>convertir</b>, jamais « fabriquer » : l’énergie ne se crée pas.']
+  };
+});
+
+/* ================= 2.4 LES SOURCES D'ÉNERGIE ================= */
+
+const SOURCES = [
+  { n: 'le pétrole', r: 'Non renouvelable', s: 'Origine solaire indirecte',
+    e: 'Il vient de matière organique produite par photosynthèse il y a des dizaines à des centaines de millions d’années.' },
+  { n: 'le charbon', r: 'Non renouvelable', s: 'Origine solaire indirecte',
+    e: 'Même origine que le pétrole : une biomasse fossilisée, donc de l’énergie solaire très ancienne.' },
+  { n: 'le gaz naturel', r: 'Non renouvelable', s: 'Origine solaire indirecte',
+    e: 'C’est aussi un combustible fossile, issu de matière organique.' },
+  { n: 'l’énergie éolienne', r: 'Renouvelable', s: 'Origine solaire indirecte',
+    e: 'Le vent naît des différences de température créées par le Soleil.' },
+  { n: 'l’énergie hydraulique', r: 'Renouvelable', s: 'Origine solaire indirecte',
+    e: 'Elle repose sur le cycle de l’eau, mis en mouvement par l’évaporation due au Soleil.' },
+  { n: 'la biomasse', r: 'Renouvelable', s: 'Origine solaire indirecte',
+    e: 'Elle est produite par photosynthèse, et fournit de l’énergie par combustion ou par fermentation.' },
+  { n: 'le solaire photovoltaïque', r: 'Renouvelable', s: 'Origine solaire directe',
+    e: 'Le rayonnement solaire est converti directement en électricité.' },
+  { n: 'la géothermie', r: 'Renouvelable', s: 'Origine non solaire',
+    e: 'Elle exploite la chaleur interne de la Terre, sans rapport avec le Soleil.' },
+  { n: 'l’énergie marémotrice', r: 'Renouvelable', s: 'Origine non solaire',
+    e: 'Les marées sont dues à l’attraction de la Lune, et non au Soleil.' },
+  { n: 'l’énergie nucléaire', r: 'Non renouvelable', s: 'Origine non solaire',
+    e: 'Elle exploite la fission de noyaux lourds présents en quantité limitée. Rien à voir avec le Soleil.' }
+];
+
+G('sci-energies', 'sci-sources', 'Renouvelable, et d’origine solaire ?', 'ent', function(){
+  const x = R.pick(SOURCES);
+  const ori = ['Origine solaire directe', 'Origine solaire indirecte', 'Origine non solaire'];
+  return {
+    enonce: '<p>On considère <b>' + x.n + '</b>.</p>' +
+            '<p>Cette source est-elle renouvelable, et son origine est-elle solaire ?</p>',
+    champs: [
+      { type: 'choix', label: 'Renouvelable ?', options: ['Renouvelable', 'Non renouvelable'],
+        bon: x.r === 'Renouvelable' ? 0 : 1 },
+      { type: 'choix', label: 'Origine', options: ori.slice(), bon: ori.indexOf(x.s) }
+    ],
+    etapes: [
+      '<b>' + x.n.charAt(0).toUpperCase() + x.n.slice(1) + '</b> : ' + x.r.toLowerCase() + ', ' + x.s.toLowerCase() + '.',
+      x.e,
+      'Le critère du programme n’est pas « propre » ou « sale », mais une <b>comparaison de durées</b> : ' +
+        'durée de formation de la source contre durée prévisible de son épuisement.'
+    ]
+  };
+});
+
+G('sci-energies', 'sci-calorifique', 'Pouvoir calorifique', 'app', function(){
+  const comb = [
+    { n: 'le bois sec', pc: 15 }, { n: 'le charbon', pc: 30 },
+    { n: 'le pétrole', pc: 42 }, { n: 'le gaz naturel', pc: 50 },
+    { n: 'la paille', pc: 14 }
+  ];
+  const c = R.pick(comb);
+  const m = R.pick([2, 5, 10, 20, 25, 50, 100]);
+  const E = m * c.pc;
+  return {
+    enonce: '<p>Le pouvoir calorifique de <b>' + c.n + '</b> est de <b>' + c.pc + ' MJ·kg<sup>-1</sup></b>.</p>' +
+            '<p>Quelle énergie libère la combustion de <b>' + m + ' kg</b> de ce combustible, en mégajoules ?</p>',
+    champs: [{ type: 'num', label: 'Énergie (MJ)', bon: E, tol: 0.5 }],
+    etapes: [
+      'E = m × PC = ' + m + ' × ' + c.pc + ' = <b>' + nf(E) + ' MJ</b>.',
+      'Le pouvoir calorifique est une <b>grandeur quotient</b> : une énergie par unité de masse. ' +
+        'Il permet de comparer des combustibles de natures différentes.',
+      'Ordre d’idée : le gaz naturel libère environ trois fois plus d’énergie par kilogramme que le bois sec.'
+    ]
+  };
+});
+
+/* ================= 3.1 LA FORME DE LA TERRE ================= */
+
+G('sci-forme', 'sci-eratosthene', 'La méthode d’Ératosthène', 'ent', function(){
+  const cas = [
+    { L: 40000, a: 7.2, d: 800, r: 'C’est le calcul historique d’Ératosthène, entre Syène et Alexandrie.' },
+    { L: 36000, a: 5, d: 500, r: '' }, { L: 36000, a: 8, d: 800, r: '' },
+    { L: 36000, a: 12, d: 1200, r: '' }, { L: 45000, a: 4, d: 500, r: '' },
+    { L: 45000, a: 8, d: 1000, r: '' }, { L: 45000, a: 12, d: 1500, r: '' },
+    { L: 54000, a: 6, d: 900, r: '' }, { L: 54000, a: 10, d: 1500, r: '' }
+  ];
+  const x = R.pick(cas);
+  const terre = x.L === 40000;
+  return {
+    enonce: '<p>Deux villes ' + (terre ? '' : 'd’une planète ') + 'situées sur le <b>même méridien</b> sont distantes de ' +
+            '<b>d = ' + nf(x.d) + ' km</b>.</p>' +
+            '<p>Le même jour à midi, le Soleil est exactement à la verticale dans la première, ' +
+            'et fait un angle <b>α = ' + nf(x.a) + '°</b> avec la verticale dans la seconde.</p>' +
+            '<p>Calcule la longueur du méridien, en kilomètres.</p>',
+    champs: [{ type: 'num', label: 'Longueur du méridien (km)', bon: x.L, tol: Math.max(10, x.L * 0.01) }],
+    etapes: [
+      'L’angle α mesuré est aussi l’<b>angle au centre</b> entre les deux villes.',
+      'Il n’y a plus qu’une <b>proportionnalité</b> : l’angle est à 360° ce que la distance est au méridien complet.',
+      'L / 360 = d / α, donc L = d × 360 / α = ' + nf(x.d) + ' × 360 ÷ ' + nf(x.a) + ' = <b>' + nf(x.L) + ' km</b>.',
+      x.r || 'La même méthode fonctionne sur n’importe quel astre sphérique.'
+    ]
+  };
+});
+
+G('sci-forme', 'sci-rayon', 'Du méridien au rayon', 'app', function(){
+  const L = R.pick([40000, 36000, 45000, 54000, 30000, 25000]);
+  const Rk = Math.round(L / (2 * Math.PI));
+  return {
+    enonce: '<p>La longueur du méridien d’un astre sphérique vaut <b>L = ' + nf(L) + ' km</b>.</p>' +
+            '<p>Calcule son rayon, en kilomètres, arrondi à l’unité.</p>',
+    champs: [{ type: 'num', label: 'Rayon (km)', bon: Rk, tol: Math.max(5, Rk * 0.01) }],
+    etapes: [
+      'Le méridien est un <b>grand cercle</b> : sa longueur vaut 2πR.',
+      'Donc R = L / (2π) = ' + nf(L) + ' ÷ (2 × 3,1416) ≈ <b>' + nf(Rk) + ' km</b>.',
+      L === 40000 ? 'C’est bien l’ordre de grandeur du rayon terrestre, environ 6 371 km.'
+                  : 'Pour la Terre, L ≈ 40 000 km donne R ≈ 6 371 km.'
+    ]
+  };
+});
+
+G('sci-forme', 'sci-horizon', 'La distance à l’horizon', 'ds', function(){
+  const h = R.pick([2, 5, 10, 20, 50, 100, 200, 300]);
+  const Rm = 6371e3;
+  const d = Math.sqrt(2 * Rm * h);
+  const dk = Math.round(d / 1000 * 10) / 10;
+  return {
+    enonce: '<p>Un observateur a les yeux à la hauteur <b>h = ' + h + ' m</b> au-dessus du niveau de la mer. ' +
+            'Le rayon terrestre vaut <b>R = 6 371 km</b>.</p>' +
+            '<p>Calcule la distance à l’horizon, en kilomètres, arrondie au dixième.</p>' +
+            form('d = √((R + h)² - R²) ≈ √(2 R h)'),
+    champs: [{ type: 'num', label: 'Distance à l’horizon (km)', bon: dk, tol: Math.max(0.2, dk * 0.03) }],
+    etapes: [
+      'Le rayon allant vers le point d’horizon est <b>perpendiculaire</b> au rayon visuel : ' +
+        'le triangle centre-observateur-horizon est rectangle, et le <b>théorème de Pythagore</b> s’applique.',
+      'Comme h est très petit devant R, la formule se simplifie en d ≈ √(2 R h).',
+      'Tout convertir en mètres : R = 6 371 000 m, h = ' + h + ' m.',
+      'd ≈ √(2 × 6 371 000 × ' + h + ') = √' + Math.round(2 * Rm * h).toExponential(2).replace('.', ',').replace('e+', ' × 10^') +
+        ' ≈ ' + nf(Math.round(d)) + ' m, soit <b>' + nf(dk) + ' km</b>.',
+      'Retiens l’ordre de grandeur : debout sur une plage, l’horizon est à environ <b>5 km</b>. ' +
+        'Il faut monter très haut pour le repousser beaucoup, car la distance varie comme la racine de la hauteur.'
+    ]
+  };
+});
+
+const ROTONDITE = [
+  { q: 'Quelle observation antique prouve la rotondité de la Terre lors d’une éclipse de Lune ?', b: 'L’ombre de la Terre projetée sur la Lune est toujours circulaire',
+    v: ['L’ombre de la Terre projetée sur la Lune est toujours circulaire', 'La Lune disparaît complètement',
+        'La Lune change de couleur', 'L’éclipse dure plus longtemps aux pôles'] },
+  { q: 'Comment un navire disparaît-il à l’horizon ?', b: 'Progressivement, en commençant par la coque puis le mât',
+    v: ['Progressivement, en commençant par la coque puis le mât', 'D’un seul coup',
+        'En commençant par le mât', 'En devenant flou sans disparaître'] },
+  { q: 'Que mesure la méthode d’Ératosthène ?', b: 'La longueur du méridien terrestre, à partir d’un angle et d’une distance',
+    v: ['La longueur du méridien terrestre, à partir d’un angle et d’une distance', 'La distance de la Terre au Soleil',
+        'Le rayon de la Lune', 'L’âge de la Terre'] },
+  { q: 'Sur quoi repose la triangulation de Delambre et Méchain ?', b: 'Une chaîne de triangles dont on mesure les angles et une seule longueur de base',
+    v: ['Une chaîne de triangles dont on mesure les angles et une seule longueur de base',
+        'La mesure directe de la distance entre deux villes', 'L’observation des éclipses',
+        'La mesure de la hauteur du Soleil à midi'] },
+  { q: 'Par quoi repère-t-on un point à la surface de la Terre ?', b: 'Sa latitude, sa longitude et son altitude',
+    v: ['Sa latitude, sa longitude et son altitude', 'Sa seule latitude',
+        'Sa distance à l’équateur uniquement', 'Son fuseau horaire'] },
+  { q: 'Quel est le plus court chemin entre deux points de la sphère terrestre ?', b: 'L’arc du grand cercle qui les relie',
+    v: ['L’arc du grand cercle qui les relie', 'La ligne droite tracée sur une carte plate',
+        'Le trajet passant par l’équateur', 'Le trajet suivant un parallèle'] }
+];
+
+G('sci-forme', 'sci-rotondite', 'Preuves et repérage', 'app', function(){
+  const x = R.pick(ROTONDITE);
+  const opts = R.shuffle(x.v.slice());
+  return {
+    enonce: '<p>' + x.q + '</p>',
+    qcm: { options: opts, bon: opts.indexOf(x.b) },
+    etapes: ['Réponse : <b>' + x.b + '</b>.',
+             'Les avions semblent faire des détours sur une carte plate : ils suivent en réalité ' +
+               'le plus court chemin, l’arc de grand cercle.']
+  };
+});
+
+/* ================= 3.2 L'ÂGE DE LA TERRE ================= */
+
+const AGE_QCM = [
+  { q: 'Quel est l’âge de la Terre actuellement admis ?', b: '4,57 × 10⁹ ans',
+    v: ['4,57 × 10⁹ ans', '4,57 × 10⁶ ans', '13,8 × 10⁹ ans', '2,5 × 10⁹ ans'] },
+  { q: 'Quelle méthode a permis de trancher définitivement la question de l’âge de la Terre ?', b: 'La datation par la radioactivité des minéraux',
+    v: ['La datation par la radioactivité des minéraux', 'Le calcul du temps de refroidissement',
+        'L’épaisseur des couches sédimentaires', 'L’observation des fossiles'] },
+  { q: 'Pourquoi l’estimation de Kelvin était-elle trop faible ?', b: 'Il ignorait la radioactivité, source de chaleur interne',
+    v: ['Il ignorait la radioactivité, source de chaleur interne', 'Il se trompait dans ses calculs',
+        'Il ne disposait pas de thermomètre', 'Il croyait la Terre plate'] },
+  { q: 'Quel argument Darwin a-t-il apporté au débat sur l’âge de la Terre ?', b: 'L’évolution biologique exige des durées très longues',
+    v: ['L’évolution biologique exige des durées très longues', 'La Terre refroidit lentement',
+        'Les roches contiennent de l’uranium', 'Les continents se déplacent'] },
+  { q: 'Pourquoi date-t-on des météorites pour connaître l’âge de la Terre ?', b: 'Elles se sont formées en même temps que le système solaire et n’ont pas été remaniées',
+    v: ['Elles se sont formées en même temps que le système solaire et n’ont pas été remaniées',
+        'Elles sont plus radioactives que les roches terrestres', 'Elles sont plus faciles à trouver',
+        'Elles sont plus anciennes que le système solaire'] }
+];
+
+G('sci-age', 'sci-age-qcm', 'La controverse sur l’âge de la Terre', 'app', function(){
+  const x = R.pick(AGE_QCM);
+  const opts = R.shuffle(x.v.slice());
+  return {
+    enonce: '<p>' + x.q + '</p>',
+    qcm: { options: opts, bon: opts.indexOf(x.b) },
+    etapes: ['Réponse : <b>' + x.b + '</b>.',
+             'Le message du chapitre : une théorie scientifique peut être discutée, amendée, ' +
+               'et même réfutée. C’est ce qui la distingue d’une croyance.']
+  };
+});
+
+/* ================= 3.3 LA TERRE DANS L'UNIVERS ================= */
+
+const UNIVERS_QCM = [
+  { q: 'Pourquoi la Lune nous présente-t-elle toujours la même face ?', b: 'Elle tourne sur elle-même dans le même temps qu’elle fait le tour de la Terre',
+    v: ['Elle tourne sur elle-même dans le même temps qu’elle fait le tour de la Terre',
+        'Elle ne tourne pas sur elle-même', 'Elle est immobile par rapport aux étoiles',
+        'Son autre face est toujours dans l’ombre'] },
+  { q: 'À quoi sont dues les phases de la Lune ?', b: 'À la portion de la moitié éclairée que nous voyons depuis la Terre',
+    v: ['À la portion de la moitié éclairée que nous voyons depuis la Terre', 'À l’ombre de la Terre sur la Lune',
+        'Aux nuages de l’atmosphère terrestre', 'À la rotation de la Terre sur elle-même'] },
+  { q: 'Que défend la conception héliocentrique ?', b: 'Que la Terre tourne autour du Soleil',
+    v: ['Que la Terre tourne autour du Soleil', 'Que le Soleil tourne autour de la Terre',
+        'Que la Terre est immobile au centre du monde', 'Que la Lune tourne autour du Soleil'] },
+  { q: 'Qu’est-ce que la zone d’habitabilité d’une étoile ?', b: 'L’intervalle de distances où l’eau liquide peut exister en surface d’une planète',
+    v: ['L’intervalle de distances où l’eau liquide peut exister en surface d’une planète',
+        'La région où l’étoile émet le plus', 'La zone où les planètes sont rocheuses',
+        'La distance à laquelle la gravité s’annule'] },
+  { q: 'Quelle proportion de l’eau de la planète est douce ?', b: 'Environ 3 %',
+    v: ['Environ 3 %', 'Environ 30 %', 'Environ 50 %', 'Environ 97 %'] },
+  { q: 'Quelles conditions permettent à la Terre de conserver de l’eau liquide en surface ?', b: 'La puissance lumineuse du Soleil, la distance au Soleil et la gravité terrestre',
+    v: ['La puissance lumineuse du Soleil, la distance au Soleil et la gravité terrestre',
+        'Uniquement sa distance au Soleil', 'La présence de la Lune',
+        'La rotation de la Terre sur elle-même'] }
+];
+
+G('sci-univers', 'sci-univers-qcm', 'La Lune, l’héliocentrisme, l’eau', 'app', function(){
+  const x = R.pick(UNIVERS_QCM);
+  const opts = R.shuffle(x.v.slice());
+  return {
+    enonce: '<p>' + x.q + '</p>',
+    qcm: { options: opts, bon: opts.indexOf(x.b) },
+    etapes: ['Réponse : <b>' + x.b + '</b>.',
+             'Sur l’influence de la Lune, le programme demande de <b>distinguer les arguments scientifiques ' +
+               'des croyances</b>.']
+  };
+});
+
+G('sci-univers', 'sci-eau', 'Répartition de l’eau', 'ent', function(){
+  const V = R.pick([1400, 1350, 1386]);           /* millions de km3 */
+  const pDouce = 3, pAccessible = R.pick([0.5, 1]);
+  const douce = Math.round(V * pDouce / 100 * 10) / 10;
+  const acc = Math.round(douce * pAccessible / 100 * 1000) / 1000;
+  return {
+    enonce: '<p>Le volume total d’eau sur Terre est d’environ <b>' + nf(V) + ' millions de km<sup>3</sup></b>. ' +
+            'Environ <b>' + pDouce + ' %</b> de cette eau est douce, et seulement <b>' + nf(pAccessible) + ' %</b> ' +
+            'de cette eau douce est directement accessible.</p>' +
+            '<p>Calcule le volume d’eau douce, puis celui d’eau douce accessible, en millions de km<sup>3</sup>.</p>',
+    champs: [
+      { type: 'num', label: 'Eau douce (millions de km³)', bon: douce, tol: Math.max(0.2, douce * 0.02) },
+      { type: 'num', label: 'Eau douce accessible (millions de km³)', bon: acc, tol: Math.max(0.005, acc * 0.05) }
+    ],
+    etapes: [
+      'Eau douce : ' + nf(V) + ' × ' + pDouce + ' ÷ 100 = <b>' + nf(douce) + ' millions de km<sup>3</sup></b>.',
+      'Eau douce accessible : ' + nf(douce) + ' × ' + nf(pAccessible) + ' ÷ 100 ≈ <b>' + nf(acc) +
+        ' million' + (acc >= 2 ? 's' : '') + ' de km<sup>3</sup></b>.',
+      'Attention au piège : le second pourcentage porte sur l’<b>eau douce</b>, pas sur le total. ' +
+        'On applique donc les pourcentages l’un après l’autre.',
+      'À retenir : environ 97 % de l’eau est salée, 3 % est douce, et l’essentiel de cette eau douce ' +
+        'est immobilisé dans les glaciers et les eaux souterraines.'
+    ]
+  };
+});
+
+/* ================= 4.1 SON ET MUSIQUE ================= */
+
+G('sci-son', 'sci-harmonique', 'Fondamentale et harmoniques', 'app', function(){
+  const f = R.pick([110, 220, 262, 330, 440, 523, 660]);
+  const n = R.int(2, 6);
+  return {
+    enonce: '<p>Un son composé a pour fréquence fondamentale <b>f<sub>1</sub> = ' + nf(f) + ' Hz</b>.</p>' +
+            '<p>Quelle est la fréquence de son <b>harmonique de rang ' + n + '</b>, en hertz ?</p>',
+    champs: [{ type: 'num', label: 'Fréquence (Hz)', bon: f * n, tol: 0.5 }],
+    etapes: [
+      'Les harmoniques ont des fréquences <b>multiples entiers</b> de la fondamentale : f<sub>n</sub> = n × f<sub>1</sub>.',
+      'f<sub>' + n + '</sub> = ' + n + ' × ' + nf(f) + ' = <b>' + nf(f * n) + ' Hz</b>.',
+      'C’est la répartition des harmoniques qui donne son <b>timbre</b> à un instrument : ' +
+        'un piano et un violon jouant la même note ont la même fondamentale, mais pas les mêmes harmoniques.',
+      'Sur un spectre, la fondamentale est la <b>première</b> raie, pas nécessairement la plus haute.'
+    ]
+  };
+});
+
+G('sci-son', 'sci-intervalle', 'Les intervalles musicaux', 'ent', function(){
+  const f = R.pick([110, 220, 264, 330, 440, 528]);
+  const int = [
+    { n: 'une octave au-dessus', r: 2, d: 'Le rapport 2 pour 1 : c’est la même note, une hauteur plus haut.' },
+    { n: 'deux octaves au-dessus', r: 4, d: 'Deux octaves, c’est 2 × 2 = 4, et non 2 + 2.' },
+    { n: 'une octave en dessous', r: 0.5, d: 'On divise par 2 pour descendre d’une octave.' },
+    { n: 'une quinte au-dessus', r: 1.5, d: 'La quinte correspond au rapport 3/2.' },
+    { n: 'une quarte au-dessus', r: 4 / 3, d: 'La quarte correspond au rapport 4/3.' }
+  ];
+  const x = R.pick(int);
+  const res = Math.round(f * x.r * 100) / 100;
+  return {
+    enonce: '<p>Une note a pour fréquence fondamentale <b>' + nf(f) + ' Hz</b>.</p>' +
+            '<p>Quelle est la fréquence de la note située <b>' + x.n + '</b> ?</p>' +
+            '<p class="tiny">Octave : rapport 2 · quinte : rapport 3/2 · quarte : rapport 4/3.</p>',
+    champs: [{ type: 'num', label: 'Fréquence (Hz)', bon: res, tol: Math.max(0.5, res * 0.01) }],
+    etapes: [
+      'Un intervalle musical est un <b>rapport</b> de fréquences, jamais une différence.',
+      'Fréquence = ' + nf(f) + ' × ' + (x.r === 1.5 ? '3/2' : x.r === 4 / 3 ? '4/3' : x.r === 0.5 ? '1/2' : nf(x.r)) +
+        ' ≈ <b>' + nf(res) + ' Hz</b>.',
+      x.d,
+      'Erreur classique : croire que deux octaves correspondent au rapport 3. Les intervalles se <b>multiplient</b>.'
+    ]
+  };
+});
+
+G('sci-son', 'sci-db', 'Le niveau d’intensité sonore', 'ent', function(){
+  const k = R.int(2, 12);                       /* I = 10^-k W/m2 ... */
+  const I = Math.pow(10, -(12 - k));            /* I / I0 = 10^k */
+  const L = 10 * k;
+  return {
+    enonce: '<p>Une source émet un son d’intensité <b>I = 10<sup>' + (-(12 - k)) + '</sup> W·m<sup>-2</sup></b>.</p>' +
+            '<p>Calcule son niveau d’intensité sonore, en décibels.</p>' +
+            form('L = 10 × log(I / I<sub>0</sub>)&nbsp;&nbsp;avec I<sub>0</sub> = 1,0 × 10<sup>-12</sup> W·m<sup>-2</sup>'),
+    champs: [{ type: 'num', label: 'Niveau L (dB)', bon: L, tol: 0.5 }],
+    etapes: [
+      'I / I<sub>0</sub> = 10<sup>' + (-(12 - k)) + '</sup> ÷ 10<sup>-12</sup> = 10<sup>' + k + '</sup>.',
+      'L = 10 × log(10<sup>' + k + '</sup>) = 10 × ' + k + ' = <b>' + L + ' dB</b>.',
+      L >= 80 ? 'Ce niveau dépasse <b>80 dB</b> : au-delà, un son peut devenir nocif selon son intensité et sa durée d’écoute.'
+              : 'Ce niveau reste sous le seuil de 80 dB au-delà duquel un son peut devenir nocif.',
+      'Les repères qui sauvent : intensité <b>× 10</b> → <b>+ 10 dB</b> · intensité <b>doublée</b> → <b>+ 3 dB</b>. ' +
+        'Les décibels ne s’additionnent pas : deux sources de 60 dB donnent 63 dB, pas 120.'
+    ]
+  };
+});
+
+const SON_QCM = [
+  { q: 'À quoi correspond un son pur ?', b: 'À un signal sinusoïdal, donc à une seule fréquence',
+    v: ['À un signal sinusoïdal, donc à une seule fréquence', 'À un signal périodique quelconque',
+        'À un son de forte intensité', 'À un son sans harmoniques audibles mais composé'] },
+  { q: 'Si on raccourcit une corde tendue, le son émis devient…', b: 'Plus aigu',
+    v: ['Plus aigu', 'Plus grave', 'Plus fort', 'Inchangé'] },
+  { q: 'Si on tend davantage une corde, le son émis devient…', b: 'Plus aigu',
+    v: ['Plus aigu', 'Plus grave', 'Plus faible', 'Inchangé'] },
+  { q: 'Qu’est-ce qu’une gamme ?', b: 'Une suite finie de notes réparties sur une octave',
+    v: ['Une suite finie de notes réparties sur une octave', 'L’ensemble des harmoniques d’un son',
+        'La gamme des intensités audibles', 'Une suite de sons purs de même fréquence'] },
+  { q: 'Deux sources identiques de 60 dB fonctionnant ensemble produisent…', b: 'Environ 63 dB',
+    v: ['Environ 63 dB', '120 dB', '70 dB', '60 dB'] },
+  { q: 'Qu’est-ce qui distingue le timbre d’un piano de celui d’un violon sur la même note ?', b: 'La répartition de leurs harmoniques',
+    v: ['La répartition de leurs harmoniques', 'Leur fréquence fondamentale',
+        'Leur niveau d’intensité sonore', 'La durée du son'] }
+];
+
+G('sci-son', 'sci-son-qcm', 'Sons, cordes et décibels', 'app', function(){
+  const x = R.pick(SON_QCM);
+  const opts = R.shuffle(x.v.slice());
+  return {
+    enonce: '<p>' + x.q + '</p>',
+    qcm: { options: opts, bon: opts.indexOf(x.b) },
+    etapes: ['Réponse : <b>' + x.b + '</b>.',
+             'Corde plus courte, plus tendue, ou plus légère : le son monte. Plus longue, plus molle, ' +
+               'ou plus lourde : le son descend.']
+  };
+});
+
+/* ================= 4.2 NUMÉRISATION ================= */
+
+G('sci-numerisation', 'sci-fichier', 'Taille d’un fichier audio', 'ent', function(){
+  const fe = R.pick([8000, 16000, 22050, 32000, 44100, 48000]);
+  const q = R.pick([8, 16, 24]);
+  const duree = R.pick([10, 30, 60, 120, 180, 240]);
+  const voies = R.pick([1, 2]);
+  const bits = fe * q * duree * voies;
+  const Mo = Math.round(bits / 8 / 1e6 * 10) / 10;
+  return {
+    enonce: '<p>On numérise un son avec les paramètres suivants :</p>' +
+            '<ul><li>fréquence d’échantillonnage <b>f<sub>e</sub> = ' + nf(fe) + ' Hz</b></li>' +
+            '<li>quantification sur <b>' + q + ' bits</b></li>' +
+            '<li>durée <b>' + duree + ' s</b></li>' +
+            '<li><b>' + (voies === 1 ? 'mono, 1 voie' : 'stéréo, 2 voies') + '</b></li></ul>' +
+            '<p>Calcule la taille du fichier, en mégaoctets, arrondie au dixième. ' +
+            'On prendra 1 octet = 8 bits et 1 Mo = 10<sup>6</sup> octets.</p>',
+    champs: [{ type: 'num', label: 'Taille (Mo)', bon: Mo, tol: Math.max(0.1, Mo * 0.03) }],
+    etapes: [
+      'Taille en bits = f<sub>e</sub> × q × durée × voies = ' + nf(fe) + ' × ' + q + ' × ' + duree + ' × ' + voies +
+        ' = ' + nf(bits) + ' bits.',
+      'En octets : on divise par 8, soit ' + nf(Math.round(bits / 8)) + ' octets.',
+      'En mégaoctets : on divise encore par 10<sup>6</sup>, soit <b>' + nf(Mo) + ' Mo</b>.',
+      'Le compromis du chapitre : augmenter f<sub>e</sub> ou q rend la numérisation plus fidèle, ' +
+        'mais alourdit le fichier dans la même proportion.'
+    ]
+  };
+});
+
+G('sci-numerisation', 'sci-compression', 'Taux de compression', 'ent', function(){
+  const init = R.pick([40, 50, 60, 80, 100, 120]);
+  const taux = R.pick([60, 70, 75, 80, 85, 90]);
+  const comp = Math.round(init * (100 - taux) / 100 * 10) / 10;
+  return {
+    enonce: '<p>Un fichier audio non comprimé pèse <b>' + nf(init) + ' Mo</b>. Après compression, il pèse ' +
+            '<b>' + nf(comp) + ' Mo</b>.</p>' +
+            '<p>Calcule le taux de compression, en pourcentage de réduction, arrondi à l’unité.</p>' +
+            form('taux = (1 - taille comprimée / taille initiale) × 100'),
+    champs: [{ type: 'num', label: 'Taux de compression (%)', bon: taux, tol: 1.5 }],
+    etapes: [
+      'Rapport des tailles : ' + nf(comp) + ' ÷ ' + nf(init) + ' ≈ ' + nf(Math.round(comp / init * 1000) / 1000) + '.',
+      'Taux = (1 - ' + nf(Math.round(comp / init * 1000) / 1000) + ') × 100 ≈ <b>' + taux + ' %</b>.',
+      'Le fichier a donc perdu environ ' + taux + ' % de sa taille.',
+      'La compression du son est dite <b>avec perte</b> : elle supprime les informations auxquelles ' +
+        'l’oreille est peu sensible. Le son n’est pas identique à l’original.'
+    ]
+  };
+});
+
+/* ================= 4.3 L'AUDITION ================= */
+
+const AUDITION_QCM = [
+  { q: 'Quelle est la gamme de fréquences audibles par l’être humain ?', b: 'De 20 Hz à 20 000 Hz',
+    v: ['De 20 Hz à 20 000 Hz', 'De 2 Hz à 2 000 Hz', 'De 200 Hz à 200 000 Hz', 'De 20 Hz à 2 000 Hz'] },
+  { q: 'Quel est le rôle de l’oreille externe ?', b: 'Canaliser les sons du milieu extérieur vers le tympan',
+    v: ['Canaliser les sons du milieu extérieur vers le tympan', 'Transformer les vibrations en message nerveux',
+        'Amplifier le message nerveux', 'Interpréter la parole et la musique'] },
+  { q: 'Que font les cellules ciliées de l’oreille interne ?', b: 'Elles traduisent les vibrations reçues en un message nerveux',
+    v: ['Elles traduisent les vibrations reçues en un message nerveux', 'Elles amplifient le son mécaniquement',
+        'Elles protègent le tympan', 'Elles filtrent les fréquences aiguës'] },
+  { q: 'Au-delà de quel niveau un son peut-il devenir nocif ?', b: '80 dB, selon son intensité et sa durée d’écoute',
+    v: ['80 dB, selon son intensité et sa durée d’écoute', '40 dB, quelle que soit la durée',
+        '120 dB uniquement', '60 dB, quelle que soit la durée'] },
+  { q: 'Les dégâts causés aux cellules ciliées sont-ils réparables ?', b: 'Non, ils peuvent être irréversibles car ces cellules ne se remplacent pas',
+    v: ['Non, ils peuvent être irréversibles car ces cellules ne se remplacent pas',
+        'Oui, en quelques jours', 'Oui, avec un traitement médicamenteux', 'Oui, elles se régénèrent chaque année'] },
+  { q: 'Qu’est-ce qui détermine le risque pour l’oreille interne ?', b: 'L’intensité du son et la durée d’écoute, ensemble',
+    v: ['L’intensité du son et la durée d’écoute, ensemble', 'L’intensité du son uniquement',
+        'La durée d’écoute uniquement', 'La fréquence du son uniquement'] },
+  { q: 'Comment la perception auditive évolue-t-elle avec l’âge ?', b: 'Elle diminue, en commençant par les fréquences aiguës',
+    v: ['Elle diminue, en commençant par les fréquences aiguës', 'Elle reste identique toute la vie',
+        'Elle diminue en commençant par les fréquences graves', 'Elle augmente jusqu’à 40 ans'] }
+];
+
+G('sci-audition', 'sci-audition-qcm', 'L’oreille et les risques', 'app', function(){
+  const x = R.pick(AUDITION_QCM);
+  const opts = R.shuffle(x.v.slice());
+  return {
+    enonce: '<p>' + x.q + '</p>',
+    qcm: { options: opts, bon: opts.indexOf(x.b) },
+    etapes: ['Réponse : <b>' + x.b + '</b>.',
+             'Le trajet du son en trois natures différentes : vibration mécanique, puis message nerveux, ' +
+               'puis interprétation par le cerveau après apprentissage.']
+  };
+});
+
+/* ================= 5. PROJET EXPÉRIMENTAL ================= */
+
+const PROJET_QCM = [
+  { q: 'Dans un protocole, combien de facteurs doit-on faire varier à la fois ?', b: 'Un seul, tout le reste étant maintenu constant',
+    v: ['Un seul, tout le reste étant maintenu constant', 'Deux, pour gagner du temps',
+        'Tous ceux qui sont mesurables', 'Aucun, on se contente d’observer'] },
+  { q: 'À quoi sert une expérience témoin ?', b: 'À servir de référence, sans le facteur testé',
+    v: ['À servir de référence, sans le facteur testé', 'À vérifier que l’appareil fonctionne',
+        'À refaire la même mesure une seconde fois', 'À mesurer la température ambiante'] },
+  { q: 'Pourquoi répète-t-on une mesure plusieurs fois ?', b: 'Pour en prendre la moyenne et estimer la dispersion',
+    v: ['Pour en prendre la moyenne et estimer la dispersion', 'Pour user moins vite le capteur',
+        'Parce que la première mesure est toujours fausse', 'Pour remplir le tableau de résultats'] },
+  { q: 'Un écart entre la mesure et la valeur attendue signifie-t-il que l’expérience a échoué ?', b: 'Non : il faut l’expliquer, et c’est là que se gagnent les points',
+    v: ['Non : il faut l’expliquer, et c’est là que se gagnent les points', 'Oui, il faut recommencer sans le mentionner',
+        'Oui, la mesure est à jeter', 'Non, il suffit de l’ignorer'] },
+  { q: 'Comment un résultat de mesure doit-il être écrit ?', b: 'Avec son unité et un nombre de chiffres cohérent avec la précision de l’appareil',
+    v: ['Avec son unité et un nombre de chiffres cohérent avec la précision de l’appareil',
+        'Avec le plus de chiffres possible', 'Sans unité, pour alléger',
+        'Arrondi systématiquement à l’entier'] }
+];
+
+G('sci-projet', 'sci-demarche', 'La démarche expérimentale', 'app', function(){
+  const x = R.pick(PROJET_QCM);
+  const opts = R.shuffle(x.v.slice());
+  return {
+    enonce: '<p>' + x.q + '</p>',
+    qcm: { options: opts, bon: opts.indexOf(x.b) },
+    etapes: ['Réponse : <b>' + x.b + '</b>.',
+             'Le critère que le correcteur cherche en premier dans un protocole : ' +
+               '<b>un seul facteur varie</b>, tout le reste est maintenu constant.']
+  };
+});
+
+/* ================= EXERCICES RÉDIGÉS ================= */
+
+D('sci-projet', 'sci-protocole', 'Concevoir un protocole expérimental', function(){
+  const sujets = [
+    { s: 'L’albédo d’une surface dépend-il de sa couleur ?',
+      p: 'Éclairer des surfaces de couleurs différentes avec la même lampe, et mesurer la puissance réfléchie ' +
+         'avec un luxmètre placé toujours à la même distance et au même angle.',
+      f: 'la couleur de la surface', c: 'la lampe, la distance, l’angle, la durée, la surface éclairée' },
+    { s: 'La hauteur du son émis par une corde dépend-elle de sa longueur ?',
+      p: 'Faire vibrer une même corde, sous une même tension, en faisant varier uniquement sa longueur utile, ' +
+         'et relever la fréquence fondamentale au logiciel d’analyse spectrale.',
+      f: 'la longueur de la corde', c: 'la tension, la nature de la corde, la façon de la pincer' },
+    { s: 'La taille d’un fichier audio dépend-elle de la fréquence d’échantillonnage ?',
+      p: 'Numériser le même extrait sonore, de même durée et de même quantification, à plusieurs fréquences ' +
+         'd’échantillonnage, puis relever la taille de chaque fichier.',
+      f: 'la fréquence d’échantillonnage', c: 'l’extrait, sa durée, la quantification, le nombre de voies' },
+    { s: 'La vitesse de refroidissement influence-t-elle la taille des cristaux ?',
+      p: 'Préparer une même solution saturée, la répartir en plusieurs récipients identiques, et les faire refroidir ' +
+         'à des vitesses différentes. Observer ensuite les cristaux au microscope et mesurer leur taille.',
+      f: 'la vitesse de refroidissement', c: 'la solution, sa concentration, le volume, les récipients' }
+  ];
+  const x = R.pick(sujets);
+  return {
+    enonce: '<p><b>Question de départ :</b></p>' + form(x.s) +
+            '<p>Sur ton cahier, rédige un <b>protocole expérimental complet</b> permettant d’y répondre, ' +
+            'puis indique comment tu traiterais les résultats et ce que tu critiquerais.</p>',
+    aide: 'Un protocole se juge d’abord sur une chose : <b>un seul facteur varie</b>, tout le reste est maintenu constant. ' +
+          'N’oublie ni la répétition des mesures, ni l’analyse critique.',
+    bareme: [
+      { pts: 1, d: '<b>Hypothèse</b> formulée de manière testable, et non une simple reformulation de la question.' },
+      { pts: 2, d: '<b>Le facteur que l’on fait varier</b> est nommé explicitement : ici, ' + x.f + '.' },
+      { pts: 3, d: '<b>Les facteurs maintenus constants</b> sont listés : ' + x.c + '. ' +
+                   'C’est le point le plus discriminant du barème.' },
+      { pts: 2, d: '<b>Matériel et grandeur mesurée</b> précisés, avec l’instrument utilisé et son unité.' },
+      { pts: 2, d: '<b>Mesures répétées</b> pour chaque valeur du facteur testé, et non une mesure unique.' },
+      { pts: 1, d: 'Présence d’un <b>témoin</b> ou d’une mesure de référence, quand le sujet s’y prête.' },
+      { pts: 2, d: '<b>Traitement des résultats</b> annoncé : tableau, moyenne, graphique, recherche d’une tendance.' },
+      { pts: 3, d: '<b>Analyse critique</b> : sources d’erreur, limites du dispositif, dispersion des mesures, ' +
+                   'et ce qui pourrait fausser la conclusion.' },
+      { pts: 1, d: '<b>Réponse à la question posée</b>, annoncée comme conditionnelle aux résultats obtenus.' },
+      { pts: 0, d: '<span class="tiny">Zéro point, mais vérifie-le : ton protocole est-il réalisable en classe, ' +
+                   'avec du matériel ordinaire ?</span>' }
+    ]
+  };
+});
+
+D('sci-bilan', 'sci-schema-bilan', 'Expliquer le bilan radiatif terrestre', function(){
+  return {
+    enonce: '<p>Sur ton cahier, <b>réalise le schéma</b> des rayonnements reçus et émis par le sol, ' +
+            'puis rédige un paragraphe expliquant comment l’albédo et l’effet de serre influencent ' +
+            'la température moyenne de la Terre.</p>',
+    aide: 'Distingue soigneusement les flèches du rayonnement <b>solaire visible</b> et celles du rayonnement ' +
+          '<b>infrarouge</b>. Le mot attendu en conclusion est « équilibre dynamique ».',
+    bareme: [
+      { pts: 2, d: '<b>Rayonnement solaire incident</b> représenté, arrivant sur la Terre.' },
+      { pts: 2, d: '<b>Fraction réfléchie</b> vers l’espace, correctement nommée : c’est l’<b>albédo</b>, ' +
+                   'soit environ 30 % en moyenne pour la Terre.' },
+      { pts: 2, d: '<b>Rayonnement infrarouge émis par le sol</b>, distingué du rayonnement solaire ' +
+                   'par une flèche différente. Sa puissance par unité de surface augmente avec la température.' },
+      { pts: 3, d: '<b>Rôle de l’atmosphère</b> : elle absorbe une partie de cet infrarouge, et réémet ' +
+                   'de l’infrarouge <b>vers l’espace et vers le sol</b>. Les deux flèches sont représentées.' },
+      { pts: 2, d: 'Le point du programme : la puissance reçue par le sol est la <b>somme</b> de celle reçue du Soleil ' +
+                   'et de celle reçue de l’atmosphère, et ces deux-là sont du <b>même ordre de grandeur</b>.' },
+      { pts: 2, d: '<b>Équilibre dynamique</b> défini : la surface reçoit en moyenne autant de puissance qu’elle en émet, ' +
+                   'donc sa température moyenne reste constante. Les échanges ne s’arrêtent pas, ce sont les totaux qui s’égalisent.' },
+      { pts: 2, d: '<b>Influence de l’albédo</b> expliquée : s’il augmente, moins d’énergie est absorbée, ' +
+                   'donc la température baisse. Exemple de la fonte des glaces.' },
+      { pts: 2, d: '<b>Influence de l’effet de serre</b> expliquée : s’il se renforce, davantage d’infrarouge revient ' +
+                   'vers le sol, donc la température monte.' },
+      { pts: 1, d: '<b>Nuance attendue</b> : l’effet de serre n’est pas une anomalie. Sans lui, la température moyenne ' +
+                   'serait d’environ -18 °C au lieu de 15 °C. C’est son renforcement qui pose problème.' }
+    ]
+  };
+});
+/* =========================================================================
    Couche motivation : encouragements, badges, confettis, objectif du jour,
    petits sons. Tout est décoratif · rien ici ne change une correction.
    ========================================================================= */
@@ -8718,6 +10459,408 @@ function vueNotes(){
   elTop.textContent = 'Mes évaluations';
 }
 /* =========================================================================
+   LE DÉFI DU JOUR
+   Dix questions tirées au sort dans toutes les matières que l'élève a
+   sélectionnées. Le tirage est déterministe pour la journée : le défi est
+   le même toute la journée, et change à minuit.
+   Chrono par question, bonus de rapidité, combo, médaille, série de jours.
+   Les bonnes réponses alimentent l'XP et la révision espacée comme
+   n'importe quel exercice.
+   ========================================================================= */
+
+const DEFI_N = 10;                 /* nombre de questions */
+const DEFI_T_QCM = 20;             /* secondes pour un QCM */
+const DEFI_T_NUM = 35;             /* secondes pour un calcul */
+const DEFI_MEDAILLES = [
+  { min: 200, e: '🥇', nom: 'médaille d’or' },
+  { min: 140, e: '🥈', nom: 'médaille d’argent' },
+  { min: 80,  e: '🥉', nom: 'médaille de bronze' }
+];
+
+/* générateur pseudo-aléatoire reproductible, pour figer le défi du jour */
+function defiSeed(txt){
+  let h = 2166136261;
+  for (let i = 0; i < txt.length; i++){ h ^= txt.charCodeAt(i); h = Math.imul(h, 16777619); }
+  return h >>> 0;
+}
+function defiRandom(seed){
+  let s = seed >>> 0;
+  return function(){ s = (Math.imul(s, 1664525) + 1013904223) >>> 0; return s / 4294967296; };
+}
+
+function defiEtat(){
+  S.defi = S.defi || { jour: '', score: 0, meilleur: 0, jours: 0, recordJours: 0, dernier: '' };
+  return S.defi;
+}
+
+/* toutes les questions candidates : matières choisies, prêtes, hors rédactions */
+function defiPool(){
+  const cl = classeCourante().id;
+  const out = [];
+  MATIERES.filter(m => m.pret && S.mesMatieres.indexOf(m.id) >= 0).forEach(m => {
+    CHAPITRES.filter(c => c.matiere === m.id && c.classe === cl).forEach(c => {
+      (c.gens || []).forEach(g => { if (!g.demo) out.push({ g: g, mat: m }); });
+    });
+  });
+  return out;
+}
+
+/* compose le défi en répartissant les questions entre les matières */
+function defiComposer(seed){
+  const pool = defiPool();
+  if (!pool.length) return null;
+  const rnd = defiRandom(seed);
+
+  const parMat = {};
+  pool.forEach(x => { (parMat[x.mat.id] = parMat[x.mat.id] || []).push(x); });
+  const mats = Object.keys(parMat);
+  const choisis = [];
+  let garde = 0;
+  while (choisis.length < DEFI_N && garde++ < 600){
+    const lot = parMat[mats[choisis.length % mats.length]];
+    const cand = lot[Math.floor(rnd() * lot.length)];
+    if (!choisis.some(x => x.g.id === cand.g.id)) choisis.push(cand);
+    else if (garde > 300) choisis.push(cand);      /* peu de générateurs : on autorise un doublon */
+  }
+
+  /* on fabrique les énoncés avec ce même hasard, pour que le défi soit figé */
+  const vrai = Math.random;
+  const questions = [];
+  try {
+    Math.random = rnd;
+    choisis.forEach(x => {
+      let q;
+      try { q = x.g.fn(); } catch (e) { return; }
+      if (!q || (!q.qcm && !q.champs)) return;
+      if (q.qcm){
+        const idx = q.qcm.options.map((o, i) => i);
+        for (let i = idx.length - 1; i > 0; i--){
+          const j = Math.floor(rnd() * (i + 1));
+          const t = idx[i]; idx[i] = idx[j]; idx[j] = t;
+        }
+        q.qcm.options = idx.map(i => q.qcm.options[i]);
+        q.qcm.bon = idx.indexOf(q.qcm.bon);
+      }
+      questions.push({ q: q, mid: x.g.id, mat: x.mat, chap: CHAP[x.g.chap] });
+    });
+  } finally { Math.random = vrai; }
+  return questions.length ? questions : null;
+}
+
+let defi = null, defiTick = null;
+
+function defiArreter(){ if (defiTick){ clearInterval(defiTick); defiTick = null; } }
+
+function lancerDefi(entrainement){
+  const seed = defiSeed(aujourdhui() + '|' + S.mesMatieres.join(',') +
+                        (entrainement ? '|libre|' + Date.now() : ''));
+  const qs = defiComposer(seed);
+  if (!qs) return;
+  defiArreter();
+  defi = {
+    qs: qs, i: 0, score: 0, justes: 0, combo: 0, meilleurCombo: 0,
+    reste: 0, total: 0, fini: false, repondu: false,
+    entrainement: !!entrainement, dernier: null, detail: []
+  };
+  vue = { nom: 'defi' };
+  fermerMenu();
+  defiQuestion();
+  window.scrollTo(0, 0);
+  rendre();
+}
+
+function defiQuestion(){
+  const c = defi.qs[defi.i];
+  defi.total = c.q.qcm ? DEFI_T_QCM : DEFI_T_NUM;
+  defi.reste = defi.total;
+  defi.repondu = false;
+  defiArreter();
+  defiTick = setInterval(function(){
+    if (!defi || defi.repondu || defi.fini) return;
+    defi.reste--;
+    const b = document.getElementById('defi-chrono');
+    if (b) b.style.width = Math.max(0, defi.reste / defi.total * 100) + '%';
+    const n = document.getElementById('defi-sec');
+    if (n) n.textContent = defi.reste;
+    if (defi.reste <= 0) defiValider(true);
+  }, 1000);
+}
+
+/* valide la question courante ; tempsEcoule = true si le chrono a expiré */
+function defiValider(tempsEcoule){
+  if (!defi || defi.repondu) return;
+  const c = defi.qs[defi.i], q = c.q;
+  let juste = false;
+  if (!tempsEcoule){
+    if (q.qcm) juste = (q.choix === q.qcm.bon);
+    else {
+      q.champs.forEach((f, i) => {
+        if (f.type === 'choix') return;
+        const el = document.getElementById('df' + i);
+        if (el) f.saisie = el.value;
+      });
+      juste = q.champs.every(champOk);
+    }
+  }
+  defi.repondu = true;
+  defiArreter();
+
+  let gagne = 0;
+  if (juste){
+    defi.justes++;
+    defi.combo++;
+    if (defi.combo > defi.meilleurCombo) defi.meilleurCombo = defi.combo;
+    gagne = 10;
+    const part = defi.reste / defi.total;
+    if (part > 0.66) gagne += 5; else if (part > 0.33) gagne += 3;
+    if (defi.combo >= 2) gagne += Math.min(10, 2 * (defi.combo - 1));
+    defi.score += gagne;
+    bip('juste');
+  } else {
+    defi.combo = 0;
+    bip('faux');
+  }
+  defi.dernier = { juste: juste, gagne: gagne, temps: !!tempsEcoule };
+  defi.detail[defi.i] = { mat: c.mat.court, juste: juste };
+  enregistrer(c.mid, juste);
+  rendre();
+}
+
+function defiSuivante(){
+  if (!defi) return;
+  if (defi.i >= defi.qs.length - 1){ defiFinir(); return; }
+  defi.i++;
+  defiQuestion();
+  window.scrollTo(0, 0);
+  rendre();
+}
+
+function defiFinir(){
+  defiArreter();
+  defi.fini = true;
+  const e = defiEtat();
+  if (!defi.entrainement && e.jour !== aujourdhui()){
+    e.jour = aujourdhui();
+    e.score = defi.score;
+    if (defi.score > (e.meilleur || 0)) e.meilleur = defi.score;
+    e.jours = (e.dernier === hier()) ? (e.jours || 0) + 1 : 1;
+    if (e.jours > (e.recordJours || 0)) e.recordJours = e.jours;
+    e.dernier = aujourdhui();
+    sauver();
+    if (defi.score >= 140) confettis();
+    const nouv = typeof nouveauxBadges === 'function' ? nouveauxBadges() : [];
+    if (nouv && nouv.length && typeof feterBadges === 'function') feterBadges(nouv);
+  }
+  rendre();
+}
+
+function defiMedaille(score){
+  for (let i = 0; i < DEFI_MEDAILLES.length; i++) if (score >= DEFI_MEDAILLES[i].min) return DEFI_MEDAILLES[i];
+  return null;
+}
+function messageDefi(justes){
+  if (justes >= 10) return 'Sans faute. Rien à ajouter.';
+  if (justes >= 8)  return 'Excellent : tu tiens la distance sur toutes les matières.';
+  if (justes >= 6)  return 'Bon défi. Les erreurs montrent exactement où réviser.';
+  if (justes >= 4)  return 'C’est un début. Reviens demain, ça monte vite.';
+  return 'Journée difficile. Le prochain défi sera plus clément.';
+}
+
+/* ---------------- la vue ---------------- */
+
+function vueDefi(){
+  const main = document.getElementById('main');
+  if (!main) return '';
+  const e = defiEtat();
+
+  /* ---- écran d'accueil ---- */
+  if (!defi){
+    const fait = (e.jour === aujourdhui());
+    const pool = defiPool();
+    const mats = MATIERES.filter(m => m.pret && S.mesMatieres.indexOf(m.id) >= 0);
+    let h = '<div class="chead" data-bloc="defi"><div class="eyebrow">Un nouveau défi chaque jour</div>' +
+      '<h2>🎯 Le défi du jour</h2>' +
+      '<p class="lede">Dix questions tirées dans toutes tes matières. Chrono, combo, médaille.</p></div>';
+
+    if (!pool.length){
+      h += '<div class="card"><p>Aucune question disponible pour l’instant. ' +
+           'Choisis au moins une matière prête dans « Mes matières ».</p></div>';
+      main.innerHTML = h; return h;
+    }
+
+    h += '<div class="stats">' +
+      '<div class="stat"><div class="v">' + (e.jours || 0) + '</div><div class="k">jours d’affilée</div></div>' +
+      '<div class="stat"><div class="v">' + (e.meilleur || 0) + '</div><div class="k">meilleur score</div></div>' +
+      '<div class="stat"><div class="v">' + (e.recordJours || 0) + '</div><div class="k">record de série</div></div>' +
+      '</div>';
+
+    h += '<div class="card"><h3>Les matières tirées au sort</h3>' +
+      '<div class="defi-mats">' + mats.map(m =>
+        '<span class="pastille">' + m.e + ' ' + m.court + '</span>').join('') + '</div>' +
+      '<p class="tiny">Le tirage suit les matières cochées dans « Mes matières ». ' +
+      pool.length + ' types de questions peuvent tomber aujourd’hui.</p></div>';
+
+    h += '<div class="card"><h3>Comment ça marche</h3><ul class="regles">' +
+      '<li><b>10 points</b> par bonne réponse.</li>' +
+      '<li><b>+5</b> si tu réponds très vite, <b>+3</b> si tu réponds vite.</li>' +
+      '<li><b>Combo</b> : jusqu’à <b>+10</b> de plus par bonne réponse enchaînée.</li>' +
+      '<li>Médailles : 🥉 dès 80 points · 🥈 dès 140 · 🥇 dès 200.</li>' +
+      '<li>Le défi est le <b>même toute la journée</b>. Il change à minuit.</li></ul></div>';
+
+    if (fait){
+      const m = defiMedaille(e.score);
+      h += '<div class="card"><h3>Défi d’aujourd’hui terminé ' + (m ? m.e : '') + '</h3>' +
+        '<p>Tu as marqué <b>' + e.score + ' points</b>. Le prochain défi arrive demain.</p>' +
+        '<div class="actions"><button class="btn primary" data-defi="entrainement">Rejouer pour s’entraîner</button></div>' +
+        '<p class="tiny">Une partie d’entraînement ne compte pas dans la série, mais elle fait gagner de l’XP.</p></div>';
+    } else {
+      h += '<div class="actions"><button class="btn primary" data-defi="go">Lancer le défi du jour</button></div>';
+    }
+    main.innerHTML = h;
+    return h;
+  }
+
+  /* ---- écran de fin ---- */
+  if (defi.fini){
+    const m = defiMedaille(defi.score);
+    const parMat = {};
+    defi.detail.forEach(d => {
+      if (!d) return;
+      parMat[d.mat] = parMat[d.mat] || { ok: 0, tot: 0 };
+      parMat[d.mat].tot++; if (d.juste) parMat[d.mat].ok++;
+    });
+    let h = '<div class="chead" data-bloc="defi"><div class="eyebrow">' +
+      (defi.entrainement ? 'Entraînement terminé' : 'Défi du jour terminé') + '</div>' +
+      '<h2>' + (m ? m.e + ' ' + m.nom.charAt(0).toUpperCase() + m.nom.slice(1) : '🎯 Terminé') + '</h2>' +
+      '<p class="lede">' + messageDefi(defi.justes) + '</p></div>';
+    h += '<div class="stats">' +
+      '<div class="stat"><div class="v">' + defi.score + '</div><div class="k">points</div></div>' +
+      '<div class="stat"><div class="v">' + defi.justes + ' / ' + defi.qs.length + '</div><div class="k">bonnes réponses</div></div>' +
+      '<div class="stat"><div class="v">' + defi.meilleurCombo + '</div><div class="k">meilleur combo</div></div>' +
+      '</div>';
+    h += '<div class="card"><h3>Matière par matière</h3><div class="defi-bilan">' +
+      Object.keys(parMat).map(k => '<div class="db-ligne"><span>' + k + '</span>' +
+        '<b>' + parMat[k].ok + ' / ' + parMat[k].tot + '</b></div>').join('') + '</div></div>';
+    const suiv = DEFI_MEDAILLES.filter(x => x.min > defi.score).pop();
+    if (suiv) h += '<div class="card"><p>Encore <b>' + (suiv.min - defi.score) +
+      ' points</b> et tu décrochais la ' + suiv.nom + ' ' + suiv.e + '.</p></div>';
+    h += '<div class="actions"><button class="btn primary" data-defi="entrainement">Rejouer</button>' +
+         '<button class="btn ghost" data-defi="quitter">Revenir au défi</button></div>';
+    main.innerHTML = h;
+    return h;
+  }
+
+  /* ---- écran de question ---- */
+  const c = defi.qs[defi.i], q = c.q;
+  let h = '<div class="defi-tete">' +
+    '<div class="defi-points">' + defi.qs.map((x, i) => {
+      const d = defi.detail[i];
+      return '<i class="' + (d ? (d.juste ? 'ok' : 'ko') : (i === defi.i ? 'now' : '')) + '"></i>';
+    }).join('') + '</div>' +
+    '<div class="defi-score">' + defi.score + ' pts' +
+      (defi.combo >= 2 ? ' <span class="combo">combo ×' + defi.combo + '</span>' : '') + '</div></div>';
+
+  h += '<div class="defi-barre' + (defi.repondu ? ' fige' : '') + '">' +
+       '<span id="defi-chrono" style="width:' + Math.max(0, defi.reste / defi.total * 100) + '%"></span></div>' +
+       '<div class="defi-sec">' + (defi.repondu ? 'question ' + (defi.i + 1) + ' sur ' + defi.qs.length
+         : '<span id="defi-sec">' + defi.reste + '</span> s') + '</div>';
+
+  h += '<div class="card defi-q">' +
+    '<div class="defi-origine">' + c.mat.e + ' ' + c.mat.court + ' · ' + c.chap.titre + '</div>' +
+    q.enonce;
+
+  if (q.qcm){
+    h += '<div class="choices">' + q.qcm.options.map((o, i) => {
+      let cl = 'choice' + (q.choix === i ? ' sel' : '');
+      if (defi.repondu){
+        if (i === q.qcm.bon) cl += ' good';
+        else if (q.choix === i) cl += ' bad';
+      }
+      return '<button class="' + cl + '" data-defichoix="' + i + '"' + (defi.repondu ? ' disabled' : '') + '>' +
+             '<span class="k">' + 'ABCD'[i] + '</span><span>' + o + '</span></button>';
+    }).join('') + '</div>';
+  } else {
+    h += '<div class="fields">' + q.champs.map((f, i) => {
+      if (f.type === 'choix'){
+        return '<div class="field"><label>' + f.label + '</label><div class="seg">' +
+          f.options.map((o, j) => '<button class="' + (f.saisie === j ? 'on' : '') +
+            '" data-defichamp="' + i + '" data-defival="' + j + '"' + (defi.repondu ? ' disabled' : '') + '>' +
+            o + '</button>').join('') + '</div>' +
+          (defi.repondu ? verdictChamp(f, f.saisie === f.bon) : '') + '</div>';
+      }
+      return '<div class="field"><label for="df' + i + '">' + f.label + '</label>' +
+        '<input id="df' + i + '" type="text" inputmode="decimal" autocomplete="off" value="' +
+        (f.saisie === undefined ? '' : esc(f.saisie)) + '"' + (defi.repondu ? ' disabled' : '') + '>' +
+        (defi.repondu ? verdictChamp(f, champOk(f)) : '') + '</div>';
+    }).join('') + '</div>';
+  }
+
+  if (!defi.repondu){
+    if (!q.qcm) h += '<div class="actions"><button class="btn primary" data-defivalider="1">Valider</button>' +
+                     '<button class="btn ghost" data-defipasser="1">Passer</button></div>';
+  } else {
+    const d = defi.dernier;
+    h += '<div class="verdict ' + (d.juste ? 'ok' : 'ko') + '">' +
+      '<div class="vh"><span class="ve">' + (d.juste ? '🎯' : (d.temps ? '⏱️' : '💡')) + '</span>' +
+      (d.juste ? 'Juste' : (d.temps ? 'Temps écoulé' : 'Pas tout à fait')) +
+      (d.juste && d.gagne ? '<span class="gain">+' + d.gagne + ' pts</span>' : '') + '</div></div>';
+    h += '<div class="sol"><h4>Correction détaillée</h4><div class="steps">' +
+      (q.etapes || []).map(s => '<div class="step"><div>' + s + '</div></div>').join('') + '</div></div>';
+    h += '<div class="actions"><button class="btn primary" data-defisuivante="1">' +
+      (defi.i >= defi.qs.length - 1 ? 'Voir mon résultat' : 'Question suivante') + '</button></div>';
+  }
+  h += '</div>';
+
+  main.innerHTML = h;
+  if (!defi.repondu && !q.qcm){
+    const f0 = document.getElementById('df0');
+    if (f0) f0.focus();
+  }
+  return h;
+}
+
+/* ---------------- interactions propres au défi ---------------- */
+document.addEventListener('click', function(ev){
+  const t = ev.target.closest('[data-defi],[data-defichoix],[data-defichamp],[data-defivalider],[data-defipasser],[data-defisuivante]');
+  if (!t) return;
+  const d = t.dataset;
+  if (d.defi === 'vue'){ defiArreter(); defi = null; vue = { nom: 'defi' }; fermerMenu(); window.scrollTo(0, 0); rendre(); return; }
+  if (d.defi === 'go'){ lancerDefi(false); return; }
+  if (d.defi === 'entrainement'){ lancerDefi(true); return; }
+  if (d.defi === 'quitter'){ defiArreter(); defi = null; rendre(); return; }
+  if (!defi) return;
+  if (d.defichoix !== undefined){
+    if (defi.repondu) return;
+    defi.qs[defi.i].q.choix = +d.defichoix;
+    defiValider(false);
+    return;
+  }
+  if (d.defichamp !== undefined){
+    if (defi.repondu) return;
+    defi.qs[defi.i].q.champs[+d.defichamp].saisie = +d.defival;
+    rendre();
+    return;
+  }
+  if (d.defivalider){ defiValider(false); return; }
+  if (d.defipasser){ defiValider(true); return; }
+  if (d.defisuivante){ defiSuivante(); return; }
+});
+document.addEventListener('keydown', function(ev){
+  if (ev.key !== 'Enter' || !defi || defi.fini || vue.nom !== 'defi') return;
+  if (defi.repondu) defiSuivante();
+  else if (!defi.qs[defi.i].q.qcm) defiValider(false);
+});
+
+/* trois badges pour le défi */
+BADGES.push(
+  { id: 'defi1',  e: '🎯', nom: 'Premier défi',   desc: 'Terminer un défi du jour',
+    test: () => !!(S.defi && S.defi.dernier) },
+  { id: 'defior', e: '🥇', nom: 'Défi en or',     desc: 'Décrocher la médaille d’or à un défi',
+    test: () => !!(S.defi && (S.defi.meilleur || 0) >= 200) },
+  { id: 'defi7',  e: '🔥', nom: 'Semaine pleine', desc: 'Faire le défi 7 jours d’affilée',
+    test: () => !!(S.defi && (S.defi.recordJours || 0) >= 7) }
+);
+/* =========================================================================
    Interface : navigation, fiches de cours, séries d'exercices, progression.
    ========================================================================= */
 
@@ -8776,6 +10919,7 @@ function rendreNav(){
     { id: 'accueil',  e: '\uD83C\uDFE0', t: 'Accueil',                a: 'data-go="accueil"' },
     { id: 'revision', e: '\uD83D\uDD01', t: 'R\u00e9viser',          a: 'data-go="revision"' },
     { id: 'chrono',   e: '\u23F1\uFE0F', t: 'Interro chrono',         a: 'data-go="chrono"' },
+    { id: 'defi',     e: '🎯', t: 'Défi du jour',      a: 'data-defi="vue"' },
     { id: 'ds',       e: '\uD83D\uDCDD', t: 'Devoir surveill\u00e9', a: 'data-eval="1"' },
     { id: 'notes',    e: '\uD83D\uDCC8', t: 'Mes notes',              a: 'data-go="notes"' }
   ];
@@ -8821,6 +10965,7 @@ function rendreNav(){
 function estActif(id){
   if (id === 'accueil') return vue.nom === 'accueil';
   if (id === 'notes') return vue.nom === 'notes';
+  if (id === 'defi') return vue.nom === 'defi';
   if (id === 'ds') return vue.nom === 'ds' || vue.nom === 'copie';
   return vue.nom === 'serie' && serie && serie.mode === id;
 }
@@ -9369,6 +11514,7 @@ function rendre(){
   else if (vue.nom === 'chapitre') vueChapitre();
   else if (vue.nom === 'serie') vueSerie();
   else if (vue.nom === 'bilan') vueBilan();
+  else if (vue.nom === 'defi') vueDefi();
   rendreNav();
 }
 
