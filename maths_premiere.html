@@ -734,6 +734,12 @@ table.tab tr:first-child th{background:var(--accent-soft);color:var(--accent-ink
 [data-bloc="sci-terre"]  {--bc:#0F8A5F;--bcs:#DDF2EA}
 [data-bloc="sci-son"]    {--bc:#BC3B84;--bcs:#FBE5F1}
 [data-bloc="sci-projet"] {--bc:#2F6FE0;--bcs:#E4EDFC}
+[data-bloc="en-axes"]   {--bc:#B23A48;--bcs:#FBE6E8}
+[data-bloc="en-langue"] {--bc:#2F6FE0;--bcs:#E4EDFC}
+[data-bloc="en-comp"]   {--bc:#0F8A5F;--bcs:#DDF2EA}
+[data-bloc="emc-valeurs"]{--bc:#6D4AC9;--bcs:#EEE8FC}
+[data-bloc="emc-nation"] {--bc:#B23A48;--bcs:#FBE6E8}
+[data-bloc="emc-method"] {--bc:#0F7A8A;--bcs:#DCF0F3}
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]) [data-bloc="es-transverse"]{--bc:#F183BC;--bcs:#3B1C30}
   :root:not([data-theme="light"]) [data-bloc="es-donnees"]   {--bc:#F0A94C;--bcs:#3A2A12}
@@ -749,6 +755,12 @@ table.tab tr:first-child th{background:var(--accent-soft);color:var(--accent-ink
   :root:not([data-theme="light"]) [data-bloc="sci-terre"]  {--bc:#4FD1A0;--bcs:#12352C}
   :root:not([data-theme="light"]) [data-bloc="sci-son"]    {--bc:#F183BC;--bcs:#3B1C30}
   :root:not([data-theme="light"]) [data-bloc="sci-projet"] {--bc:#7FB0FF;--bcs:#1B2C4E}
+  :root:not([data-theme="light"]) [data-bloc="en-axes"]    {--bc:#F0808C;--bcs:#3D1A1F}
+  :root:not([data-theme="light"]) [data-bloc="en-langue"]  {--bc:#7FB0FF;--bcs:#1B2C4E}
+  :root:not([data-theme="light"]) [data-bloc="en-comp"]    {--bc:#4FD1A0;--bcs:#12352C}
+  :root:not([data-theme="light"]) [data-bloc="emc-valeurs"]{--bc:#B49BFF;--bcs:#2C2350}
+  :root:not([data-theme="light"]) [data-bloc="emc-nation"] {--bc:#F0808C;--bcs:#3D1A1F}
+  :root:not([data-theme="light"]) [data-bloc="emc-method"] {--bc:#57C6D6;--bcs:#10333A}
 }
 :root[data-theme="dark"] [data-bloc="es-transverse"]{--bc:#F183BC;--bcs:#3B1C30}
 :root[data-theme="dark"] [data-bloc="es-donnees"]   {--bc:#F0A94C;--bcs:#3A2A12}
@@ -764,6 +776,12 @@ table.tab tr:first-child th{background:var(--accent-soft);color:var(--accent-ink
 :root[data-theme="dark"] [data-bloc="sci-terre"]  {--bc:#4FD1A0;--bcs:#12352C}
 :root[data-theme="dark"] [data-bloc="sci-son"]    {--bc:#F183BC;--bcs:#3B1C30}
 :root[data-theme="dark"] [data-bloc="sci-projet"] {--bc:#7FB0FF;--bcs:#1B2C4E}
+:root[data-theme="dark"] [data-bloc="en-axes"]    {--bc:#F0808C;--bcs:#3D1A1F}
+:root[data-theme="dark"] [data-bloc="en-langue"]  {--bc:#7FB0FF;--bcs:#1B2C4E}
+:root[data-theme="dark"] [data-bloc="en-comp"]    {--bc:#4FD1A0;--bcs:#12352C}
+:root[data-theme="dark"] [data-bloc="emc-valeurs"]{--bc:#B49BFF;--bcs:#2C2350}
+:root[data-theme="dark"] [data-bloc="emc-nation"] {--bc:#F0808C;--bcs:#3D1A1F}
+:root[data-theme="dark"] [data-bloc="emc-method"] {--bc:#57C6D6;--bcs:#10333A}
 </style>
 
 <div class="app">
@@ -816,7 +834,7 @@ function M(src){ return '<span class="m">' + mathHtml(src) + '</span>'; }
 function Mc(src){ return '<div class="center">' + M(src) + '</div>'; }
 
 /* version de la construction, remplacée par build.py */
-const VERSION_APP = '1.21';
+const VERSION_APP = '1.24';
 
 /* ---------- utilitaires numériques ---------- */
 const R = {
@@ -868,7 +886,7 @@ function fracTxt(p, q){
 /* ---------- état de la progression ---------- */
 const VIDE = () => ({ v: 3, statuts: {}, methodes: {}, courant: null, serie: 0, record: 0,
                       badges: [], notes: [], jour: '', joursSuite: 0, recordJours: 0, xpJour: 0, son: true,
-                      matiere: 'maths', mesMatieres: ['maths', 'francais', 'histgeo', 'sciences', 'anglais'], maj: 0 });
+                      matiere: 'maths', mesMatieres: ['maths', 'francais', 'histgeo', 'sciences', 'anglais', 'emc'], maj: 0 });
 let S = VIDE();
 
 const BOXES = [0, 1, 3, 7, 16];           // révision espacée, en jours
@@ -9965,6 +9983,2210 @@ D('sci-bilan', 'sci-schema-bilan', 'Expliquer le bilan radiatif terrestre', func
   };
 });
 /* =========================================================================
+   MATIÈRE : anglais, LVA, première générale.
+
+   ATTENTION : le programme change précisément cette année.
+   Les programmes de langues vivantes ÉTRANGÈRES publiés au BO n°22 du
+   29 mai 2025 s'appliquent à TOUS les niveaux du lycée général et
+   technologique À COMPTER DE LA RENTRÉE 2026-2027. Le programme de 2019
+   (« Gestes fondateurs et mondes en mouvement », 8 axes) est caduc pour
+   les langues étrangères : éduscol le désigne comme « l'ancien programme ».
+
+   Le nouveau programme est propre à chaque langue. Celui d'anglais donne,
+   pour la classe de première, SIX axes, dont le sixième porte sur une aire
+   géographique précise. Cinq axes sur six doivent être traités dans
+   l'année, dont obligatoirement l'axe 6.
+
+   Niveaux visés en fin de première : LVA B1+, LVB B1, LVC A2.
+   Horaire : 4 h 30 hebdomadaires pour LVA + LVB en première générale.
+   ========================================================================= */
+
+MAT['anglais'].pret = true;
+
+BLOCS.push(
+  { id: 'en-axes',   nom: 'Les six axes culturels',  matiere: 'anglais' },
+  { id: 'en-langue', nom: 'La langue',               matiere: 'anglais' },
+  { id: 'en-comp',   nom: 'Les activités langagières', matiere: 'anglais' }
+);
+
+/* bloc « objets d'étude » d'un axe */
+function objets(liste){
+  return { k: 'cas', t: 'Les objets d’étude proposés par le programme', c:
+    '<p>Le professeur en choisit au moins un. Ce sont eux qui donnent les documents étudiés en classe.</p><ul>' +
+    liste.map(o => '<li>' + o + '</li>').join('') + '</ul>' };
+}
+/* bloc de lexique */
+function lexique(titre, b1, plus){
+  return { k: 'def', t: 'Lexique · ' + titre, c:
+    '<p><b>Niveau B1</b> · ' + b1 + '</p>' +
+    (plus ? '<p><b>Niveau B1+</b> · ' + plus + '</p>' : '') +
+    '<p class="tiny">Ce lexique est celui du programme officiel, rattaché à cet axe.</p>' };
+}
+
+const CHAPITRES_EN = [
+
+/* ================= LES SIX AXES ================= */
+{
+  id: 'en-a1-identites', bloc: 'en-axes', titre: 'Identités et échanges',
+  resume: 'Axe 1. Migrations, frontières, construction des identités.',
+  capacites: [
+    'Comprendre comment les identités se construisent en dépit des frontières ou grâce à elles.',
+    'Analyser les bénéfices réciproques des flux migratoires pour les terres d’accueil anglophones et leurs nouveaux arrivants.',
+    'Mobiliser le lexique des migrations et du multiculturalisme.',
+    'Exprimer un point de vue nuancé sur une question de société.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'Les questions de l’axe', c:
+      '<p>Le programme pose deux questions, et c’est autour d’elles que se construisent les séquences :</p>' +
+      '<p><i>Quels bénéfices réciproques les terres d’accueil anglophones et leurs nouveaux arrivants ont-ils tirés ' +
+      'des flux migratoires successifs ? Comment les identités se construisent-elles en dépit des frontières ' +
+      'ou grâce à elles ?</i></p>' +
+      '<p>Le mot qui compte est <b>réciproques</b> : on attend une analyse dans les deux sens, pas seulement ' +
+      'ce que le pays d’accueil apporte.</p>' },
+    objets([
+      'Migrations et politiques d’accueil : le cas du Canada',
+      'La <i>Windrush generation</i> et sa contribution à la société du Royaume-Uni',
+      'Les frontières, lieux d’échanges ?',
+      'La construction de l’identité : le cas de la frontière entre l’Irlande et l’Irlande du Nord'
+    ]),
+    lexique('Multiculturalisme et migrations',
+      'to grant citizenship, naturalisation, resident, skilled, foreign-born, native-born, family sponsorship, ' +
+      'to access healthcare, to be eligible, landing cards, descendants, to process a claim, lasting contribution, detention centre',
+      'asylum-seekers, point-management system, post-arrival assistance, to fit criteria, language proficiency, ' +
+      'low-wage labourers, to enhance cultural diversity, US-bound migrants, armed checkpoints, watchtowers, to smuggle, deportation schemes'),
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Sur cet axe, on attend du <b>concret</b> : un pays, une date, un groupe précis. ' +
+      'La <i>Windrush generation</i> vaut mieux qu’un discours général sur l’immigration.</li>' +
+      '<li>Les expressions <i>push and pull factors</i> structurent presque toute analyse de migration : ' +
+      'ce qui pousse au départ, ce qui attire à l’arrivée.</li>' +
+      '<li>Attention au faux ami : <i>to demand</i> veut dire exiger, pas demander.</li></ul>' }
+  ]
+},
+{
+  id: 'en-a2-diversite', bloc: 'en-axes', titre: 'Diversité et inclusion',
+  resume: 'Axe 2. Minorités, institutions, discriminations.',
+  capacites: [
+    'Analyser le rôle des institutions politiques et judiciaires dans la représentativité des minorités.',
+    'Expliquer comment les pratiques sociales, économiques et culturelles influent sur les discriminations.',
+    'Mobiliser le lexique de la mobilité sociale et de la discrimination.',
+    'Argumenter en confrontant des points de vue.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'Les questions de l’axe', c:
+      '<p><i>Quel rôle les institutions politiques et judiciaires jouent-elles dans la représentativité ' +
+      'et l’affirmation des minorités au sein des sociétés ? Comment les pratiques sociales, économiques ' +
+      'et culturelles influent-elles sur les discriminations ?</i></p>' +
+      '<p>L’axe demande donc de regarder <b>deux niveaux</b> : le droit et les institutions d’un côté, ' +
+      'les pratiques quotidiennes de l’autre.</p>' },
+    objets([
+      'Logement et mixité sociale',
+      'La Cour suprême des États-Unis : matrice d’inclusion et d’exclusion',
+      'Mobilité sociale et discrimination positive dans les aires anglophones',
+      'Représentation politique des Peuples premiers : intégration ou appropriation ?'
+    ]),
+    lexique('Mobilité sociale et discrimination',
+      'to shape a better future, to seek new opportunities, societal stratification, routes to mobility, upward mobility, ' +
+      'to perpetuate discrimination, to desegregate, over- and underrepresented, to deny access to, housing policies',
+      'to pave the way for, hierarchical caste system, to ensure equal opportunities, to be on an equal footing, ' +
+      'political manoeuvring, to bar someone from doing something, to wipe out a right'),
+    lexique('La Cour suprême',
+      'a Justice, a legal precedent, a litigant, the law of the land, to file a lawsuit, to be on the bench, ' +
+      'to overturn a law, to violate the law',
+      'a race-blind stance, a dissenting vote, a class-action lawsuit, an ideological leaning, to fill a vacancy, to infringe the law, law-abiding'),
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>La Cour suprême est l’exemple le plus payant : elle a servi tour à tour à exclure et à inclure. ' +
+      'Cette <b>ambivalence</b> est exactement ce que le programme appelle « matrice d’inclusion et d’exclusion ».</li>' +
+      '<li><i>Affirmative action</i> se traduit par discrimination positive : attention, l’expression anglaise n’est pas négative.</li>' +
+      '<li>Nuancer rapporte : <i>on the one hand… on the other hand</i>, <i>however</i>, <i>nevertheless</i>.</li></ul>' }
+  ]
+},
+{
+  id: 'en-a3-art', bloc: 'en-axes', titre: 'Art et pouvoir',
+  resume: 'Axe 3. L’art qui sert le pouvoir ou le conteste.',
+  capacites: [
+    'Analyser comment l’expression artistique peut représenter le pouvoir, le renforcer ou le remettre en cause.',
+    'Décrire et interpréter une image : peinture, photographie, caricature.',
+    'Mobiliser le lexique de la représentation et de l’engagement.',
+    'Justifier une interprétation en s’appuyant sur des éléments précis du document.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'La question de l’axe', c:
+      '<p><i>Comment l’expression artistique, quelles qu’en soient les formes, peut-elle représenter le pouvoir ' +
+      'institutionnel, le renforcer ou au contraire le remettre en cause ?</i></p>' +
+      '<p>Trois verbes, donc trois postures possibles de l’art face au pouvoir : <b>représenter</b>, ' +
+      '<b>renforcer</b>, <b>remettre en cause</b>. Un bon devoir en montre au moins deux.</p>' },
+    objets([
+      'L’art, les artistes et le pouvoir',
+      'L’art comme vecteur de résistance ou de reconnaissance',
+      'S’engager dans la presse et les médias : dessins, caricatures et photojournalisme',
+      'Mise en scène et représentation du pouvoir politique dans le cinéma et les séries de fiction'
+    ]),
+    lexique('Les représentations du pouvoir',
+      'well-informed, to subvert, to disrupt, to challenge conventional images, iconic paintings, symbolic of, ' +
+      'to document, to convey a message, to expose injustice',
+      'through a lens, to debunk, to chronicle, visual rendition, to heighten public awareness, to portray, portraiture, to espouse views'),
+    lexique('Art et engagement',
+      'to embrace an idea, to receive public support, public patronage, a political subtext, to witness, to testify, ' +
+      'impactful, a photograph, iconography, non-violent resistance',
+      'exhibition curator, to capture a feeling, out in the field, to immerse viewers, archives, Depression-era paintings, a sense of resilience'),
+    { k: 'meth', t: 'Décrire une image en anglais', c:
+      '<p>Le vocabulaire de la localisation est attendu et se note :</p>' +
+      '<ul><li><i>in the foreground</i> au premier plan · <i>in the background</i> à l’arrière-plan</li>' +
+      '<li><i>in the top left-hand corner</i> en haut à gauche · <i>at the bottom right</i> en bas à droite</li>' +
+      '<li><i>on the left-hand side</i> sur la gauche · <i>in the centre</i> au centre</li></ul>' +
+      '<p>Puis on interprète : <i>this picture conveys…</i>, <i>the artist seems to suggest…</i>, ' +
+      '<i>it may be seen as a criticism of…</i></p>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Ne jamais s’arrêter à la description : la question porte sur le <b>rapport au pouvoir</b>. ' +
+      'Décrire sans interpréter ne rapporte presque rien.</li>' +
+      '<li>Modaliser l’interprétation : <i>it might suggest</i>, <i>it could be interpreted as</i>. ' +
+      'C’est aussi un moyen de montrer qu’on maîtrise les modaux.</li></ul>' }
+  ]
+},
+{
+  id: 'en-a4-innovations', bloc: 'en-axes', titre: 'Innovations scientifiques et responsabilité',
+  resume: 'Axe 4. Concilier éthique et progrès.',
+  capacites: [
+    'Discuter la conciliation entre éthique et progrès scientifique.',
+    'Évaluer si les découvertes vont dans le sens du respect de l’être humain et de son environnement.',
+    'Mobiliser le lexique des innovations, de la conquête spatiale et des énergies.',
+    'Construire une argumentation équilibrée sur une question controversée.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'Les questions de l’axe', c:
+      '<p><i>Comment concilier éthique et progrès scientifique ? Toutes les découvertes scientifiques ' +
+      'et technologiques vont-elles dans le sens d’une amélioration du respect de l’être humain ' +
+      'et de son environnement ?</i></p>' +
+      '<p>La seconde question appelle une réponse <b>nuancée</b> : la réponse attendue n’est ni « oui » ni « non ».</p>' },
+    objets([
+      'À qui appartient l’espace ?',
+      'Énergies d’hier et de demain : l’exemple de l’Écosse',
+      'La science et la quête de l’homme parfait',
+      'Révolutions industrielles, technologiques, numériques et contre-révolutions'
+    ]),
+    lexique('Innovations scientifiques',
+      'billionaire entrepreneurs, offshore windfarms, to decarbonise, advances, knock-on effect, to upgrade, ' +
+      'tech-savvy, gene-therapy, clinical applications, human, humane',
+      'to leverage the private sector, to be worth the cost, a deterrent, binding agreements, to uphold, ' +
+      'eugenics, a saviour-sibling, bioethicists, human enhancement'),
+    lexique('La conquête spatiale et les énergies',
+      'aerospace engineering, commercial space travel, space tourism, reusable rockets, space debris, ' +
+      'to modernise the energy grid, sustainable power, fossil fuels, to work at full capacity, nuclear waste',
+      'space junkyard, state-backed, to dock, unmanned missions, a launch window, satellite-based data, ' +
+      'fracking, a dam, sky-high energy costs, to soar, to skyrocket, to plummet, nuclear fission reactors'),
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Piège de vocabulaire signalé par le programme : <i>human</i> signifie humain au sens de l’espèce, ' +
+      '<i>humane</i> signifie humain au sens de bienveillant. Les deux sont au programme, et on les confond souvent.</li>' +
+      '<li>Les verbes de variation sont très rentables : <i>to soar</i> et <i>to skyrocket</i> pour monter en flèche, ' +
+      '<i>to plummet</i> pour chuter.</li>' +
+      '<li>Sur une question éthique, annoncer la nuance dès le début : <i>while… it remains true that…</i></li></ul>' }
+  ]
+},
+{
+  id: 'en-a5-nature', bloc: 'en-axes', titre: 'L’être humain et la nature',
+  resume: 'Axe 5. Préserver, exploiter, s’adapter.',
+  capacites: [
+    'Analyser comment l’être humain peut vivre en harmonie avec la nature.',
+    'Expliquer ce qui est mis en place pour préserver l’environnement, l’exploiter et s’y adapter.',
+    'Mobiliser le lexique de la nature et de la préservation.',
+    'Rendre compte d’un document sur une question environnementale.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'Les questions de l’axe', c:
+      '<p><i>Comment l’être humain peut-il vivre en harmonie avec la nature ? Que met-il en place pour préserver ' +
+      'son environnement, l’exploiter, mais aussi s’y adapter ? Comment les sociétés de l’aire anglophone ' +
+      's’emparent-elles de ces enjeux ?</i></p>' +
+      '<p>Trois verbes à distinguer : <b>préserver</b>, <b>exploiter</b>, <b>s’adapter</b>. ' +
+      'Ce ne sont pas des synonymes, et un devoir qui les confond perd le fil.</p>' },
+    objets([
+      'Les parcs nationaux, outils de préservation de la nature',
+      'Vivre avec et vivre de la nature',
+      'L’homme face à la nature et aux évènements météorologiques',
+      'La sacralisation de la nature dans l’art et dans la fiction'
+    ]),
+    lexique('La nature',
+      'the safeguard of wildlife, the decline of wildlife, healthy habitats, native species, endangered species, ' +
+      'to foster, natural sanctuaries, preservationist obligations',
+      'preserved havens, peatlands, wetlands, to fall short of, land trusts, cruelty-free and eco-friendly products, worshipping, to alleviate'),
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Les parcs nationaux américains sont l’exemple parfait, parce qu’ils contiennent eux-mêmes la tension : ' +
+      'ils préservent la nature <b>et</b> attirent des millions de visiteurs.</li>' +
+      '<li><i>Wildlife</i> est indénombrable : jamais de <i>s</i>, jamais de <i>a</i>.</li>' +
+      '<li>Pour l’adaptation, penser aux évènements extrêmes : <i>hurricanes, wildfires, floods, droughts</i>.</li></ul>' }
+  ]
+},
+{
+  id: 'en-a6-ameriques', bloc: 'en-axes', titre: 'Les aires anglophones américaines',
+  resume: 'Axe 6, obligatoire. Le continent américain anglophone.',
+  capacites: [
+    'Analyser les influences réciproques qui engendrent une perméabilité culturelle autour du continent américain.',
+    'Situer les aires anglophones américaines et en connaître les repères culturels.',
+    'Comparer deux territoires ou deux villes de cette aire.',
+    'Élargir sa vision des aires anglophones au-delà des États-Unis et du Royaume-Uni.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'Pourquoi cet axe est obligatoire', c:
+      '<p>Le sixième axe est <b>spécifique à une aire géographique</b>, et il change à chaque niveau : ' +
+      'le Commonwealth en seconde, les <b>aires anglophones américaines</b> en première, ' +
+      'le Royaume-Uni et ses nations en terminale.</p>' +
+      '<p>Le programme impose de traiter <b>cinq axes sur six dans l’année, dont obligatoirement l’axe 6</b>. ' +
+      'C’est donc le seul axe dont tu es sûre qu’il sera étudié.</p>' +
+      '<p>Sa question : <i>Quelles sont les influences réciproques qui engendrent une perméabilité culturelle, ' +
+      'parfois inégale, autour du continent américain ?</i></p>' },
+    objets([
+      'Les Caraïbes dans les Amériques et le monde',
+      'Porto Rico : le 51e État ?',
+      'Le pôle d’attraction nord-américain',
+      'Vancouver et Seattle : regards croisés'
+    ]),
+    { k: 'prop', t: 'Ce que « aires anglophones américaines » recouvre', c:
+      '<ul><li>Les <b>États-Unis</b>, mais vus autrement que par le seul prisme habituel.</li>' +
+      '<li>Le <b>Canada</b> anglophone, et sa relation avec son voisin du sud.</li>' +
+      '<li>Les <b>Caraïbes</b> anglophones : Jamaïque, Trinité-et-Tobago, Barbade, Guyana.</li>' +
+      '<li>Les <b>territoires</b> au statut particulier, dont Porto Rico, espagnol et américain à la fois.</li></ul>' +
+      '<p>C’est précisément ce que le programme appelle « des pans culturels parfois méconnus ».</p>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Le mot clé est <b>réciproque</b> : les influences vont dans les deux sens. ' +
+      'La musique caribéenne a transformé la musique américaine autant que l’inverse.</li>' +
+      '<li>« Perméabilité <b>parfois inégale</b> » : le programme reconnaît lui-même un déséquilibre. ' +
+      'Le relever est une bonne façon de nuancer.</li>' +
+      '<li>Porto Rico est le cas qui fait réfléchir : ses habitants sont citoyens américains, ' +
+      'mais ne votent pas à la présidentielle depuis l’île.</li></ul>' }
+  ]
+},
+
+/* ================= LA LANGUE ================= */
+{
+  id: 'en-temps', bloc: 'en-langue', titre: 'Les temps',
+  resume: 'Prétérit, present perfect, past perfect, be+ing.',
+  capacites: [
+    'Maîtriser les conjugaisons et l’usage des temps du passé : verbes réguliers et irréguliers au prétérit, prétérit be+ing, past perfect.',
+    'Effectuer des choix entre les temps : présent simple et be+ing, prétérit simple et be+ing, present perfect, past perfect.',
+    'Exprimer l’habitude dans le passé et le futur dans le passé.',
+    'Employer la voix passive.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'À quoi ça sert ?', c:
+      '<p>C’est le point de grammaire qui coûte le plus de points, parce qu’il revient dans chaque phrase. ' +
+      'Un contresens de temps change le sens, pas seulement la forme.</p>' },
+    { k: 'prop', t: 'Prétérit ou present perfect ?', c:
+      '<p>La règle est simple et sans exception : le <b>prétérit</b> raconte un fait <b>coupé du présent</b>, ' +
+      'le <b>present perfect</b> relie le passé au présent.</p>' +
+      '<ul><li>Prétérit avec un repère passé daté : <i>yesterday, last week, in 1990, two years ago, when I was ten</i>.</li>' +
+      '<li>Present perfect avec un lien au présent : <i>since, for, already, yet, ever, never, just, so far, recently</i>.</li></ul>' +
+      '<p><i>I saw her yesterday.</i> Fini, daté. · <i>I have seen her three times.</i> Bilan qui compte aujourd’hui.</p>' +
+      '<p><b>Piège majeur :</b> <i>since</i> et <i>for</i> imposent le present perfect, jamais le présent. ' +
+      'On dit <i>I have lived here for five years</i>, et non « I live here since five years ».</p>' },
+    { k: 'prop', t: 'Le past perfect', c:
+      '<p>Le past perfect (<i>had</i> + participe passé) exprime un fait <b>antérieur à un autre fait passé</b>. ' +
+      'C’est le passé du passé.</p>' +
+      '<p><i>When I arrived, she <b>had</b> already <b>left</b>.</i> Elle est partie avant mon arrivée.</p>' +
+      '<p>Sans lui, l’ordre des évènements devient ambigu : c’est pour cela que le programme l’exige au niveau B1.</p>' },
+    { k: 'prop', t: 'Simple ou be+ing ?', c:
+      '<ul><li><b>Simple</b> : un fait, une habitude, une vérité générale. <i>She works in London.</i></li>' +
+      '<li><b>be+ing</b> : une action en cours, temporaire, ou un commentaire de la situation. ' +
+      '<i>She is working on a new project.</i></li></ul>' +
+      '<p>Les verbes d’état ne se mettent normalement pas en be+ing : <i>know, believe, understand, want, like, ' +
+      'belong, seem</i>. On ne dit pas « I am knowing ».</p>' },
+    { k: 'prop', t: 'La voix passive', c:
+      '<p>Formation : <b>be</b> au temps voulu + <b>participe passé</b>. L’agent, s’il est mentionné, arrive avec <i>by</i>.</p>' +
+      '<p><i>Shakespeare wrote this play.</i> → <i>This play <b>was written</b> by Shakespeare.</i></p>' +
+      '<p>On l’emploie surtout quand l’agent est inconnu, évident ou sans importance : ' +
+      '<i>The law was passed in 1972.</i></p>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Chercher le <b>marqueur de temps</b> avant de choisir : <i>ago</i> impose le prétérit, ' +
+      '<i>since</i> impose le present perfect. La moitié des erreurs disparaît ainsi.</li>' +
+      '<li>Le prétérit des verbes irréguliers s’apprend par trois : base, prétérit, participe passé. ' +
+      'Deux sur trois ne suffit pas.</li>' +
+      '<li><i>Used to</i> exprime une habitude passée qui n’a plus cours : <i>I used to play the piano.</i></li></ul>' }
+  ]
+},
+{
+  id: 'en-modaux', bloc: 'en-langue', titre: 'Modaux, hypothèse et regret',
+  resume: 'Capacité, obligation, conseil, if-clauses, wish.',
+  capacites: [
+    'Employer les auxiliaires de modalité et les formes lexicalisées : might, would, ought to, be able to, be allowed to.',
+    'Employer les modaux pour exprimer la capacité, l’obligation et le devoir moral.',
+    'Exprimer une hypothèse avec le présent et le futur, puis avec le prétérit modal.',
+    'Exprimer le souhait et le regret : prétérit modal après wish pour le présent, past perfect après wish pour le passé.',
+    'Employer les réponses courtes par auxiliaire et les tags.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'À quoi ça sert ?', c:
+      '<p>Les modaux ne disent pas ce qui est, mais ce que le locuteur en <b>pense</b> : possible, obligatoire, ' +
+      'souhaitable, probable. C’est l’outil de la nuance, donc celui qui fait la différence à l’oral comme à l’écrit.</p>' },
+    { k: 'def', t: 'Les valeurs des modaux', c:
+      '<ul><li><b>Capacité</b> : <i>can</i>, <i>could</i>, <i>be able to</i>.</li>' +
+      '<li><b>Permission</b> : <i>may</i>, <i>can</i>, <i>be allowed to</i>.</li>' +
+      '<li><b>Obligation</b> : <i>must</i> (l’énonciateur impose), <i>have to</i> (la contrainte est extérieure).</li>' +
+      '<li><b>Interdiction</b> : <i>mustn’t</i>. Attention, <i>don’t have to</i> signifie « ce n’est pas obligatoire », ' +
+      'ce qui est l’inverse.</li>' +
+      '<li><b>Conseil, devoir moral</b> : <i>should</i>, <i>ought to</i>.</li>' +
+      '<li><b>Probabilité</b> : <i>must</i> (quasi certain), <i>may</i> et <i>might</i> (possible), ' +
+      '<i>can’t</i> (impossible selon l’énonciateur).</li></ul>' +
+      '<p>Un modal ne prend jamais de <i>s</i> à la troisième personne et est suivi de la base verbale.</p>' },
+    { k: 'prop', t: 'Les trois hypothèses', c:
+      '<ul><li><b>Type 1, réel</b> : <i>If she <b>goes</b> to San Francisco, she <b>will visit</b> the Golden Gate Bridge.</i> ' +
+      'Présent dans la subordonnée, futur dans la principale.</li>' +
+      '<li><b>Type 2, irréel du présent</b> : <i>If I <b>went</b> to London, I <b>would visit</b> the Victoria and Albert Museum.</i> ' +
+      'Prétérit modal, puis <i>would</i> + base verbale.</li>' +
+      '<li><b>Type 3, irréel du passé</b> : <i>If she <b>had known</b>, she <b>would have come</b>.</i> ' +
+      'Past perfect, puis <i>would have</i> + participe passé.</li></ul>' +
+      '<p><b>Jamais de <i>will</i> après <i>if</i></b> dans une hypothèse. C’est la faute la plus fréquente.</p>' +
+      '<p>Au niveau B1+, l’inversion remplace <i>if</i> : <i>Had she known, she would have come.</i></p>' },
+    { k: 'prop', t: 'Souhait et regret avec wish', c:
+      '<ul><li>Regret sur le <b>présent</b> : <i>wish</i> + <b>prétérit modal</b>. ' +
+      '<i>I wish I <b>knew</b> the answer.</i> Je ne la connais pas.</li>' +
+      '<li>Regret sur le <b>passé</b> : <i>wish</i> + <b>past perfect</b>. ' +
+      '<i>I wish I <b>had listened</b> to her.</i> Je ne l’ai pas écoutée.</li></ul>' +
+      '<p>Le programme mentionne aussi <i>he wishes he <b>were</b></i> : le subjonctif <i>were</i> à toutes les personnes.</p>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Retenir le couple qui piège tout le monde : <i>mustn’t</i> = interdiction · ' +
+      '<i>don’t have to</i> = absence d’obligation.</li>' +
+      '<li>Les <b>tags</b> reprennent l’auxiliaire et inversent la polarité : <i>She is French, <b>isn’t she</b>?</i> · ' +
+      '<i>You didn’t know, <b>did you</b>?</i></li>' +
+      '<li>Un modal bien placé dans une copie vaut une phrase complexe : <i>this might suggest that…</i></li></ul>' }
+  ]
+},
+{
+  id: 'en-gn', bloc: 'en-langue', titre: 'Le groupe nominal',
+  resume: 'Quantifieurs, comparatifs, noms composés.',
+  capacites: [
+    'Mobiliser les comparatifs et les superlatifs, courts, longs et irréguliers.',
+    'Employer les déterminants distributifs : both, either, every, each.',
+    'Employer les quantifieurs a few et few, a little et little.',
+    'Construire des adjectifs composés et des groupes nominaux complexes.',
+    'Maîtriser la formation et l’utilisation du gérondif en position sujet et objet.'
+  ],
+  cours: [
+    { k: 'prop', t: 'Comparatifs et superlatifs', c:
+      '<ul><li>Adjectif <b>court</b>, une syllabe ou deux se terminant par <i>-y</i> : ' +
+      '<i>-er</i> et <i>the -est</i>. <i>big → bigger → the biggest</i> · <i>happy → happier → the happiest</i>.</li>' +
+      '<li>Adjectif <b>long</b> : <i>more</i> et <i>the most</i>. ' +
+      '<i>expensive → more expensive → the most expensive</i>.</li>' +
+      '<li><b>Irréguliers</b> à connaître : <i>good → better → the best</i> · <i>bad → worse → the worst</i> · ' +
+      '<i>far → farther/further → the farthest/the furthest</i>.</li></ul>' +
+      '<p>Égalité : <i>as … as</i>. Comparatif de proportion : <i>twice as much</i>, <i>three times as many</i>.</p>' },
+    { k: 'prop', t: 'Les quantifieurs qui changent de sens', c:
+      '<p>Ici, l’article change tout :</p>' +
+      '<ul><li><i><b>a few</b> friends</i> : quelques amis. Sens <b>positif</b>, il y en a.</li>' +
+      '<li><i><b>few</b> friends</i> : peu d’amis. Sens <b>négatif</b>, presque pas.</li>' +
+      '<li><i><b>a little</b> time</i> : un peu de temps, il y en a. · <i><b>little</b> time</i> : peu de temps.</li></ul>' +
+      '<p><i>Few</i> et <i>a few</i> accompagnent les <b>dénombrables</b>, <i>little</i> et <i>a little</i> ' +
+      'les <b>indénombrables</b>. Même partage pour <i>many</i> et <i>much</i>.</p>' },
+    { k: 'prop', t: 'Les distributifs', c:
+      '<ul><li><i><b>both</b></i> : les deux ensemble. <i>Both answers are correct.</i></li>' +
+      '<li><i><b>either</b></i> : l’un ou l’autre. <i>You can take either road.</i></li>' +
+      '<li><i><b>every</b></i> : chaque, vu comme un ensemble. <i>Every student must attend.</i></li>' +
+      '<li><i><b>each</b></i> : chaque, pris un par un. <i>Each student received a book.</i></li></ul>' },
+    { k: 'prop', t: 'Adjectifs composés et groupes nominaux', c:
+      '<p>Un adjectif composé est <b>invariable</b> et prend un trait d’union : ' +
+      '<i>a black-haired man</i> · <i>a ten-minute break</i> · <i>a five-year-old child</i>. ' +
+      'Jamais de <i>s</i> : on dit <i>a ten-minute break</i>, pas « a ten-minutes break ».</p>' +
+      '<p>Les assemblages du programme : <b>NN</b> (<i>a teacup</i>) · <b>N+N</b> (<i>Home Secretary</i>) · ' +
+      '<b>N of N</b> (<i>a cup of tea</i>) · <b>N’s N</b> (<i>a children’s book</i>, <i>a day’s work</i>).</p>' +
+      '<p>Dans un nom composé, c’est le <b>dernier</b> mot qui porte le sens principal : ' +
+      '<i>a school bus</i> est un bus, <i>a bus school</i> serait une école.</p>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Le gérondif s’emploie en sujet : <i><b>Travelling</b> broadens the mind.</i> ' +
+      'Et après une préposition : <i>She is good <b>at speaking</b> in public.</i></li>' +
+      '<li>Indénombrables classiques, jamais au pluriel : <i>information, advice, news, knowledge, research, ' +
+      'furniture, luggage, wildlife</i>.</li></ul>' }
+  ]
+},
+{
+  id: 'en-phrase', bloc: 'en-langue', titre: 'La phrase et son organisation',
+  resume: 'Relatives, discours rapporté, connecteurs.',
+  capacites: [
+    'Employer les propositions subordonnées relatives et circonstancielles.',
+    'Passer du discours direct au discours rapporté et inversement.',
+    'Employer les questions indirectes.',
+    'Employer une gamme étendue de connecteurs logiques.',
+    'Exprimer l’intensité et l’emphase.'
+  ],
+  cours: [
+    { k: 'prop', t: 'Les pronoms relatifs', c:
+      '<ul><li><i><b>who</b></i> : sujet, pour une personne. <i>The woman <b>who</b> wrote this book.</i></li>' +
+      '<li><i><b>whom</b></i> : complément, pour une personne, soutenu. <i>The man <b>whom</b> I met.</i></li>' +
+      '<li><i><b>which</b></i> : pour une chose. <i>The book <b>which</b> I read.</i></li>' +
+      '<li><i><b>that</b></i> : personne ou chose, dans une relative déterminative seulement.</li>' +
+      '<li><i><b>whose</b></i> : exprime l’<b>appartenance</b>. <i>The artist <b>whose</b> work was censored.</i></li></ul>' +
+      '<p>Le pronom relatif complément peut s’effacer : <i>The book (that) I read</i>. ' +
+      'Le pronom relatif <b>sujet</b>, jamais.</p>' },
+    { k: 'prop', t: 'Le discours rapporté', c:
+      '<p>Quand le verbe introducteur est au passé, tout <b>recule d’un cran</b> :</p>' +
+      '<ul><li>présent → prétérit · prétérit → past perfect · <i>will</i> → <i>would</i> · ' +
+      '<i>can</i> → <i>could</i> · <i>must</i> → <i>had to</i></li>' +
+      '<li>Les repères bougent aussi : <i>now → then</i> · <i>today → that day</i> · ' +
+      '<i>yesterday → the day before</i> · <i>tomorrow → the next day</i> · <i>here → there</i> · <i>this → that</i></li></ul>' +
+      '<p><i>"I am tired," she said.</i> → <i>She said (that) she <b>was</b> tired.</i></p>' +
+      '<p><i>"I will come tomorrow," he said.</i> → <i>He said he <b>would</b> come <b>the next day</b>.</i></p>' +
+      '<p>Verbes introducteurs : <i>say</i> (sans complément), <i>tell</i> (avec complément : <i>tell <b>me</b></i>), ' +
+      '<i>ask</i>, <i>answer</i>, <i>explain</i>, <i>admit</i>.</p>' },
+    { k: 'prop', t: 'Les questions indirectes', c:
+      '<p>Dans une question indirecte, on <b>remet l’ordre de la phrase affirmative</b> : plus d’inversion, ' +
+      'plus d’auxiliaire <i>do</i>, plus de point d’interrogation.</p>' +
+      '<p><i>Where does she live?</i> → <i>I wonder <b>where she lives</b>.</i></p>' +
+      '<p><i>Is he coming?</i> → <i>I wonder <b>if he is coming</b>.</i> Sans mot interrogatif, on emploie <i>if</i> ou <i>whether</i>.</p>' },
+    { k: 'def', t: 'Les connecteurs à avoir en réserve', c:
+      '<ul><li><b>Ajouter</b> : <i>moreover, besides, furthermore, in addition</i></li>' +
+      '<li><b>Opposer</b> : <i>however, nevertheless, yet, on the contrary, on the one hand… on the other hand</i></li>' +
+      '<li><b>Illustrer</b> : <i>for instance, such as, like, namely</i></li>' +
+      '<li><b>Conclure une cause</b> : <i>consequently, as a result, therefore, thus</i></li>' +
+      '<li><b>Chronologie</b> : <i>first, afterwards, then, eventually, finally</i></li></ul>' +
+      '<p>Faux ami classique : <i>eventually</i> signifie <b>finalement</b>, pas éventuellement.</p>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>L’emphase par l’auxiliaire est très rentable : <i>I <b>do</b> like this painting.</i> · ' +
+      '<i>She <b>did</b> visit the museum.</i></li>' +
+      '<li>L’exclamative : <i><b>How</b> courageous they were!</i> avec un adjectif, ' +
+      '<i><b>What</b> an ordeal it must have been!</i> avec un nom.</li>' +
+      '<li>Un connecteur en tête de paragraphe structure la copie et se voit immédiatement.</li></ul>' }
+  ]
+},
+{
+  id: 'en-phono', bloc: 'en-langue', titre: 'Phonologie et accentuation',
+  resume: 'Accent de mot, intonation, sons difficiles.',
+  capacites: [
+    'Recourir de façon systématique aux schémas intonatifs.',
+    'Mobiliser des connaissances phonologiques : lettres muettes, /h/, voyelles courtes et longues, diphtongues.',
+    'Marquer l’emphase ou souligner les mots-clés.',
+    'Connaître quelques règles d’accentuation du mot selon sa composition.',
+    'S’appuyer sur les accents pour déterminer l’origine du locuteur et le contexte d’énonciation.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'À quoi ça sert ?', c:
+      '<p>À l’oral, un mot mal accentué peut devenir incompréhensible, même si tous les sons sont justes. ' +
+      'L’accent de mot est plus important que la prononciation exacte de chaque voyelle.</p>' },
+    { k: 'prop', t: 'Quelques règles d’accentuation', c:
+      '<ul><li>Les mots de <b>deux syllabes</b> : les noms et adjectifs s’accentuent plutôt sur la première ' +
+      '(<i>‘present</i>, <i>‘record</i>), les verbes sur la seconde (<i>to pre’sent</i>, <i>to re’cord</i>).</li>' +
+      '<li>Les mots en <b>-ion, -ic, -ical, -ity</b> s’accentuent sur la syllabe qui précède le suffixe : ' +
+      '<i>edu’cation</i>, <i>scien’tific</i>, <i>respons’ibility</i>.</li>' +
+      '<li>Le suffixe <b>-ate</b> se prononce /ɪt/ ou /eɪt/ selon l’accentuation : ' +
+      '<i>a ‘graduate</i> se dit /ɪt/, <i>to gradu’ate</i> se dit /eɪt/.</li></ul>' },
+    { k: 'prop', t: 'Les pièges de prononciation', c:
+      '<ul><li>Les <b>lettres muettes</b> : le <i>l</i> de <i>calm</i>, <i>walk</i>, <i>half</i> ; ' +
+      'le <i>k</i> de <i>know</i> ; le <i>b</i> de <i>climb</i> ; le <i>w</i> de <i>answer</i>.</li>' +
+      '<li>Le <b>/h/</b> se prononce en anglais : <i>house</i>, <i>behind</i>. C’est une difficulté française classique.</li>' +
+      '<li><b>Voyelles courtes et longues</b> : <i>ship</i> et <i>sheep</i>, <i>full</i> et <i>fool</i> ' +
+      'ne veulent pas dire la même chose.</li>' +
+      '<li>Les <b>affriquées</b> /tʃ/ comme dans <i>church</i> et /dʒ/ comme dans <i>judge</i>.</li></ul>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>À l’oral, ralentir et bien accentuer vaut mieux que parler vite et plat.</li>' +
+      '<li>Les accents régionaux (américain, indien, australien) sont au programme : ' +
+      'savoir les repérer sert en compréhension de l’oral.</li>' +
+      '<li>L’intonation montante en fin de question fermée, descendante en fin de question ouverte.</li></ul>' }
+  ]
+},
+
+/* ================= LES ACTIVITÉS LANGAGIÈRES ================= */
+{
+  id: 'en-comprehension', bloc: 'en-comp', titre: 'Compréhension de l’oral et de l’écrit',
+  resume: 'Repérer, relier, accéder à l’implicite.',
+  capacites: [
+    'Accéder au sens explicite d’un document en mettant en lien différents indices.',
+    'Percevoir le contexte et la situation d’énonciation pour accéder à l’implicite.',
+    'Classer, trier, hiérarchiser, comparer, différencier des informations.',
+    'Confronter des interprétations et prendre conscience de points de vue.',
+    'Structurer une prise de notes, par exemple par une carte mentale.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'Le niveau attendu en fin de première', c:
+      '<p>En LVA, le niveau visé en fin de première est <b>B1+</b> : le « + » signifie que le niveau supérieur ' +
+      'est atteint dans au moins une des activités langagières.</p>' +
+      '<p>La progression du lycée : seconde B1+, première B1+, terminale <b>B2</b>. ' +
+      'En LVB : seconde A2+, première B1, terminale B1.</p>' },
+    { k: 'meth', t: 'Écouter un document', c:
+      '<ul><li>1. Avant l’écoute, lire la consigne : elle donne le <b>projet d’écoute</b>, donc ce qu’il faut chercher.</li>' +
+      '<li>2. Première écoute : repérer la <b>situation</b>. Qui parle ? À qui ? Où ? Quand ? Quel type de document ?</li>' +
+      '<li>3. Deuxième écoute : noter les <b>mots porteurs de sens</b>, pas des phrases. Chiffres, noms propres, verbes.</li>' +
+      '<li>4. Troisième écoute : vérifier et compléter.</li>' +
+      '<li>5. Ne jamais rester bloquée sur un mot inconnu : le sens se reconstruit par le contexte.</li></ul>' },
+    { k: 'meth', t: 'Lire un texte', c:
+      '<ul><li>Commencer par le <b>paratexte</b> : titre, source, date, auteur, illustration. Cela donne déjà beaucoup.</li>' +
+      '<li>Repérer les <b>mots transparents</b> et les mots répétés : ils donnent le thème.</li>' +
+      '<li>Distinguer les <b>faits</b> des <b>opinions</b> : les modaux et les adjectifs évaluatifs signalent le point de vue.</li>' +
+      '<li>Pour l’implicite, chercher l’ironie, les sous-entendus, ce qui n’est pas dit.</li></ul>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Rendre compte en anglais avec ses <b>propres mots</b> : recopier des phrases entières du texte ' +
+      'ne prouve pas la compréhension.</li>' +
+      '<li>Les verbes utiles : <i>the document deals with, it highlights, it points out, it suggests, ' +
+      'the author argues that</i>.</li>' +
+      '<li>Une prise de notes en carte mentale est explicitement au programme, et fait gagner du temps.</li></ul>' }
+  ]
+},
+{
+  id: 'en-expression', bloc: 'en-comp', titre: 'Expression orale et écrite',
+  resume: 'Prendre la parole, argumenter, écrire.',
+  capacites: [
+    'Exprimer un avis de façon structurée et le justifier, chercher à convaincre.',
+    'Rendre compte et argumenter à partir d’informations recueillies.',
+    'Produire à l’écrit ou à l’oral en s’adaptant à un contexte donné.',
+    'Réagir, commenter, plaider, répondre.',
+    'Gagner en justesse et en aisance linguistique, vers une expression libre, créative et nuancée.'
+  ],
+  cours: [
+    { k: 'meth', t: 'Structurer une prise de parole', c:
+      '<ul><li><b>Annoncer</b> : <i>I would like to focus on…</i> · <i>This document raises the question of…</i></li>' +
+      '<li><b>Développer</b> : une idée, un exemple, une conséquence. Toujours dans cet ordre.</li>' +
+      '<li><b>Nuancer</b> : <i>however</i>, <i>nevertheless</i>, <i>to a certain extent</i>, <i>it depends on…</i></li>' +
+      '<li><b>Conclure</b> : <i>all in all</i>, <i>to sum up</i>, <i>this leads me to think that…</i></li></ul>' +
+      '<p>Deux minutes bien structurées valent mieux que cinq minutes décousues.</p>' },
+    { k: 'meth', t: 'Écrire un texte argumenté', c:
+      '<ul><li><b>Introduction</b> : reformuler la question, annoncer l’angle.</li>' +
+      '<li><b>Un paragraphe = une idée</b>, appuyée sur un exemple précis tiré des axes étudiés.</li>' +
+      '<li><b>Connecteurs</b> en tête de paragraphe : la structure doit se voir.</li>' +
+      '<li><b>Conclusion</b> : répondre, sans répéter mot pour mot.</li></ul>' },
+    { k: 'piege', t: 'Les erreurs qui coûtent cher', c:
+      '<ul><li>Oublier le <b>-s</b> à la troisième personne du singulier au présent simple.</li>' +
+      '<li>Mettre <i>will</i> après <i>if</i> dans une hypothèse.</li>' +
+      '<li>Employer un présent avec <i>since</i> ou <i>for</i> au lieu du present perfect.</li>' +
+      '<li>Mettre un <i>s</i> à un adjectif : les adjectifs anglais sont <b>invariables</b>.</li>' +
+      '<li>Traduire mot à mot une structure française. Mieux vaut une phrase simple et juste.</li></ul>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Réutiliser le <b>lexique de l’axe</b> étudié : c’est ce que le professeur cherche en priorité.</li>' +
+      '<li>Varier les structures : une subordonnée relative, une hypothèse, un modal. ' +
+      'Trois phrases variées valent mieux que dix phrases plates.</li>' +
+      '<li>Se relire en cherchant <b>une seule chose à la fois</b> : d’abord les -s, puis les temps, puis les prépositions.</li></ul>' }
+  ]
+}
+];
+
+CHAPITRES_EN.forEach(c => {
+  c.gens = [];
+  c.matiere = 'anglais';
+  c.classe = 'premiere';
+  CHAPITRES.push(c);
+  CHAP[c.id] = c;
+});
+/* =========================================================================
+   Générateurs d'exercices d'anglais.
+   La grammaire et le lexique se corrigent automatiquement. Les réponses en
+   saisie libre acceptent les variantes usuelles (type de champ « texte »).
+   ========================================================================= */
+
+/* ---------- verbes irréguliers ---------- */
+const IRREGULIERS = [
+  ['be', 'was/were', 'been', 'être', ['was', 'were', 'was / were']],
+  ['become', 'became', 'become', 'devenir'],
+  ['begin', 'began', 'begun', 'commencer'],
+  ['break', 'broke', 'broken', 'casser'],
+  ['bring', 'brought', 'brought', 'apporter'],
+  ['build', 'built', 'built', 'construire'],
+  ['buy', 'bought', 'bought', 'acheter'],
+  ['catch', 'caught', 'caught', 'attraper'],
+  ['choose', 'chose', 'chosen', 'choisir'],
+  ['come', 'came', 'come', 'venir'],
+  ['do', 'did', 'done', 'faire'],
+  ['draw', 'drew', 'drawn', 'dessiner'],
+  ['drink', 'drank', 'drunk', 'boire'],
+  ['drive', 'drove', 'driven', 'conduire'],
+  ['eat', 'ate', 'eaten', 'manger'],
+  ['fall', 'fell', 'fallen', 'tomber'],
+  ['feel', 'felt', 'felt', 'ressentir'],
+  ['fight', 'fought', 'fought', 'combattre'],
+  ['find', 'found', 'found', 'trouver'],
+  ['forget', 'forgot', 'forgotten', 'oublier'],
+  ['get', 'got', 'got', 'obtenir', null, ['gotten']],
+  ['give', 'gave', 'given', 'donner'],
+  ['go', 'went', 'gone', 'aller'],
+  ['grow', 'grew', 'grown', 'grandir'],
+  ['hear', 'heard', 'heard', 'entendre'],
+  ['hold', 'held', 'held', 'tenir'],
+  ['keep', 'kept', 'kept', 'garder'],
+  ['know', 'knew', 'known', 'savoir'],
+  ['lead', 'led', 'led', 'mener'],
+  ['leave', 'left', 'left', 'partir, laisser'],
+  ['lose', 'lost', 'lost', 'perdre'],
+  ['make', 'made', 'made', 'fabriquer'],
+  ['mean', 'meant', 'meant', 'signifier'],
+  ['meet', 'met', 'met', 'rencontrer'],
+  ['pay', 'paid', 'paid', 'payer'],
+  ['read', 'read', 'read', 'lire'],
+  ['rise', 'rose', 'risen', 's’élever'],
+  ['run', 'ran', 'run', 'courir'],
+  ['say', 'said', 'said', 'dire'],
+  ['see', 'saw', 'seen', 'voir'],
+  ['seek', 'sought', 'sought', 'chercher'],
+  ['sell', 'sold', 'sold', 'vendre'],
+  ['send', 'sent', 'sent', 'envoyer'],
+  ['show', 'showed', 'shown', 'montrer'],
+  ['sing', 'sang', 'sung', 'chanter'],
+  ['sit', 'sat', 'sat', 's’asseoir'],
+  ['speak', 'spoke', 'spoken', 'parler'],
+  ['spend', 'spent', 'spent', 'dépenser, passer du temps'],
+  ['stand', 'stood', 'stood', 'se tenir debout'],
+  ['take', 'took', 'taken', 'prendre'],
+  ['teach', 'taught', 'taught', 'enseigner'],
+  ['tell', 'told', 'told', 'raconter'],
+  ['think', 'thought', 'thought', 'penser'],
+  ['throw', 'threw', 'thrown', 'jeter'],
+  ['understand', 'understood', 'understood', 'comprendre'],
+  ['wear', 'wore', 'worn', 'porter un vêtement'],
+  ['win', 'won', 'won', 'gagner'],
+  ['write', 'wrote', 'written', 'écrire']
+];
+
+G('en-temps', 'en-irreguliers', 'Les verbes irréguliers', 'app', function(){
+  const v = R.pick(IRREGULIERS);
+  return {
+    enonce: '<p>Donne le <b>prétérit</b> et le <b>participe passé</b> de ce verbe.</p>' +
+            '<div class="form"><b>' + v[0] + '</b><span class="form-leg">' + v[3] + '</span></div>',
+    champs: [
+      { type: 'texte', label: 'Prétérit', bon: v[1], alt: v[4] || [] },
+      { type: 'texte', label: 'Participe passé', bon: v[2], alt: v[5] || [] }
+    ],
+    etapes: [
+      '<b>' + v[0] + ' · ' + v[1] + ' · ' + v[2] + '</b> · ' + v[3] + '.',
+      'Un verbe irrégulier s’apprend toujours par <b>trois</b> : base verbale, prétérit, participe passé. ' +
+        'Deux sur trois ne suffit pas, car le participe passé sert au present perfect, au past perfect et au passif.',
+      v[1] === v[2] ? 'Ici le prétérit et le participe passé sont <b>identiques</b> : c’est le cas le plus fréquent.'
+                    : 'Ici le prétérit et le participe passé sont <b>différents</b> : c’est là que se font les erreurs.'
+    ]
+  };
+});
+
+G('en-temps', 'en-irreguliers-sens', 'Reconnaître un verbe irrégulier', 'app', function(){
+  const v = R.pick(IRREGULIERS);
+  const sens = IRREGULIERS.map(x => x[3]);
+  return {
+    enonce: '<p>Que signifie le verbe <b>' + v[0] + '</b> ?</p>',
+    qcm: qcm4(v[3], sens),
+    etapes: ['<b>' + v[0] + '</b> signifie « ' + v[3] + ' ».',
+             'Formes complètes : ' + v[0] + ' · ' + v[1] + ' · ' + v[2] + '.']
+  };
+});
+
+/* ---------- prétérit ou present perfect ---------- */
+const TEMPS_MARQUEURS = [
+  { p: 'She ___ to London last summer.', b: 'went', bad: 'has gone', t: 'Prétérit',
+    m: 'last summer', e: '« last summer » est un repère passé daté et coupé du présent : le prétérit s’impose.' },
+  { p: 'I ___ him three years ago.', b: 'met', bad: 'have met', t: 'Prétérit',
+    m: 'ago', e: '« ago » impose toujours le prétérit : il situe le fait dans un passé révolu.' },
+  { p: 'They ___ the Windrush exhibition yesterday.', b: 'visited', bad: 'have visited', t: 'Prétérit',
+    m: 'yesterday', e: '« yesterday » est daté : prétérit obligatoire.' },
+  { p: 'We ___ in this city since 2019.', b: 'have lived', bad: 'live', t: 'Present perfect',
+    m: 'since', e: '« since » relie le passé au présent : present perfect obligatoire. Jamais le présent.' },
+  { p: 'She ___ English for five years.', b: 'has studied', bad: 'studies', t: 'Present perfect',
+    m: 'for', e: '« for » + durée qui continue jusqu’à maintenant : present perfect, jamais le présent.' },
+  { p: 'I ___ never ___ to Canada.', b: 'have been', bad: 'was', t: 'Present perfect',
+    m: 'never', e: '« never » dresse un bilan qui vaut aujourd’hui : present perfect.' },
+  { p: 'The Supreme Court ___ that law in 1954.', b: 'overturned', bad: 'has overturned', t: 'Prétérit',
+    m: 'in 1954', e: 'Une date précise dans le passé impose le prétérit.' },
+  { p: 'He ___ just ___ his essay.', b: 'has finished', bad: 'finished', t: 'Present perfect',
+    m: 'just', e: '« just » marque un fait tout récent dont le résultat compte maintenant : present perfect.' }
+];
+
+G('en-temps', 'en-preterit-perfect', 'Prétérit ou present perfect ?', 'ent', function(){
+  const x = R.pick(TEMPS_MARQUEURS);
+  const opts = R.shuffle([x.b, x.bad]);
+  return {
+    enonce: '<p>Complète cette phrase avec la forme correcte.</p>' +
+            '<div class="form">' + x.p.replace('___', '<b>___</b>') + '</div>',
+    champs: [
+      { type: 'choix', label: 'Forme correcte', options: opts, bon: opts.indexOf(x.b) },
+      { type: 'choix', label: 'Temps employé', options: ['Prétérit', 'Present perfect'],
+        bon: x.t === 'Prétérit' ? 0 : 1 }
+    ],
+    etapes: [
+      'Réponse : <b>' + x.b + '</b>, au <b>' + x.t.toLowerCase() + '</b>.',
+      'Le marqueur décisif est « <b>' + x.m + '</b> ». ' + x.e,
+      'La règle générale : le <b>prétérit</b> raconte un fait coupé du présent, le <b>present perfect</b> relie ' +
+        'le passé au présent. Cherche toujours le marqueur avant de choisir.'
+    ]
+  };
+});
+
+/* ---------- les hypothèses ---------- */
+const HYPOTHESES = [
+  { p: 'If it ___ tomorrow, we will cancel the trip.', b: 'rains', t: 'Type 1 : hypothèse réelle',
+    e: 'Présent dans la subordonnée, futur dans la principale. Jamais « will » après « if ».',
+    d: ['rains', 'will rain', 'rained', 'would rain'] },
+  { p: 'If I ___ more time, I would visit the museum.', b: 'had', t: 'Type 2 : irréel du présent',
+    e: 'Prétérit modal dans la subordonnée, « would » + base verbale dans la principale.',
+    d: ['had', 'have', 'would have', 'will have'] },
+  { p: 'If she had known, she ___ come.', b: 'would have', t: 'Type 3 : irréel du passé',
+    e: 'Past perfect dans la subordonnée, « would have » + participe passé dans la principale.',
+    d: ['would have', 'would', 'will have', 'had'] },
+  { p: 'If they ___ harder, they would pass the exam.', b: 'worked', t: 'Type 2 : irréel du présent',
+    e: 'Le prétérit après « if » n’exprime pas le passé, mais l’irréel du présent.',
+    d: ['worked', 'work', 'will work', 'would work'] },
+  { p: 'If you ___ the book, you will understand the film.', b: 'read', t: 'Type 1 : hypothèse réelle',
+    e: 'Présent après « if », futur dans la principale.',
+    d: ['read', 'will read', 'would read', 'had read'] },
+  { p: 'If we had left earlier, we ___ missed the train.', b: 'would not have', t: 'Type 3 : irréel du passé',
+    e: 'On regrette un fait passé : « would have » + participe passé, ici à la forme négative.',
+    d: ['would not have', 'would not', 'will not have', 'had not'] }
+];
+
+G('en-modaux', 'en-hypothese', 'Les hypothèses avec if', 'ent', function(){
+  const x = R.pick(HYPOTHESES);
+  const opts = R.shuffle(x.d.slice());
+  const types = ['Type 1 : hypothèse réelle', 'Type 2 : irréel du présent', 'Type 3 : irréel du passé'];
+  return {
+    enonce: '<p>Complète cette phrase, puis indique de quel type d’hypothèse il s’agit.</p>' +
+            '<div class="form">' + x.p.replace('___', '<b>___</b>') + '</div>',
+    champs: [
+      { type: 'choix', label: 'Forme correcte', options: opts, bon: opts.indexOf(x.b) },
+      { type: 'choix', label: 'Type d’hypothèse', options: types, bon: types.indexOf(x.t) }
+    ],
+    etapes: [
+      'Réponse : <b>' + x.b + '</b>. C’est un <b>' + x.t.toLowerCase() + '</b>.',
+      x.e,
+      'Les trois schémas : <b>if + présent → will</b> · <b>if + prétérit → would</b> · ' +
+        '<b>if + past perfect → would have</b>. Aucun « will » ne suit jamais « if ».'
+    ]
+  };
+});
+
+/* ---------- wish ---------- */
+const WISH = [
+  { p: 'I wish I ___ the answer.', b: 'knew', q: 'présent', e: 'Regret sur le présent : wish + prétérit modal. Je ne connais pas la réponse.',
+    d: ['knew', 'know', 'had known', 'would know'] },
+  { p: 'She wishes she ___ to the meeting yesterday.', b: 'had gone', q: 'passé',
+    e: 'Regret sur un fait passé : wish + past perfect. Elle n’y est pas allée.',
+    d: ['had gone', 'went', 'goes', 'would go'] },
+  { p: 'He wishes he ___ taller.', b: 'were', q: 'présent',
+    e: 'Regret sur le présent. Le programme mentionne explicitement « he wishes he were » : ' +
+       'le subjonctif « were » s’emploie à toutes les personnes.',
+    d: ['were', 'is', 'had been', 'would be'] },
+  { p: 'They wish they ___ that mistake.', b: 'had not made', q: 'passé',
+    e: 'Regret sur un fait passé : wish + past perfect, ici à la forme négative.',
+    d: ['had not made', 'did not make', 'do not make', 'would not make'] }
+];
+
+G('en-modaux', 'en-wish', 'Le souhait et le regret', 'ent', function(){
+  const x = R.pick(WISH);
+  const opts = R.shuffle(x.d.slice());
+  return {
+    enonce: '<p>Complète cette phrase de regret.</p>' +
+            '<div class="form">' + x.p.replace('___', '<b>___</b>') + '</div>',
+    champs: [
+      { type: 'choix', label: 'Forme correcte', options: opts, bon: opts.indexOf(x.b) },
+      { type: 'choix', label: 'Le regret porte sur…', options: ['le présent', 'le passé'],
+        bon: x.q === 'présent' ? 0 : 1 }
+    ],
+    etapes: [
+      'Réponse : <b>' + x.b + '</b>. Le regret porte sur le <b>' + x.q + '</b>.',
+      x.e,
+      'À retenir : <b>wish + prétérit</b> pour un regret sur le présent · ' +
+        '<b>wish + past perfect</b> pour un regret sur le passé.'
+    ]
+  };
+});
+
+/* ---------- les modaux ---------- */
+const MODAUX = [
+  { p: 'You ___ smoke here, it is strictly forbidden.', b: 'mustn’t', v: 'Interdiction',
+    e: '« mustn’t » exprime l’interdiction. Attention : « don’t have to » signifierait « ce n’est pas obligatoire », ce qui est l’inverse.' },
+  { p: 'You ___ come if you don’t want to, it is optional.', b: 'don’t have to', v: 'Absence d’obligation',
+    e: '« don’t have to » signifie que ce n’est pas obligatoire. C’est le piège classique face à « mustn’t ».' },
+  { p: 'She ___ speak three languages fluently.', b: 'can', v: 'Capacité',
+    e: '« can » exprime la capacité au présent. Au passé, on emploierait « could » ou « was able to ».' },
+  { p: 'You ___ see a doctor, you look really pale.', b: 'should', v: 'Conseil',
+    e: '« should » et « ought to » expriment le conseil et le devoir moral.' },
+  { p: 'He ___ be tired, he has been working all night.', b: 'must', v: 'Quasi-certitude',
+    e: '« must » exprime aussi la déduction quasi certaine, et pas seulement l’obligation.' },
+  { p: 'It ___ rain later, the sky is getting dark.', b: 'might', v: 'Possibilité',
+    e: '« may » et « might » expriment la possibilité. « might » marque une probabilité un peu plus faible.' },
+  { p: 'That ___ be true, it contradicts all the evidence.', b: 'can’t', v: 'Impossibilité',
+    e: '« can’t » exprime l’impossibilité selon l’énonciateur. C’est le contraire de « must » en déduction.' },
+  { p: 'Students ___ wear a uniform in this school, it is a rule.', b: 'have to', v: 'Obligation',
+    e: '« have to » marque une contrainte extérieure, alors que « must » vient de l’énonciateur lui-même.' }
+];
+const VAL_MODAUX = ['Capacité', 'Conseil', 'Obligation', 'Interdiction', 'Absence d’obligation',
+                    'Possibilité', 'Quasi-certitude', 'Impossibilité'];
+
+G('en-modaux', 'en-valeur-modal', 'La valeur des modaux', 'ent', function(){
+  const x = R.pick(MODAUX);
+  const formes = R.shuffle([x.b].concat(autres(MODAUX.map(y => y.b), x.b, 3)));
+  return {
+    enonce: '<p>Complète cette phrase, puis donne la valeur du modal employé.</p>' +
+            '<div class="form">' + x.p.replace('___', '<b>___</b>') + '</div>',
+    champs: [
+      { type: 'choix', label: 'Modal correct', options: formes, bon: formes.indexOf(x.b) },
+      { type: 'choix', label: 'Valeur exprimée', options: VAL_MODAUX.slice(), bon: VAL_MODAUX.indexOf(x.v) }
+    ],
+    etapes: [
+      'Réponse : <b>' + x.b + '</b>, qui exprime ici : <b>' + x.v.toLowerCase() + '</b>.',
+      x.e,
+      'Le couple à ne jamais confondre : <b>mustn’t</b> = c’est interdit · ' +
+        '<b>don’t have to</b> = ce n’est pas obligatoire.'
+    ]
+  };
+});
+
+/* ---------- la voix passive ---------- */
+const PASSIF = [
+  { a: 'Shakespeare wrote this play.', p: 'This play was written by Shakespeare.', t: 'prétérit' },
+  { a: 'They built the bridge in 1890.', p: 'The bridge was built in 1890.', t: 'prétérit' },
+  { a: 'The government passed the law.', p: 'The law was passed by the government.', t: 'prétérit' },
+  { a: 'Someone stole my bike.', p: 'My bike was stolen.', t: 'prétérit' },
+  { a: 'They publish the magazine every month.', p: 'The magazine is published every month.', t: 'présent' },
+  { a: 'People speak English all over the world.', p: 'English is spoken all over the world.', t: 'présent' },
+  { a: 'The Supreme Court has overturned the decision.', p: 'The decision has been overturned by the Supreme Court.', t: 'present perfect' }
+];
+
+G('en-temps', 'en-passif', 'La voix passive', 'ent', function(){
+  const x = R.pick(PASSIF);
+  const sansPoint = x.p.replace(/\.$/, '');
+  return {
+    enonce: '<p>Mets cette phrase à la <b>voix passive</b>.</p>' +
+            '<div class="form">' + x.a + '</div>' +
+            '<p class="tiny">Écris la phrase complète. La ponctuation finale et les majuscules ne sont pas comptées.</p>',
+    champs: [{ type: 'texte', label: 'Voix passive', bon: x.p, alt: [sansPoint] }],
+    etapes: [
+      'Réponse : <b>' + x.p + '</b>',
+      'Méthode : le <b>complément d’objet</b> de la phrase active devient le <b>sujet</b> de la phrase passive.',
+      'Formation : <b>be</b> conjugué au même temps que le verbe actif (ici le ' + x.t + ') + <b>participe passé</b>.',
+      'L’agent n’est introduit par <i>by</i> que s’il apporte une information utile. ' +
+        'On l’omet souvent quand il est inconnu ou évident.'
+    ]
+  };
+});
+
+/* ---------- discours rapporté ---------- */
+const RAPPORTE = [
+  { d: '"I am tired," she said.', r: 'She said she was tired.', c: 'présent → prétérit' },
+  { d: '"We will come tomorrow," they said.', r: 'They said they would come the next day.',
+    c: 'will → would, et tomorrow → the next day' },
+  { d: '"I can help you," he said.', r: 'He said he could help me.', c: 'can → could, et you → me' },
+  { d: '"I saw her yesterday," he said.', r: 'He said he had seen her the day before.',
+    c: 'prétérit → past perfect, et yesterday → the day before' },
+  { d: '"I am working now," she said.', r: 'She said she was working then.',
+    c: 'présent be+ing → prétérit be+ing, et now → then' },
+  { d: '"We must leave," they said.', r: 'They said they had to leave.', c: 'must → had to' }
+];
+
+G('en-phrase', 'en-rapporte', 'Le discours rapporté', 'ent', function(){
+  const x = R.pick(RAPPORTE);
+  const sansPoint = x.r.replace(/\.$/, '');
+  const sansThat = x.r.replace(' said ', ' said that ');
+  return {
+    enonce: '<p>Transpose cette phrase au <b>discours rapporté</b>.</p>' +
+            '<div class="form">' + x.d + '</div>' +
+            '<p class="tiny">Écris la phrase complète. « that » est facultatif.</p>',
+    champs: [{ type: 'texte', label: 'Discours rapporté', bon: x.r,
+               alt: [sansPoint, sansThat, sansThat.replace(/\.$/, '')] }],
+    etapes: [
+      'Réponse : <b>' + x.r + '</b>',
+      'Changement opéré ici : <b>' + x.c + '</b>.',
+      'Quand le verbe introducteur est au passé, tout <b>recule d’un cran</b> : présent → prétérit, ' +
+        'prétérit → past perfect, will → would, can → could, must → had to.',
+      'Les repères bougent aussi : now → then · today → that day · yesterday → the day before · ' +
+        'tomorrow → the next day · here → there · this → that.'
+    ]
+  };
+});
+
+/* ---------- questions indirectes ---------- */
+const INDIRECTES = [
+  { d: 'Where does she live?', r: 'I wonder where she lives.',
+    e: 'Plus d’auxiliaire « does » et plus d’inversion : on remet l’ordre de la phrase affirmative.' },
+  { d: 'Is he coming?', r: 'I wonder if he is coming.',
+    e: 'Sans mot interrogatif, on introduit par « if » ou « whether », et on supprime l’inversion.' },
+  { d: 'What time did the film start?', r: 'I wonder what time the film started.',
+    e: 'L’auxiliaire « did » disparaît, et le verbe porte lui-même le prétérit.' },
+  { d: 'Why are they leaving?', r: 'I wonder why they are leaving.',
+    e: 'On garde le mot interrogatif, mais on rétablit l’ordre sujet + verbe.' },
+  { d: 'Can she speak Spanish?', r: 'I wonder if she can speak Spanish.',
+    e: 'Question fermée : « if » ou « whether », puis sujet + modal.' }
+];
+
+G('en-phrase', 'en-indirecte', 'Les questions indirectes', 'ent', function(){
+  const x = R.pick(INDIRECTES);
+  return {
+    enonce: '<p>Transforme cette question en <b>question indirecte</b>, en commençant par « I wonder ».</p>' +
+            '<div class="form">' + x.d + '</div>',
+    champs: [{ type: 'texte', label: 'Question indirecte', bon: x.r,
+               alt: [x.r.replace(/\.$/, ''), x.r.replace(' if ', ' whether '),
+                     x.r.replace(' if ', ' whether ').replace(/\.$/, '')] }],
+    etapes: [
+      'Réponse : <b>' + x.r + '</b>',
+      x.e,
+      'Les trois réflexes : plus d’<b>inversion</b>, plus d’auxiliaire <b>do / does / did</b>, ' +
+        'plus de <b>point d’interrogation</b>.'
+    ]
+  };
+});
+
+/* ---------- comparatifs ---------- */
+G('en-gn', 'en-comparatif', 'Comparatifs et superlatifs', 'app', function(){
+  const adj = [
+    { a: 'big', c: 'bigger', s: 'the biggest', t: 'court' },
+    { a: 'happy', c: 'happier', s: 'the happiest', t: 'court en -y' },
+    { a: 'easy', c: 'easier', s: 'the easiest', t: 'court en -y' },
+    { a: 'expensive', c: 'more expensive', s: 'the most expensive', t: 'long' },
+    { a: 'interesting', c: 'more interesting', s: 'the most interesting', t: 'long' },
+    { a: 'important', c: 'more important', s: 'the most important', t: 'long' },
+    { a: 'good', c: 'better', s: 'the best', t: 'irrégulier' },
+    { a: 'bad', c: 'worse', s: 'the worst', t: 'irrégulier' },
+    { a: 'hot', c: 'hotter', s: 'the hottest', t: 'court' },
+    { a: 'famous', c: 'more famous', s: 'the most famous', t: 'long' }
+  ];
+  const x = R.pick(adj);
+  return {
+    enonce: '<p>Donne le <b>comparatif de supériorité</b> et le <b>superlatif</b> de cet adjectif.</p>' +
+            '<div class="form"><b>' + x.a + '</b></div>',
+    champs: [
+      { type: 'texte', label: 'Comparatif', bon: x.c },
+      { type: 'texte', label: 'Superlatif', bon: x.s, alt: [x.s.replace('the ', '')] }
+    ],
+    etapes: [
+      '<b>' + x.a + ' → ' + x.c + ' → ' + x.s + '</b>. C’est un adjectif <b>' + x.t + '</b>.',
+      'Adjectif <b>court</b> : -er et the -est. Adjectif <b>long</b> : more et the most. ' +
+        'Un adjectif de deux syllabes terminé par -y est traité comme court, et le y devient i.',
+      'Les irréguliers à connaître : good → better → the best · bad → worse → the worst · ' +
+        'far → farther ou further → the farthest ou the furthest.'
+    ]
+  };
+});
+
+/* ---------- quantifieurs et distributifs ---------- */
+const QUANTIFIEURS = [
+  { p: 'She has ___ friends here, so she often feels lonely.', b: 'few', v: 'peu de, sens négatif',
+    e: '« few » sans article a un sens négatif : presque pas. Le contexte « feels lonely » le confirme.',
+    d: ['few', 'a few', 'little', 'a little'] },
+  { p: 'Don’t worry, I have ___ friends in London who can help.', b: 'a few', v: 'quelques, sens positif',
+    e: '« a few » a un sens positif : il y en a quelques-uns. L’article change entièrement le sens.',
+    d: ['a few', 'few', 'a little', 'little'] },
+  { p: 'We still have ___ time before the train leaves.', b: 'a little', v: 'un peu de, sens positif',
+    e: '« a little » accompagne un indénombrable et a un sens positif : il en reste un peu.',
+    d: ['a little', 'little', 'a few', 'few'] },
+  { p: 'There is ___ hope of finding them alive.', b: 'little', v: 'peu de, sens négatif',
+    e: '« little » sans article accompagne un indénombrable et a un sens négatif.',
+    d: ['little', 'a little', 'few', 'a few'] },
+  { p: 'How ___ students are there in your class?', b: 'many', v: 'dénombrable',
+    e: '« many » accompagne les dénombrables, « much » les indénombrables.',
+    d: ['many', 'much', 'few', 'little'] },
+  { p: '___ answers are correct, you can choose either.', b: 'Both', v: 'les deux ensemble',
+    e: '« both » désigne les deux pris ensemble.',
+    d: ['Both', 'Either', 'Every', 'Each'] },
+  { p: '___ student received a personal letter.', b: 'Each', v: 'chaque, un par un',
+    e: '« each » envisage les éléments un par un, « every » les voit comme un ensemble.',
+    d: ['Each', 'Both', 'Either', 'All'] }
+];
+
+G('en-gn', 'en-quantifieurs', 'Quantifieurs et distributifs', 'ent', function(){
+  const x = R.pick(QUANTIFIEURS);
+  const opts = R.shuffle(x.d.slice());
+  return {
+    enonce: '<p>Complète cette phrase.</p>' +
+            '<div class="form">' + x.p.replace('___', '<b>___</b>') + '</div>',
+    qcm: { options: opts, bon: opts.indexOf(x.b) },
+    etapes: [
+      'Réponse : <b>' + x.b + '</b> · ' + x.v + '.',
+      x.e,
+      'À retenir : <b>a few</b> et <b>a little</b> sont positifs, <b>few</b> et <b>little</b> sont négatifs. ' +
+        'L’article fait basculer le sens.'
+    ]
+  };
+});
+
+/* ---------- pronoms relatifs ---------- */
+const RELATIFS = [
+  { p: 'The woman ___ wrote this article is a journalist.', b: 'who',
+    e: '« who » est sujet du verbe « wrote » et renvoie à une personne.' },
+  { p: 'The artist ___ work was censored left the country.', b: 'whose',
+    e: '« whose » exprime l’appartenance : c’est le travail DE l’artiste.' },
+  { p: 'The book ___ I read last week was fascinating.', b: 'which',
+    e: '« which » renvoie à une chose et est complément. Ici, il pourrait même être effacé.' },
+  { p: 'The man ___ I met at the conference is a bioethicist.', b: 'whom',
+    e: '« whom » est complément et renvoie à une personne. C’est la forme soutenue, au programme en B1+.' },
+  { p: 'The city ___ he was born has changed a lot.', b: 'where',
+    e: '« where » renvoie à un lieu.' },
+  { p: 'The year ___ the law was passed was 1972.', b: 'when',
+    e: '« when » renvoie à un moment.' }
+];
+
+G('en-phrase', 'en-relatifs', 'Les pronoms relatifs', 'ent', function(){
+  const x = R.pick(RELATIFS);
+  const noms = ['who', 'whom', 'whose', 'which', 'where', 'when'];
+  return {
+    enonce: '<p>Complète avec le pronom relatif qui convient.</p>' +
+            '<div class="form">' + x.p.replace('___', '<b>___</b>') + '</div>',
+    qcm: { options: noms.slice(), bon: noms.indexOf(x.b) },
+    etapes: [
+      'Réponse : <b>' + x.b + '</b>.', x.e,
+      'Le repère : <b>who</b> sujet pour une personne · <b>whom</b> complément pour une personne · ' +
+        '<b>which</b> pour une chose · <b>whose</b> pour l’appartenance · <b>where</b> pour un lieu · ' +
+        '<b>when</b> pour un moment.'
+    ]
+  };
+});
+
+/* ---------- connecteurs ---------- */
+const CONNECTEURS = [
+  { r: 'ajouter une idée', b: 'moreover', d: ['moreover', 'however', 'for instance', 'consequently'] },
+  { r: 'opposer deux idées', b: 'however', d: ['however', 'moreover', 'therefore', 'namely'] },
+  { r: 'donner un exemple', b: 'for instance', d: ['for instance', 'nevertheless', 'as a result', 'besides'] },
+  { r: 'exprimer une conséquence', b: 'as a result', d: ['as a result', 'on the contrary', 'such as', 'furthermore'] },
+  { r: 'conclure', b: 'to sum up', d: ['to sum up', 'for example', 'whereas', 'in addition'] },
+  { r: 'marquer une concession', b: 'nevertheless', d: ['nevertheless', 'thus', 'namely', 'moreover'] },
+  { r: 'dire « finalement »', b: 'eventually', d: ['eventually', 'actually', 'possibly', 'currently'] },
+  { r: 'dire « en fait »', b: 'actually', d: ['actually', 'eventually', 'finally', 'presently'] }
+];
+
+G('en-phrase', 'en-connecteurs', 'Les connecteurs logiques', 'app', function(){
+  const x = R.pick(CONNECTEURS);
+  const opts = R.shuffle(x.d.slice());
+  return {
+    enonce: '<p>Quel connecteur emploie-t-on pour <b>' + x.r + '</b> ?</p>',
+    qcm: { options: opts, bon: opts.indexOf(x.b) },
+    etapes: [
+      'Réponse : <b>' + x.b + '</b>.',
+      'Deux faux amis à ne jamais confondre : <b>eventually</b> signifie « finalement », ' +
+        'et <b>actually</b> signifie « en fait », pas « actuellement ».',
+      'Un connecteur en tête de paragraphe rend la structure visible immédiatement : c’est rentable en devoir.'
+    ]
+  };
+});
+
+/* ---------- phrasal verbs ---------- */
+const PHRASAL = [
+  { v: 'to give up', s: 'abandonner, renoncer' },
+  { v: 'to look forward to', s: 'attendre avec impatience' },
+  { v: 'to get by', s: 'se débrouiller, s’en sortir' },
+  { v: 'to cheer up', s: 'remonter le moral' },
+  { v: 'to figure out', s: 'comprendre, résoudre' },
+  { v: 'to carry out', s: 'mener à bien, réaliser' },
+  { v: 'to point out', s: 'souligner, faire remarquer' },
+  { v: 'to bring about', s: 'provoquer, entraîner' },
+  { v: 'to look into', s: 'examiner, enquêter sur' },
+  { v: 'to put up with', s: 'supporter, tolérer' },
+  { v: 'to come up with', s: 'trouver une idée, proposer' },
+  { v: 'to turn down', s: 'refuser, rejeter' }
+];
+
+G('en-phrase', 'en-phrasal', 'Les phrasal verbs', 'app', function(){
+  const x = R.pick(PHRASAL);
+  return {
+    enonce: '<p>Que signifie ce verbe à particule ?</p>' +
+            '<div class="form"><b>' + x.v + '</b></div>',
+    qcm: qcm4(x.s, PHRASAL.map(y => y.s)),
+    etapes: [
+      '<b>' + x.v + '</b> signifie « ' + x.s + ' ».',
+      'Un phrasal verb a un sens que l’on ne devine pas à partir du verbe seul : il s’apprend en bloc.',
+      'Le programme en attend « quelques-uns » au niveau B1 et « un large répertoire » au niveau B1+.'
+    ]
+  };
+});
+
+/* ---------- lexique des axes ---------- */
+const LEXIQUE_EN = [
+  { m: 'to grant citizenship', s: 'accorder la nationalité', ch: 'en-a1-identites' },
+  { m: 'foreign-born', s: 'né à l’étranger', ch: 'en-a1-identites' },
+  { m: 'asylum-seekers', s: 'demandeurs d’asile', ch: 'en-a1-identites' },
+  { m: 'a lasting contribution', s: 'un apport durable', ch: 'en-a1-identites' },
+  { m: 'push and pull factors', s: 'facteurs de départ et d’attraction', ch: 'en-a1-identites' },
+  { m: 'upward mobility', s: 'ascension sociale', ch: 'en-a2-diversite' },
+  { m: 'to perpetuate discrimination', s: 'perpétuer la discrimination', ch: 'en-a2-diversite' },
+  { m: 'to overturn a law', s: 'annuler une loi', ch: 'en-a2-diversite' },
+  { m: 'a dissenting vote', s: 'une opinion dissidente', ch: 'en-a2-diversite' },
+  { m: 'to file a lawsuit', s: 'intenter un procès', ch: 'en-a2-diversite' },
+  { m: 'to convey a message', s: 'transmettre un message', ch: 'en-a3-art' },
+  { m: 'to expose injustice', s: 'dénoncer l’injustice', ch: 'en-a3-art' },
+  { m: 'to debunk', s: 'démystifier, démonter une idée reçue', ch: 'en-a3-art' },
+  { m: 'to portray', s: 'représenter, dépeindre', ch: 'en-a3-art' },
+  { m: 'a knock-on effect', s: 'un effet en cascade', ch: 'en-a4-innovations' },
+  { m: 'a deterrent', s: 'un moyen de dissuasion', ch: 'en-a4-innovations' },
+  { m: 'to skyrocket', s: 'monter en flèche', ch: 'en-a4-innovations' },
+  { m: 'to plummet', s: 'chuter brutalement', ch: 'en-a4-innovations' },
+  { m: 'fossil fuels', s: 'les énergies fossiles', ch: 'en-a4-innovations' },
+  { m: 'endangered species', s: 'espèces menacées', ch: 'en-a5-nature' },
+  { m: 'wetlands', s: 'zones humides', ch: 'en-a5-nature' },
+  { m: 'to alleviate', s: 'atténuer, soulager', ch: 'en-a5-nature' },
+  { m: 'healthy habitats', s: 'des milieux naturels préservés', ch: 'en-a5-nature' },
+  { m: 'to fall short of', s: 'ne pas être à la hauteur de', ch: 'en-a5-nature' }
+];
+
+['en-a1-identites', 'en-a2-diversite', 'en-a3-art', 'en-a4-innovations', 'en-a5-nature'].forEach(function(ch){
+  G(ch, ch + '-lexique', 'Le lexique de l’axe', 'app', function(){
+    const locaux = LEXIQUE_EN.filter(y => y.ch === ch);
+    const x = R.pick(locaux);
+    return {
+      enonce: '<p>Que signifie cette expression, tirée du lexique officiel de l’axe ?</p>' +
+              '<div class="form"><b>' + x.m + '</b></div>',
+      qcm: qcm4(x.s, LEXIQUE_EN.map(y => y.s)),
+      etapes: [
+        '<b>' + x.m + '</b> signifie « ' + x.s + ' ».',
+        'Ce lexique figure au programme officiel pour cet axe : le réutiliser en devoir est ce que le professeur cherche en priorité.'
+      ]
+    };
+  });
+});
+
+/* ---------- les axes et le programme ---------- */
+const AXES_EN = [
+  { n: 'Identités et échanges', ch: 'en-a1-identites',
+    o: ['Migrations et politiques d’accueil : le cas du Canada',
+        'La Windrush generation et sa contribution à la société du Royaume-Uni',
+        'Les frontières, lieux d’échanges ?'] },
+  { n: 'Diversité et inclusion', ch: 'en-a2-diversite',
+    o: ['Logement et mixité sociale', 'La Cour suprême des États-Unis : matrice d’inclusion et d’exclusion',
+        'Représentation politique des Peuples premiers : intégration ou appropriation ?'] },
+  { n: 'Art et pouvoir', ch: 'en-a3-art',
+    o: ['L’art comme vecteur de résistance ou de reconnaissance',
+        'S’engager dans la presse et les médias : dessins, caricatures et photojournalisme'] },
+  { n: 'Innovations scientifiques et responsabilité', ch: 'en-a4-innovations',
+    o: ['À qui appartient l’espace ?', 'Énergies d’hier et de demain : l’exemple de l’Écosse',
+        'La science et la quête de l’homme parfait'] },
+  { n: 'L’être humain et la nature', ch: 'en-a5-nature',
+    o: ['Les parcs nationaux, outils de préservation de la nature',
+        'L’homme face à la nature et aux évènements météorologiques',
+        'La sacralisation de la nature dans l’art et dans la fiction'] },
+  { n: 'Les aires anglophones américaines', ch: 'en-a6-ameriques',
+    o: ['Les Caraïbes dans les Amériques et le monde', 'Porto Rico : le 51e État ?',
+        'Vancouver et Seattle : regards croisés'] }
+];
+
+G('en-a6-ameriques', 'en-axes-objets', 'Relier un objet d’étude à son axe', 'app', function(){
+  const a = R.pick(AXES_EN);
+  const o = R.pick(a.o);
+  return {
+    enonce: '<p>À quel axe du programme de première se rattache cet objet d’étude ?</p>' +
+            '<div class="form">' + o + '</div>',
+    qcm: qcm4(a.n, AXES_EN.map(x => x.n)),
+    etapes: [
+      'Cet objet d’étude relève de l’axe <b>' + a.n + '</b>.',
+      'Le programme impose de traiter <b>cinq axes sur six</b> dans l’année, ' +
+        'dont obligatoirement l’<b>axe 6, les aires anglophones américaines</b>.'
+    ]
+  };
+});
+
+const PROG_EN = [
+  { q: 'Combien d’axes le programme d’anglais de première comporte-t-il ?', b: 'Six',
+    v: ['Quatre', 'Cinq', 'Six', 'Huit'] },
+  { q: 'Combien d’axes doivent être traités dans l’année en voie générale ?', b: 'Cinq sur six, dont obligatoirement l’axe 6',
+    v: ['Les six', 'Cinq sur six, dont obligatoirement l’axe 6', 'Trois au minimum', 'Quatre au choix'] },
+  { q: 'Sur quelle aire géographique porte l’axe 6 en classe de première ?', b: 'Les aires anglophones américaines',
+    v: ['Les aires anglophones américaines', 'Les pays du Commonwealth',
+        'Le Royaume-Uni et ses nations', 'L’Australie et la Nouvelle-Zélande'] },
+  { q: 'Quel niveau du CECRL est visé en fin de première en LVA ?', b: 'B1+',
+    v: ['A2+', 'B1', 'B1+', 'B2'] },
+  { q: 'Quel niveau est visé en fin de terminale en LVA ?', b: 'B2',
+    v: ['B1', 'B1+', 'B2', 'C1'] },
+  { q: 'Que signifie le signe « + » accolé à un niveau du CECRL ?', b: 'Le niveau supérieur est atteint dans au moins une des activités langagières',
+    v: ['Le niveau supérieur est atteint dans au moins une des activités langagières',
+        'Le niveau est dépassé dans toutes les activités', 'Le niveau est en cours d’acquisition',
+        'Le niveau correspond à une option facultative'] },
+  { q: 'Quel est l’horaire hebdomadaire de LVA et LVB en première générale ?', b: '4 h 30',
+    v: ['3 h', '4 h', '4 h 30', '5 h 30'] }
+];
+
+G('en-comprehension', 'en-programme', 'Le programme et les niveaux', 'app', function(){
+  const x = R.pick(PROG_EN);
+  const opts = R.shuffle(x.v.slice());
+  return {
+    enonce: '<p>' + x.q + '</p>',
+    qcm: { options: opts, bon: opts.indexOf(x.b) },
+    etapes: ['Réponse : <b>' + x.b + '</b>.',
+             'Progression du lycée en LVA : seconde B1+, première B1+, terminale B2. ' +
+               'En LVB : seconde A2+, première B1, terminale B1.']
+  };
+});
+
+/* ---------- erreurs classiques ---------- */
+const FAUTES_EN = [
+  { f: 'She go to school every day.', c: 'She goes to school every day.',
+    e: 'Le -s de la troisième personne du singulier au présent simple.' },
+  { f: 'I live here since 2019.', c: 'I have lived here since 2019.',
+    e: '« since » impose le present perfect, jamais le présent.' },
+  { f: 'If it will rain, we will stay home.', c: 'If it rains, we will stay home.',
+    e: 'Jamais « will » après « if » dans une hypothèse : présent après if, futur dans la principale.' },
+  { f: 'They are very interesteds by this topic.', c: 'They are very interested in this topic.',
+    e: 'Les adjectifs anglais sont invariables, et l’on dit « interested in », pas « interested by ».' },
+  { f: 'He gave me an advice.', c: 'He gave me some advice.',
+    e: '« advice » est indénombrable : ni article « an », ni pluriel.' },
+  { f: 'I have 17 years old.', c: 'I am 17 years old.',
+    e: 'L’âge s’exprime avec « be », pas avec « have ».' },
+  { f: 'She explained me the rule.', c: 'She explained the rule to me.',
+    e: '« explain » se construit avec « to » devant la personne.' },
+  { f: 'It depends of the context.', c: 'It depends on the context.',
+    e: '« to depend » se construit avec « on ».' }
+];
+
+G('en-expression', 'en-fautes', 'Corriger l’erreur', 'ent', function(){
+  const x = R.pick(FAUTES_EN);
+  const opts = R.shuffle([x.c].concat(autres(FAUTES_EN.map(y => y.c), x.c, 3)));
+  return {
+    enonce: '<p>Cette phrase contient une erreur. Quelle est la version correcte ?</p>' +
+            '<div class="form">' + x.f + '</div>',
+    qcm: { options: opts, bon: opts.indexOf(x.c) },
+    etapes: ['Version correcte : <b>' + x.c + '</b>', x.e,
+             'Ces erreurs reviennent dans presque toutes les copies : les connaître, c’est gagner des points sans effort.']
+  };
+});
+
+/* ---------- accentuation ---------- */
+const ACCENTS_EN = [
+  { m: 'education', a: 3, n: 4, e: 'Les mots en -ion s’accentuent sur la syllabe qui précède le suffixe : e-du-CA-tion.' },
+  { m: 'scientific', a: 3, n: 4, e: 'Les mots en -ic s’accentuent sur la syllabe qui précède le suffixe : sci-en-TI-fic.' },
+  { m: 'photograph', a: 1, n: 3, e: 'PHO-to-graph, accent sur la première syllabe.' },
+  { m: 'photography', a: 2, n: 4, e: 'pho-TO-gra-phy : l’ajout du suffixe -y déplace l’accent.' },
+  { m: 'responsibility', a: 4, n: 6, e: 'Les mots en -ity s’accentuent sur la syllabe qui précède le suffixe : res-pon-si-BI-li-ty.' },
+  { m: 'political', a: 2, n: 4, e: 'Les mots en -ical s’accentuent sur la syllabe qui précède le suffixe : po-LI-ti-cal.' }
+];
+
+G('en-phono', 'en-accent', 'L’accent de mot', 'ent', function(){
+  const x = R.pick(ACCENTS_EN);
+  return {
+    enonce: '<p>Sur quelle syllabe tombe l’accent principal de ce mot ?</p>' +
+            '<div class="form"><b>' + x.m + '</b><span class="form-leg">le mot compte ' + x.n + ' syllabes</span></div>',
+    champs: [{ type: 'num', label: 'Numéro de la syllabe accentuée', bon: x.a, tol: 0 }],
+    etapes: [
+      'L’accent tombe sur la <b>syllabe ' + x.a + '</b>.', x.e,
+      'Les règles utiles : les suffixes <b>-ion, -ic, -ical, -ity</b> attirent l’accent sur la syllabe ' +
+        'qui les <b>précède</b>. Un mot mal accentué peut devenir incompréhensible, même bien prononcé.'
+    ]
+  };
+});
+
+/* ---------- exercices rédigés ---------- */
+
+D('en-expression', 'en-essay', 'Rédiger un texte argumenté', function(){
+  const sujets = [
+    { s: 'Do national parks really protect nature, or do they turn it into a tourist product?', a: 'en-a5-nature' },
+    { s: 'Has migration made the anglophone world richer? Discuss.', a: 'en-a1-identites' },
+    { s: 'Can art change the way people see power?', a: 'en-a3-art' },
+    { s: 'Should scientific progress always be allowed?', a: 'en-a4-innovations' },
+    { s: 'Are courts better than parliaments at protecting minorities?', a: 'en-a2-diversite' }
+  ];
+  const x = R.pick(sujets);
+  return {
+    enonce: '<p><b>Essay question</b>, en lien avec l’axe « ' + CHAP[x.a].titre + ' » :</p>' +
+            '<div class="form">' + x.s + '</div>' +
+            '<p>Rédige sur ton cahier un texte argumenté d’environ <b>150 à 180 mots</b>.</p>',
+    aide: 'Introduction courte, deux ou trois paragraphes portant chacun une idée et un exemple précis, ' +
+          'puis une conclusion nuancée. Réutilise le lexique de l’axe.',
+    bareme: [
+      { pts: 2, d: '<b>Introduction</b> : la question est reformulée et l’angle annoncé, en deux phrases maximum. ' +
+                   'Pas de « In this essay I will talk about ».' },
+      { pts: 3, d: '<b>Un paragraphe = une idée</b>, annoncée dès la première phrase, puis développée. ' +
+                   'Deux ou trois paragraphes.' },
+      { pts: 3, d: '<b>Exemples précis</b> tirés de l’axe étudié : un pays, une œuvre, une loi, un évènement nommé. ' +
+                   'Un exemple général ne compte pas.' },
+      { pts: 2, d: '<b>Lexique de l’axe</b> réutilisé, au moins trois expressions du programme.' },
+      { pts: 2, d: '<b>Connecteurs</b> variés et bien placés : however, moreover, as a result, on the other hand.' },
+      { pts: 3, d: '<b>Variété des structures</b> : au moins une subordonnée relative, un modal, ' +
+                   'et une hypothèse ou un comparatif.' },
+      { pts: 3, d: '<b>Correction de la langue</b> : les -s de troisième personne, les temps, ' +
+                   'les adjectifs invariables, les prépositions après les verbes.' },
+      { pts: 2, d: '<b>Conclusion nuancée</b> qui répond vraiment à la question, sans répéter l’introduction.' },
+      { pts: 0, d: '<span class="tiny">Zéro point, mais vérifie-le : as-tu employé un seul « will » après « if » ? ' +
+                   'Si oui, corrige-le.</span>' }
+    ]
+  };
+});
+
+D('en-expression', 'en-oral', 'Préparer une prise de parole en continu', function(){
+  const a = R.pick(AXES_EN);
+  return {
+    enonce: '<p>Tu dois présenter en anglais, pendant <b>deux à trois minutes</b>, une réflexion ' +
+            'sur l’axe suivant :</p>' +
+            '<div class="form">' + a.n + '</div>' +
+            '<p>Prépare ta prise de parole au brouillon, puis dis-la à voix haute en te chronométrant.</p>',
+    aide: 'Ne rédige pas : note des mots clés. Un oral lu s’entend immédiatement. ' +
+          'Structure : annonce, deux idées avec exemples, conclusion.',
+    bareme: [
+      { pts: 2, d: '<b>Annonce</b> claire du sujet et de l’angle : <i>I would like to focus on…</i>' },
+      { pts: 3, d: '<b>Deux idées distinctes</b>, chacune illustrée par un <b>exemple concret</b> ' +
+                   'tiré des objets d’étude de l’axe.' },
+      { pts: 2, d: '<b>Lexique de l’axe</b> employé naturellement, pas plaqué.' },
+      { pts: 2, d: '<b>Nuance</b> : au moins un modal ou une formule de nuance ' +
+                   '(<i>it might suggest</i>, <i>to a certain extent</i>).' },
+      { pts: 2, d: '<b>Conclusion</b> qui ouvre ou qui tranche, pas une simple répétition.' },
+      { pts: 3, d: '<b>Fluidité</b> : pas de lecture, des pauses au bon endroit, ' +
+                   'et une reformulation plutôt qu’un blocage en cas de mot manquant.' },
+      { pts: 3, d: '<b>Prononciation</b> : accent de mot respecté sur les mots longs, ' +
+                   '/h/ prononcé, voyelles longues et courtes distinguées.' },
+      { pts: 2, d: '<b>Durée</b> tenue : entre deux et trois minutes, chronomètre à l’appui.' },
+      { pts: 1, d: '<b>Intonation</b> : montante en fin de question fermée, descendante en fin d’affirmation.' }
+    ]
+  };
+});
+/* =========================================================================
+   MATIÈRE : enseignement moral et civique, première générale.
+
+   Programme NEUF : arrêté du 29 mai 2024, BO n°24 du 13 juin 2024
+   (NOR MENE2413934A). Entrée en vigueur progressive au lycée :
+   seconde à la rentrée 2024, PREMIÈRE à la rentrée 2025-2026,
+   terminale à la rentrée 2026-2027.
+   C'est donc bien ce programme qui s'applique en première en 2026-2027,
+   et non celui de 2019.
+
+   Classe de première : « Cohésion et diversité dans une société
+   démocratique », deux parties de 9 heures chacune en voies générale
+   et technologique.
+   ========================================================================= */
+
+MAT['emc'].pret = true;
+
+BLOCS.push(
+  { id: 'emc-valeurs', nom: 'Les valeurs de la République et la cohésion sociale', matiere: 'emc' },
+  { id: 'emc-nation',  nom: 'La République et la Nation',                          matiere: 'emc' },
+  { id: 'emc-method',  nom: 'La démarche de l’EMC',                                matiere: 'emc' }
+);
+
+const CHAPITRES_EMC = [
+
+/* ================= PARTIE 1 ================= */
+{
+  id: 'emc-solidarite', bloc: 'emc-valeurs', titre: 'Solidarité et fraternité',
+  resume: 'La Nation porteuse d’un projet social.',
+  capacites: [
+    'Étudier la notion de solidarité à différentes échelles, dans ses conditions formelles et ses modalités concrètes.',
+    'Distinguer logique d’assurance et logique d’assistance, contributions obligatoires et dons volontaires.',
+    'Expliquer en quoi les inégalités économiques et sociales peuvent menacer la cohésion sociale et la démocratie.',
+    'Analyser la reconnaissance de la valeur constitutionnelle du principe de fraternité.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'À quoi ça sert ?', c:
+      '<p>La devise de la République place la <b>fraternité</b> à côté de la liberté et de l’égalité. ' +
+      'Ce chapitre montre qu’il ne s’agit pas d’un mot décoratif : c’est un principe qui a une ' +
+      '<b>valeur juridique</b> et des traductions concrètes, de l’impôt au don du sang.</p>' },
+    { k: 'prop', t: 'Ce que dit le programme', c:
+      '<ul><li>La devise de la République et l’article premier de la Constitution indiquent que la Nation ' +
+      'est porteuse d’un <b>projet social</b> : lutter contre toutes les formes d’inégalité, et tisser ' +
+      'des liens étroits de solidarité entre les citoyens.</li>' +
+      '<li>Les <b>inégalités économiques et sociales</b> peuvent présenter un danger pour la cohésion sociale ' +
+      'et pour la démocratie elle-même.</li></ul>' },
+    { k: 'def', t: 'Assurance ou assistance ?', c:
+      '<p>Deux logiques différentes, souvent confondues :</p>' +
+      '<ul><li><b>Assurance</b> : on cotise, et l’on est couvert en cas de risque. ' +
+      'C’est la logique de la Sécurité sociale, de l’assurance chômage, de la retraite.</li>' +
+      '<li><b>Assistance</b> : la solidarité nationale aide sans contrepartie de cotisation, ' +
+      'au titre de la situation de la personne. C’est la logique du RSA, des fonds sociaux à destination des élèves.</li></ul>' +
+      '<p>À cela s’ajoutent les <b>dons volontaires</b>, comme le don du sang, qui relèvent d’une solidarité choisie.</p>' },
+    { k: 'reperes', t: 'La décision qui a tout changé', c:
+      '<ul class="dates">' +
+      '<li><b>6 juillet 2018</b> <span>le Conseil constitutionnel reconnaît la <b>valeur constitutionnelle ' +
+      'du principe de fraternité</b></span></li></ul>' +
+      '<p>Jusque-là, la fraternité était vue comme un idéal moral. Depuis cette décision, c’est un principe ' +
+      'dont on peut se réclamer devant un juge. C’est le point de passage obligé du chapitre.</p>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Citer la décision du <b>6 juillet 2018</b> montre immédiatement que le chapitre est maîtrisé.</li>' +
+      '<li>Ne pas confondre <b>égalité</b> et <b>solidarité</b> : l’égalité est un principe de droit, ' +
+      'la solidarité un mécanisme de redistribution.</li>' +
+      '<li>L’exemple attendu par le programme : le financement de l’école publique et les fonds sociaux ' +
+      'destinés aux élèves. C’est concret, et c’est vous.</li></ul>' }
+  ]
+},
+{
+  id: 'emc-egalite', bloc: 'emc-valeurs', titre: 'Égalité femmes-hommes',
+  resume: 'Un principe qui transforme la société, non sans résistances.',
+  capacites: [
+    'Mettre en regard l’évolution juridique et les données statistiques sur la place des femmes.',
+    'Analyser les causes historiques des inégalités : stéréotypes et préjugés.',
+    'Étudier la représentation genrée des formations et des professions, et les actions pour la dépasser.',
+    'Montrer que les violences sexistes et sexuelles portent atteinte à la cohésion d’une société démocratique.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'À quoi ça sert ?', c:
+      '<p>Le programme choisit une formulation précise : l’égalité femmes-hommes « illustre la manière dont ' +
+      'un principe, objet de mobilisations et de politiques volontaristes, <b>transforme progressivement ' +
+      'la société, tout en se heurtant à diverses formes de résistance</b> ».</p>' +
+      '<p>Les deux moitiés comptent : la transformation <b>et</b> les résistances.</p>' },
+    { k: 'reperes', t: 'Les étapes juridiques', c:
+      '<ul class="dates">' +
+      '<li><b>1944</b> <span>droit de vote et d’éligibilité des femmes</span></li>' +
+      '<li><b>1965</b> <span>les femmes mariées peuvent travailler et ouvrir un compte sans l’accord du mari</span></li>' +
+      '<li><b>1972</b> <span>principe « à travail égal, salaire égal » inscrit dans la loi</span></li>' +
+      '<li><b>1975</b> <span>loi Veil sur l’interruption volontaire de grossesse</span></li>' +
+      '<li><b>2000</b> <span>loi sur la parité en politique</span></li>' +
+      '<li><b>2024</b> <span>la liberté de recourir à l’IVG entre dans la Constitution</span></li></ul>' },
+    { k: 'prop', t: 'Le droit ne suffit pas', c:
+      '<p>Le programme demande de <b>mettre en regard</b> deux séries de données : les textes juridiques, ' +
+      'et les statistiques réelles sur la vie quotidienne, l’univers professionnel et la vie politique.</p>' +
+      '<p>L’écart entre les deux est précisément l’objet du chapitre. Il s’explique par les ' +
+      '<b>stéréotypes et les préjugés</b>, qui orientent notamment les choix de formation ' +
+      'et la représentation genrée des métiers.</p>' },
+    { k: 'prop', t: 'Violences sexistes et sexuelles', c:
+      '<p>En lien avec l’éducation à la vie affective, relationnelle et sexuelle, le programme demande de montrer ' +
+      'que ces violences <b>portent atteinte à la cohésion d’une société démocratique</b> : ' +
+      'elles ne sont pas seulement des atteintes individuelles.</p>' +
+      '<p>Il demande aussi d’étudier les actions menées pour lutter contre.</p>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Toujours associer une <b>avancée juridique</b> et une <b>donnée chiffrée</b> : ' +
+      'c’est exactement la démarche demandée.</li>' +
+      '<li>La représentation genrée des formations est l’exemple le plus proche de vous : ' +
+      'la part des filles en spécialité mathématiques ou en NSI se discute très bien.</li>' +
+      '<li>Le mot « résistance » est dans le programme : ne pas raconter une marche linéaire vers le progrès.</li></ul>' }
+  ]
+},
+{
+  id: 'emc-discriminations', bloc: 'emc-valeurs', titre: 'Discriminations et société inclusive',
+  resume: 'Du principe d’égalité à la société inclusive.',
+  capacites: [
+    'Distinguer la définition juridique des discriminations et la manière dont elles sont ressenties.',
+    'Examiner les moyens mis en œuvre par l’État pour mesurer les discriminations.',
+    'Étudier l’action d’une institution ou d’une association luttant contre les discriminations.',
+    'Aborder la question du traitement médiatique des minorités.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'À quoi ça sert ?', c:
+      '<p>Le mot « discrimination » est employé partout, souvent à tort. Ce chapitre apprend à distinguer ' +
+      'ce qui est <b>juridiquement</b> une discrimination de ce qui est <b>ressenti</b> comme tel. ' +
+      'Cette distinction est explicitement demandée par le programme.</p>' },
+    { k: 'def', t: 'La définition juridique', c:
+      '<p>Une discrimination, au sens du <b>Code pénal, articles 225-1 et suivants</b>, est un traitement ' +
+      'défavorable appliqué à une personne en raison d’un <b>critère interdit par la loi</b>.</p>' +
+      '<p>Trois éléments doivent être réunis : un <b>traitement défavorable</b>, un <b>critère prohibé</b> ' +
+      '(origine, sexe, handicap, âge, religion, orientation sexuelle, état de santé, etc.), ' +
+      'et un <b>domaine visé</b> par la loi, comme l’emploi, le logement ou l’accès à un service.</p>' +
+      '<p>Sans ces trois éléments, il peut y avoir injustice, mais pas discrimination au sens juridique.</p>' },
+    { k: 'prop', t: 'La société inclusive', c:
+      '<p>Le programme lie explicitement la lutte contre les discriminations aux principes d’<b>égalité</b> ' +
+      'et de <b>fraternité</b>.</p>' +
+      '<p>La conception d’une <b>société inclusive</b>, tournée vers les personnes en situation de handicap, ' +
+      'y ajoute un <b>impératif de solidarité</b>. Il ne s’agit plus seulement de ne pas exclure, ' +
+      'mais d’adapter la société pour permettre la participation de tous.</p>' },
+    { k: 'def', t: 'Les institutions à connaître', c:
+      '<ul><li><b>Le Défenseur des droits</b> : autorité constitutionnelle indépendante, saisissable ' +
+      'gratuitement par toute personne s’estimant discriminée.</li>' +
+      '<li><b>La Dilcrah</b> : délégation interministérielle à la lutte contre le racisme, l’antisémitisme ' +
+      'et la haine anti-LGBT.</li>' +
+      '<li><b>La CNCDH</b> : commission nationale consultative des droits de l’homme, qui publie ' +
+      'un rapport annuel sur le racisme.</li></ul>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Citer l’<b>article 225-1 du Code pénal</b> ancre la réponse dans le droit, ' +
+      'et c’est ce que le programme demande.</li>' +
+      '<li>Mesurer les discriminations est difficile en France : les statistiques ethniques y sont interdites. ' +
+      'On procède par <b>testing</b> et par enquêtes de victimation. Le dire montre une vraie compréhension.</li>' +
+      '<li>Sur le traitement médiatique des minorités, le programme fait un lien explicite avec ' +
+      'l’éducation aux médias et à l’information.</li></ul>' }
+  ]
+},
+{
+  id: 'emc-racisme', bloc: 'emc-valeurs', titre: 'Racisme, antisémitisme et haines',
+  resume: 'Ce que la loi punit, et pourquoi.',
+  capacites: [
+    'Identifier les agissements discriminatoires : paroles, violences, harcèlement.',
+    'Réfléchir aux objectifs et aux contours des normes juridiques qui les punissent.',
+    'Connaître les grandes lois de lutte contre le racisme et les discriminations.',
+    'Expliquer en quoi ces agissements portent atteinte à la cohésion d’une société démocratique.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'À quoi ça sert ?', c:
+      '<p>Le programme énumère précisément : le <b>racisme</b>, l’<b>antisémitisme</b>, l’<b>antitsiganisme</b>, ' +
+      'la <b>xénophobie</b> et la <b>haine anti-LGBT</b>. Tous portent atteinte à la cohésion d’une société ' +
+      'démocratique, et tous sont <b>punis par la loi</b>.</p>' +
+      '<p>La question de fond du chapitre : jusqu’où la liberté d’expression peut-elle aller ?</p>' },
+    { k: 'reperes', t: 'Les trois lois du programme', c:
+      '<ul class="dates">' +
+      '<li><b>1er juillet 1972</b> <span>loi <b>Pleven</b> : réprime la provocation à la haine raciale, ' +
+      'la diffamation et l’injure à caractère raciste</span></li>' +
+      '<li><b>13 juillet 1990</b> <span>loi <b>Gayssot</b> : réprime la contestation des crimes contre ' +
+      'l’humanité, dont la négation de la Shoah</span></li>' +
+      '<li><b>30 décembre 2004</b> <span>étend la répression aux propos discriminatoires fondés sur le sexe, ' +
+      'l’orientation sexuelle ou le handicap, et crée la Halde</span></li></ul>' },
+    { k: 'prop', t: 'Liberté d’expression et limites', c:
+      '<p>La liberté d’expression est un principe fondamental, mais elle n’est pas absolue. ' +
+      'Le droit français distingue :</p>' +
+      '<ul><li>l’<b>opinion</b>, libre, même choquante ;</li>' +
+      '<li>l’<b>injure</b> et la <b>diffamation</b> à caractère raciste, punies ;</li>' +
+      '<li>la <b>provocation à la haine</b> ou à la violence, punie plus sévèrement ;</li>' +
+      '<li>la <b>contestation de crimes contre l’humanité</b>, punie depuis 1990.</li></ul>' +
+      '<p>Le racisme n’est donc pas une opinion au sens juridique : c’est un <b>délit</b>.</p>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Retenir les trois lois par leur <b>nom</b> et leur <b>date</b> : Pleven 1972, Gayssot 1990, et 2004. ' +
+      'Elles sont nommément au programme.</li>' +
+      '<li>La formule qui fait mouche : « le racisme n’est pas une opinion, c’est un délit ».</li>' +
+      '<li>Le harcèlement, y compris en ligne, entre dans ce champ. Le relier au quotidien est attendu.</li></ul>' }
+  ]
+},
+{
+  id: 'emc-laicite', bloc: 'emc-valeurs', titre: 'Pluralisme et laïcité',
+  resume: 'Rendre possible la coexistence pacifique.',
+  capacites: [
+    'Expliquer que la laïcité vise à rendre possible la coexistence pacifique d’individus aux options différentes.',
+    'Montrer l’importance de l’autorité arbitrale de l’État, notamment dans la police des cultes.',
+    'Expliquer que l’État crée ainsi les conditions de la coexistence et du pluralisme.',
+    'Connaître la position de la Cour européenne des droits de l’Homme sur les restrictions possibles.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'À quoi ça sert ?', c:
+      '<p>La formulation du programme est très précise, et elle est souvent mal comprise : ' +
+      '« le principe de la laïcité vise à <b>rendre possible la coexistence pacifique</b> d’individus ' +
+      'et de groupes dont les options philosophiques ou religieuses <b>restent différentes</b> ».</p>' +
+      '<p>La laïcité ne demande donc pas d’effacer les convictions : elle organise leur coexistence.</p>' },
+    { k: 'reperes', t: 'Les textes de référence', c:
+      '<ul class="dates">' +
+      '<li><b>1882 et 1886</b> <span>lois scolaires : laïcité des programmes puis des personnels</span></li>' +
+      '<li><b>9 décembre 1905</b> <span>loi de séparation des Églises et de l’État</span></li>' +
+      '<li><b>1905, art. 1</b> <span>la République assure la liberté de conscience et garantit ' +
+      'le libre exercice des cultes</span></li>' +
+      '<li><b>1905, art. 2</b> <span>la République ne reconnaît, ne salarie ni ne subventionne aucun culte</span></li>' +
+      '<li><b>1905, art. 27 et 28</b> <span>la police des cultes : l’État arbitre, et interdit les signes ' +
+      'religieux sur les monuments publics</span></li>' +
+      '<li><b>2004</b> <span>interdiction des signes religieux ostensibles à l’école publique</span></li></ul>' },
+    { k: 'prop', t: 'L’État arbitre', c:
+      '<p>Le programme insiste sur l’<b>autorité arbitrale de l’État</b>, illustrée par la <b>police des cultes</b> ' +
+      '(articles 27 et 28 de la loi de 1905). L’État ne prend pas parti entre les convictions : ' +
+      'il fixe le cadre qui permet à toutes de coexister.</p>' +
+      '<p>La <b>Cour européenne des droits de l’Homme</b> reconnaît que des <b>restrictions</b> à la liberté ' +
+      'de manifester sa religion ou ses convictions <b>sont possibles</b>, dès lors qu’elles sont prévues par la loi ' +
+      'et nécessaires dans une société démocratique.</p>' },
+    { k: 'piege', t: 'Les contresens à éviter', c:
+      '<ul><li>La laïcité <b>n’interdit pas</b> les religions : elle garantit la liberté de conscience ' +
+      'et le libre exercice des cultes.</li>' +
+      '<li>Elle ne s’applique pas de la même manière partout : les <b>agents publics</b> sont tenus ' +
+      'à la neutralité, les <b>usagers</b> sont libres, sauf règles particulières comme à l’école publique.</li>' +
+      '<li>Ce n’est pas un principe contre les croyants, c’est un principe qui protège aussi la liberté de croire.</li></ul>' }
+  ]
+},
+
+/* ================= PARTIE 2 ================= */
+{
+  id: 'emc-indivisibilite', bloc: 'emc-nation', titre: 'Indivisibilité et décentralisation',
+  resume: 'L’unité de la Nation et la diversité des territoires.',
+  capacites: [
+    'Expliquer l’équilibre assuré par la Constitution entre unité de la Nation et diversité des territoires.',
+    'Étudier le statut et l’organisation des collectivités territoriales.',
+    'Expliquer la décentralisation et le transfert de compétences préalablement étatiques.',
+    'Étudier le statut des territoires ultramarins pour définir le principe d’indivisibilité.',
+    'Faire le lien entre unité du territoire et reconnaissance de la diversité, à partir des langues régionales.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'À quoi ça sert ?', c:
+      '<p>La Constitution dispose que la République est « <b>indivisible</b> » et que « son organisation ' +
+      'est <b>décentralisée</b> ». Les deux mots sont dans la même phrase, et ils tirent en sens contraire. ' +
+      'Tout le chapitre consiste à comprendre cet <b>équilibre</b>.</p>' },
+    { k: 'reperes', t: 'Les repères', c:
+      '<ul class="dates">' +
+      '<li><b>1982</b> <span>premières lois de décentralisation : transfert de compétences de l’État ' +
+      'aux collectivités territoriales</span></li>' +
+      '<li><b>2003</b> <span>révision constitutionnelle : « son organisation est décentralisée » ' +
+      'entre dans l’article premier</span></li>' +
+      '<li><b>art. 75-1</b> <span>les langues régionales appartiennent au « patrimoine de la France »</span></li></ul>' },
+    { k: 'prop', t: 'Qui fait quoi ?', c:
+      '<p>La décentralisation a transféré des compétences, en particulier dans les domaines cités par le programme : ' +
+      'l’éducation, la santé et le travail.</p>' +
+      '<ul><li><b>La commune</b> : écoles primaires, urbanisme, état civil.</li>' +
+      '<li><b>Le département</b> : collèges, action sociale, routes départementales.</li>' +
+      '<li><b>La région</b> : <b>lycées</b>, formation professionnelle, transports, développement économique.</li>' +
+      '<li><b>L’État</b> : conserve les programmes, les diplômes et les personnels enseignants.</li></ul>' +
+      '<p>Ton lycée est donc construit et entretenu par la région, mais ton professeur est payé par l’État. ' +
+      'C’est l’exemple le plus parlant du partage.</p>' },
+    { k: 'prop', t: 'Les territoires ultramarins', c:
+      '<p>Leurs statuts ont <b>évolué</b> et sont <b>divers</b> : départements et régions d’outre-mer, ' +
+      'collectivités à statut particulier, Nouvelle-Calédonie au statut propre.</p>' +
+      '<p>Cette diversité de statuts, au sein d’une République indivisible, est justement ce que le programme ' +
+      'demande d’utiliser « pour définir le principe d’indivisibilité ».</p>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Décentralisation n’est pas fédéralisme : les collectivités exercent des compétences, ' +
+      'mais elles ne font pas la loi.</li>' +
+      '<li>L’article 75-1 sur les langues régionales est l’exemple parfait de l’équilibre : ' +
+      'la diversité est reconnue comme <b>patrimoine commun</b>, donc comme facteur d’unité.</li>' +
+      '<li>Parler de son propre lycée et de sa région est toujours bien vu en EMC.</li></ul>' }
+  ]
+},
+{
+  id: 'emc-nationalite', bloc: 'emc-nation', titre: 'Nationalité et citoyenneté',
+  resume: 'Une communauté nationale ouverte.',
+  capacites: [
+    'Examiner les diverses procédures par lesquelles s’acquiert la nationalité française.',
+    'Distinguer le droit du sang et le droit du sol.',
+    'Présenter les droits afférents à la citoyenneté européenne.',
+    'Mettre en lumière des personnalités d’origine étrangère ayant joué un rôle significatif dans l’histoire nationale.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'À quoi ça sert ?', c:
+      '<p>Le programme emploie une expression forte : dans la République française, la communauté nationale ' +
+      'est une <b>communauté ouverte</b>. Elle l’est parce qu’on peut <b>acquérir</b> la nationalité, ' +
+      'et parce qu’il existe une <b>citoyenneté européenne</b> qui s’y ajoute.</p>' },
+    { k: 'def', t: 'Droit du sang et droit du sol', c:
+      '<ul><li><b>Droit du sang</b> : est français l’enfant dont au moins un parent est français, ' +
+      'quel que soit son lieu de naissance.</li>' +
+      '<li><b>Droit du sol</b> : est français, sous conditions de naissance et de résidence en France, ' +
+      'l’enfant né en France de parents étrangers.</li></ul>' +
+      '<p>Le droit français combine les deux. Les autres voies d’acquisition sont la <b>naturalisation</b> ' +
+      '(décision de l’administration, sous conditions de résidence, d’intégration et de connaissance de la langue) ' +
+      'et le <b>mariage</b> avec un ressortissant français, sous conditions de délai.</p>' },
+    { k: 'def', t: 'Nationalité, citoyenneté : ce n’est pas la même chose', c:
+      '<p>La <b>nationalité</b> est un lien juridique d’appartenance à un État. ' +
+      'La <b>citoyenneté</b> est l’ensemble des droits politiques qui en découlent : voter, être élu, ' +
+      'accéder aux emplois publics.</p>' +
+      '<p>Un mineur français a la nationalité sans exercer encore la citoyenneté politique. ' +
+      'Un citoyen européen résidant en France vote aux élections municipales et européennes, ' +
+      'mais pas aux élections nationales.</p>' },
+    { k: 'prop', t: 'La citoyenneté européenne', c:
+      '<p>Elle s’ajoute à la citoyenneté nationale, sans la remplacer. Elle donne notamment :</p>' +
+      '<ul><li>la <b>libre circulation</b> et le droit de séjour dans l’Union ;</li>' +
+      '<li>le droit de <b>voter et d’être élu</b> aux élections municipales et européennes dans l’État de résidence ;</li>' +
+      '<li>la <b>protection diplomatique</b> par tout État membre hors de l’Union ;</li>' +
+      '<li>le droit de pétition devant le Parlement européen et de saisine du Médiateur européen.</li></ul>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Distinguer nettement <b>nationalité</b> et <b>citoyenneté</b> : c’est la distinction ' +
+      'que le correcteur cherche en premier.</li>' +
+      '<li>Le programme renvoie au recueil <b>Portraits de France</b> pour trouver des personnalités ' +
+      'd’origine étrangère ayant marqué l’histoire nationale : un exemple nommé vaut mieux qu’une généralité.</li>' +
+      '<li>La citoyenneté européenne <b>s’ajoute</b>, elle ne remplace pas. Le dire évite un contresens fréquent.</li></ul>' }
+  ]
+},
+{
+  id: 'emc-memoire', bloc: 'emc-nation', titre: 'Mémoire et patriotisme constitutionnel',
+  resume: 'Ce que la Nation choisit de commémorer.',
+  capacites: [
+    'Saisir les enjeux mémoriels à partir d’un personnage, d’un lieu, d’un monument ou d’un évènement.',
+    'Clarifier le sens des commémorations et discuter la notion de « devoir de mémoire ».',
+    'Expliquer en quoi les questions mémorielles peuvent être ferment d’unité ou champ d’affrontements.',
+    'Expliquer l’idée de patriotisme constitutionnel.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'À quoi ça sert ?', c:
+      '<p>Le programme dit les choses sans détour : les questions mémorielles constituent ' +
+      '« <b>tantôt le ferment de son unité, tantôt un champ d’affrontements idéologiques et politiques</b> ».</p>' +
+      '<p>Une commémoration n’est donc jamais neutre : elle résulte d’un choix, et ce choix peut être discuté.</p>' },
+    { k: 'def', t: 'Histoire et mémoire', c:
+      '<ul><li>L’<b>histoire</b> est une discipline scientifique : elle établit des faits à partir de sources, ' +
+      'avec une méthode, et elle se corrige.</li>' +
+      '<li>La <b>mémoire</b> est un rapport vécu et affectif au passé, porté par des groupes. ' +
+      'Elle est plurielle, sélective, et légitime en tant que telle.</li></ul>' +
+      '<p>Confondre les deux est l’erreur classique. Une mémoire n’est pas fausse parce qu’elle est partielle : ' +
+      'elle n’a simplement pas le même statut qu’un savoir historique.</p>' },
+    { k: 'def', t: 'Le patriotisme constitutionnel', c:
+      '<p>Le programme en donne la définition : c’est l’idée qui « exprime l’<b>attachement des citoyens ' +
+      'aux principes fondateurs</b> de la République et de la démocratie françaises, ainsi que le souci ' +
+      'de les voir respectés et de mieux en mieux réalisés ».</p>' +
+      '<p>On est donc attaché à des <b>principes</b> plutôt qu’à une origine ou à une appartenance. ' +
+      'C’est une forme d’attachement ouverte, compatible avec la diversité des origines.</p>' },
+    { k: 'reperes', t: 'Quelques dates de commémoration', c:
+      '<ul class="dates">' +
+      '<li><b>14 juillet</b> <span>fête nationale</span></li>' +
+      '<li><b>8 mai</b> <span>victoire de 1945</span></li>' +
+      '<li><b>11 novembre</b> <span>armistice de 1918, et hommage à tous les morts pour la France</span></li>' +
+      '<li><b>10 mai</b> <span>journée de commémoration de l’abolition de l’esclavage</span></li>' +
+      '<li><b>27 janvier</b> <span>journée de la mémoire des génocides et de la prévention des crimes contre l’humanité</span></li></ul>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>La notion de « devoir de mémoire » est à <b>discuter</b>, pas à réciter : ' +
+      'le programme emploie le verbe « discuter ».</li>' +
+      '<li>Choisir un exemple <b>local</b> fonctionne très bien : le monument aux morts de la commune, ' +
+      'le nom d’une rue, une plaque au lycée.</li>' +
+      '<li>Le patriotisme constitutionnel est un attachement <b>aux principes</b> : ' +
+      'c’est ce qui le distingue du nationalisme.</li></ul>' }
+  ]
+},
+{
+  id: 'emc-defense', bloc: 'emc-nation', titre: 'Défense et sécurité nationale',
+  resume: 'Des enjeux renouvelés dans un monde interdépendant.',
+  capacites: [
+    'Comprendre ce que recouvre la notion de « sécurité nationale » introduite par le Livre blanc de 2008.',
+    'Articuler cette notion aux perspectives d’une défense européenne.',
+    'Préciser les modalités et les enjeux des « guerres hybrides ».',
+    'Connaître les dispositifs d’engagement : service national universel, service militaire volontaire, cadets de la République, classes de défense.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'À quoi ça sert ?', c:
+      '<p>Le programme relie la défense à la cohésion : « la communauté nationale se matérialise aussi ' +
+      'par l’existence d’une <b>défense nationale</b> ». Celle-ci est confrontée à des <b>enjeux renouvelés</b>, ' +
+      'terrorisme et cybersécurité notamment, dans un monde de plus en plus interdépendant.</p>' },
+    { k: 'def', t: 'De la défense à la sécurité nationale', c:
+      '<p>Le <b>Livre blanc sur la défense et la sécurité nationale de 2008</b> a introduit un élargissement : ' +
+      'on ne parle plus seulement de défense militaire, mais de <b>sécurité nationale</b>.</p>' +
+      '<p>Cette notion englobe la défense militaire, la sécurité intérieure, la sécurité civile, ' +
+      'la sécurité économique, la cybersécurité et la résilience de la société face aux crises.</p>' },
+    { k: 'def', t: 'Les guerres hybrides', c:
+      '<p>Une guerre hybride combine des moyens <b>militaires et non militaires</b>, souvent sans déclaration ' +
+      'de guerre et sans attribution claire :</p>' +
+      '<ul><li>cyberattaques contre des infrastructures ou des institutions ;</li>' +
+      '<li>désinformation et manipulation de l’information ;</li>' +
+      '<li>pressions économiques et énergétiques ;</li>' +
+      '<li>forces sans insigne, ou groupes intermédiaires.</li></ul>' +
+      '<p>Le programme fait ici un lien explicite avec l’<b>éducation aux médias et à l’information</b> : ' +
+      'savoir vérifier une information devient un enjeu de défense.</p>' },
+    { k: 'prop', t: 'Les dispositifs d’engagement', c:
+      '<p>Le programme cite nommément : le <b>service national universel</b>, dont un objectif est de renforcer ' +
+      'l’engagement des jeunes et la cohésion nationale, le <b>service militaire volontaire</b>, ' +
+      'les <b>cadets de la République</b>, les <b>classes de défense et de sécurité globales</b>, ' +
+      'et les <b>classes et lycées engagés</b>.</p>' +
+      '<p>S’y ajoutent, pour tout citoyen, la <b>journée défense et citoyenneté</b> et la possibilité ' +
+      'de s’engager dans la <b>réserve</b>.</p>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>La notion clé est l’<b>élargissement</b> : de la défense militaire à la sécurité nationale, ' +
+      'qui inclut le civil, le numérique et l’économique.</li>' +
+      '<li>La <b>défense européenne</b> est explicitement au programme : ne pas raisonner seulement ' +
+      'à l’échelle française.</li>' +
+      '<li>Une cyberattaque n’est pas une anecdote technique : c’est une atteinte possible à la sécurité nationale.</li></ul>' }
+  ]
+},
+
+/* ================= MÉTHODE ================= */
+{
+  id: 'emc-debat', bloc: 'emc-method', titre: 'Le débat argumenté',
+  resume: 'La méthode propre à l’EMC.',
+  capacites: [
+    'Participer à un débat pour résoudre des conflits ou prendre des décisions.',
+    'Écouter, observer, réfléchir avec discernement et esprit critique.',
+    'Exprimer ce que l’on ressent et faire preuve d’empathie.',
+    'S’impliquer dans un projet collectif et coopérer.',
+    'Distinguer un argument d’une opinion, et appuyer son propos sur des faits et des textes.'
+  ],
+  cours: [
+    { k: 'pourquoi', t: 'Les quatre dimensions de l’EMC', c:
+      '<p>Le programme construit les compétences civiques à travers quatre dimensions, reprises du ' +
+      '<b>cadre de référence des compétences pour une culture de la démocratie</b> du Conseil de l’Europe :</p>' +
+      '<ul><li>les <b>valeurs</b> : liberté, égalité, fraternité et laïcité, solidarité, égalité entre femmes ' +
+      'et hommes, refus de toutes les discriminations, respect de la dignité humaine, État de droit ;</li>' +
+      '<li>les <b>connaissances</b> : citoyenneté et institutions, règle et droit, défense et sécurité, ' +
+      'développement durable, information et médias ;</li>' +
+      '<li>les <b>attitudes</b> : respect d’autrui, respect de soi, prise d’initiative, esprit civique, ' +
+      'engagement et sens des responsabilités ;</li>' +
+      '<li>les <b>aptitudes</b> : écoute et observation, réflexion et discernement, esprit critique, ' +
+      'empathie, coopération, participation au débat.</li></ul>' },
+    { k: 'meth', t: 'Préparer un débat réglé', c:
+      '<ul><li>1. <b>Cerner la question</b> : de quoi débat-on exactement ? Une question mal posée ' +
+      'produit un débat qui tourne en rond.</li>' +
+      '<li>2. <b>Définir les termes</b> : beaucoup de désaccords ne sont que des malentendus de vocabulaire.</li>' +
+      '<li>3. <b>Rassembler des faits</b> : données chiffrées, textes de loi, décisions de justice, ' +
+      'exemples précis. Un débat d’EMC n’est pas un échange d’impressions.</li>' +
+      '<li>4. <b>Préparer les deux camps</b> : savoir défendre la position adverse est le meilleur moyen ' +
+      'de solidifier la sienne.</li>' +
+      '<li>5. <b>Prévoir les rôles</b> : président de séance, secrétaire, intervenants.</li></ul>' },
+    { k: 'def', t: 'Argument, opinion, fait', c:
+      '<ul><li>Un <b>fait</b> est vérifiable : « la loi Gayssot date de 1990 ».</li>' +
+      '<li>Une <b>opinion</b> exprime un point de vue : « cette loi est trop restrictive ».</li>' +
+      '<li>Un <b>argument</b> relie une opinion à un fait par un raisonnement : ' +
+      '« cette loi restreint la liberté d’expression, car elle punit la contestation de faits historiques établis ; ' +
+      'ses défenseurs répondent que la négation d’un génocide est une atteinte à la dignité des victimes ».</li></ul>' +
+      '<p>Seul l’argument fait avancer un débat.</p>' },
+    { k: 'astuce', t: 'Les astuces qui font gagner des points', c:
+      '<ul><li>Citer un <b>texte</b> précis change tout : article du Code pénal, article de la Constitution, ' +
+      'date d’une loi, décision du Conseil constitutionnel.</li>' +
+      '<li>Reformuler l’argument adverse avant d’y répondre est la marque d’une vraie écoute, ' +
+      'et c’est une aptitude explicitement au programme.</li>' +
+      '<li>Ne jamais confondre <b>convaincre</b> et <b>avoir raison plus fort</b> : ' +
+      'le ton compte autant que le contenu en EMC.</li>' +
+      '<li>Les dispositifs de participation de votre lycée, comme le <b>CVL</b> et les <b>écodélégués</b>, ' +
+      'sont des exemples d’engagement à citer.</li></ul>' }
+  ]
+}
+];
+
+CHAPITRES_EMC.forEach(c => {
+  c.gens = [];
+  c.matiere = 'emc';
+  c.classe = 'premiere';
+  CHAPITRES.push(c);
+  CHAP[c.id] = c;
+});
+/* =========================================================================
+   Générateurs d'exercices d'enseignement moral et civique.
+   Notions, textes de référence, institutions, contresens classiques.
+   Plus un débat argumenté au barème auto-évalué.
+   ========================================================================= */
+
+/* ---------- les textes de référence ---------- */
+const TEXTES_EMC = [
+  { t: 'La loi de séparation des Églises et de l’État', d: '9 décembre 1905', ch: 'emc-laicite',
+    e: 'Elle garantit la liberté de conscience et le libre exercice des cultes, et pose que la République ' +
+       'ne reconnaît, ne salarie ni ne subventionne aucun culte.' },
+  { t: 'La loi Pleven contre le racisme', d: '1er juillet 1972', ch: 'emc-racisme',
+    e: 'Elle réprime la provocation à la haine raciale, la diffamation et l’injure à caractère raciste.' },
+  { t: 'La loi Gayssot', d: '13 juillet 1990', ch: 'emc-racisme',
+    e: 'Elle réprime la contestation des crimes contre l’humanité, dont la négation de la Shoah.' },
+  { t: 'La décision reconnaissant la valeur constitutionnelle de la fraternité', d: '6 juillet 2018', ch: 'emc-solidarite',
+    e: 'Décision du Conseil constitutionnel. La fraternité cesse d’être un simple idéal moral ' +
+       'pour devenir un principe invocable devant un juge.' },
+  { t: 'Les premières lois de décentralisation', d: '1982', ch: 'emc-indivisibilite',
+    e: 'Elles transfèrent certaines compétences de l’État aux collectivités territoriales.' },
+  { t: 'Le Livre blanc sur la défense et la sécurité nationale', d: '2008', ch: 'emc-defense',
+    e: 'Il introduit la notion élargie de « sécurité nationale », au-delà de la seule défense militaire.' },
+  { t: 'Le droit de vote et d’éligibilité des femmes', d: '1944', ch: 'emc-egalite',
+    e: 'Les Françaises votent pour la première fois en 1945.' },
+  { t: 'La loi Veil sur l’interruption volontaire de grossesse', d: '1975', ch: 'emc-egalite',
+    e: 'La liberté d’y recourir est entrée dans la Constitution en 2024.' },
+  { t: 'L’interdiction des signes religieux ostensibles à l’école publique', d: '2004', ch: 'emc-laicite',
+    e: 'Elle concerne les élèves des écoles, collèges et lycées publics.' },
+  { t: 'L’extension de la répression aux propos sexistes, homophobes et handiphobes', d: '30 décembre 2004', ch: 'emc-racisme',
+    e: 'Cette loi élargit le champ de la répression au-delà du seul critère racial.' }
+];
+
+G('emc-debat', 'emc-textes', 'Les textes de référence', 'ent', function(){
+  const x = R.pick(TEXTES_EMC);
+  const dates = R.shuffle([x.d].concat(autres(TEXTES_EMC.map(y => y.d), x.d, 3)));
+  return {
+    enonce: '<p>De quand date ce texte ou cette décision ?</p>' +
+            '<div class="form">' + x.t + '</div>',
+    qcm: { options: dates, bon: dates.indexOf(x.d) },
+    etapes: ['<b>' + x.d + '</b> · ' + x.t + '.', x.e,
+             'Chapitre concerné : « ' + CHAP[x.ch].titre + ' ». ' +
+               'Citer un texte précis est ce qui distingue une copie d’EMC d’une discussion de café.']
+  };
+});
+
+G('emc-debat', 'emc-textes-sens', 'Que dit ce texte ?', 'app', function(){
+  const x = R.pick(TEXTES_EMC);
+  const titres = R.shuffle([x.t].concat(autres(TEXTES_EMC.map(y => y.t), x.t, 3)));
+  return {
+    enonce: '<p>Quel texte correspond à cette description ?</p>' +
+            '<div class="form">' + x.e + '</div>',
+    qcm: { options: titres, bon: titres.indexOf(x.t) },
+    etapes: ['Il s’agit de : <b>' + x.t + '</b> (' + x.d + ').',
+             'Chapitre concerné : « ' + CHAP[x.ch].titre + ' ».']
+  };
+});
+
+/* ---------- les notions ---------- */
+const NOTIONS_EMC = [
+  { n: 'La solidarité par assurance', d: 'un système où l’on cotise et où l’on est couvert en cas de risque', ch: 'emc-solidarite' },
+  { n: 'La solidarité par assistance', d: 'une aide accordée au titre de la situation de la personne, sans contrepartie de cotisation', ch: 'emc-solidarite' },
+  { n: 'La fraternité', d: 'un principe de la devise républicaine, reconnu comme ayant valeur constitutionnelle en 2018', ch: 'emc-solidarite' },
+  { n: 'La discrimination', d: 'un traitement défavorable fondé sur un critère interdit par la loi, dans un domaine visé par elle', ch: 'emc-discriminations' },
+  { n: 'La société inclusive', d: 'une société adaptée pour permettre la participation de tous, notamment des personnes en situation de handicap', ch: 'emc-discriminations' },
+  { n: 'La laïcité', d: 'le principe qui rend possible la coexistence pacifique d’individus dont les options philosophiques ou religieuses restent différentes', ch: 'emc-laicite' },
+  { n: 'Le pluralisme', d: 'la coexistence reconnue d’opinions et de convictions différentes au sein d’une même société', ch: 'emc-laicite' },
+  { n: 'L’indivisibilité de la République', d: 'le principe selon lequel la loi et la souveraineté sont les mêmes sur tout le territoire', ch: 'emc-indivisibilite' },
+  { n: 'La décentralisation', d: 'le transfert de certaines compétences de l’État vers les collectivités territoriales', ch: 'emc-indivisibilite' },
+  { n: 'Le droit du sol', d: 'l’attribution de la nationalité en raison de la naissance sur le territoire, sous conditions', ch: 'emc-nationalite' },
+  { n: 'Le droit du sang', d: 'l’attribution de la nationalité en raison de la nationalité d’au moins un des parents', ch: 'emc-nationalite' },
+  { n: 'La naturalisation', d: 'l’acquisition de la nationalité par décision de l’administration, sous conditions de résidence et d’intégration', ch: 'emc-nationalite' },
+  { n: 'La citoyenneté', d: 'l’ensemble des droits politiques découlant de la nationalité : voter, être élu, accéder aux emplois publics', ch: 'emc-nationalite' },
+  { n: 'Le patriotisme constitutionnel', d: 'l’attachement des citoyens aux principes fondateurs de la République plutôt qu’à une origine', ch: 'emc-memoire' },
+  { n: 'La mémoire', d: 'un rapport vécu et affectif au passé, porté par des groupes, plurielle et sélective', ch: 'emc-memoire' },
+  { n: 'La sécurité nationale', d: 'une notion élargie englobant défense militaire, sécurité intérieure, cybersécurité et résilience de la société', ch: 'emc-defense' },
+  { n: 'La guerre hybride', d: 'un conflit combinant moyens militaires et non militaires, souvent sans déclaration ni attribution claire', ch: 'emc-defense' }
+];
+
+G('emc-debat', 'emc-notions', 'Les notions du programme', 'app', function(){
+  const x = R.pick(NOTIONS_EMC);
+  return {
+    enonce: '<p>Quelle notion du programme désigne <b>' + x.d + '</b> ?</p>',
+    qcm: qcm4(x.n, NOTIONS_EMC.map(y => y.n)),
+    etapes: ['C’est <b>' + x.n.toLowerCase() + '</b> : ' + x.d + '.',
+             'Chapitre concerné : « ' + CHAP[x.ch].titre + ' ».']
+  };
+});
+
+/* une révision de notions propre à chaque chapitre qui en compte assez */
+['emc-solidarite', 'emc-discriminations', 'emc-laicite', 'emc-indivisibilite',
+ 'emc-nationalite', 'emc-memoire', 'emc-defense'].forEach(function(ch){
+  G(ch, ch + '-notions', 'Les notions du chapitre', 'app', function(){
+    const locales = NOTIONS_EMC.filter(y => y.ch === ch);
+    const x = R.pick(locales);
+    return {
+      enonce: '<p>Quelle notion de ce chapitre désigne <b>' + x.d + '</b> ?</p>',
+      qcm: qcm4(x.n, NOTIONS_EMC.map(y => y.n)),
+      etapes: [
+        'C’est <b>' + x.n.toLowerCase() + '</b>.',
+        locales.length > 1
+          ? 'Les autres notions du chapitre : ' + locales.filter(y => y !== x).map(y => y.n.toLowerCase()).join(' · ') + '.'
+          : 'C’est la notion centrale de ce chapitre.'
+      ]
+    };
+  });
+});
+
+/* ---------- les institutions ---------- */
+const INSTITUTIONS_EMC = [
+  { n: 'Le Défenseur des droits', r: 'autorité constitutionnelle indépendante que toute personne peut saisir gratuitement si elle s’estime discriminée' },
+  { n: 'Le Conseil constitutionnel', r: 'institution qui contrôle la conformité des lois à la Constitution, et qui a reconnu la valeur constitutionnelle de la fraternité en 2018' },
+  { n: 'La Dilcrah', r: 'délégation interministérielle chargée de la lutte contre le racisme, l’antisémitisme et la haine anti-LGBT' },
+  { n: 'La CNCDH', r: 'commission consultative des droits de l’homme, qui publie un rapport annuel sur le racisme' },
+  { n: 'La Cour européenne des droits de l’Homme', r: 'juridiction qui admet que des restrictions à la liberté de manifester sa religion soient possibles' },
+  { n: 'La région', r: 'collectivité territoriale compétente pour les lycées, la formation professionnelle et les transports' },
+  { n: 'Le département', r: 'collectivité territoriale compétente pour les collèges et l’action sociale' },
+  { n: 'La commune', r: 'collectivité territoriale compétente pour les écoles primaires, l’urbanisme et l’état civil' }
+];
+
+G('emc-indivisibilite', 'emc-institutions', 'Qui fait quoi ?', 'ent', function(){
+  const x = R.pick(INSTITUTIONS_EMC);
+  return {
+    enonce: '<p>Quelle institution ou collectivité correspond à cette description ?</p>' +
+            '<div class="form">' + x.r + '</div>',
+    qcm: qcm4(x.n, INSTITUTIONS_EMC.map(y => y.n)),
+    etapes: ['Réponse : <b>' + x.n + '</b>.',
+             'Le partage des compétences le plus parlant : la <b>région</b> construit et entretient ton lycée, ' +
+               'mais l’<b>État</b> fixe les programmes et paie les professeurs.']
+  };
+});
+
+/* ---------- vrai ou faux ---------- */
+const VF_EMC = [
+  { a: 'La laïcité interdit aux élèves d’avoir des convictions religieuses.', v: false, ch: 'emc-laicite',
+    e: 'Elle garantit au contraire la <b>liberté de conscience</b> et le libre exercice des cultes. ' +
+       'Ce qui est encadré à l’école publique, ce sont les signes religieux ostensibles, depuis 2004.' },
+  { a: 'La loi de 1905 dispose que la République ne reconnaît, ne salarie ni ne subventionne aucun culte.', v: true, ch: 'emc-laicite',
+    e: 'C’est l’article 2. L’article premier, lui, garantit la liberté de conscience et le libre exercice des cultes.' },
+  { a: 'Les agents publics et les usagers du service public sont soumis aux mêmes obligations de neutralité.', v: false, ch: 'emc-laicite',
+    e: 'Les <b>agents</b> sont tenus à la neutralité. Les <b>usagers</b> sont libres, sauf règles particulières ' +
+       'comme celles qui s’appliquent aux élèves de l’école publique.' },
+  { a: 'Le principe de fraternité a valeur constitutionnelle.', v: true, ch: 'emc-solidarite',
+    e: 'Depuis la décision du Conseil constitutionnel du 6 juillet 2018. Auparavant, on y voyait un simple idéal moral.' },
+  { a: 'Toute injustice ressentie constitue juridiquement une discrimination.', v: false, ch: 'emc-discriminations',
+    e: 'Il faut trois éléments : un traitement défavorable, un <b>critère interdit par la loi</b>, ' +
+       'et un domaine visé par elle. Le programme demande justement de distinguer le droit et le ressenti.' },
+  { a: 'Le racisme est une opinion protégée par la liberté d’expression.', v: false, ch: 'emc-racisme',
+    e: 'L’injure, la diffamation raciste et la provocation à la haine sont des <b>délits</b>, ' +
+       'réprimés notamment par la loi Pleven de 1972.' },
+  { a: 'La décentralisation permet aux collectivités territoriales de voter leurs propres lois.', v: false, ch: 'emc-indivisibilite',
+    e: 'Elle transfère des <b>compétences</b>, pas le pouvoir législatif. La République reste <b>indivisible</b> : ' +
+       'la loi est la même partout. Ce n’est pas du fédéralisme.' },
+  { a: 'Les langues régionales sont reconnues par la Constitution comme appartenant au patrimoine de la France.', v: true, ch: 'emc-indivisibilite',
+    e: 'C’est l’article 75-1. Il illustre l’équilibre entre unité du territoire et reconnaissance de sa diversité.' },
+  { a: 'Nationalité et citoyenneté sont deux mots pour la même chose.', v: false, ch: 'emc-nationalite',
+    e: 'La <b>nationalité</b> est un lien juridique d’appartenance à un État ; la <b>citoyenneté</b> ' +
+       'est l’ensemble des droits politiques qui en découlent. Un mineur français a l’une sans exercer l’autre.' },
+  { a: 'Un citoyen européen résidant en France peut voter aux élections municipales.', v: true, ch: 'emc-nationalite',
+    e: 'La citoyenneté européenne donne le droit de voter et d’être élu aux élections municipales ' +
+       'et européennes dans l’État de résidence, mais pas aux élections nationales.' },
+  { a: 'La citoyenneté européenne remplace la citoyenneté nationale.', v: false, ch: 'emc-nationalite',
+    e: 'Elle <b>s’ajoute</b> à elle. C’est un contresens fréquent.' },
+  { a: 'Histoire et mémoire sont deux approches du passé de même nature.', v: false, ch: 'emc-memoire',
+    e: 'L’<b>histoire</b> est une discipline scientifique qui établit des faits par une méthode. ' +
+       'La <b>mémoire</b> est un rapport vécu et affectif, plurielle et sélective.' },
+  { a: 'La notion de sécurité nationale dépasse le seul domaine militaire.', v: true, ch: 'emc-defense',
+    e: 'Introduite par le Livre blanc de 2008, elle englobe la sécurité intérieure, civile, économique, ' +
+       'la cybersécurité et la résilience de la société.' },
+  { a: 'L’égalité femmes-hommes a progressé de façon continue, sans résistances.', v: false, ch: 'emc-egalite',
+    e: 'Le programme dit le contraire : le principe transforme progressivement la société ' +
+       '« tout en se heurtant à diverses formes de résistance ».' }
+];
+
+G('emc-debat', 'emc-vf', 'Vrai ou faux : les contresens classiques', 'ent', function(){
+  const x = R.pick(VF_EMC);
+  return {
+    enonce: '<p>Cette affirmation est-elle exacte ?</p>' + cit(x.a),
+    qcm: { options: ['Vrai', 'Faux'], bon: x.v ? 0 : 1 },
+    etapes: [
+      x.v ? 'C’est <b>exact</b>.' : 'C’est <b>faux</b>.', x.e,
+      'Chapitre concerné : « ' + CHAP[x.ch].titre + ' ».'
+    ]
+  };
+});
+
+['emc-laicite', 'emc-nationalite', 'emc-indivisibilite', 'emc-racisme'].forEach(function(ch){
+  G(ch, ch + '-vf', 'Vrai ou faux', 'ent', function(){
+    const x = R.pick(VF_EMC.filter(y => y.ch === ch));
+    return {
+      enonce: '<p>Cette affirmation est-elle exacte ?</p>' + cit(x.a),
+      qcm: { options: ['Vrai', 'Faux'], bon: x.v ? 0 : 1 },
+      etapes: [x.v ? 'C’est <b>exact</b>.' : 'C’est <b>faux</b>.', x.e]
+    };
+  });
+});
+
+/* ---------- argument, opinion, fait ---------- */
+const ARG_EMC = [
+  { p: 'La loi Gayssot date de 1990.', t: 'Un fait',
+    e: 'C’est vérifiable : cela se contrôle dans un texte officiel.' },
+  { p: 'Cette loi va trop loin.', t: 'Une opinion',
+    e: 'C’est un point de vue, qui n’est ni vrai ni faux en soi. Il n’a de valeur en débat que s’il est argumenté.' },
+  { p: 'Cette loi restreint la liberté d’expression, car elle punit la contestation de faits historiques établis par la justice internationale.', t: 'Un argument',
+    e: 'Une opinion reliée à un fait par un raisonnement : c’est ce qui fait avancer un débat.' },
+  { p: 'En France, les statistiques ethniques sont interdites.', t: 'Un fait',
+    e: 'Vérifiable dans le droit français. C’est d’ailleurs ce qui rend la mesure des discriminations difficile.' },
+  { p: 'Mesurer les discriminations est nécessaire, puisque sans données on ne peut évaluer l’efficacité des politiques menées contre elles.', t: 'Un argument',
+    e: 'Une position défendue par un raisonnement explicite.' },
+  { p: 'Je trouve que la laïcité est mal comprise aujourd’hui.', t: 'Une opinion',
+    e: 'Aucun fait ni raisonnement ne vient encore l’étayer : c’est un point de départ, pas une conclusion.' }
+];
+
+G('emc-debat', 'emc-argument', 'Fait, opinion ou argument ?', 'app', function(){
+  const x = R.pick(ARG_EMC);
+  const noms = ['Un fait', 'Une opinion', 'Un argument'];
+  return {
+    enonce: '<p>Dans un débat, comment qualifier cette intervention ?</p>' + cit(x.p),
+    qcm: { options: noms.slice(), bon: noms.indexOf(x.t) },
+    etapes: [
+      'C’est <b>' + x.t.toLowerCase() + '</b>.', x.e,
+      'Un <b>fait</b> se vérifie · une <b>opinion</b> exprime un point de vue · ' +
+        'un <b>argument</b> relie l’un à l’autre par un raisonnement. Seul l’argument fait avancer un débat.'
+    ]
+  };
+});
+
+/* ---------- le programme lui-même ---------- */
+const PROG_EMC = [
+  { q: 'Quel est le thème du programme d’EMC en classe de première ?', b: 'Cohésion et diversité dans une société démocratique',
+    v: ['Cohésion et diversité dans une société démocratique', 'La vie démocratique : débat, délibération et prise de décision',
+        'Liberté, égalité, fraternité', 'La République et ses institutions'] },
+  { q: 'Quelles sont les deux parties du programme de première ?', b: 'Les valeurs et principes de la République à l’épreuve de la cohésion sociale, et la République et la Nation',
+    v: ['Les valeurs et principes de la République à l’épreuve de la cohésion sociale, et la République et la Nation',
+        'La laïcité et la citoyenneté', 'Les libertés et les devoirs', 'La démocratie et la défense'] },
+  { q: 'D’où viennent les quatre dimensions des compétences travaillées en EMC ?', b: 'Du cadre de référence des compétences pour une culture de la démocratie du Conseil de l’Europe',
+    v: ['Du cadre de référence des compétences pour une culture de la démocratie du Conseil de l’Europe',
+        'Du socle commun de l’école obligatoire', 'De la Déclaration des droits de l’homme et du citoyen',
+        'Du Code de l’éducation'] },
+  { q: 'Quelles sont ces quatre dimensions ?', b: 'Valeurs, connaissances, attitudes et aptitudes',
+    v: ['Valeurs, connaissances, attitudes et aptitudes', 'Savoirs, savoir-faire, savoir-être et savoir-vivre',
+        'Liberté, égalité, fraternité et laïcité', 'Lire, écrire, compter et débattre'] },
+  { q: 'Quel est le thème du programme d’EMC en classe terminale ?', b: 'La vie démocratique : débat, délibération et prise de décision',
+    v: ['La vie démocratique : débat, délibération et prise de décision', 'Cohésion et diversité dans une société démocratique',
+        'La défense et la sécurité nationale', 'Les institutions européennes'] }
+];
+
+G('emc-debat', 'emc-programme', 'Le programme d’EMC', 'app', function(){
+  const x = R.pick(PROG_EMC);
+  const opts = R.shuffle(x.v.slice());
+  return {
+    enonce: '<p>' + x.q + '</p>',
+    qcm: { options: opts, bon: opts.indexOf(x.b) },
+    etapes: ['Réponse : <b>' + x.b + '</b>.',
+             'Le programme de première est issu de l’arrêté du 29 mai 2024, ' +
+               'appliqué en première depuis la rentrée 2025-2026.']
+  };
+});
+
+/* ---------- exercice rédigé ---------- */
+D('emc-debat', 'emc-preparer-debat', 'Préparer un débat argumenté', function(){
+  const sujets = [
+    { s: 'Faut-il autoriser les statistiques ethniques pour mieux mesurer les discriminations ?',
+      ch: 'emc-discriminations',
+      p: 'article 225-1 du Code pénal · action du Défenseur des droits · méthode du testing',
+      c: 'sans données, on ne peut pas évaluer les politiques publiques',
+      o: 'le risque d’assigner les personnes à une origine, contraire à l’universalisme républicain' },
+    { s: 'La laïcité protège-t-elle la liberté de croire, ou la restreint-elle ?',
+      ch: 'emc-laicite',
+      p: 'loi de 1905, articles 1, 2, 27 et 28 · loi de 2004 · jurisprudence de la Cour européenne des droits de l’Homme',
+      c: 'elle garantit la liberté de conscience et le libre exercice des cultes',
+      o: 'certaines restrictions existent, et elles sont vécues comme des limitations' },
+    { s: 'La décentralisation menace-t-elle l’indivisibilité de la République ?',
+      ch: 'emc-indivisibilite',
+      p: 'article premier de la Constitution · lois de 1982 · article 75-1 · statuts ultramarins',
+      c: 'elle rapproche la décision du citoyen et reconnaît la diversité des territoires',
+      o: 'elle peut créer des écarts entre territoires, alors que la loi doit être la même partout' },
+    { s: 'Le devoir de mémoire est-il une obligation ou un choix ?',
+      ch: 'emc-memoire',
+      p: 'journées du 10 mai et du 27 janvier · distinction entre histoire et mémoire · patriotisme constitutionnel',
+      c: 'commémorer construit une conscience commune et prévient la répétition',
+      o: 'imposer une mémoire officielle peut figer le passé et entrer en concurrence avec le travail des historiens' },
+    { s: 'Les inégalités économiques menacent-elles la démocratie elle-même ?',
+      ch: 'emc-solidarite',
+      p: 'décision du 6 juillet 2018 sur la fraternité · logiques d’assurance et d’assistance · action de l’Agence nationale de la cohésion des territoires',
+      c: 'le programme affirme que ces inégalités peuvent présenter un danger pour la cohésion sociale et la démocratie',
+      o: 'la démocratie dispose de mécanismes de redistribution qui corrigent en partie ces écarts' }
+  ];
+  const x = R.pick(sujets);
+  return {
+    enonce: '<p><b>Sujet de débat</b>, en lien avec le chapitre « ' + CHAP[x.ch].titre + ' » :</p>' +
+            '<div class="form">' + x.s + '</div>' +
+            '<p>Sur ton cahier, prépare ce débat : définis les termes, rassemble les faits, ' +
+            'puis construis <b>les deux positions</b>, celle que tu défends et celle que tu combats.</p>',
+    aide: 'En EMC, un bon débat s’appuie sur des <b>textes</b> et des <b>faits</b>, pas sur des impressions. ' +
+          'Pistes à mobiliser ici : ' + x.p + '.',
+    bareme: [
+      { pts: 2, d: '<b>Définition des termes</b> du sujet. Beaucoup de désaccords ne sont que ' +
+                   'des malentendus de vocabulaire : commencer par là est toujours payant.' },
+      { pts: 3, d: '<b>Au moins deux faits précis</b> mobilisés : un texte de loi avec sa date, ' +
+                   'une décision de justice, une institution, un chiffre. Pistes : ' + x.p + '.' },
+      { pts: 3, d: '<b>Arguments pour</b>, construits et non énumérés. Par exemple : ' + x.c + '.' },
+      { pts: 3, d: '<b>Arguments contre</b>, présentés honnêtement et non caricaturés. Par exemple : ' + x.o + '.' },
+      { pts: 2, d: '<b>Distinction fait / opinion / argument</b> visible : chaque opinion avancée ' +
+                   'est reliée à un fait par un raisonnement.' },
+      { pts: 2, d: '<b>Lien aux valeurs de la République</b> : liberté, égalité, fraternité, laïcité, ' +
+                   'dignité humaine, État de droit. Le sujet est rattaché explicitement à l’une d’elles.' },
+      { pts: 2, d: '<b>Position personnelle</b> assumée en conclusion, et <b>justifiée</b>. ' +
+                   'Ne pas conclure est aussi une faute.' },
+      { pts: 2, d: '<b>Reformulation de la position adverse</b> avant d’y répondre : ' +
+                   'c’est une aptitude explicitement au programme, et la marque d’une vraie écoute.' },
+      { pts: 1, d: '<b>Ton</b> du débat : on cherche à convaincre, pas à écraser. ' +
+                   'En EMC, la manière compte autant que le contenu.' }
+    ]
+  };
+});
+/* =========================================================================
+   EMC : compléments d'exercices pour les chapitres qui en manquaient.
+   ========================================================================= */
+
+/* ---------- égalité femmes-hommes : les étapes juridiques ---------- */
+const EGALITE_DATES = [
+  { d: '1944', e: 'Les femmes obtiennent le droit de vote et d’éligibilité',
+    p: 'Elles votent pour la première fois en 1945. La France est en retard sur beaucoup de démocraties.' },
+  { d: '1965', e: 'Les femmes mariées peuvent travailler et ouvrir un compte bancaire sans l’accord de leur mari',
+    p: 'Jusque-là, le Code civil de 1804 plaçait la femme mariée sous l’autorité de son époux.' },
+  { d: '1972', e: 'Le principe « à travail égal, salaire égal » est inscrit dans la loi',
+    p: 'Le principe est posé, mais les écarts de rémunération persistent : c’est l’écart entre le droit et les faits.' },
+  { d: '1975', e: 'La loi Veil dépénalise l’interruption volontaire de grossesse',
+    p: 'La liberté d’y recourir est entrée dans la Constitution en 2024.' },
+  { d: '2000', e: 'La loi sur la parité impose l’égal accès aux mandats électoraux',
+    p: 'Elle illustre ce que le programme appelle une « politique volontariste ».' },
+  { d: '2024', e: 'La liberté de recourir à l’IVG entre dans la Constitution',
+    p: 'La France est le premier pays à l’inscrire explicitement dans sa Constitution.' }
+];
+
+G('emc-egalite', 'emc-egalite-dates', 'Les étapes de l’égalité', 'app', function(){
+  const x = R.pick(EGALITE_DATES);
+  return {
+    enonce: '<p>En quelle année cette avancée a-t-elle eu lieu ?</p>' + cit(x.e),
+    qcm: qcm4(x.d, EGALITE_DATES.map(y => y.d)),
+    etapes: ['<b>' + x.d + '</b> · ' + x.e + '.', x.p,
+             'Le programme demande de <b>mettre en regard</b> l’évolution juridique et les données statistiques : ' +
+               'une date seule ne suffit pas, il faut la confronter aux faits.']
+  };
+});
+
+G('emc-egalite', 'emc-egalite-sens', 'Ce que change chaque loi', 'ent', function(){
+  const x = R.pick(EGALITE_DATES);
+  const faits = R.shuffle([x.e].concat(autres(EGALITE_DATES.map(y => y.e), x.e, 3)));
+  return {
+    enonce: '<p>Que s’est-il passé en <b>' + x.d + '</b> en matière d’égalité entre les femmes et les hommes ?</p>',
+    qcm: { options: faits, bon: faits.indexOf(x.e) },
+    etapes: ['<b>' + x.d + '</b> : ' + x.e + '.', x.p,
+             'Le programme insiste : ce principe « transforme progressivement la société, ' +
+               'tout en se heurtant à diverses formes de résistance ». Les deux moitiés comptent.']
+  };
+});
+
+/* ---------- racisme : ce que la loi distingue ---------- */
+const EXPRESSION_EMC = [
+  { p: 'Exprimer publiquement une opinion politique minoritaire, même choquante.', t: 'Protégé par la liberté d’expression',
+    e: 'L’opinion est libre, y compris lorsqu’elle dérange. C’est le principe de base.' },
+  { p: 'Insulter une personne en raison de son origine.', t: 'Puni par la loi',
+    e: 'L’injure à caractère raciste est réprimée, notamment depuis la loi Pleven du 1er juillet 1972.' },
+  { p: 'Appeler publiquement à la violence contre un groupe en raison de sa religion.', t: 'Puni par la loi',
+    e: 'C’est la provocation à la haine ou à la violence, réprimée plus sévèrement que l’injure.' },
+  { p: 'Nier publiquement l’existence de la Shoah.', t: 'Puni par la loi',
+    e: 'C’est la contestation d’un crime contre l’humanité, réprimée par la loi Gayssot du 13 juillet 1990.' },
+  { p: 'Critiquer une religion ou ses dogmes.', t: 'Protégé par la liberté d’expression',
+    e: 'La critique des idées et des croyances est libre. Ce qui est puni, c’est l’attaque contre les <b>personnes</b> ' +
+       'en raison de leur appartenance.' },
+  { p: 'Harceler en ligne une personne en raison de son orientation sexuelle.', t: 'Puni par la loi',
+    e: 'La loi du 30 décembre 2004 a étendu la répression aux propos fondés sur le sexe, ' +
+       'l’orientation sexuelle et le handicap.' }
+];
+
+G('emc-racisme', 'emc-expression', 'Liberté d’expression : où est la limite ?', 'ent', function(){
+  const x = R.pick(EXPRESSION_EMC);
+  const noms = ['Protégé par la liberté d’expression', 'Puni par la loi'];
+  return {
+    enonce: '<p>Ce comportement relève-t-il de la liberté d’expression, ou est-il puni par la loi ?</p>' + cit(x.p),
+    qcm: { options: noms.slice(), bon: noms.indexOf(x.t) },
+    etapes: [
+      'Réponse : <b>' + x.t.toLowerCase() + '</b>.', x.e,
+      'La ligne de partage : on peut <b>critiquer des idées</b>, on ne peut pas <b>attaquer des personnes</b> ' +
+        'en raison de ce qu’elles sont. Le racisme n’est pas une opinion, c’est un délit.'
+    ]
+  };
+});
+
+/* ---------- une synthèse de niveau devoir ---------- */
+G('emc-debat', 'emc-synthese', 'Situer une notion complètement', 'ds', function(){
+  const x = R.pick(NOTIONS_EMC);
+  const parties = ['Les valeurs de la République et la cohésion sociale', 'La République et la Nation'];
+  const bloc = CHAP[x.ch].bloc === 'emc-valeurs' ? parties[0] : parties[1];
+  const titres = R.shuffle([CHAP[x.ch].titre].concat(
+    autres(CHAPITRES.filter(c => c.matiere === 'emc').map(c => c.titre), CHAP[x.ch].titre, 3)));
+  const defs = R.shuffle([x.d].concat(autres(NOTIONS_EMC.map(y => y.d), x.d, 3)));
+  return {
+    enonce: '<p>Situe cette notion dans le programme, comme on te le demandera en devoir.</p>' +
+            '<div class="form"><b>' + x.n + '</b></div>' +
+            '<p class="tiny">Trois réponses : sa définition, son chapitre, et la partie du programme dont elle relève.</p>',
+    champs: [
+      { type: 'choix', label: 'Définition', options: defs, bon: defs.indexOf(x.d) },
+      { type: 'choix', label: 'Chapitre', options: titres, bon: titres.indexOf(CHAP[x.ch].titre) },
+      { type: 'choix', label: 'Partie du programme', options: parties.slice(), bon: parties.indexOf(bloc) }
+    ],
+    etapes: [
+      '<b>' + x.n + '</b> : ' + x.d + '.',
+      'Chapitre : <b>' + CHAP[x.ch].titre + '</b>, dans la partie « ' + bloc + ' ».',
+      'Le programme de première s’intitule « Cohésion et diversité dans une société démocratique » ' +
+        'et comporte deux parties de neuf heures chacune.'
+    ]
+  };
+});
+/* =========================================================================
    Couche motivation : encouragements, badges, confettis, objectif du jour,
    petits sons. Tout est décoratif · rien ici ne change une correction.
    ========================================================================= */
@@ -10274,7 +12496,9 @@ function vueDS(){
           f.options.map((o, j) => '<button class="' + (f.saisie === j ? 'on' : '') + '" data-dschamp="' + i + '" data-val="' + j + '">' + o + '</button>').join('') + '</div></div>';
       }
       return '<div class="field"><label for="d' + i + '">' + f.label + '</label>' +
-        '<input id="d' + i + '" type="text" inputmode="decimal" autocomplete="off" value="' + (f.saisie === undefined ? '' : esc(f.saisie)) + '"></div>';
+        '<input id="d' + i + '" type="text" inputmode="' + (f.type === 'texte' ? 'text' : 'decimal') + '"' +
+        (f.type === 'texte' ? ' spellcheck="false" autocapitalize="off"' : '') +
+        ' autocomplete="off" value="' + (f.saisie === undefined ? '' : esc(f.saisie)) + '"></div>';
     }).join('') + '</div>';
   }
 
@@ -10767,7 +12991,8 @@ function vueDefi(){
           (defi.repondu ? verdictChamp(f, f.saisie === f.bon) : '') + '</div>';
       }
       return '<div class="field"><label for="df' + i + '">' + f.label + '</label>' +
-        '<input id="df' + i + '" type="text" inputmode="decimal" autocomplete="off" value="' +
+        '<input id="df' + i + '" type="text" inputmode="' + (f.type === 'texte' ? 'text' : 'decimal') + '"' +
+        (f.type === 'texte' ? ' spellcheck="false" autocapitalize="off"' : '') + ' autocomplete="off" value="' +
         (f.saisie === undefined ? '' : esc(f.saisie)) + '"' + (defi.repondu ? ' disabled' : '') + '>' +
         (defi.repondu ? verdictChamp(f, champOk(f)) : '') + '</div>';
     }).join('') + '</div>';
@@ -11336,7 +13561,9 @@ function vueSerie(){
           (serie.valide ? verdictChamp(f, f.saisie === f.bon) : '') + '</div>';
       }
       return '<div class="field"><label for="f' + i + '">' + f.label + '</label>' +
-        '<input id="f' + i + '" type="text" inputmode="decimal" autocomplete="off" value="' + (f.saisie === undefined ? '' : esc(f.saisie)) + '"' +
+        '<input id="f' + i + '" type="text" inputmode="' + (f.type === 'texte' ? 'text' : 'decimal') + '"' +
+        (f.type === 'texte' ? ' spellcheck="false" autocapitalize="off"' : '') +
+        ' autocomplete="off" value="' + (f.saisie === undefined ? '' : esc(f.saisie)) + '"' +
         (serie.valide ? ' disabled' : '') + '>' +
         (serie.valide ? verdictChamp(f, champOk(f)) : '') + '</div>';
     }).join('') + '</div>';
@@ -11380,11 +13607,25 @@ function vueSerie(){
 }
 function verdictChamp(f, ok){
   if (ok) return '<span class="tiny" style="color:var(--juste);font-weight:700">✓</span>';
-  const att = f.type === 'choix' ? f.options[f.bon] : nf(f.bon);
+  const att = f.type === 'choix' ? f.options[f.bon] : (f.type === 'texte' ? f.bon : nf(f.bon));
   return '<span class="tiny" style="color:var(--faux);font-weight:700">✗ attendu : ' + att + '</span>';
+}
+/* normalise une réponse en texte : minuscules, sans accent, espaces réduits */
+/* plage des signes diacritiques, construite sans caractere combinant dans le source */
+const DIACRITIQUES = new RegExp('[' + String.fromCharCode(0x300) + '-' + String.fromCharCode(0x36f) + ']', 'g');
+function normTexte(v){
+  return String(v === undefined ? '' : v).toLowerCase().trim()
+    .normalize('NFD').replace(DIACRITIQUES, '')
+    .replace(/[’´'`]/g, "'").replace(/\s+/g, ' ')
+    .replace(/[.!?;,]+$/, '');
 }
 function champOk(f){
   if (f.type === 'choix') return f.saisie === f.bon;
+  if (f.type === 'texte'){
+    const v = normTexte(f.saisie);
+    if (v === '') return false;
+    return [f.bon].concat(f.alt || []).some(x => normTexte(x) === v);
+  }
   const v = String(f.saisie === undefined ? '' : f.saisie).trim().replace(/\s/g, '').replace(',', '.');
   if (v === '') return false;
   const x = Number(v);

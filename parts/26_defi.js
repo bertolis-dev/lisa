@@ -329,7 +329,8 @@ function vueDefi(){
           (defi.repondu ? verdictChamp(f, f.saisie === f.bon) : '') + '</div>';
       }
       return '<div class="field"><label for="df' + i + '">' + f.label + '</label>' +
-        '<input id="df' + i + '" type="text" inputmode="decimal" autocomplete="off" value="' +
+        '<input id="df' + i + '" type="text" inputmode="' + (f.type === 'texte' ? 'text' : 'decimal') + '"' +
+        (f.type === 'texte' ? ' spellcheck="false" autocapitalize="off"' : '') + ' autocomplete="off" value="' +
         (f.saisie === undefined ? '' : esc(f.saisie)) + '"' + (defi.repondu ? ' disabled' : '') + '>' +
         (defi.repondu ? verdictChamp(f, champOk(f)) : '') + '</div>';
     }).join('') + '</div>';

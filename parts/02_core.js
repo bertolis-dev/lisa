@@ -84,7 +84,7 @@ function fracTxt(p, q){
 /* ---------- état de la progression ---------- */
 const VIDE = () => ({ v: 3, statuts: {}, methodes: {}, courant: null, serie: 0, record: 0,
                       badges: [], notes: [], jour: '', joursSuite: 0, recordJours: 0, xpJour: 0, son: true,
-                      matiere: 'maths', mesMatieres: ['maths', 'francais', 'histgeo', 'sciences', 'anglais'], maj: 0 });
+                      matiere: 'maths', mesMatieres: ['maths', 'francais', 'histgeo', 'sciences', 'anglais', 'emc'], maj: 0 });
 let S = VIDE();
 
 const BOXES = [0, 1, 3, 7, 16];           // révision espacée, en jours

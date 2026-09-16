@@ -496,7 +496,9 @@ function vueSerie(){
           (serie.valide ? verdictChamp(f, f.saisie === f.bon) : '') + '</div>';
       }
       return '<div class="field"><label for="f' + i + '">' + f.label + '</label>' +
-        '<input id="f' + i + '" type="text" inputmode="decimal" autocomplete="off" value="' + (f.saisie === undefined ? '' : esc(f.saisie)) + '"' +
+        '<input id="f' + i + '" type="text" inputmode="' + (f.type === 'texte' ? 'text' : 'decimal') + '"' +
+        (f.type === 'texte' ? ' spellcheck="false" autocapitalize="off"' : '') +
+        ' autocomplete="off" value="' + (f.saisie === undefined ? '' : esc(f.saisie)) + '"' +
         (serie.valide ? ' disabled' : '') + '>' +
         (serie.valide ? verdictChamp(f, champOk(f)) : '') + '</div>';
     }).join('') + '</div>';
@@ -540,11 +542,25 @@ function vueSerie(){
 }
 function verdictChamp(f, ok){
   if (ok) return '<span class="tiny" style="color:var(--juste);font-weight:700">✓</span>';
-  const att = f.type === 'choix' ? f.options[f.bon] : nf(f.bon);
+  const att = f.type === 'choix' ? f.options[f.bon] : (f.type === 'texte' ? f.bon : nf(f.bon));
   return '<span class="tiny" style="color:var(--faux);font-weight:700">✗ attendu : ' + att + '</span>';
+}
+/* normalise une réponse en texte : minuscules, sans accent, espaces réduits */
+/* plage des signes diacritiques, construite sans caractere combinant dans le source */
+const DIACRITIQUES = new RegExp('[' + String.fromCharCode(0x300) + '-' + String.fromCharCode(0x36f) + ']', 'g');
+function normTexte(v){
+  return String(v === undefined ? '' : v).toLowerCase().trim()
+    .normalize('NFD').replace(DIACRITIQUES, '')
+    .replace(/[’´'`]/g, "'").replace(/\s+/g, ' ')
+    .replace(/[.!?;,]+$/, '');
 }
 function champOk(f){
   if (f.type === 'choix') return f.saisie === f.bon;
+  if (f.type === 'texte'){
+    const v = normTexte(f.saisie);
+    if (v === '') return false;
+    return [f.bon].concat(f.alt || []).some(x => normTexte(x) === v);
+  }
   const v = String(f.saisie === undefined ? '' : f.saisie).trim().replace(/\s/g, '').replace(',', '.');
   if (v === '') return false;
   const x = Number(v);

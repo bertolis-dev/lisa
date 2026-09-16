@@ -18,6 +18,7 @@ CORPS = ['01_shell.html', '02_core.js', '03_programme.js', '04_generateurs.js',
          '16_demos2026.js', '17_maths_es.js', '18_francais.js', '19_gen_francais.js',
          '20_histgeo.js', '21_histgeo_geo.js', '22_gen_histgeo.js', '23_gen_histgeo_plus.js',
          '24_sciences.js', '25_gen_sciences.js',
+         '27_anglais.js', '28_gen_anglais.js', '29_emc.js', '30_gen_emc.js', '31_gen_emc_plus.js',
          '07_fun.js', '09_evaluation.js', '26_defi.js', '05_ui.js']
 
 def lire(nom):
