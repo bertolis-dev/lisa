@@ -151,14 +151,15 @@ const FIGURES = {
       '<line class="axe" x1="' + cx + '" y1="' + (cy + r + 24) + '" x2="' + cx + '" y2="' + (cy - r - 24) + '"></line>' +
       '<path class="arc" d="M ' + (cx + 34) + ' ' + cy + ' A 34 34 0 0 0 ' + (cx + 34 * Math.cos(ang)) + ' ' + (cy - 34 * Math.sin(ang)) + '"></path>' +
       '<line class="rayon" x1="' + cx + '" y1="' + cy + '" x2="' + px + '" y2="' + py + '"></line>' +
-      '<line class="aide" x1="' + px + '" y1="' + py + '" x2="' + px + '" y2="' + cy + '"></line>' +
+      '<line class="proj" x1="' + px + '" y1="' + py + '" x2="' + px + '" y2="' + cy + '"></line>' +
+      '<line class="proj" x1="' + cx + '" y1="' + cy + '" x2="' + px + '" y2="' + cy + '"></line>' +
       '<line class="aide" x1="' + px + '" y1="' + py + '" x2="' + cx + '" y2="' + py + '"></line>' +
       pt(px, py) +
-      txt(px + 10, py - 6, 'M', 'lab') +
-      txt(cx + 46, cy - 12, 'x', 'lab') +
-      txt(px, cy + 20, 'cos x', 'lab c') +
-      txt(cx - 12, py + 4, 'sin x', 'lab r') +
-      txt(cx + r + 16, cy + 18, '1', 'lab c'),
+      txt(px + 12, py - 4, 'M', 'lab') +
+      txt(cx + 42, cy - 10, 'x', 'lab') +
+      txt((cx + px) / 2, cy + 20, 'cos x', 'lab c') +
+      txt(px + 10, (cy + py) / 2 + 4, 'sin x', 'lab') +
+      txt(cx + r + 14, cy + 20, '1', 'lab c'),
       M('@cos(x)') + ' est l’<b>abscisse</b> du point, ' + M('@sin(x)') + ' son <b>ordonnée</b>. Le quart de cercle donne immédiatement les deux signes.');
   }}
 ],
