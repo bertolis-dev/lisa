@@ -6,7 +6,7 @@ Assemble les deux livrables a partir de parts/ :
 
 Usage :  python build.py
 """
-import io, os, zlib, struct
+import io, os, math
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 PARTS = os.path.join(BASE, 'parts')
@@ -36,7 +36,7 @@ TETE = """<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Lisa — tout le programme de spécialité mathématiques de première, avec des exercices tirés au sort et corrigés pas à pas.">
+<meta name="description" content="Lisa : réviser le lycée et préparer le bac. Le programme officiel, des exercices tirés au sort et corrigés pas à pas.">
 <meta name="theme-color" content="#16223F">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon-192.png" sizes="192x192">
@@ -46,7 +46,7 @@ TETE = """<!doctype html>
 <meta name="apple-mobile-web-app-title" content="Lisa">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Lisa">
-<meta property="og:description" content="Tout le programme de spécialité maths de première, avec des exercices tirés au sort et corrigés pas à pas.">
+<meta property="og:description" content="Réviser le lycée et préparer le bac. Le programme officiel, des exercices tirés au sort et corrigés pas à pas.">
 <meta property="og:image" content="https://bertolis-dev.github.io/lisa/apercu.png">
 <meta property="og:url" content="https://bertolis-dev.github.io/lisa/">
 <meta name="twitter:card" content="summary_large_image">
@@ -69,9 +69,9 @@ if ('serviceWorker' in navigator){
 ecrire(os.path.join(SITE, 'index.html'), TETE + corps + PIED)
 
 MANIFESTE = """{
-  "name": "Lisa — Spé maths première",
+  "name": "Lisa, réviser le lycée",
   "short_name": "Lisa",
-  "description": "Tout le programme de spécialité mathématiques de première, avec des exercices tirés au sort et corrigés pas à pas.",
+  "description": "Réviser le lycée et préparer le bac : le programme officiel, des exercices tirés au sort et corrigés pas à pas.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
@@ -161,21 +161,39 @@ def parabole(d, ox, oy, k, ex, largeur, xmax, couleur):
         x += 0.02
     trait(d, pts, largeur, couleur)
 
+def polygone_doux(d, pts, r, couleur):
+    d.polygon(pts, fill=couleur)
+    trait(d, pts + [pts[0]], r * 2, couleur)
+
+def arc(cx, cy, rx, ry, a0, a1, n=44):
+    return [(cx + rx * math.cos(a0 + (a1 - a0) * i / n), cy + ry * math.sin(a0 + (a1 - a0) * i / n)) for i in range(n + 1)]
+
+def toque(d, ox, oy, ech):
+    """toque de diplome : plateau net, calotte en retrait, gland dore"""
+    cx, cy = ox, oy - 0.105 * ech
+    dx, dy = 0.325 * ech, 0.140 * ech
+    ht, hb = 0.165 * ech, 0.125 * ech
+    y0 = cy + 0.020 * ech
+    yb = oy + 0.080 * ech
+    calotte = [(cx - ht, y0), (cx + ht, y0), (cx + hb, yb)] + arc(cx, yb, hb, 0.048 * ech, 0, math.pi)[1:-1] + [(cx - hb, yb)]
+    d.polygon(calotte, fill=(255, 255, 255, 165))
+    polygone_doux(d, [(cx, cy - dy), (cx + dx, cy), (cx, cy + dy), (cx - dx, cy)], 0.020 * ech, (255, 255, 255, 255))
+    xg = cx + 0.275 * ech
+    yn = cy + 0.150 * ech
+    trait(d, [(cx + dx * 0.97, cy + 0.004 * ech), (xg - 0.020 * ech, cy + 0.028 * ech),
+              (xg, cy + 0.070 * ech), (xg, yn)], 0.022 * ech, OR + (255,))
+    trait(d, [(xg, yn), (xg, yn + 0.105 * ech)], 0.072 * ech, OR + (255,))
+
 def icone(taille, maskable=False):
     S = taille * 4
     img = degrade(S, S)
     calque = Image.new('RGBA', (S, S), (0, 0, 0, 0))
     d = ImageDraw.Draw(calque)
     pas = S / 8.0
-    for i in range(1, 8):                                  # quadrillage discret
-        d.line([(i * pas, 0), (i * pas, S)], fill=(255, 255, 255, 26), width=max(1, S // 300))
-        d.line([(0, i * pas), (S, i * pas)], fill=(255, 255, 255, 26), width=max(1, S // 300))
-    z = 0.78 if maskable else 1.0                          # zone sûre pour l'icône masquée
-    ox, oy = S / 2, S * (0.5 + 0.20 * z)
-    ex, k = S * 0.138 * z, S * 0.100 * z
-    parabole(d, ox, oy, k, ex, S * 0.082 * z, 2.0, (255, 255, 255, 255))
-    r = S * 0.052 * z
-    d.ellipse([ox - r, oy - r, ox + r, oy + r], fill=OR + (255,))
+    for i in range(1, 8):
+        d.line([(i * pas, 0), (i * pas, S)], fill=(255, 255, 255, 24), width=max(1, S // 300))
+        d.line([(0, i * pas), (S, i * pas)], fill=(255, 255, 255, 24), width=max(1, S // 300))
+    toque(d, S * 0.5, S * 0.5, S * (0.80 if maskable else 1.0))
     img = Image.alpha_composite(img.convert('RGBA'), calque).convert('RGB')
     return img.resize((taille, taille), Image.LANCZOS)
 
@@ -184,7 +202,11 @@ icone(512).save(os.path.join(SITE, 'icon-512.png'))
 icone(180).save(os.path.join(SITE, 'icon-180.png'))
 icone(512, maskable=True).save(os.path.join(SITE, 'icon-512-maskable.png'))
 
-# vignette d'apercu quand on partage le lien (1200 x 630)
+FONTB = 'C:\\Windows\\Fonts\\segoeuib.ttf'
+FONTS = 'C:\\Windows\\Fonts\\seguisb.ttf'
+FONT  = 'C:\\Windows\\Fonts\\segoeui.ttf'
+FONTA = 'C:\\Windows\\Fonts\\arialbd.ttf'
+
 def police(chemins, taille):
     for c in chemins:
         try:
@@ -202,18 +224,16 @@ def vignette():
         d.line([(i * 50, 0), (i * 50, H)], fill=(255, 255, 255, 20), width=2)
     for i in range(1, 13):
         d.line([(0, i * 50), (W, i * 50)], fill=(255, 255, 255, 20), width=2)
-    ox, oy = 980, 436
-    parabole(d, ox, oy, 46, 88, 20, 2.05, (255, 255, 255, 255))
-    d.ellipse([ox - 16, oy - 16, ox + 16, oy + 16], fill=OR + (255,))
+    toque(d, 955, 322, 520)
     img = Image.alpha_composite(img.convert('RGBA'), calque).convert('RGB')
     d = ImageDraw.Draw(img)
-    gros = police([r'C:\Windows\Fonts\segoeuib.ttf', r'C:\Windows\Fonts\arialbd.ttf'], 132)
-    moyen = police([r'C:\Windows\Fonts\seguisb.ttf', r'C:\Windows\Fonts\arial.ttf'], 44)
-    petit = police([r'C:\Windows\Fonts\segoeui.ttf', r'C:\Windows\Fonts\arial.ttf'], 34)
+    gros = police([FONTB, FONTA], 132)
+    moyen = police([FONTS, FONT], 44)
+    petit = police([FONT, FONTA], 34)
     d.text((96, 186), 'Lisa', font=gros, fill=(255, 255, 255))
-    d.text((104, 344), 'Spécialité maths, première générale', font=moyen, fill=(255, 255, 255))
-    d.text((104, 414), 'Tout le programme, des exercices tirés au sort,', font=petit, fill=(232, 226, 255))
-    d.text((104, 458), 'et la correction pas à pas.', font=petit, fill=(232, 226, 255))
+    d.text((104, 344), 'R\u00e9viser le lyc\u00e9e, pr\u00e9parer le bac', font=moyen, fill=(255, 255, 255))
+    d.text((104, 414), 'Le programme officiel, des exercices tir\u00e9s au sort,', font=petit, fill=(232, 226, 255))
+    d.text((104, 458), 'et la correction pas \u00e0 pas.', font=petit, fill=(232, 226, 255))
     img.save(os.path.join(SITE, 'apercu.png'))
 
 vignette()
