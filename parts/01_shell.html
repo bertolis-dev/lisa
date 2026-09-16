@@ -617,6 +617,17 @@ main{min-width:0;padding-block:34px;padding-left:40px;padding-right:40px;max-wid
 .mat-corps .grp{padding:11px 8px 4px}
 .plus-mat{margin-top:12px;color:var(--ink-3);font-weight:600}
 .plus-mat .ic{border-style:dashed;font-size:15px;font-weight:700}
+
+/* ---------- application installée : ne rien glisser sous la barre d'état ---------- */
+.topbar{padding-top:calc(10px + env(safe-area-inset-top, 0px))}
+.side{padding-top:env(safe-area-inset-top, 0px)}
+main{padding-bottom:calc(34px + env(safe-area-inset-bottom, 0px))}
+@media (max-width:900px){
+  main{padding-bottom:calc(26px + env(safe-area-inset-bottom, 0px))}
+  .topbar{padding-left:calc(16px + env(safe-area-inset-left, 0px));padding-right:calc(16px + env(safe-area-inset-right, 0px))}
+  main{padding-left:calc(16px + env(safe-area-inset-left, 0px));padding-right:calc(16px + env(safe-area-inset-right, 0px))}
+}
+.toast{bottom:calc(26px + env(safe-area-inset-bottom, 0px))}
 </style>
 
 <div class="app">
