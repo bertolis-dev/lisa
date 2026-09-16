@@ -497,6 +497,24 @@ main{max-width:1240px;padding-left:34px;padding-right:34px}
 .courbe .gv{fill:var(--ink);font-weight:700}
 .courbe .cl{fill:none;stroke:var(--accent);stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round}
 .courbe .cp{fill:var(--accent)}
+.blk.pourquoi{border-left:3px solid #BC3B84;background:linear-gradient(100deg,rgba(188,59,132,.06),transparent 42%)}
+.blk.pourquoi .h .k{color:#BC3B84}
+.blk.ex{border-left:3px solid #2F6FE0;background:linear-gradient(100deg,rgba(47,111,224,.06),transparent 42%)}
+.blk.ex .h .k{color:#2F6FE0}
+.blk.astuce{border-left:3px solid #C4700A;background:linear-gradient(100deg,rgba(196,112,10,.08),transparent 42%)}
+.blk.astuce .h .k{color:#C4700A}
+.blk.astuce .body ul{gap:9px}
+.blk.astuce .body li::marker{color:#C4700A}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) .blk.pourquoi .h .k{color:#F183BC}
+  :root:not([data-theme="light"]) .blk.ex .h .k{color:#7FB0FF}
+  :root:not([data-theme="light"]) .blk.astuce .h .k{color:#F0A94C}
+}
+:root[data-theme="dark"] .blk.pourquoi .h .k{color:#F183BC}
+:root[data-theme="dark"] .blk.ex .h .k{color:#7FB0FF}
+:root[data-theme="dark"] .blk.astuce .h .k{color:#F0A94C}
+.niv.demo{border-color:var(--accent)}
+.niv.demo .pts{color:#fff;background:var(--accent)}
 </style>
 
 <div class="app">

@@ -240,7 +240,8 @@ function vueChapitre(){
     h += '<div class="capa"><div class="eyebrow" style="margin-bottom:2px">Capacités attendues</div><ul>' +
          c.capacites.map(x => '<li>' + x + '</li>').join('') + '</ul></div>';
     h += '<div class="cours">' + c.cours.map(b => {
-      const k = { def: 'Définition', prop: 'Propriété', meth: 'Méthode', piege: 'À éviter' }[b.k];
+      const k = { def: 'Définition', prop: 'Propriété', meth: 'Méthode', piege: 'À éviter',
+                  pourquoi: '🤔 À quoi ça sert', ex: '✏️ Exemple', astuce: '💡 Astuces' }[b.k];
       return '<div class="blk ' + b.k + '"><div class="h"><span class="k">' + k + '</span><b>' + b.t + '</b></div><div class="body">' + b.c + '</div></div>';
     }).join('') + '</div>';
     if (c.gens.length){
