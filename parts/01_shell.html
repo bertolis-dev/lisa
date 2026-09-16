@@ -628,6 +628,15 @@ main{padding-bottom:calc(34px + env(safe-area-inset-bottom, 0px))}
   main{padding-left:calc(16px + env(safe-area-inset-left, 0px));padding-right:calc(16px + env(safe-area-inset-right, 0px))}
 }
 .toast{bottom:calc(26px + env(safe-area-inset-bottom, 0px))}
+
+/* ---------- version et mise à jour ---------- */
+.version{display:flex;flex-direction:column;align-items:flex-start;gap:1px;width:100%;text-align:left;
+  margin-top:14px;padding:9px 12px;border-radius:9px;border:1px dashed var(--line);
+  font-size:11.5px;font-weight:700;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.version span{font-size:10.5px;font-weight:600;color:var(--accent);letter-spacing:.02em}
+.version:hover{border-color:var(--accent);background:var(--surface-2)}
+.pied{display:flex;justify-content:center;margin-top:26px}
+.pied .version{width:auto;align-items:center;text-align:center;margin-top:0}
 </style>
 
 <div class="app">

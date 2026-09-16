@@ -31,6 +31,9 @@ function mathHtml(src){
 function M(src){ return '<span class="m">' + mathHtml(src) + '</span>'; }
 function Mc(src){ return '<div class="center">' + M(src) + '</div>'; }
 
+/* version de la construction, remplacée par build.py */
+const VERSION_APP = '__VERSION__';
+
 /* ---------- utilitaires numériques ---------- */
 const R = {
   int(a, b){ return a + Math.floor(Math.random() * (b - a + 1)); },

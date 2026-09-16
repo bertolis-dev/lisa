@@ -75,6 +75,7 @@ function rendreNav(){
     h += '</div>';
   });
   h += '<button class="lien plus-mat" data-mat="+"><span class="ic">+</span><span>Ajouter une mati\u00e8re</span></button>';
+  h += ligneVersion();
   elNav.innerHTML = h;
 }
 function estActif(id){
@@ -82,6 +83,26 @@ function estActif(id){
   if (id === 'notes') return vue.nom === 'notes';
   if (id === 'ds') return vue.nom === 'ds' || vue.nom === 'copie';
   return vue.nom === 'serie' && serie && serie.mode === id;
+}
+
+/* version affichée et mise à jour forcée : une application installée garde
+   parfois une version en mémoire, ce bouton la remet à neuf */
+function ligneVersion(){
+  return '<button class="version" data-maj="1" title="Forcer la mise à jour">' +
+         'Version ' + VERSION_APP + '<span>Toucher pour mettre à jour</span></button>';
+}
+async function forcerMiseAJour(){
+  try {
+    if (navigator.serviceWorker){
+      const rs = await navigator.serviceWorker.getRegistrations();
+      await Promise.all(rs.map(r => r.unregister()));
+    }
+    if (window.caches){
+      const ks = await caches.keys();
+      await Promise.all(ks.map(k => caches.delete(k)));
+    }
+  } catch (e) {}
+  location.replace(location.pathname + '?maj=' + Date.now());
 }
 
 /* ---------------- accueil ---------------- */
@@ -201,6 +222,7 @@ function vueAccueil(){
     h += '</div></div>';
   });
   h += '</div>';
+  h += '<div class="pied">' + ligneVersion() + '</div>';
   elMain.innerHTML = h;
   elTop.textContent = 'Lisa';
 }
@@ -609,7 +631,7 @@ function rendre(){
 }
 
 document.addEventListener('click', function(e){
-  const t = e.target.closest('[data-ouvrir],[data-corrige],[data-coched],[data-autoeval],[data-eval],[data-dsq],[data-dschoix],[data-dschamp],[data-dsrendre],[data-coche],[data-noter],[data-mat],[data-prendre],[data-son],[data-go],[data-chap],[data-onglet],[data-statut],[data-serie],[data-choix],[data-champ],[data-verifier],[data-sechapper],[data-suivante],[data-quitter],[data-refaire]');
+  const t = e.target.closest('[data-maj],[data-ouvrir],[data-corrige],[data-coched],[data-autoeval],[data-eval],[data-dsq],[data-dschoix],[data-dschamp],[data-dsrendre],[data-coche],[data-noter],[data-mat],[data-prendre],[data-son],[data-go],[data-chap],[data-onglet],[data-statut],[data-serie],[data-choix],[data-champ],[data-verifier],[data-sechapper],[data-suivante],[data-quitter],[data-refaire]');
   if (e.target.closest('#burger')){
     elSide.classList.add('open');
     const s = document.createElement('div'); s.className = 'scrim'; s.addEventListener('click', fermerMenu);
@@ -653,6 +675,7 @@ document.addEventListener('click', function(e){
   }
   if (d.chap){ aller({ nom: 'chapitre', id: d.chap, onglet: 'cours' }); return; }
   if (d.onglet){ vue.onglet = d.onglet; window.scrollTo(0, 0); rendre(); return; }
+  if (d.maj){ forcerMiseAJour(); return; }
   if (d.son){
     S.son = !S.son;
     sauver();

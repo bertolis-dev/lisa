@@ -25,7 +25,9 @@ def ecrire(chemin, contenu):
         os.makedirs(d)
     io.open(chemin, 'w', encoding='utf-8', newline='\n').write(contenu)
 
-corps = ''.join(lire(n) for n in CORPS)
+import datetime
+VERSION_LISIBLE = datetime.datetime.now().strftime('%d/%m/%Y %Hh%M')
+corps = ''.join(lire(n) for n in CORPS).replace('__VERSION__', VERSION_LISIBLE)
 
 # ---------- 1. version Artifact ----------
 ecrire(os.path.join(BASE, 'maths_premiere.html'), corps)
@@ -90,7 +92,7 @@ MANIFESTE = """{
 ecrire(os.path.join(SITE, 'manifest.webmanifest'), MANIFESTE)
 
 # le cache est versionne par la taille du corps : toute modification force la mise a jour
-VERSION = 'v' + str(len(corps))
+VERSION = 'v' + str(len(corps)) + '-' + datetime.datetime.now().strftime('%Y%m%d%H%M')
 SW = """/* Service worker : l'application fonctionne hors connexion. */
 const CACHE = 'lisa-%s';
 const FICHIERS = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png', './apercu.png'];
