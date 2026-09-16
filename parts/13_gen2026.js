@@ -41,7 +41,7 @@ G('automatismes', 'au-taux-calculer', 'Calculer un taux d’évolution', 'app', 
     etapes: [
       'Formule : ' + M('taux = frac{valeur finale - valeur initiale}{valeur initiale} × 100') + '.',
       M('frac{' + nf(v1) + ' - ' + nf(v0) + '}{' + nf(v0) + '} = frac{' + nf(Math.round((v1 - v0) * 100) / 100) + '}{' + nf(v0) + '} = ' + nf(t / 100)),
-      'Soit ' + M(nf(t) + ' \\%') + ' : une ' + (t > 0 ? '<b>hausse</b>' : '<b>baisse</b>') + ' de ' + nf(Math.abs(t)) + ' %.',
+      'Soit ' + M(nf(t) + ' %') + ' : une ' + (t > 0 ? '<b>hausse</b>' : '<b>baisse</b>') + ' de ' + nf(Math.abs(t)) + ' %.',
       '<b>Piège</b> : on divise toujours par la valeur <b>de départ</b>, jamais par celle d’arrivée.'
     ]
   };
@@ -80,8 +80,8 @@ G('automatismes', 'au-taux-reciproque', 'Taux réciproque', 'ent', function(){
       'Le coefficient de départ est ' + M('CM = ' + nf(cm)) + '.',
       'Pour annuler l’évolution, il faut multiplier par l’<b>inverse</b> : ' + M('frac{1}{' + nf(cm) + '} = ' + nf(Math.round(10000 / cm) / 10000)) + '.',
       'Le taux correspondant est ' + M('(' + nf(Math.round(10000 / cm) / 10000) + ' - 1) × 100 = ' + nf(tr)) + ' %.',
-      '<b>À retenir</b> : le taux réciproque n’est pas l’opposé. Après ' + M('+' + nf(t) + ' \\%') + ', ce n’est pas ' +
-        M(nf(-t) + ' \\%') + ' mais ' + M(nf(tr) + ' \\%') + '.'
+      '<b>À retenir</b> : le taux réciproque n’est pas l’opposé. Après ' + M('+' + nf(t) + ' %') + ', ce n’est pas ' +
+        M(nf(-t) + ' %') + ' mais ' + M(nf(tr) + ' %') + '.'
     ]
   };
 });
