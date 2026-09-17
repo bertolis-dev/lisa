@@ -590,6 +590,11 @@ pre.code code{background:none;padding:0}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .lien.on{color:#0E1424}}
 .l-revision.on{background:#0F8A5F} .l-chrono.on{background:#C4700A}
 .l-ds.on{background:#BC3B84} .l-notes.on{background:#2F6FE0}
+.lien .lt{display:flex;flex-direction:column;gap:1px;min-width:0}
+.lien .lm{font-size:11px;font-weight:600;color:var(--ink-3)}
+.lien.on .lm{color:inherit;opacity:.85}
+.lien[disabled]{opacity:.45}
+.lien[disabled]:hover{background:none;transform:none;color:var(--ink-2)}
 
 .nav .grp{display:flex;align-items:center;gap:7px;padding:15px 10px 5px}
 .nav .grp i{width:14px;height:3px;border-radius:2px;background:var(--bc);display:block}
