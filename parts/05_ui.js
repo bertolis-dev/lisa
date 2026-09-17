@@ -53,17 +53,22 @@ function rendreNav(){
     '<div class="sr-bas"><span>' + (rgg.prochain ? '+' + (rgg.prochain.min - xpg) + ' \u2192 ' + rgg.prochain.nom : 'Rang maximal') + '</span>' +
     (sj ? '<span class="fl">\uD83D\uDD25 ' + sj + '</span>' : '') + '</div></div>';
 
+  /* Mix, Chrono, DS blanc et Ma courbe portent sur une seule matière : on dit
+     laquelle, sinon depuis le hub on ne sait pas où le clic nous emmène. Et on
+     les désactive quand la matière n'a rien de vu, plutôt qu'un clic sans effet. */
+  const mc = matiereCourante(), dispo = poolRevision().length;
   const liens = [
     { id: 'accueil',  e: '\uD83C\uDFE0', t: 'Accueil',                a: 'data-go="accueil"' },
-    { id: 'revision', e: '\uD83D\uDD01', t: 'Mix',                     a: 'data-go="revision"' },
-    { id: 'chrono',   e: '\u23F1\uFE0F', t: 'Chrono',                  a: 'data-go="chrono"' },
+    { id: 'revision', e: '\uD83D\uDD01', t: 'Mix',                     a: 'data-go="revision"', mat: 1, off: !dispo },
+    { id: 'chrono',   e: '\u23F1\uFE0F', t: 'Chrono',                  a: 'data-go="chrono"',   mat: 1, off: !dispo },
     { id: 'defi',     e: '🎯', t: 'Défi du jour',      a: 'data-defi="vue"' },
-    { id: 'ds',       e: '\uD83D\uDCDD', t: 'DS blanc',                a: 'data-eval="1"' },
-    { id: 'notes',    e: '\uD83D\uDCC8', t: 'Ma courbe',               a: 'data-go="notes"' }
+    { id: 'ds',       e: '\uD83D\uDCDD', t: 'DS blanc',                a: 'data-eval="1"',      mat: 1, off: dispo < 3 },
+    { id: 'notes',    e: '\uD83D\uDCC8', t: 'Ma courbe',               a: 'data-go="notes"',    mat: 1 }
   ];
   h += '<div class="liens">' + liens.map(l =>
-    '<button class="lien l-' + l.id + (estActif(l.id) ? ' on' : '') + '" ' + l.a + '>' +
-    '<span class="ic">' + l.e + '</span><span>' + l.t + '</span></button>').join('') + '</div>';
+    '<button class="lien l-' + l.id + (estActif(l.id) ? ' on' : '') + '" ' + l.a + (l.off ? ' disabled' : '') + '>' +
+    '<span class="ic">' + l.e + '</span><span class="lt">' + l.t +
+    (l.mat ? '<span class="lm">' + mc.e + ' ' + mc.court + '</span>' : '') + '</span></button>').join('') + '</div>';
 
   h += '<div class="grp-mat">Mes mati\u00e8res</div>';
   const ouverte = (S.navOuv === undefined) ? S.matiere : S.navOuv;

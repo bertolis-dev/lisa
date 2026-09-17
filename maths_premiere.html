@@ -590,6 +590,11 @@ pre.code code{background:none;padding:0}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .lien.on{color:#0E1424}}
 .l-revision.on{background:#0F8A5F} .l-chrono.on{background:#C4700A}
 .l-ds.on{background:#BC3B84} .l-notes.on{background:#2F6FE0}
+.lien .lt{display:flex;flex-direction:column;gap:1px;min-width:0}
+.lien .lm{font-size:11px;font-weight:600;color:var(--ink-3)}
+.lien.on .lm{color:inherit;opacity:.85}
+.lien[disabled]{opacity:.45}
+.lien[disabled]:hover{background:none;transform:none;color:var(--ink-2)}
 
 .nav .grp{display:flex;align-items:center;gap:7px;padding:15px 10px 5px}
 .nav .grp i{width:14px;height:3px;border-radius:2px;background:var(--bc);display:block}
@@ -995,7 +1000,7 @@ function M(src){ return '<span class="m">' + mathHtml(src) + '</span>'; }
 function Mc(src){ return '<div class="center">' + M(src) + '</div>'; }
 
 /* version de la construction, remplacée par build.py */
-const VERSION_APP = '1.28';
+const VERSION_APP = '1.30';
 
 /* ---------- utilitaires numériques ---------- */
 const R = {
@@ -15986,17 +15991,22 @@ function rendreNav(){
     '<div class="sr-bas"><span>' + (rgg.prochain ? '+' + (rgg.prochain.min - xpg) + ' \u2192 ' + rgg.prochain.nom : 'Rang maximal') + '</span>' +
     (sj ? '<span class="fl">\uD83D\uDD25 ' + sj + '</span>' : '') + '</div></div>';
 
+  /* Mix, Chrono, DS blanc et Ma courbe portent sur une seule matière : on dit
+     laquelle, sinon depuis le hub on ne sait pas où le clic nous emmène. Et on
+     les désactive quand la matière n'a rien de vu, plutôt qu'un clic sans effet. */
+  const mc = matiereCourante(), dispo = poolRevision().length;
   const liens = [
     { id: 'accueil',  e: '\uD83C\uDFE0', t: 'Accueil',                a: 'data-go="accueil"' },
-    { id: 'revision', e: '\uD83D\uDD01', t: 'Mix',                     a: 'data-go="revision"' },
-    { id: 'chrono',   e: '\u23F1\uFE0F', t: 'Chrono',                  a: 'data-go="chrono"' },
+    { id: 'revision', e: '\uD83D\uDD01', t: 'Mix',                     a: 'data-go="revision"', mat: 1, off: !dispo },
+    { id: 'chrono',   e: '\u23F1\uFE0F', t: 'Chrono',                  a: 'data-go="chrono"',   mat: 1, off: !dispo },
     { id: 'defi',     e: '🎯', t: 'Défi du jour',      a: 'data-defi="vue"' },
-    { id: 'ds',       e: '\uD83D\uDCDD', t: 'DS blanc',                a: 'data-eval="1"' },
-    { id: 'notes',    e: '\uD83D\uDCC8', t: 'Ma courbe',               a: 'data-go="notes"' }
+    { id: 'ds',       e: '\uD83D\uDCDD', t: 'DS blanc',                a: 'data-eval="1"',      mat: 1, off: dispo < 3 },
+    { id: 'notes',    e: '\uD83D\uDCC8', t: 'Ma courbe',               a: 'data-go="notes"',    mat: 1 }
   ];
   h += '<div class="liens">' + liens.map(l =>
-    '<button class="lien l-' + l.id + (estActif(l.id) ? ' on' : '') + '" ' + l.a + '>' +
-    '<span class="ic">' + l.e + '</span><span>' + l.t + '</span></button>').join('') + '</div>';
+    '<button class="lien l-' + l.id + (estActif(l.id) ? ' on' : '') + '" ' + l.a + (l.off ? ' disabled' : '') + '>' +
+    '<span class="ic">' + l.e + '</span><span class="lt">' + l.t +
+    (l.mat ? '<span class="lm">' + mc.e + ' ' + mc.court + '</span>' : '') + '</span></button>').join('') + '</div>';
 
   h += '<div class="grp-mat">Mes mati\u00e8res</div>';
   const ouverte = (S.navOuv === undefined) ? S.matiere : S.navOuv;
