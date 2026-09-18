@@ -16,7 +16,55 @@ const STATUTS = [
 ];
 
 function esc(s){ return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
-function aller(v){ vue = v; fermerMenu(); window.scrollTo(0, 0); rendre(); }
+/* Pile de navigation : chaque page garde d'où l'on vient, pour que le bouton
+   « Revenir » de la barre du haut ramène à l'écran précédent et non à un parent
+   théorique. On n'empile pas les écrans d'épreuve : revenir dans une série
+   terminée ou un DS rendu n'a pas de sens. */
+let pile = [];
+const SANS_PILE = ['serie', 'ds', 'bilan', 'copie'];
+function memeVue(a, b){ return a && b && a.nom === b.nom && a.id === b.id; }
+function aller(v){
+  if (v.nom === 'accueil') pile = [];
+  else if (SANS_PILE.indexOf(vue.nom) < 0 && !memeVue(vue, v)){
+    pile.push(Object.assign({}, vue, { mat: S.matiere }));
+    if (pile.length > 20) pile.shift();
+  }
+  vue = v; fermerMenu(); window.scrollTo(0, 0); rendre();
+}
+function retour(){
+  const v = pile.pop() || { nom: 'accueil' };
+  /* on rétablit aussi la matière d'alors : revenir doit rendre l'écran tel qu'il était */
+  if (v.mat && MAT[v.mat] && MAT[v.mat].pret){ S.matiere = v.mat; S.navOuv = v.mat; sauver(); }
+  vue = v; fermerMenu(); window.scrollTo(0, 0); rendre();
+}
+/* les écrans d'épreuve gardent leur sortie explicite (« Quitter », « Rendre la
+   copie ») : une flèche de retour y ferait perdre l'exercice en cours par mégarde */
+function retourPossible(){ return vue.nom !== 'accueil' && vue.nom !== 'serie' && vue.nom !== 'ds'; }
+function titreVue(v){
+  if (!v || v.nom === 'accueil') return 'Accueil';
+  if (v.nom === 'matiere') return MAT[v.mat] ? MAT[v.mat].court : 'la matière';
+  if (v.nom === 'chapitre') return CHAP[v.id] ? CHAP[v.id].titre : 'le chapitre';
+  if (v.nom === 'programme') return 'le programme';
+  if (v.nom === 'notes') return 'Ma courbe';
+  if (v.nom === 'matieres') return 'Mes matières';
+  if (v.nom === 'defi') return 'le défi du jour';
+  if (v.nom === 'bientot') return MAT[v.id] ? MAT[v.id].court : 'la matière';
+  return 'l\u2019écran précédent';
+}
+/* le bouton de la barre du haut sur téléphone ; sur grand écran la barre est
+   masquée et le tiroir toujours visible, on pose donc le retour en tête du contenu */
+function majRetour(){
+  const ok = retourPossible(), dest = titreVue(pile[pile.length - 1]);
+  const bt = document.getElementById('back');
+  if (bt){
+    bt.hidden = !ok;
+    bt.setAttribute('aria-label', 'Revenir \u00e0 ' + dest);
+  }
+  const vieux = elMain.querySelector('.retour-bar');
+  if (vieux) vieux.remove();
+  if (ok) elMain.insertAdjacentHTML('afterbegin',
+    '<button class="retour retour-bar" data-retour="1">' + esc(dest) + '</button>');
+}
 let defilementPage = 0;
 function ouvrirMenu(){
   defilementPage = window.scrollY || 0;
@@ -266,7 +314,6 @@ function vueMatiere(){
   let h = '';
   h += rubanMatieres();
   h += '<div class="home-head"><div>' +
-       '<div class="eyebrow"><button class="retour" data-go="accueil">Toutes mes matières</button></div>' +
        '<h2 style="font-size:31px">' + m.e + ' ' + m.nom + '</h2>' +
        '<p class="lede" style="margin-top:8px">' + s.n + ' chapitres du programme officiel. ' +
        'Les exercices sont tirés au sort à chaque fois, avec la correction détaillée étape par étape. ' +
@@ -791,14 +838,17 @@ function rendre(){
   else if (vue.nom === 'serie') vueSerie();
   else if (vue.nom === 'bilan') vueBilan();
   else if (vue.nom === 'defi') vueDefi();
+  majRetour();
   rendreNav();
 }
 
 document.addEventListener('click', function(e){
-  const t = e.target.closest('[data-reprendre],[data-maj],[data-ouvrir],[data-corrige],[data-coched],[data-autoeval],[data-eval],[data-dsq],[data-dschoix],[data-dschamp],[data-dsrendre],[data-coche],[data-noter],[data-mat],[data-prendre],[data-son],[data-go],[data-chap],[data-onglet],[data-statut],[data-serie],[data-choix],[data-champ],[data-verifier],[data-sechapper],[data-suivante],[data-quitter],[data-refaire]');
+  const t = e.target.closest('[data-retour],[data-reprendre],[data-maj],[data-ouvrir],[data-corrige],[data-coched],[data-autoeval],[data-eval],[data-dsq],[data-dschoix],[data-dschamp],[data-dsrendre],[data-coche],[data-noter],[data-mat],[data-prendre],[data-son],[data-go],[data-chap],[data-onglet],[data-statut],[data-serie],[data-choix],[data-champ],[data-verifier],[data-sechapper],[data-suivante],[data-quitter],[data-refaire]');
+  if (e.target.closest('#back')){ retour(); return; }
   if (e.target.closest('#burger')){ ouvrirMenu(); return; }
   if (!t) return;
   const d = t.dataset;
+  if (d.retour){ retour(); return; }
   if (d.go){
     if (d.go === 'revision'){
       const pool = poolRevision();

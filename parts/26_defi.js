@@ -365,7 +365,7 @@ document.addEventListener('click', function(ev){
   const t = ev.target.closest('[data-defi],[data-defichoix],[data-defichamp],[data-defivalider],[data-defipasser],[data-defisuivante]');
   if (!t) return;
   const d = t.dataset;
-  if (d.defi === 'vue'){ defiArreter(); defi = null; vue = { nom: 'defi' }; fermerMenu(); window.scrollTo(0, 0); rendre(); return; }
+  if (d.defi === 'vue'){ defiArreter(); defi = null; aller({ nom: 'defi' }); return; }
   if (d.defi === 'go'){ lancerDefi(false); return; }
   if (d.defi === 'entrainement'){ lancerDefi(true); return; }
   if (d.defi === 'quitter'){ defiArreter(); defi = null; rendre(); return; }
