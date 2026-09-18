@@ -663,10 +663,7 @@ function vueSerie(){
           (serie.valide ? verdictChamp(f, f.saisie === f.bon) : '') + '</div>';
       }
       return '<div class="field"><label for="f' + i + '">' + f.label + '</label>' +
-        '<input id="f' + i + '" type="text" inputmode="' + (f.type === 'texte' ? 'text' : 'decimal') + '"' +
-        (f.type === 'texte' ? ' spellcheck="false" autocapitalize="off"' : '') +
-        ' autocomplete="off" value="' + (f.saisie === undefined ? '' : esc(f.saisie)) + '"' +
-        (serie.valide ? ' disabled' : '') + '>' +
+        champSaisie('f' + i, f, serie.valide) +
         (serie.valide ? verdictChamp(f, champOk(f)) : '') + '</div>';
     }).join('') + '</div>';
   }
@@ -707,6 +704,29 @@ function vueSerie(){
   const first = document.getElementById('f0');
   if (first && !serie.valide) first.focus();
 }
+/* Un champ de réponse. Sur téléphone, le pavé numérique ouvert par
+   inputmode="decimal" n'a pas de touche « moins » : une réponse négative était
+   impossible à saisir. On accole donc un bouton ± au champ. */
+function champSaisie(id, f, bloque){
+  const txt = f.type === 'texte';
+  const input = '<input id="' + id + '" type="text" inputmode="' + (txt ? 'text' : 'decimal') + '"' +
+    (txt ? ' spellcheck="false" autocapitalize="off"' : '') +
+    ' autocomplete="off" value="' + (f.saisie === undefined ? '' : esc(f.saisie)) + '"' +
+    (bloque ? ' disabled' : '') + '>';
+  if (txt) return input;
+  return '<span class="nb">' + input +
+    '<button class="signe" type="button" data-signe="' + id + '"' +
+    ' aria-label="Mettre un moins devant le nombre, ou l\u2019enlever"' +
+    (bloque ? ' disabled' : '') + '>\u00B1</button></span>';
+}
+/* on modifie le champ sans re-rendre la page : le focus et le clavier restent */
+function basculerSigne(id){
+  const el = document.getElementById(id);
+  if (!el || el.disabled) return;
+  const v = el.value.trim();
+  el.value = v.charAt(0) === '-' ? v.slice(1) : '-' + v;
+  el.focus();
+}
 function verdictChamp(f, ok){
   if (ok) return '<span class="tiny" style="color:var(--juste);font-weight:700">✓</span>';
   const att = f.type === 'choix' ? f.options[f.bon] : (f.type === 'texte' ? f.bon : nf(f.bon));
@@ -728,7 +748,12 @@ function champOk(f){
     if (v === '') return false;
     return [f.bon].concat(f.alt || []).some(x => normTexte(x) === v);
   }
-  const v = String(f.saisie === undefined ? '' : f.saisie).trim().replace(/\s/g, '').replace(',', '.');
+  /* on accepte le moins typographique et le collage depuis un autre clavier */
+  const v = String(f.saisie === undefined ? '' : f.saisie).trim()
+    .replace(/\s/g, '')
+    .replace(/[\u2010-\u2015\u2212]/g, '-')
+    .replace(',', '.')
+    .replace(/^\+/, '');
   if (v === '') return false;
   const x = Number(v);
   if (!isFinite(x)) return false;
@@ -843,12 +868,13 @@ function rendre(){
 }
 
 document.addEventListener('click', function(e){
-  const t = e.target.closest('[data-retour],[data-reprendre],[data-maj],[data-ouvrir],[data-corrige],[data-coched],[data-autoeval],[data-eval],[data-dsq],[data-dschoix],[data-dschamp],[data-dsrendre],[data-coche],[data-noter],[data-mat],[data-prendre],[data-son],[data-go],[data-chap],[data-onglet],[data-statut],[data-serie],[data-choix],[data-champ],[data-verifier],[data-sechapper],[data-suivante],[data-quitter],[data-refaire]');
+  const t = e.target.closest('[data-signe],[data-retour],[data-reprendre],[data-maj],[data-ouvrir],[data-corrige],[data-coched],[data-autoeval],[data-eval],[data-dsq],[data-dschoix],[data-dschamp],[data-dsrendre],[data-coche],[data-noter],[data-mat],[data-prendre],[data-son],[data-go],[data-chap],[data-onglet],[data-statut],[data-serie],[data-choix],[data-champ],[data-verifier],[data-sechapper],[data-suivante],[data-quitter],[data-refaire]');
   if (e.target.closest('#back')){ retour(); return; }
   if (e.target.closest('#burger')){ ouvrirMenu(); return; }
   if (!t) return;
   const d = t.dataset;
   if (d.retour){ retour(); return; }
+  if (d.signe){ basculerSigne(d.signe); return; }
   if (d.go){
     if (d.go === 'revision'){
       const pool = poolRevision();

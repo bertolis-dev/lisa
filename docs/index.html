@@ -246,6 +246,14 @@ main{min-width:0;padding-block:34px;padding-left:40px;padding-right:40px;max-wid
 .field label{font-size:14.5px;color:var(--ink-2);min-width:140px}
 .field input{padding:9px 12px;border:1px solid var(--line);border-radius:8px;background:var(--surface-2);width:150px;font-size:15px;font-variant-numeric:tabular-nums}
 .field input:focus{outline:2px solid var(--accent);outline-offset:0;border-color:var(--accent)}
+/* champ numerique : le pave des telephones n'a pas de touche « moins » */
+.nb{display:inline-flex;align-items:stretch;gap:8px}
+.signe{flex:0 0 auto;width:46px;border:1px solid var(--line);border-radius:8px;background:var(--surface-2);
+  font-size:18px;font-weight:700;color:var(--ink-2);line-height:1;transition:background .12s,color .12s}
+.signe:hover{background:var(--surface-3);color:var(--ink)}
+.signe:active{transform:translateY(1px)}
+.signe[disabled]{opacity:.45}
+.signe[disabled]:hover{background:var(--surface-2);color:var(--ink-2)}
 .choices{display:flex;flex-direction:column;gap:8px;margin-top:18px}
 .choice{display:flex;align-items:center;gap:11px;padding:12px 14px;border:1px solid var(--line);border-radius:8px;background:var(--surface-2);text-align:left;font-size:15px;transition:border-color .1s,background .1s}
 .choice:hover{border-color:var(--accent)}
@@ -1031,7 +1039,7 @@ function M(src){ return '<span class="m">' + mathHtml(src) + '</span>'; }
 function Mc(src){ return '<div class="center">' + M(src) + '</div>'; }
 
 /* version de la construction, remplacée par build.py */
-const VERSION_APP = '1.31';
+const VERSION_APP = '1.32';
 
 /* ---------- utilitaires numériques ---------- */
 const R = {
@@ -15400,9 +15408,7 @@ function vueDS(){
           f.options.map((o, j) => '<button class="' + (f.saisie === j ? 'on' : '') + '" data-dschamp="' + i + '" data-val="' + j + '">' + o + '</button>').join('') + '</div></div>';
       }
       return '<div class="field"><label for="d' + i + '">' + f.label + '</label>' +
-        '<input id="d' + i + '" type="text" inputmode="' + (f.type === 'texte' ? 'text' : 'decimal') + '"' +
-        (f.type === 'texte' ? ' spellcheck="false" autocapitalize="off"' : '') +
-        ' autocomplete="off" value="' + (f.saisie === undefined ? '' : esc(f.saisie)) + '"></div>';
+        champSaisie('d' + i, f, false) + '</div>';
     }).join('') + '</div>';
   }
 
@@ -15895,9 +15901,7 @@ function vueDefi(){
           (defi.repondu ? verdictChamp(f, f.saisie === f.bon) : '') + '</div>';
       }
       return '<div class="field"><label for="df' + i + '">' + f.label + '</label>' +
-        '<input id="df' + i + '" type="text" inputmode="' + (f.type === 'texte' ? 'text' : 'decimal') + '"' +
-        (f.type === 'texte' ? ' spellcheck="false" autocapitalize="off"' : '') + ' autocomplete="off" value="' +
-        (f.saisie === undefined ? '' : esc(f.saisie)) + '"' + (defi.repondu ? ' disabled' : '') + '>' +
+        champSaisie('df' + i, f, defi.repondu) +
         (defi.repondu ? verdictChamp(f, champOk(f)) : '') + '</div>';
     }).join('') + '</div>';
   }
@@ -16632,10 +16636,7 @@ function vueSerie(){
           (serie.valide ? verdictChamp(f, f.saisie === f.bon) : '') + '</div>';
       }
       return '<div class="field"><label for="f' + i + '">' + f.label + '</label>' +
-        '<input id="f' + i + '" type="text" inputmode="' + (f.type === 'texte' ? 'text' : 'decimal') + '"' +
-        (f.type === 'texte' ? ' spellcheck="false" autocapitalize="off"' : '') +
-        ' autocomplete="off" value="' + (f.saisie === undefined ? '' : esc(f.saisie)) + '"' +
-        (serie.valide ? ' disabled' : '') + '>' +
+        champSaisie('f' + i, f, serie.valide) +
         (serie.valide ? verdictChamp(f, champOk(f)) : '') + '</div>';
     }).join('') + '</div>';
   }
@@ -16676,6 +16677,29 @@ function vueSerie(){
   const first = document.getElementById('f0');
   if (first && !serie.valide) first.focus();
 }
+/* Un champ de réponse. Sur téléphone, le pavé numérique ouvert par
+   inputmode="decimal" n'a pas de touche « moins » : une réponse négative était
+   impossible à saisir. On accole donc un bouton ± au champ. */
+function champSaisie(id, f, bloque){
+  const txt = f.type === 'texte';
+  const input = '<input id="' + id + '" type="text" inputmode="' + (txt ? 'text' : 'decimal') + '"' +
+    (txt ? ' spellcheck="false" autocapitalize="off"' : '') +
+    ' autocomplete="off" value="' + (f.saisie === undefined ? '' : esc(f.saisie)) + '"' +
+    (bloque ? ' disabled' : '') + '>';
+  if (txt) return input;
+  return '<span class="nb">' + input +
+    '<button class="signe" type="button" data-signe="' + id + '"' +
+    ' aria-label="Mettre un moins devant le nombre, ou l\u2019enlever"' +
+    (bloque ? ' disabled' : '') + '>\u00B1</button></span>';
+}
+/* on modifie le champ sans re-rendre la page : le focus et le clavier restent */
+function basculerSigne(id){
+  const el = document.getElementById(id);
+  if (!el || el.disabled) return;
+  const v = el.value.trim();
+  el.value = v.charAt(0) === '-' ? v.slice(1) : '-' + v;
+  el.focus();
+}
 function verdictChamp(f, ok){
   if (ok) return '<span class="tiny" style="color:var(--juste);font-weight:700">✓</span>';
   const att = f.type === 'choix' ? f.options[f.bon] : (f.type === 'texte' ? f.bon : nf(f.bon));
@@ -16697,7 +16721,12 @@ function champOk(f){
     if (v === '') return false;
     return [f.bon].concat(f.alt || []).some(x => normTexte(x) === v);
   }
-  const v = String(f.saisie === undefined ? '' : f.saisie).trim().replace(/\s/g, '').replace(',', '.');
+  /* on accepte le moins typographique et le collage depuis un autre clavier */
+  const v = String(f.saisie === undefined ? '' : f.saisie).trim()
+    .replace(/\s/g, '')
+    .replace(/[\u2010-\u2015\u2212]/g, '-')
+    .replace(',', '.')
+    .replace(/^\+/, '');
   if (v === '') return false;
   const x = Number(v);
   if (!isFinite(x)) return false;
@@ -16812,12 +16841,13 @@ function rendre(){
 }
 
 document.addEventListener('click', function(e){
-  const t = e.target.closest('[data-retour],[data-reprendre],[data-maj],[data-ouvrir],[data-corrige],[data-coched],[data-autoeval],[data-eval],[data-dsq],[data-dschoix],[data-dschamp],[data-dsrendre],[data-coche],[data-noter],[data-mat],[data-prendre],[data-son],[data-go],[data-chap],[data-onglet],[data-statut],[data-serie],[data-choix],[data-champ],[data-verifier],[data-sechapper],[data-suivante],[data-quitter],[data-refaire]');
+  const t = e.target.closest('[data-signe],[data-retour],[data-reprendre],[data-maj],[data-ouvrir],[data-corrige],[data-coched],[data-autoeval],[data-eval],[data-dsq],[data-dschoix],[data-dschamp],[data-dsrendre],[data-coche],[data-noter],[data-mat],[data-prendre],[data-son],[data-go],[data-chap],[data-onglet],[data-statut],[data-serie],[data-choix],[data-champ],[data-verifier],[data-sechapper],[data-suivante],[data-quitter],[data-refaire]');
   if (e.target.closest('#back')){ retour(); return; }
   if (e.target.closest('#burger')){ ouvrirMenu(); return; }
   if (!t) return;
   const d = t.dataset;
   if (d.retour){ retour(); return; }
+  if (d.signe){ basculerSigne(d.signe); return; }
   if (d.go){
     if (d.go === 'revision'){
       const pool = poolRevision();
