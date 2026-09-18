@@ -108,9 +108,7 @@ function vueDS(){
           f.options.map((o, j) => '<button class="' + (f.saisie === j ? 'on' : '') + '" data-dschamp="' + i + '" data-val="' + j + '">' + o + '</button>').join('') + '</div></div>';
       }
       return '<div class="field"><label for="d' + i + '">' + f.label + '</label>' +
-        '<input id="d' + i + '" type="text" inputmode="' + (f.type === 'texte' ? 'text' : 'decimal') + '"' +
-        (f.type === 'texte' ? ' spellcheck="false" autocapitalize="off"' : '') +
-        ' autocomplete="off" value="' + (f.saisie === undefined ? '' : esc(f.saisie)) + '"></div>';
+        champSaisie('d' + i, f, false) + '</div>';
     }).join('') + '</div>';
   }
 

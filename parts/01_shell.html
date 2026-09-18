@@ -224,6 +224,14 @@ main{min-width:0;padding-block:34px;padding-left:40px;padding-right:40px;max-wid
 .field label{font-size:14.5px;color:var(--ink-2);min-width:140px}
 .field input{padding:9px 12px;border:1px solid var(--line);border-radius:8px;background:var(--surface-2);width:150px;font-size:15px;font-variant-numeric:tabular-nums}
 .field input:focus{outline:2px solid var(--accent);outline-offset:0;border-color:var(--accent)}
+/* champ numerique : le pave des telephones n'a pas de touche « moins » */
+.nb{display:inline-flex;align-items:stretch;gap:8px}
+.signe{flex:0 0 auto;width:46px;border:1px solid var(--line);border-radius:8px;background:var(--surface-2);
+  font-size:18px;font-weight:700;color:var(--ink-2);line-height:1;transition:background .12s,color .12s}
+.signe:hover{background:var(--surface-3);color:var(--ink)}
+.signe:active{transform:translateY(1px)}
+.signe[disabled]{opacity:.45}
+.signe[disabled]:hover{background:var(--surface-2);color:var(--ink-2)}
 .choices{display:flex;flex-direction:column;gap:8px;margin-top:18px}
 .choice{display:flex;align-items:center;gap:11px;padding:12px 14px;border:1px solid var(--line);border-radius:8px;background:var(--surface-2);text-align:left;font-size:15px;transition:border-color .1s,background .1s}
 .choice:hover{border-color:var(--accent)}
