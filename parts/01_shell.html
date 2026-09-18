@@ -123,7 +123,7 @@ main{min-width:0;padding-block:34px;padding-left:40px;padding-right:40px;max-wid
   .side.open{transform:none}
   .scrim{position:fixed;inset:0;background:rgba(10,15,30,.45);z-index:35}
   .topbar{display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:20;background:var(--surface);border-bottom:1px solid var(--line);padding:10px 16px}
-  .topbar h1{font-size:16px}
+  .topbar h1{font-size:16px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   main{padding-left:16px;padding-right:16px;padding-block:22px}
 }
 
@@ -555,6 +555,14 @@ pre.code code{background:none;padding:0}
 :root[data-theme="dark"] .seg button.on{color:#0E1424}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .seg button.on{color:#0E1424}}
 .icon{width:34px;height:34px;border-radius:8px;display:grid;place-items:center;border:1px solid var(--line);background:var(--surface-2);font-size:16px;flex:0 0 auto}
+[hidden]{display:none!important}
+.icon.back{color:var(--accent)}
+.icon.back i{display:block;width:16px;height:16px;background:currentColor;
+  -webkit-mask:var(--ic-fleche) center/contain no-repeat;mask:var(--ic-fleche) center/contain no-repeat;
+  transform:rotate(180deg)}
+/* sur grand ecran la barre du haut est masquee : le retour vit en tete du contenu */
+.retour-bar{display:none;font-size:12px;text-transform:uppercase;letter-spacing:.1em}
+@media (min-width:901px){.retour-bar{display:inline-flex;margin-bottom:16px}}
 
 /* ---------- menu latéral coloré ---------- */
 .brand{background:linear-gradient(135deg,#2F45C5 0%,#6D4AC9 52%,#BC3B84 100%);border-bottom:none;padding:18px 20px 16px;
@@ -960,6 +968,7 @@ table.tab tr:first-child th{background:var(--accent-soft);color:var(--accent-ink
   </aside>
   <div>
     <div class="topbar">
+      <button class="icon back" id="back" aria-label="Revenir" hidden><i></i></button>
       <button class="icon" id="burger" aria-label="Ouvrir le sommaire">☰</button>
       <h1 id="topttl">Lisa</h1>
     </div>
