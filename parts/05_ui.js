@@ -749,6 +749,17 @@ function texteExact(v){
   }
   return n.q === 1 ? num : 'frac{' + num + '}{' + nf(n.q) + '}';
 }
+/* « (x - α) » écrit proprement : (x + 3) et non (x - -3) */
+function facteurExact(v){
+  const n = normExact(v);
+  if (!n) return '(x)';
+  const val = (n.p + n.m * Math.sqrt(n.d)) / n.q;
+  return val < 0 ? '(x + ' + texteExact({ p: -n.p, m: -n.m, d: n.d, q: n.q }) + ')'
+                 : '(x - ' + texteExact(n) + ')';
+}
+/* la même chose sans les parenthèses, pour une ligne d'équation */
+function termeExact(v){ const t = facteurExact(v); return t.slice(1, -1); }
+
 /* un entier saisi à la main : on tolère le moins typographique et la virgule */
 function entierSaisi(v){
   const t = String(v === undefined ? '' : v).trim().replace(/\s/g, '')

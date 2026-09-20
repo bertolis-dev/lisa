@@ -509,6 +509,173 @@ G('second-degre', 'sd-viete-corollaire', 'Somme et produit : retrouver les deux 
   };
 });
 
+/* =========================================================================
+   Second degré : cinq exercices calqués sur le cours et le manuel de la classe.
+   Deux au niveau Application, trois plus exigeants.
+   ========================================================================= */
+
+/* SIMPLE — méthode C du cours : reconnaître une identité remarquable.
+   Exemples du cahier : x² - 16 et x² - 6x + 9. */
+G('second-degre', 'sd-identite', 'Reconnaître une identité remarquable', 'app', function(){
+  const k = R.int(2, 12), type = R.int(1, 3);
+  const b = type === 2 ? 2 * k : (type === 3 ? -2 * k : 0);
+  const c = type === 1 ? -k * k : k * k;
+  const IDS = ['(x - a)(x + a)', '(x + a)^{2}', '(x - a)^{2}'];
+  return {
+    enonce: '<p>Factorise en reconnaissant une identité remarquable :</p>' + Mc('f(x) = ' + trinome(1, b, c)) +
+            '<p>Choisis la bonne identité, puis donne la valeur de ' + M('a') + '.</p>',
+    champs: [
+      { type: 'choix', label: 'La forme factorisée est', options: IDS.map(s => mathHtml(s)), bon: type - 1 },
+      { type: 'num', label: 'a =', bon: k, tol: 1e-6 }
+    ],
+    etapes: [
+      'Les trois identités du cours :' +
+        Mc('a^{2} - b^{2} = (a - b)(a + b)') + Mc('a^{2} + 2ab + b^{2} = (a + b)^{2}') + Mc('a^{2} - 2ab + b^{2} = (a - b)^{2}'),
+      type === 1
+        ? 'Ici il n’y a <b>pas de terme en ' + M('x') + '</b> et la constante est négative : c’est une <b>différence de deux carrés</b>. ' +
+          M(trinome(1, 0, c) + ' = x^{2} - ' + nf(k) + '^{2}') + '.'
+        : 'Le terme constant ' + M(nf(c)) + ' est le carré de ' + M(nf(k)) + '. On vérifie le terme du milieu : ' +
+          M('2 × ' + nf(k) + ' × x = ' + nf(2 * k) + 'x') + ', et il vaut bien ' + M(nf(b) + 'x') + '.',
+      'Donc ' + M('f(x) = ' + (type === 1 ? fact(k) + fact(-k) : (type === 2 ? fact(-k) : fact(k)) + '^{2}')) + '.',
+      type === 1
+        ? 'Deux racines : ' + M(nf(-k)) + ' et ' + M(nf(k)) + '.'
+        : 'Une <b>racine double</b> : ' + M(nf(type === 2 ? -k : k)) + '. La parabole touche l’axe des abscisses sans le traverser.',
+      '<b>Le réflexe</b> : avant de sortir le discriminant, regarde si le terme constant est un carré. Ça fait gagner cinq minutes.'
+    ]
+  };
+});
+
+/* SIMPLE — le geste des exercices 48 à 56 : passer de la forme factorisée à la
+   forme développée. La difficulté est le signe de b, pas le calcul. */
+G('second-degre', 'sd-developper', 'Développer une forme factorisée', 'app', function(){
+  const r1 = R.nz(-8, 8);                 /* on écarte 0 : fact(0) s'écrit « (x) » */
+  let r2 = R.nz(-8, 8);
+  while (r2 === r1) r2 = R.nz(-8, 8);
+  const pet = Math.min(r1, r2), gra = Math.max(r1, r2);
+  const b = -(pet + gra), c = pet * gra;
+  return {
+    enonce: '<p>Soit ' + M('f(x) = ' + fact(pet) + fact(gra)) + '.</p>' +
+            '<p>Donne sa forme développée ' + M('f(x) = x^{2} + bx + c') + '.</p>',
+    champs: [
+      { type: 'num', label: 'b =', bon: b, tol: 1e-6 },
+      { type: 'num', label: 'c =', bon: c, tol: 1e-6 }
+    ],
+    etapes: [
+      'On développe terme à terme : ' +
+        M(fact(pet) + fact(gra) + ' = x × x ' + sgn(-gra, 'x') + ' ' + sgn(-pet, 'x') + ' + (' + nf(-pet) + ') × (' + nf(-gra) + ')') + '.',
+      'On regroupe les termes en ' + M('x') + ' : ' + M(nf(-pet) + ' + ' + nf(-gra) + ' = ' + nf(b)) + ', donc ' + M('b = ' + nf(b)) + '.',
+      'Et le terme constant : ' + M('c = (' + nf(-pet) + ') × (' + nf(-gra) + ') = ' + nf(c)) + '.',
+      'Donc ' + M('f(x) = ' + trinome(1, b, c)) + '.',
+      '<b>Contrôle par Viète</b> : ' + M('x_1 + x_2 = ' + nf(pet + gra)) + ' doit valoir ' + M('-b = ' + nf(-b)) +
+        ' ✓ et ' + M('x_1 x_2 = ' + nf(c)) + ' doit valoir ' + M('c = ' + nf(c)) + ' ✓'
+    ]
+  };
+});
+
+/* COMPLIQUÉ — exercice 14 question 3c : les antécédents d'une valeur, par la
+   forme canonique. C'est la question qui montre à quoi sert cette forme. */
+G('second-degre', 'sd-antecedents', 'Antécédents d’une valeur par la forme canonique', 'ds', function(){
+  const a = R.pick([1, -1, 2, -2]);
+  const aq = R.pick([1, 1, 2]);                      /* α entier, ou demi-entier */
+  const ap = aq === 1 ? R.nz(-6, 6) : R.nz(-11, 11);
+  const al = { p: ap, q: aq };
+  const be = R.int(-9, 9), t = R.int(1, 6);
+  const k = a * t * t + be;
+  const x1 = { p: ap - t * aq, q: aq }, x2 = { p: ap + t * aq, q: aq };
+  const queue = be === 0 ? '' : sgn(be, '');
+  return {
+    enonce: '<p>Soit ' + M('f(x) = ' + coef(a) + facteurExact(al) + '^{2}' + queue) + '.</p>' +
+            '<p>Quels sont les <b>antécédents</b> de ' + M(nf(k)) + ' par ' + M('f') + ' ?</p>' +
+            '<p class="tiny">Autrement dit : résous ' + M('f(x) = ' + nf(k)) + '. Réponse <b>exacte</b>.</p>',
+    champs: [
+      { type: 'exact', label: 'le plus petit', bon: x1 },
+      { type: 'exact', label: 'le plus grand', bon: x2 }
+    ],
+    etapes: [
+      'La forme canonique est faite pour ça : le ' + M('x') + ' n’apparaît qu’<b>une seule fois</b>, dans le carré. On isole ce carré.',
+      M(coef(a) + facteurExact(al) + '^{2}' + queue + ' = ' + nf(k)) + ', donc ' +
+        M(coef(a) + facteurExact(al) + '^{2} = ' + nf(k - be)) + '.',
+      'On divise par ' + M(nf(a)) + ' : ' + M(facteurExact(al) + '^{2} = ' + nf(t * t)) + '.',
+      '<b>Deux cas, pas un seul</b> : ' + M(termeExact(al) + ' = ' + nf(t)) + ' ou ' +
+        M(termeExact(al) + ' = ' + nf(-t)) + '. Oublier le second est l’erreur classique.',
+      'D’où ' + M('x = ' + texteExact(x1)) + ' et ' + M('x = ' + texteExact(x2)) + '.',
+      'Contrôle : les deux antécédents sont à égale distance de ' + M('α = ' + texteExact(al)) +
+        ', ce qui est normal — la parabole est symétrique par rapport à son sommet.'
+    ]
+  };
+});
+
+/* COMPLIQUÉ — exercice 22 : une forme canonique dont le carré parfait cache une
+   différence de deux carrés. C'est la seule façon de factoriser sans discriminant
+   quand les racines ne sont pas entières. */
+G('second-degre', 'sd-canonique-identite', 'De la forme canonique à la forme factorisée', 'ds', function(){
+  const a = R.pick([1, 2, 2, 3]), h = R.nz(-4, 4), k = R.int(1, 6);
+  const A = a * a, K = k * k;
+  const x1 = { p: -h * a - k, q: a }, x2 = { p: -h * a + k, q: a };
+  const dev = trinome(A, 2 * A * h, A * h * h - K);
+  return {
+    enonce: '<p>Soit ' + M('f(x) = ' + coef(A) + fact(-h) + '^{2} - ' + nf(K)) + '.</p>' +
+            '<p>Factorise ' + M('f') + ' <b>sans utiliser le discriminant</b>, puis donne ses deux racines.</p>' +
+            '<p class="tiny">Réponse <b>exacte</b>.</p>',
+    champs: [
+      { type: 'exact', label: 'plus petite racine', bon: x1 },
+      { type: 'exact', label: 'plus grande racine', bon: x2 }
+    ],
+    etapes: [
+      'Les deux termes sont des carrés : ' + M(nf(A) + fact(-h) + '^{2} = [' + coef(a) + fact(-h) + ']^{2}') +
+        ' et ' + M(nf(K) + ' = ' + nf(k) + '^{2}') + '. C’est une <b>différence de deux carrés</b>.',
+      'On applique ' + M('A^{2} - B^{2} = (A - B)(A + B)') + ' avec ' + M('A = ' + coef(a) + fact(-h)) +
+        ' et ' + M('B = ' + nf(k)) + ' :',
+      Mc('f(x) = [' + coef(a) + fact(-h) + ' - ' + nf(k) + '][' + coef(a) + fact(-h) + ' + ' + nf(k) + ']'),
+      'On développe chaque crochet : ' + M('f(x) = (' + lead(a, 'x') + sgn(a * h - k, '') + ')(' + lead(a, 'x') + sgn(a * h + k, '') + ')') + '.',
+      'Chaque facteur s’annule à son tour : ' + M('x = ' + texteExact(x1)) + ' et ' + M('x = ' + texteExact(x2)) + '.',
+      'Contrôle par le développement : ' + M('f(x) = ' + dev) + ', et le produit des racines vaut ' +
+        M('frac{c}{a} = frac{' + nf(A * h * h - K) + '}{' + nf(A) + '}') + ' ✓'
+    ]
+  };
+});
+
+/* COMPLIQUÉ — exercice 22 question d : justifier l'extremum par encadrement
+   plutôt que de le lire. C'est la rédaction qui rapporte les points. */
+G('second-degre', 'sd-extremum', 'Justifier un extremum par encadrement', 'exp', function(){
+  const a = R.pick([1, -1, 2, -2, 3, -3]);
+  const aq = R.pick([1, 1, 2]);
+  const ap = aq === 1 ? R.nz(-6, 6) : R.nz(-11, 11);
+  const al = { p: ap, q: aq };
+  const bq = R.pick([1, 1, 2]);
+  const bp = bq === 1 ? R.int(-9, 9) : R.nz(-17, 17);
+  const be = { p: bp, q: bq };
+  const nbe = normExact(be);
+  const queue = nbe.p === 0 ? ''
+    : (nbe.p < 0 ? ' - ' + texteExact({ p: -nbe.p, q: nbe.q }) : ' + ' + texteExact(nbe));
+  const mini = a > 0;
+  return {
+    enonce: '<p>Soit ' + M('f(x) = ' + coef(a) + facteurExact(al) + '^{2}' + queue) + '.</p>' +
+            '<p>Cette fonction admet-elle un minimum ou un maximum ? Quelle est sa valeur, et en quel ' + M('x') + ' est-elle atteinte ?</p>' +
+            '<p class="tiny">Réponse <b>exacte</b>.</p>',
+    champs: [
+      { type: 'choix', label: 'La fonction admet', options: ['un minimum', 'un maximum'], bon: mini ? 0 : 1 },
+      { type: 'exact', label: 'sa valeur', bon: be },
+      { type: 'exact', label: 'atteinte en x =', bon: al }
+    ],
+    etapes: [
+      'On part de ce qui est toujours vrai : ' + M(facteurExact(al) + '^{2} ≥ 0') + ' pour tout ' + M('x') + ' réel.',
+      mini
+        ? 'On multiplie par ' + M('a = ' + nf(a) + ' > 0') + ', ce qui <b>conserve</b> le sens : ' +
+          M(coef(a) + facteurExact(al) + '^{2} ≥ 0') + '.'
+        : 'On multiplie par ' + M('a = ' + nf(a) + ' &lt; 0') + ', ce qui <b>inverse</b> le sens : ' +
+          M(coef(a) + facteurExact(al) + '^{2} ≤ 0') + '. <b>C’est là que tout se joue.</b>',
+      'On ajoute ' + M('β = ' + texteExact(be)) + ' aux deux membres : ' +
+        M('f(x) ' + (mini ? '≥' : '≤') + ' ' + texteExact(be)) + '.',
+      'L’égalité a lieu quand le carré est nul, c’est-à-dire pour ' + M('x = ' + texteExact(al)) + '.',
+      'Conclusion rédigée : ' + M('f') + ' admet un <b>' + (mini ? 'minimum' : 'maximum') + '</b> égal à ' +
+        M(texteExact(be)) + ', atteint en ' + M('x = ' + texteExact(al)) + '.',
+      '<b>Ce qui rapporte les points</b> : l’encadrement écrit en trois lignes, pas la réponse lue sur la forme canonique. ' +
+        'Et ne pas confondre ' + M('α') + ', l’endroit, avec ' + M('β') + ', la valeur.'
+    ]
+  };
+});
+
 G('probas-conditionnelles', 'pr-succession', 'Succession de deux épreuves', 'ent', function(){
   const p1 = R.pick([0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8]);
   const p2 = R.pick([0.2, 0.25, 0.4, 0.5, 0.6, 0.75]);
