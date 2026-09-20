@@ -58,11 +58,7 @@ function lancerEvaluation(){
 function lireReponsesDS(){
   const q = dsEnCours.questions[dsEnCours.idx];
   if (!q.champs) return;
-  q.champs.forEach((f, i) => {
-    if (f.type === 'choix') return;
-    const el = document.getElementById('d' + i);
-    if (el) f.saisie = el.value;
-  });
+  q.champs.forEach((f, i) => lireChamp('d' + i, f));
 }
 function allerQuestion(i){
   lireReponsesDS();

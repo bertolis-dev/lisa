@@ -134,11 +134,7 @@ function defiValider(tempsEcoule){
   if (!tempsEcoule){
     if (q.qcm) juste = (q.choix === q.qcm.bon);
     else {
-      q.champs.forEach((f, i) => {
-        if (f.type === 'choix') return;
-        const el = document.getElementById('df' + i);
-        if (el) f.saisie = el.value;
-      });
+      q.champs.forEach((f, i) => lireChamp('df' + i, f));
       juste = q.champs.every(champOk);
     }
   }

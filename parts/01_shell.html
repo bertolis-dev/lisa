@@ -248,6 +248,19 @@ table.tab.signes th,table.tab.signes td{padding:6px 9px;white-space:nowrap}
 .signe:active{transform:translateY(1px)}
 .signe[disabled]{opacity:.45}
 .signe[disabled]:hover{background:var(--surface-2);color:var(--ink-2)}
+/* saisie guidee d'une reponse exacte : une case etiquetee par entier */
+.exact{display:inline-flex;flex-direction:column;gap:7px;align-items:flex-start}
+.exact .modele{font-size:13.5px;color:var(--ink-2)}
+.exact .cases{display:flex;flex-wrap:wrap;gap:8px}
+.exact .cell{display:inline-flex;align-items:center;gap:4px;background:var(--surface-2);
+  border:1px solid var(--line);border-radius:8px;padding:3px 5px 3px 9px}
+.exact .cell>i{font-family:var(--serif);font-style:italic;font-size:15px;color:var(--ink-3)}
+.exact .cell input{width:48px;padding:6px 4px;text-align:center;font-size:15px;border:none;
+  background:none;font-variant-numeric:tabular-nums}
+.exact .cell input:focus{outline:none}
+.exact .cell:focus-within{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-soft)}
+.signe.mini{width:26px;height:28px;font-size:13px;border-radius:6px}
+@media (max-width:560px){.exact .cell input{width:42px}.exact .cases{gap:6px}}
 .choices{display:flex;flex-direction:column;gap:8px;margin-top:18px}
 .choice{display:flex;align-items:center;gap:11px;padding:12px 14px;border:1px solid var(--line);border-radius:8px;background:var(--surface-2);text-align:left;font-size:15px;transition:border-color .1s,background .1s}
 .choice:hover{border-color:var(--accent)}
