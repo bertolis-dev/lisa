@@ -766,30 +766,40 @@ function lireExact(s){
   if (m === null || d === null || d < 0) return null;
   return { p: p, m: m, d: d, q: q };
 }
-/* la réponse attendue comporte-t-elle un radical ? décide du nombre de cases */
-function avecRadical(f){ const n = normExact(f.bon); return !!(n && n.m !== 0 && n.d > 1); }
+/* Combien de cases ? Un générateur qui PEUT donner un radical le déclare par
+   forme: 'radical' : sinon, quand Δ tombe sur un carré parfait, deux cases au
+   lieu de quatre annonceraient la réponse avant même de chercher. */
+function avecRadical(f){
+  if (f.forme) return f.forme === 'radical';
+  const n = normExact(f.bon);
+  return !!(n && n.m !== 0 && n.d > 1);
+}
 
 /* Un champ de réponse. Sur téléphone, le pavé numérique ouvert par
    inputmode="decimal" n'a pas de touche « moins » : une réponse négative était
    impossible à saisir. On accole donc un bouton ± au champ. */
-/* La saisie guidée. Le modèle est rappelé une fois, puis une case par entier,
-   chacune étiquetée par sa lettre. Une racine dessinée à côté de sa case se lit
-   mal : on préfère dire la forme, et étiqueter. */
+/* La saisie guidée. Deux dispositions :
+   - une simple fraction s'empile, numérateur sur dénominateur : aucune étiquette
+     nécessaire, et surtout aucune collision avec le nom du coefficient demandé
+     (un champ « a = » dont les cases s'appelleraient a et b serait illisible) ;
+   - avec un radical, la fraction empilée deviendrait ambiguë (la case est-elle
+     sous la racine ?), on rappelle donc le modèle et on étiquette les cases. */
 function champExact(id, f, bloque){
-  const rad = avecRadical(f), s = (f.saisie && typeof f.saisie === 'object') ? f.saisie : {};
-  const box = (lettre, cle, signe) => '<span class="cell"><i>' + lettre + '</i>' +
+  const s = (f.saisie && typeof f.saisie === 'object') ? f.saisie : {};
+  const box = (cle, signe, lettre) => '<span class="cell">' + (lettre ? '<i>' + lettre + '</i>' : '') +
     '<input id="' + id + '-' + cle + '" type="text" inputmode="decimal" autocomplete="off" value="' +
     (s[cle] === undefined ? '' : esc(s[cle])) + '"' + (bloque ? ' disabled' : '') + '>' +
     (signe ? '<button class="signe mini" type="button" data-signe="' + id + '-' + cle + '"' +
-      ' aria-label="Changer le signe de ' + lettre + '"' + (bloque ? ' disabled' : '') + '>±</button>' : '') +
-    '</span>';
-  return '<span class="exact">' +
-    '<span class="modele">de la forme ' + M(rad ? 'frac{a + bsqrt{c}}{d}' : 'frac{a}{b}') + '</span>' +
-    '<span class="cases">' +
-    (rad
-      ? box('a', 'p', 1) + box('b', 'm', 1) + box('c', 'd', 0) + box('d', 'q', 0)
-      : box('a', 'p', 1) + box('b', 'q', 0)) +
-    '</span></span>';
+      ' aria-label="Changer le signe"' + (bloque ? ' disabled' : '') + '>±</button>' : '') + '</span>';
+  if (avecRadical(f)){
+    return '<span class="exact">' +
+      '<span class="modele">de la forme ' + M('frac{a + bsqrt{c}}{d}') + '</span>' +
+      '<span class="cases">' + box('p', 1, 'a') + box('m', 1, 'b') + box('d', 0, 'c') + box('q', 0, 'd') +
+      '</span></span>';
+  }
+  return '<span class="exact frac2">' +
+    '<span class="lig num">' + box('p', 1, '') + '</span>' +
+    '<span class="lig den">' + box('q', 0, '') + '</span></span>';
 }
 
 function champSaisie(id, f, bloque){
