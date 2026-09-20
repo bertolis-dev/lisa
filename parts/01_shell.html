@@ -192,6 +192,22 @@ main{min-width:0;padding-block:34px;padding-left:40px;padding-right:40px;max-wid
 .blk .h .k{font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;font-weight:700}
 .blk.def .h .k{color:var(--accent)} .blk.prop .h .k{color:var(--juste)}
 .blk.meth .h .k{color:var(--amber)} .blk.piege .h .k{color:var(--faux)}
+.meth-liste{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:14px}
+.meth-liste>li{padding-left:2px}
+.meth-liste>li::marker{font-weight:700;color:var(--amber)}
+/* l'exemple traite, en retrait sous la methode */
+.ex{margin-top:7px;padding:9px 12px;border-left:2px solid var(--line);background:var(--surface-2);
+  border-radius:0 8px 8px 0;font-size:14px;line-height:1.75}
+/* tableau de signes : colonnes etroites, rien ne doit passer a la ligne */
+table.tab.signes{margin-inline:0}
+table.tab.signes th,table.tab.signes td{padding:6px 9px;white-space:nowrap}
+/* les trois ecritures d'un trinome : en liste, un tableau ne tient pas sur un telephone */
+.formes{list-style:none;margin:12px 0 0;padding:0;display:flex;flex-direction:column;gap:10px}
+.formes>li{padding:9px 12px 10px;border-left:2px solid var(--line);background:var(--surface-2);border-radius:0 8px 8px 0}
+.blk .body ul.formes li{padding-left:12px}
+.blk .body ul.formes li::before{display:none}
+.formes>li>b{margin-right:8px}
+.formes>li>span{display:block;margin-top:3px;font-size:13.5px;color:var(--ink-2)}
 .blk .h b{font-family:var(--serif);font-size:16.5px;font-weight:600}
 .blk .body{font-size:14.8px;color:var(--ink-2);display:flex;flex-direction:column;gap:9px}
 .blk .body b,.blk .body strong{color:var(--ink)}

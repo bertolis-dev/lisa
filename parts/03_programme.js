@@ -86,10 +86,66 @@ const CHAPITRES = [
     { k: 'prop', t: 'Somme et produit des racines', c:
       Mc('x_1 + x_2 = frac{-b}{a}') + Mc('x_1 \u00D7 x_2 = frac{c}{a}') +
       '<p>Utile pour deviner des racines entières ou vérifier un résultat.</p>' },
+    { k: 'meth', t: 'Les quatre méthodes, un exemple chacune', c:
+      '<p>Les critères qui font reconnaître chaque cas sont plus haut. Ici, les quatre méthodes ' +
+      'appliquées de bout en bout, dans l’ordre où on les essaie.</p>' +
+      '<ol class="meth-liste">' +
+      '<li><b>Racine évidente.</b> On teste 1, −1, 2, −2, 3… Si ' + M('f(r) = 0') + ', alors ' + M('r') +
+      ' est une racine, et la somme ' + M('x_1 + x_2 = frac{-b}{a}') + ' donne l’autre.' +
+      '<div class="ex">' + M('f(x) = 2x^{2} - 5x - 3') + ' : ' + M('f(3) = 18 - 15 - 3 = 0') + ', donc 3 est racine.<br>' +
+      M('x_1 + x_2 = frac{5}{2}') + ', donc ' + M('x_2 = frac{5}{2} - 3 = -frac{1}{2}') + '.<br>' +
+      M('f(x) = 2(x - 3)(x + frac{1}{2}) = (x - 3)(2x + 1)') + '</div></li>' +
+      '<li><b>Somme et produit.</b> On cherche deux nombres dont la somme vaut ' + M('frac{-b}{a}') +
+      ' et le produit ' + M('frac{c}{a}') + '. Efficace quand les racines sont entières.' +
+      '<div class="ex">' + M('f(x) = x^{2} - 7x + 12') + ' : somme 7, produit 12.<br>' +
+      M('3 + 4 = 7') + ' et ' + M('3 × 4 = 12') + ', donc ' + M('x_1 = 3') + ' et ' + M('x_2 = 4') + '.<br>' +
+      M('f(x) = (x - 3)(x - 4)') + '</div></li>' +
+      '<li><b>Identité remarquable.</b> Trois formes à reconnaître :' +
+      Mc('a^{2} + 2ab + b^{2} = (a + b)^{2}') + Mc('a^{2} - 2ab + b^{2} = (a - b)^{2}') +
+      Mc('a^{2} - b^{2} = (a - b)(a + b)') +
+      '<div class="ex">' + M('x^{2} - 16 = x^{2} - 4^{2} = (x - 4)(x + 4)') + '<br>' +
+      M('x^{2} - 6x + 9 = x^{2} - 2 × 3 × x + 3^{2} = (x - 3)^{2}') + '</div></li>' +
+      '<li><b>Discriminant.</b> La méthode générale, détaillée plus haut : ' + M('\u0394 = b^{2} - 4ac') +
+      ', puis ' + M('f(x) = a(x - x_1)(x - x_2)') + '.' +
+      '<div class="ex">' + M('f(x) = 2x^{2} + 3x - 2') + ' : ' + M('\u0394 = 9 + 16 = 25') + '.<br>' +
+      M('x_1 = frac{-3 - 5}{4} = -2') + ' et ' + M('x_2 = frac{-3 + 5}{4} = frac{1}{2}') + '.<br>' +
+      M('f(x) = 2(x + 2)(x - frac{1}{2})') + '</div></li>' +
+      '</ol>' },
+    { k: 'meth', t: 'Lire le signe sur la forme factorisée', c:
+      '<p>Si ' + M('f(x) = a(x - x_1)(x - x_2)') + ' avec ' + M('x_1 < x_2') + ' et ' + M('a > 0') + ' : ' +
+      M('f') + ' est <b>positive à l’extérieur des racines</b> et <b>négative entre les racines</b>. ' +
+      'Si ' + M('a < 0') + ', c’est l’inverse.</p>' +
+      '<p class="tiny">Exemple : ' + M('f(x) = 2(x - 3)(x + 1)') + ', donc ' + M('x_1 = -1') + ', ' +
+      M('x_2 = 3') + ', et ' + M('a = 2 > 0') + '.</p>' +
+      '<table class="tab signes">' +
+      '<tr><th>' + M('x') + '</th><th>\u2212\u221E</th><th></th><th>\u22121</th><th></th><th>3</th><th></th><th>+\u221E</th></tr>' +
+      '<tr><th>' + M('f(x)') + '</th><td></td><td>+</td><td>0</td><td>\u2212</td><td>0</td><td>+</td><td></td></tr>' +
+      '</table>' },
+    { k: 'meth', t: 'Retrouver un polynôme à partir de ses racines', c:
+      '<p>Deux racines ne suffisent pas : elles fixent la forme ' + M('f(x) = a(x - x_1)(x - x_2)') +
+      ', mais pas le coefficient ' + M('a') + '. Il faut un point de plus, souvent ' + M('f(0)') + '.</p>' +
+      '<div class="ex">Racines 3 et −2, avec ' + M('f(0) = -12') + ' :<br>' +
+      M('f(x) = a(x - 3)(x + 2)') + '<br>' +
+      M('-12 = a × (-3) × 2 = -6a') + ', donc ' + M('a = 2') + '.<br>' +
+      M('f(x) = 2(x - 3)(x + 2)') + '</div>' },
+    { k: 'meth', t: 'Choisir la bonne forme', c:
+      '<p>Les trois écritures décrivent la même fonction. La question posée dit laquelle utiliser — ' +
+      'passer par la mauvaise fait perdre du temps et des points.</p>' +
+      '<ul class="formes">' +
+      '<li><b>Développée</b> ' + M('ax^{2} + bx + c') +
+      '<span>identifier ' + M('a') + ', ' + M('b') + ', ' + M('c') + ' &middot; calculer ' + M('\u0394') +
+      ' &middot; calculer ' + M('f(0)') + '</span></li>' +
+      '<li><b>Factorisée</b> ' + M('a(x - x_1)(x - x_2)') +
+      '<span>racines &middot; résoudre ' + M('f(x) = 0') + ' &middot; signe &middot; inéquations</span></li>' +
+      '<li><b>Canonique</b> ' + M('a(x - \u03B1)^{2} + \u03B2') +
+      '<span>minimum ou maximum &middot; sommet &middot; variations</span></li>' +
+      '</ul>' },
     { k: 'piege', t: 'Erreurs classiques', c:
       '<ul><li>Oublier le facteur ' + M('a') + ' dans la forme factorisée.</li>' +
       '<li>Écrire ' + M('\u0394 = b^{2} - 4ac') + ' en oubliant le signe de ' + M('b') + ' ou de ' + M('c') + ' (attention aux coefficients négatifs).</li>' +
-      '<li>' + M('\u0394 < 0') + ' ne signifie pas « impossible » : la parabole ne coupe simplement pas l\u2019axe des abscisses.</li></ul>' }
+      '<li>' + M('\u0394 < 0') + ' ne signifie pas « impossible » : la parabole ne coupe simplement pas l\u2019axe des abscisses.</li>' +
+      '<li>Confondre ' + M('\u03B1') + ' et ' + M('\u03B2') + ' dans la forme canonique. Pour ' + M('f(x) = 2(x - 3)^{2} - 5') + ' : ' + 'le minimum est ' + M('-5') + ', <b>atteint en</b> ' + M('x = 3') + '. Le 3 n\u2019est pas un maximum \u2014 avec ' + M('a > 0') + ', ' + 'la parabole monte vers ' + M('+\u221E') + ' des deux c\u00f4t\u00e9s, donc il n\u2019y a <b>pas de maximum</b>.</li>' +
+      '<li>Oublier le signe moins de ' + M('\u03B1 = frac{-b}{2a}') + ' et de ' + M('\u03B2 = frac{-\u0394}{4a}') + '.</li></ul>' }
   ]
 },
 {
