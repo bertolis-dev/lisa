@@ -391,6 +391,36 @@ G('second-degre', 'sd-factorisation-astuce', 'Factoriser sans discriminant', 'en
   };
 });
 
+/* Corollaire des relations de Viète, dans le sens « on connaît S et P, on cherche
+   les deux nombres ». La fiche de révision du contrôle le demande ; aucun exercice
+   ne travaillait ce sens-là — la factorisation part du trinôme, pas de S et P. */
+G('second-degre', 'sd-viete-corollaire', 'Somme et produit : retrouver les deux nombres', 'ent', function(){
+  const x1 = R.nz(-9, 9);
+  let x2 = R.nz(-9, 9);
+  while (x2 === x1) x2 = R.nz(-9, 9);
+  const S = x1 + x2, P = x1 * x2, D = S * S - 4 * P;
+  const pet = Math.min(x1, x2), gra = Math.max(x1, x2);
+  return {
+    enonce: '<p>Trouve deux nombres dont la <b>somme</b> vaut ' + M(nf(S)) +
+            ' et le <b>produit</b> ' + M(nf(P)) + '.</p>',
+    champs: [
+      { type: 'num', label: 'le plus petit', bon: pet, tol: 1e-6 },
+      { type: 'num', label: 'le plus grand', bon: gra, tol: 1e-6 }
+    ],
+    etapes: [
+      'Corollaire des <b>relations de Viète</b> : deux nombres de somme ' + M('S') + ' et de produit ' +
+        M('P') + ' sont les racines de ' + M('x^{2} - S x + P = 0') + '.',
+      'Ici ' + M('S = ' + nf(S)) + ' et ' + M('P = ' + nf(P)) + ', donc on résout :' + Mc(trinome(1, -S, P) + ' = 0'),
+      'Discriminant : ' + M('\u0394 = (' + nf(-S) + ')^{2} - 4 \u00D7 1 \u00D7 (' + nf(P) + ') = ' + nf(D)) +
+        ', et ' + M('sqrt{' + nf(D) + '} = ' + nf(Math.sqrt(D))) + '.',
+      'Racines : ' + M('frac{' + nf(S) + ' - ' + nf(Math.sqrt(D)) + '}{2} = ' + nf(pet)) + ' et ' +
+        M('frac{' + nf(S) + ' + ' + nf(Math.sqrt(D)) + '}{2} = ' + nf(gra)) + '.',
+      'Vérification : ' + M(nf(pet) + ' + ' + nf(gra) + ' = ' + nf(S)) + ' et ' +
+        M(nf(pet) + ' \u00D7 ' + nf(gra) + ' = ' + nf(P)) + ' \u2713'
+    ]
+  };
+});
+
 G('probas-conditionnelles', 'pr-succession', 'Succession de deux épreuves', 'ent', function(){
   const p1 = R.pick([0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8]);
   const p2 = R.pick([0.2, 0.25, 0.4, 0.5, 0.6, 0.75]);

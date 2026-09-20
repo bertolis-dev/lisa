@@ -69,11 +69,15 @@ const CHAPITRES = [
       '<p>Une fonction du second degré s\u2019écrit ' + M('f(x) = ax^{2} + bx + c') + ' avec ' + M('a \u2260 0') + '.</p>' +
       '<p>Sa courbe est une <b>parabole</b> : tournée vers le haut si ' + M('a > 0') + ', vers le bas si ' + M('a < 0') + '.</p>' },
     { k: 'prop', t: 'Forme canonique et sommet', c:
-      '<p>' + M('f(x) = a(x - \u03B1)^{2} + \u03B2') + ' avec ' + M('\u03B1 = frac{-b}{2a}') + ' et ' + M('\u03B2 = f(\u03B1)') + '.</p>' +
+      '<p>' + M('f(x) = a(x - \u03B1)^{2} + \u03B2') + ' avec ' + M('\u03B1 = frac{-b}{2a}') + ' et ' +
+      M('\u03B2 = f(\u03B1) = frac{-\u0394}{4a}') + '.</p>' +
       '<p>Le <b>sommet</b> de la parabole est le point ' + M('S(\u03B1 ; \u03B2)') + '. Si ' + M('a > 0') + ', ' + M('\u03B2') +
       ' est le <b>minimum</b> de ' + M('f') + ' ; si ' + M('a < 0') + ', c\u2019est le <b>maximum</b>.</p>' },
     { k: 'def', t: 'Discriminant', c:
-      Mc('\u0394 = b^{2} - 4ac') },
+      Mc('\u0394 = b^{2} - 4ac') +
+      '<p><b>Contrôle rapide</b> : si ' + M('a') + ' et ' + M('c') + ' sont de <b>signes contraires</b>, ' +
+      'alors ' + M('-4ac > 0') + ' et donc ' + M('\u0394 > 0') + ' à coup sûr. Il y a deux racines, ' +
+      'sans avoir besoin de finir le calcul.</p>' },
     { k: 'prop', t: 'Racines et factorisation', c:
       '<ul>' +
       '<li>' + M('\u0394 > 0') + ' : deux racines ' + M('x_1 = frac{-b - sqrt{\u0394}}{2a}') + ' et ' + M('x_2 = frac{-b + sqrt{\u0394}}{2a}') +
@@ -83,14 +87,20 @@ const CHAPITRES = [
     { k: 'prop', t: 'Signe du trinôme', c:
       '<p>' + M('f(x)') + ' est <b>toujours du signe de ' + M('a') + '</b>, <b>sauf entre les racines</b> lorsqu\u2019elles existent.</p>' +
       '<p>Si ' + M('\u0394 \u2264 0') + ', ' + M('f(x)') + ' garde le signe de ' + M('a') + ' sur tout ' + M('\u211D') + '.</p>' },
-    { k: 'prop', t: 'Somme et produit des racines', c:
-      Mc('x_1 + x_2 = frac{-b}{a}') + Mc('x_1 \u00D7 x_2 = frac{c}{a}') +
-      '<p>Utile pour deviner des racines entières ou vérifier un résultat.</p>' },
+    { k: 'prop', t: 'Relations de Viète : somme et produit', c:
+      '<p>Si le trinôme admet deux racines ' + M('x_1') + ' et ' + M('x_2') + '&nbsp;:</p>' +
+      Mc('S = x_1 + x_2 = frac{-b}{a}') + Mc('P = x_1 \u00D7 x_2 = frac{c}{a}') +
+      '<p><b>La réciproque est vraie aussi</b> : si deux nombres ont pour somme ' + M('frac{-b}{a}') +
+      ' et pour produit ' + M('frac{c}{a}') + ', alors ce sont les racines de ' + M('f') + '.</p>' +
+      '<p><b>Corollaire.</b> Deux nombres de somme ' + M('S') + ' et de produit ' + M('P') + ' sont les racines de</p>' +
+      Mc('x^{2} - S x + P = 0') +
+      '<p>C’est ce qui permet de retrouver deux nombres dont on ne connaît que leur somme et leur produit, ' +
+      'et de deviner des racines entières ou de vérifier un résultat.</p>' },
     { k: 'meth', t: 'Les quatre méthodes, un exemple chacune', c:
       '<p>Les critères qui font reconnaître chaque cas sont plus haut. Ici, les quatre méthodes ' +
       'appliquées de bout en bout, dans l’ordre où on les essaie.</p>' +
       '<ol class="meth-liste">' +
-      '<li><b>Racine évidente.</b> On teste 1, −1, 2, −2, 3… Si ' + M('f(r) = 0') + ', alors ' + M('r') +
+      '<li><b>Racine évidente.</b> On teste les entiers de −3 à 3 : 1, −1, 2, −2, 3, −3. Si ' + M('f(r) = 0') + ', alors ' + M('r') +
       ' est une racine, et la somme ' + M('x_1 + x_2 = frac{-b}{a}') + ' donne l’autre.' +
       '<div class="ex">' + M('f(x) = 2x^{2} - 5x - 3') + ' : ' + M('f(3) = 18 - 15 - 3 = 0') + ', donc 3 est racine.<br>' +
       M('x_1 + x_2 = frac{5}{2}') + ', donc ' + M('x_2 = frac{5}{2} - 3 = -frac{1}{2}') + '.<br>' +
