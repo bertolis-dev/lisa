@@ -121,6 +121,14 @@ const CHAPITRES = [
       M('x_1 = frac{-3 - 5}{4} = -2') + ' et ' + M('x_2 = frac{-3 + 5}{4} = frac{1}{2}') + '.<br>' +
       M('f(x) = 2(x + 2)(x - frac{1}{2})') + '</div></li>' +
       '</ol>' },
+    { k: 'prop', t: 'Pourquoi une racine évidente suffit', c:
+      '<p>Chercher une racine à la main peut sembler un coup de chance. C’en est un, mais il paye toujours : ' +
+      'si ' + M('x_1') + ' est une racine, alors ' + M('f(x_1) = 0') + ', donc ' + M('f(x) = f(x) - f(x_1)') + '. ' +
+      'Et cette différence se factorise toute seule :</p>' +
+      Mc('f(x) - f(x_1) = a(x^{2} - x_1^{2}) + b(x - x_1)') +
+      Mc('= (x - x_1)[a(x + x_1) + b]') +
+      '<p>Le facteur ' + M('(x - x_1)') + ' sort de lui-même. Ce qui reste est du <b>premier degré</b>, ' +
+      'donc la seconde racine tombe sans discriminant. Une racine trouvée, et le trinôme est factorisé.</p>' },
     { k: 'meth', t: 'Lire le signe sur la forme factorisée', c:
       '<p>Si ' + M('f(x) = a(x - x_1)(x - x_2)') + ' avec ' + M('x_1 < x_2') + ' et ' + M('a > 0') + ' : ' +
       M('f') + ' est <b>positive à l’extérieur des racines</b> et <b>négative entre les racines</b>. ' +
