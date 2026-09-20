@@ -704,10 +704,96 @@ function vueSerie(){
   const first = document.getElementById('f0');
   if (first && !serie.valide) first.focus();
 }
+/* ---------- réponse exacte : fraction et radical, saisis case par case ----------
+   Une racine de trinôme à coefficients entiers s'écrit toujours (p + m√d)/q avec
+   p, m, d, q entiers. Un champ numérique ne sait comparer que des décimales :
+   1/3 et (1 - √7)/3 étaient hors de portée, et taper 0,333 n'est pas la réponse
+   attendue en classe. On saisit donc chaque entier dans sa case, et on compare
+   les écritures après normalisation — jamais les valeurs approchées. */
+
+function pgcd3(a, b, c){ return pgcd(pgcd(a, b), c); }
+/* sort les carrés du radicande : (m, d) = (1, 28) devient (2, 7) */
+function sortirDuRadical(m, d){
+  for (let k = 2; k * k <= d; k++){
+    while (d % (k * k) === 0){ d = d / (k * k); m = m * k; }
+  }
+  return { m: m, d: d };
+}
+/* écriture canonique de (p + m√d)/q : radicande sans carré, fraction réduite, q > 0 */
+function normExact(v){
+  if (!v) return null;
+  let p = Math.round(v.p || 0), m = Math.round(v.m || 0);
+  let d = Math.round(v.d || 0), q = Math.round(v.q === undefined ? 1 : v.q);
+  if (![p, m, d, q].every(isFinite) || q === 0 || d < 0) return null;
+  if (d === 0) m = 0;
+  if (m === 0) d = 0;
+  else {
+    const r = sortirDuRadical(m, d);
+    m = r.m; d = r.d;
+    if (d === 1){ p += m; m = 0; d = 0; }
+  }
+  if (q < 0){ p = -p; m = -m; q = -q; }
+  const g = pgcd3(Math.abs(p), Math.abs(m), q) || 1;
+  return { p: p / g, m: m / g, d: d, q: q / g };
+}
+function valExact(v){ const n = normExact(v); return n ? (n.p + n.m * Math.sqrt(n.d)) / n.q : NaN; }
+/* la réponse attendue, écrite en mini-syntaxe pour la correction */
+function texteExact(v){
+  const n = normExact(v);
+  if (!n) return '—';
+  let num;
+  if (n.m === 0) num = nf(n.p);
+  else {
+    const rad = (Math.abs(n.m) === 1 ? '' : nf(Math.abs(n.m))) + 'sqrt{' + nf(n.d) + '}';
+    num = n.p === 0 ? (n.m < 0 ? '-' + rad : rad) : nf(n.p) + (n.m < 0 ? ' - ' : ' + ') + rad;
+  }
+  return n.q === 1 ? num : 'frac{' + num + '}{' + nf(n.q) + '}';
+}
+/* un entier saisi à la main : on tolère le moins typographique et la virgule */
+function entierSaisi(v){
+  const t = String(v === undefined ? '' : v).trim().replace(/\s/g, '')
+    .replace(/[‐-―−]/g, '-').replace(',', '.').replace(/^\+/, '');
+  if (t === '') return null;
+  const x = Number(t);
+  return isFinite(x) && Math.abs(x - Math.round(x)) < 1e-9 ? Math.round(x) : null;
+}
+function lireExact(s){
+  if (!s || typeof s !== 'object') return null;
+  const p = entierSaisi(s.p), q = entierSaisi(s.q);
+  if (p === null || q === null || q === 0) return null;
+  if (s.m === undefined) return { p: p, m: 0, d: 0, q: q };
+  const m = entierSaisi(s.m), d = entierSaisi(s.d);
+  if (m === null || d === null || d < 0) return null;
+  return { p: p, m: m, d: d, q: q };
+}
+/* la réponse attendue comporte-t-elle un radical ? décide du nombre de cases */
+function avecRadical(f){ const n = normExact(f.bon); return !!(n && n.m !== 0 && n.d > 1); }
+
 /* Un champ de réponse. Sur téléphone, le pavé numérique ouvert par
    inputmode="decimal" n'a pas de touche « moins » : une réponse négative était
    impossible à saisir. On accole donc un bouton ± au champ. */
+/* La saisie guidée. Le modèle est rappelé une fois, puis une case par entier,
+   chacune étiquetée par sa lettre. Une racine dessinée à côté de sa case se lit
+   mal : on préfère dire la forme, et étiqueter. */
+function champExact(id, f, bloque){
+  const rad = avecRadical(f), s = (f.saisie && typeof f.saisie === 'object') ? f.saisie : {};
+  const box = (lettre, cle, signe) => '<span class="cell"><i>' + lettre + '</i>' +
+    '<input id="' + id + '-' + cle + '" type="text" inputmode="decimal" autocomplete="off" value="' +
+    (s[cle] === undefined ? '' : esc(s[cle])) + '"' + (bloque ? ' disabled' : '') + '>' +
+    (signe ? '<button class="signe mini" type="button" data-signe="' + id + '-' + cle + '"' +
+      ' aria-label="Changer le signe de ' + lettre + '"' + (bloque ? ' disabled' : '') + '>±</button>' : '') +
+    '</span>';
+  return '<span class="exact">' +
+    '<span class="modele">de la forme ' + M(rad ? 'frac{a + bsqrt{c}}{d}' : 'frac{a}{b}') + '</span>' +
+    '<span class="cases">' +
+    (rad
+      ? box('a', 'p', 1) + box('b', 'm', 1) + box('c', 'd', 0) + box('d', 'q', 0)
+      : box('a', 'p', 1) + box('b', 'q', 0)) +
+    '</span></span>';
+}
+
 function champSaisie(id, f, bloque){
+  if (f.type === 'exact') return champExact(id, f, bloque);
   const txt = f.type === 'texte';
   const input = '<input id="' + id + '" type="text" inputmode="' + (txt ? 'text' : 'decimal') + '"' +
     (txt ? ' spellcheck="false" autocapitalize="off"' : '') +
@@ -729,7 +815,9 @@ function basculerSigne(id){
 }
 function verdictChamp(f, ok){
   if (ok) return '<span class="tiny" style="color:var(--juste);font-weight:700">✓</span>';
-  const att = f.type === 'choix' ? f.options[f.bon] : (f.type === 'texte' ? f.bon : nf(f.bon));
+  const att = f.type === 'choix' ? f.options[f.bon]
+    : (f.type === 'texte' ? f.bon
+    : (f.type === 'exact' ? M(texteExact(f.bon)) : nf(f.bon)));
   return '<span class="tiny" style="color:var(--faux);font-weight:700">✗ attendu : ' + att + '</span>';
 }
 /* normalise une réponse en texte : minuscules, sans accent, espaces réduits */
@@ -743,6 +831,12 @@ function normTexte(v){
 }
 function champOk(f){
   if (f.type === 'choix') return f.saisie === f.bon;
+  if (f.type === 'exact'){
+    const a = normExact(lireExact(f.saisie)), b = normExact(f.bon);
+    /* égalité d'écritures, pas de valeurs : une décimale approchée ne passe pas,
+       mais toute écriture exacte du bon nombre passe, réduite ou non */
+    return !!a && !!b && a.p === b.p && a.m === b.m && a.d === b.d && a.q === b.q;
+  }
   if (f.type === 'texte'){
     const v = normTexte(f.saisie);
     if (v === '') return false;
@@ -759,14 +853,22 @@ function champOk(f){
   if (!isFinite(x)) return false;
   return Math.abs(x - f.bon) <= (f.tol === undefined ? 1e-6 : f.tol);
 }
+/* lit un champ, simple ou en cases ; partagée par les séries, le DS et le défi */
+function lireChamp(id, f){
+  if (f.type === 'choix') return;
+  if (f.type === 'exact'){
+    const lu = {}, cles = avecRadical(f) ? ['p', 'm', 'd', 'q'] : ['p', 'q'];
+    cles.forEach(c => { const el = document.getElementById(id + '-' + c); if (el) lu[c] = el.value; });
+    f.saisie = lu;
+    return;
+  }
+  const el = document.getElementById(id);
+  if (el) f.saisie = el.value;
+}
 function lireChamps(){
   const q = serie.q;
   if (q.qcm || !q.champs) return;      /* une démonstration n'a pas de champs */
-  q.champs.forEach((f, i) => {
-    if (f.type === 'choix') return;
-    const el = document.getElementById('f' + i);
-    if (el) f.saisie = el.value;
-  });
+  q.champs.forEach((f, i) => lireChamp('f' + i, f));
 }
 function verifier(abandon){
   const q = serie.q;

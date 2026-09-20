@@ -391,6 +391,53 @@ G('second-degre', 'sd-factorisation-astuce', 'Factoriser sans discriminant', 'en
   };
 });
 
+/* Résoudre en donnant la réponse EXACTE. Une racine de trinôme à coefficients
+   entiers vaut (-b ± √Δ)/(2a) : selon Δ c'est un entier, une fraction, ou un
+   nombre avec radical. La classe attend (1 - √7)/3 ou 1/3, jamais une décimale,
+   d'où la saisie en cases. */
+G('second-degre', 'sd-racines-exactes', 'Racines exactes : fraction ou radical', 'ent', function(){
+  let a = 3, b = -2, c = -2, D = 28;
+  for (let k = 0; k < 400; k++){
+    const aa = R.pick([1, 1, 2, 3]), bb = R.nz(-9, 9), cc = R.nz(-6, 6);
+    const DD = bb * bb - 4 * aa * cc;
+    if (DD <= 0 || DD > 200) continue;
+    const n = normExact({ p: -bb, m: 1, d: DD, q: 2 * aa });
+    if (n && n.d <= 60 && Math.abs(n.p) <= 40 && n.q <= 30){ a = aa; b = bb; c = cc; D = DD; break; }
+  }
+  const r1 = { p: -b, m: -1, d: D, q: 2 * a };   /* a > 0, donc r1 < r2 */
+  const r2 = { p: -b, m: 1, d: D, q: 2 * a };
+  const rac = Math.sqrt(D), carre = Math.abs(rac - Math.round(rac)) < 1e-9;
+  const sr = sortirDuRadical(1, D);
+  /* écriture brute sortie de la formule, avant réduction */
+  const brut = sg => 'frac{' + nf(-b) + ' ' + sg + ' sqrt{' + nf(D) + '}}{' + nf(2 * a) + '}';
+  const t1 = texteExact(r1), t2 = texteExact(r2);
+  return {
+    enonce: '<p>Résous ' + M(trinome(a, b, c) + ' = 0') + '.</p>' +
+            '<p class="tiny">Réponse <b>exacte</b>, un entier par case' +
+            (!carre && sr.m > 1 ? ' — la racine se simplifie' : '') + '.</p>',
+    champs: [
+      { type: 'exact', label: 'plus petite racine', bon: r1 },
+      { type: 'exact', label: 'plus grande racine', bon: r2 }
+    ],
+    etapes: [
+      'On identifie ' + M('a = ' + nf(a)) + ', ' + M('b = ' + nf(b)) + ', ' + M('c = ' + nf(c)) + '.',
+      M('Δ = (' + nf(b) + ')^{2} - 4 × ' + nf(a) + ' × (' + nf(c) + ') = ' + nf(D)) +
+        ', donc ' + M('Δ > 0') + ' : deux racines.',
+      carre
+        ? M('sqrt{' + nf(D) + '} = ' + nf(Math.round(rac))) + ' : un carré parfait, les racines sont rationnelles.'
+        : (sr.m > 1
+            ? '<b>On simplifie la racine</b> : ' + M('sqrt{' + nf(D) + '} = ' + nf(sr.m) + 'sqrt{' + nf(sr.d) + '}') +
+              '. C’est cette écriture qu’attend le correcteur, pas une valeur approchée.'
+            : M('sqrt{' + nf(D) + '}') + ' ne se simplifie pas : ' + M(nf(D)) +
+              ' n’a aucun facteur carré. On le garde tel quel — surtout pas de valeur approchée.'),
+      M('x_1 = ' + brut('-') + (t1 === brut('-') ? '' : ' = ' + t1)) + ' et ' +
+        M('x_2 = ' + brut('+') + (t2 === brut('+') ? '' : ' = ' + t2)) + '.',
+      'Forme factorisée : ' + M('f(x) = ' + coef(a) + '(x - ' + t1 + ')(x - ' + t2 + ')') +
+        '. <b>Ne pas oublier le facteur ' + M('a') + '.</b>'
+    ]
+  };
+});
+
 /* Retrouver un trinôme à partir de ses racines et d'un point : les exercices 55,
    56 et 72 du manuel le demandent trois fois de suite. La fiche décrivait la
    méthode, aucun exercice ne la faisait travailler. Le coefficient a reste
