@@ -7,20 +7,23 @@
 /* =================== SECOND DEGRÉ =================== */
 
 G('second-degre', 'sd-parametre', 'Paramètre : racine double', 'exp', function(){
-  const a = R.pick([1, 2, -1, -2]);
-  const b = 2 * R.nz(-5, 5);
-  const m = b * b / (4 * a);
+  const a = R.pick([1, 2, -1, -2, 3]);
+  const b = R.nz(-9, 9);                 /* b n'a plus à être pair : m = b²/4a s'écrit en fraction */
+  const m = { p: b * b, q: 4 * a };      /* Δ = 0  <=>  m = b²/(4a) */
+  const x0 = { p: -b, q: 2 * a };
   return {
-    enonce: '<p>On considère l\u2019équation, d\u2019inconnue ' + M('x') + ' et de paramètre réel ' + M('m') + ' :</p>' +
+    enonce: '<p>On considère l’équation, d’inconnue ' + M('x') + ' et de paramètre réel ' + M('m') + ' :</p>' +
             Mc(lead(a, 'x^{2}') + sgn(b, 'x') + ' + m = 0') +
-            '<p>Pour quelle valeur de ' + M('m') + ' cette équation admet-elle une <b>racine double</b> ?</p>',
-    champs: [{ type: 'num', label: 'm =', bon: m, tol: 1e-6 }],
+            '<p>Pour quelle valeur de ' + M('m') + ' cette équation admet-elle une <b>racine double</b> ?</p>' +
+            '<p class="tiny">Réponse <b>exacte</b>.</p>',
+    champs: [{ type: 'exact', label: 'm =', bon: m }],
     etapes: [
-      'Une racine double correspond exactement à ' + M('\u0394 = 0') + '.',
-      M('\u0394 = b^{2} - 4ac = (' + nf(b) + ')^{2} - 4 \u00D7 (' + nf(a) + ') \u00D7 m = ' + nf(b * b) + sgn(-4 * a, 'm')),
-      'On résout ' + M(nf(b * b) + sgn(-4 * a, 'm') + ' = 0') + ' soit ' + M('m = frac{' + nf(b * b) + '}{' + nf(4 * a) + '} = ' + nf(m)) + '.',
-      'La racine double vaut alors ' + M('x_0 = frac{-b}{2a} = ' + nf(-b / (2 * a))) + '.',
-      '<b>Réflexe</b> : dès qu\u2019un paramètre apparaît, la question porte presque toujours sur le <b>signe de ' + M('\u0394') + '</b>.'
+      'Une racine double correspond exactement à ' + M('Δ = 0') + '.',
+      M('Δ = b^{2} - 4ac = (' + nf(b) + ')^{2} - 4 × (' + nf(a) + ') × m = ' + nf(b * b) + sgn(-4 * a, 'm')),
+      'On résout ' + M(nf(b * b) + sgn(-4 * a, 'm') + ' = 0') + ', soit ' +
+        M('m = frac{' + nf(b * b) + '}{' + nf(4 * a) + '} = ' + texteExact(m)) + '.',
+      'La racine double vaut alors ' + M('x_0 = frac{-b}{2a} = ' + texteExact(x0)) + '.',
+      '<b>Réflexe</b> : dès qu’un paramètre apparaît, la question porte presque toujours sur le <b>signe de ' + M('Δ') + '</b>.'
     ]
   };
 });
@@ -56,27 +59,35 @@ G('second-degre', 'sd-bicarree', 'Équation bicarrée (changement de variable)',
   const k1 = R.int(1, 5);
   const deuxRacines = Math.random() < 0.65;
   const X1 = k1 * k1;
-  const X2 = deuxRacines ? R.pick([4, 9, 16, 25, 36]) : -R.int(1, 9);
+  /* X2 n'est plus forcément un carré parfait : x = ±√X2 est alors irrationnel,
+     et c'est le cas le plus fréquent dans un vrai énoncé */
+  const X2 = deuxRacines
+    ? (Math.random() < 0.5 ? R.pick([4, 9, 16, 25, 36]) : R.pick([2, 3, 5, 6, 7, 8, 10, 12, 18, 20, 24, 27, 32]))
+    : -R.int(1, 9);
   const b = -(X1 + X2), c = X1 * X2;
   const sols = deuxRacines ? 4 : 2;
-  const plusGrande = deuxRacines ? Math.max(k1, Math.sqrt(X2)) : k1;
+  /* la plus grande solution : k1 si k1 ≥ √X2, sinon √X2 */
+  const gagne2 = deuxRacines && Math.sqrt(X2) > k1;
+  const plusGrande = gagne2 ? { p: 0, m: 1, d: X2, q: 1 } : { p: k1, q: 1 };
+  const racX2 = texteExact({ p: 0, m: 1, d: X2, q: 1 });
   return {
-    enonce: '<p>Résous dans ' + M('\u211D') + ' l\u2019équation</p>' + Mc('x^{4}' + sgn(b, 'x^{2}') + sgn(c, '') + ' = 0') +
-            '<p>Combien y a-t-il de solutions, et quelle est la plus grande ?</p>',
+    enonce: '<p>Résous dans ' + M('ℝ') + ' l’équation</p>' + Mc('x^{4}' + sgn(b, 'x^{2}') + sgn(c, '') + ' = 0') +
+            '<p>Combien y a-t-il de solutions, et quelle est la plus grande ?</p>' +
+            '<p class="tiny">Réponse <b>exacte</b> : une racine carrée ne se remplace pas par une valeur approchée.</p>',
     champs: [
       { type: 'choix', label: 'Nombre de solutions', options: ['0', '2', '3', '4'], bon: sols === 4 ? 3 : 1 },
-      { type: 'num', label: 'plus grande solution', bon: plusGrande, tol: 1e-6 }
+      { type: 'exact', forme: 'radical', label: 'plus grande solution', bon: plusGrande }
     ],
     etapes: [
-      'On pose ' + M('X = x^{2}') + ' (avec nécessairement ' + M('X \u2265 0') + ') : l\u2019équation devient ' + M('X^{2}' + sgn(b, 'X') + sgn(c, '') + ' = 0') + '.',
-      M('\u0394 = (' + nf(b) + ')^{2} - 4 \u00D7 ' + nf(c) + ' = ' + nf(b * b - 4 * c)) + ', donc ' + M('X_1 = ' + nf(X1)) + ' et ' + M('X_2 = ' + nf(X2)) + '.',
+      'On pose ' + M('X = x^{2}') + ' (avec nécessairement ' + M('X ≥ 0') + ') : l’équation devient ' + M('X^{2}' + sgn(b, 'X') + sgn(c, '') + ' = 0') + '.',
+      M('Δ = (' + nf(b) + ')^{2} - 4 × ' + nf(c) + ' = ' + nf(b * b - 4 * c)) + ', donc ' + M('X_1 = ' + nf(X1)) + ' et ' + M('X_2 = ' + nf(X2)) + '.',
       deuxRacines
         ? 'Les deux valeurs sont <b>positives</b> : chacune donne deux solutions en ' + M('x') + ', à savoir ' +
-          M('x = \u00B1sqrt{' + nf(X1) + '} = \u00B1' + nf(k1)) + ' et ' + M('x = \u00B1sqrt{' + nf(X2) + '} = \u00B1' + nf(Math.sqrt(X2))) + '.'
+          M('x = ±sqrt{' + nf(X1) + '} = ±' + nf(k1)) + ' et ' + M('x = ±sqrt{' + nf(X2) + '} = ±' + racX2) + '.'
         : M('X_2 = ' + nf(X2) + ' &lt; 0') + ' est à <b>rejeter</b> : un carré ne peut pas être négatif. Seule ' + M('X_1 = ' + nf(X1)) +
-          ' convient, d\u2019où ' + M('x = \u00B1' + nf(k1)) + '.',
-      'Il y a donc <b>' + sols + ' solutions</b>, la plus grande étant ' + M(nf(plusGrande)) + '.',
-      '<b>C\u2019est là que le piège se joue</b> : ne jamais oublier de vérifier le signe de chaque ' + M('X') + ' avant de revenir à ' + M('x') + '.'
+          ' convient, d’où ' + M('x = ±' + nf(k1)) + '.',
+      'Il y a donc <b>' + sols + ' solutions</b>, la plus grande étant ' + M(texteExact(plusGrande)) + '.',
+      '<b>C’est là que le piège se joue</b> : ne jamais oublier de vérifier le signe de chaque ' + M('X') + ' avant de revenir à ' + M('x') + '.'
     ]
   };
 });

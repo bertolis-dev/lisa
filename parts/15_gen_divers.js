@@ -416,8 +416,8 @@ G('second-degre', 'sd-racines-exactes', 'Racines exactes : fraction ou radical',
             '<p class="tiny">Réponse <b>exacte</b>, un entier par case' +
             (!carre && sr.m > 1 ? ' — la racine se simplifie' : '') + '.</p>',
     champs: [
-      { type: 'exact', label: 'plus petite racine', bon: r1 },
-      { type: 'exact', label: 'plus grande racine', bon: r2 }
+      { type: 'exact', forme: 'radical', label: 'plus petite racine', bon: r1 },
+      { type: 'exact', forme: 'radical', label: 'plus grande racine', bon: r2 }
     ],
     etapes: [
       'On identifie ' + M('a = ' + nf(a)) + ', ' + M('b = ' + nf(b)) + ', ' + M('c = ' + nf(c)) + '.',
@@ -439,9 +439,9 @@ G('second-degre', 'sd-racines-exactes', 'Racines exactes : fraction ou radical',
 });
 
 /* Retrouver un trinôme à partir de ses racines et d'un point : les exercices 55,
-   56 et 72 du manuel le demandent trois fois de suite. La fiche décrivait la
-   méthode, aucun exercice ne la faisait travailler. Le coefficient a reste
-   entier ou demi-entier, pour rester saisissable au clavier. */
+   56 et 72 du manuel le demandent trois fois de suite. Le coefficient a vaut v/P,
+   souvent fractionnaire — l'exercice 72 attend exactement 1/3 — d'où la réponse
+   exacte plutôt qu'une décimale. */
 G('second-degre', 'sd-polynome-point', 'Retrouver un trinôme : ses racines et un point', 'ent', function(){
   const x1 = R.nz(-6, 6);
   let x2 = R.nz(-6, 6);
@@ -450,26 +450,31 @@ G('second-degre', 'sd-polynome-point', 'Retrouver un trinôme : ses racines et u
   while (x0 === x1 || x0 === x2) x0 = R.int(-6, 6);
   const pet = Math.min(x1, x2), gra = Math.max(x1, x2);
   const P = (x0 - pet) * (x0 - gra);
-  const a = R.pick([1, -1, 2, -2, 3, -3].concat(P % 2 === 0 ? [0.5, -0.5, 1.5, -1.5] : []));
-  const v = a * P, b = -a * (pet + gra), c = a * pet * gra;
+  const v = R.nz(-12, 12);
+  const a = { p: v, q: P };                              /* a = v / P            */
+  const b = { p: -v * (pet + gra), q: P };               /* b = -a(x1 + x2)      */
+  const c = { p: v * pet * gra, q: P };                  /* c = a·x1·x2          */
+  const ta = texteExact(a);
   return {
     enonce: '<p>' + M('f') + ' est un trinôme du second degré dont les racines sont ' +
             M(nf(pet)) + ' et ' + M(nf(gra)) + ', et tel que ' + M('f(' + nf(x0) + ') = ' + nf(v)) + '.</p>' +
-            '<p>Donne sa forme développée ' + M('f(x) = ax^{2} + bx + c') + '.</p>',
+            '<p>Donne sa forme développée ' + M('f(x) = ax^{2} + bx + c') + '.</p>' +
+            '<p class="tiny">Réponse <b>exacte</b> : les coefficients ne sont pas toujours entiers.</p>',
     champs: [
-      { type: 'num', label: 'a =', bon: a, tol: 1e-6 },
-      { type: 'num', label: 'b =', bon: b, tol: 1e-6 },
-      { type: 'num', label: 'c =', bon: c, tol: 1e-6 }
+      { type: 'exact', label: 'a =', bon: a },
+      { type: 'exact', label: 'b =', bon: b },
+      { type: 'exact', label: 'c =', bon: c }
     ],
     etapes: [
       'Les deux racines donnent la forme factorisée <b>à un coefficient près</b> : ' +
         M('f(x) = a' + fact(pet) + fact(gra)) + '. Deux racines ne suffisent pas, il faut un point pour fixer ' + M('a') + '.',
       'Le point le fixe : ' + M('f(' + nf(x0) + ') = a × (' + nf(x0 - pet) + ') × (' + nf(x0 - gra) + ') = ' + nf(P) + 'a') +
         ', et cette valeur vaut ' + M(nf(v)) + '.',
-      'Donc ' + M(nf(P) + 'a = ' + nf(v)) + ', soit ' + M('a = frac{' + nf(v) + '}{' + nf(P) + '} = ' + nf(a)) +
+      'Donc ' + M(nf(P) + 'a = ' + nf(v)) + ', soit ' + M('a = frac{' + nf(v) + '}{' + nf(P) + '} = ' + ta) +
         '. <b>Attention au sens de la division</b> : c’est la valeur divisée par le produit, pas l’inverse.',
-      'On développe : ' + M('f(x) = ' + coef(a) + fact(pet) + fact(gra) + ' = ' + trinome(a, b, c)) + '.',
-      'Vérification : ' + M('f(' + nf(x0) + ') = ' + nf(a) + ' × (' + nf(x0 - pet) + ') × (' + nf(x0 - gra) + ') = ' + nf(v)) + ' \u2713'
+      'On développe ' + M(ta + fact(pet) + fact(gra)) + ' : ' +
+        M('b = -a(x_1 + x_2) = ' + texteExact(b)) + ' et ' + M('c = a x_1 x_2 = ' + texteExact(c)) + '.',
+      'Vérification : ' + M('f(' + nf(x0) + ') = ' + ta + ' × (' + nf(x0 - pet) + ') × (' + nf(x0 - gra) + ') = ' + nf(v)) + ' ✓'
     ]
   };
 });

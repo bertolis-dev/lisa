@@ -268,21 +268,34 @@ G('variables-aleatoires', 'va-konig', 'Espérance et variance', 'ent', function(
   if (!g) return;
   g.label = 'Forme canonique (compléter le carré)';
   g.fn = function(){
-    const al = R.nz(-6, 6), be = R.int(-9, 9);
-    const b = -2 * al, c = be + al * al;
+    /* b peut être impair : α vaut alors un demi-entier. Le programme 2026 limite
+       la forme canonique aux cas simples (a = 1, complétion du carré), pas aux
+       seuls cas où α tombe juste — et la réponse exacte est maintenant saisissable. */
+    const b = R.nz(-11, 11), c = R.int(-9, 9);
+    const al = { p: -b, q: 2 };               /* α = -b/2        */
+    const be = { p: 4 * c - b * b, q: 4 };    /* β = c - b²/4    */
+    const demi = { p: b, q: 2 };              /* le « a » de l'identité */
+    const carre = { p: b * b, q: 4 };         /* son carré       */
+    const nbe = normExact(be);
+    const queue = nbe.p === 0 ? ''
+      : (nbe.p < 0 ? ' - ' + texteExact({ p: -nbe.p, q: nbe.q }) : ' + ' + texteExact(nbe));
     return {
       enonce: '<p>Soit ' + M('f(x) = ' + trinome(1, b, c)) + '.</p>' +
-              '<p>Écris ' + M('f') + ' sous forme canonique ' + M('f(x) = (x - α)^{2} + β') + ' en complétant le carré.</p>',
+              '<p>Écris ' + M('f') + ' sous forme canonique ' + M('f(x) = (x - α)^{2} + β') + ' en complétant le carré.</p>' +
+              '<p class="tiny">Réponse <b>exacte</b> : ' + M('α') + ' et ' + M('β') + ' ne sont pas toujours entiers.</p>',
       champs: [
-        { type: 'num', label: 'α =', bon: al, tol: 1e-6 },
-        { type: 'num', label: 'β =', bon: be, tol: 1e-6 }
+        { type: 'exact', label: 'α =', bon: al },
+        { type: 'exact', label: 'β =', bon: be }
       ],
       etapes: [
         'On utilise l’identité du programme : ' + M('x^{2} + 2a x = (x + a)^{2} - a^{2}') + '.',
-        'Ici ' + M('2a = ' + nf(b)) + ', donc ' + M('a = ' + nf(b / 2)) + ' et ' +
-          M('x^{2} ' + sgn(b, 'x') + ' = ' + fact(al) + '^{2} - ' + nf(al * al)) + '.',
-        'On remet le terme constant : ' + M('f(x) = ' + fact(al) + '^{2} - ' + nf(al * al) + sgn(c, '') + ' = ' + fact(al) + '^{2}' + (be === 0 ? '' : sgn(be, ''))) + '.',
-        'Donc ' + M('α = ' + nf(al)) + ' et ' + M('β = ' + nf(be)) + ' : le sommet est ' + M('S(' + nf(al) + ' ; ' + nf(be) + ')') + '.'
+        'Ici ' + M('2a = ' + nf(b)) + ', donc ' + M('a = ' + texteExact(demi)) + ' et ' +
+          M('x^{2} ' + sgn(b, 'x') + ' = (x + ' + texteExact(demi) + ')^{2} - ' + texteExact(carre)) + '.',
+        'On remet le terme constant : ' + M('f(x) = (x + ' + texteExact(demi) + ')^{2} - ' + texteExact(carre) +
+          sgn(c, '') + ' = (x - ' + texteExact(al) + ')^{2}' + queue) + '.',
+        'Donc ' + M('α = ' + texteExact(al)) + ' et ' + M('β = ' + texteExact(be)) +
+          ' : le sommet est ' + M('S(' + texteExact(al) + ' ; ' + texteExact(be) + ')') + '.',
+        'Contrôle : ' + M('α = frac{-b}{2a} = frac{' + nf(-b) + '}{2} = ' + texteExact(al)) + ' ✓'
       ]
     };
   };
