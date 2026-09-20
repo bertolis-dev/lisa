@@ -391,6 +391,42 @@ G('second-degre', 'sd-factorisation-astuce', 'Factoriser sans discriminant', 'en
   };
 });
 
+/* Retrouver un trinôme à partir de ses racines et d'un point : les exercices 55,
+   56 et 72 du manuel le demandent trois fois de suite. La fiche décrivait la
+   méthode, aucun exercice ne la faisait travailler. Le coefficient a reste
+   entier ou demi-entier, pour rester saisissable au clavier. */
+G('second-degre', 'sd-polynome-point', 'Retrouver un trinôme : ses racines et un point', 'ent', function(){
+  const x1 = R.nz(-6, 6);
+  let x2 = R.nz(-6, 6);
+  while (x2 === x1) x2 = R.nz(-6, 6);
+  let x0 = R.int(-6, 6);
+  while (x0 === x1 || x0 === x2) x0 = R.int(-6, 6);
+  const pet = Math.min(x1, x2), gra = Math.max(x1, x2);
+  const P = (x0 - pet) * (x0 - gra);
+  const a = R.pick([1, -1, 2, -2, 3, -3].concat(P % 2 === 0 ? [0.5, -0.5, 1.5, -1.5] : []));
+  const v = a * P, b = -a * (pet + gra), c = a * pet * gra;
+  return {
+    enonce: '<p>' + M('f') + ' est un trinôme du second degré dont les racines sont ' +
+            M(nf(pet)) + ' et ' + M(nf(gra)) + ', et tel que ' + M('f(' + nf(x0) + ') = ' + nf(v)) + '.</p>' +
+            '<p>Donne sa forme développée ' + M('f(x) = ax^{2} + bx + c') + '.</p>',
+    champs: [
+      { type: 'num', label: 'a =', bon: a, tol: 1e-6 },
+      { type: 'num', label: 'b =', bon: b, tol: 1e-6 },
+      { type: 'num', label: 'c =', bon: c, tol: 1e-6 }
+    ],
+    etapes: [
+      'Les deux racines donnent la forme factorisée <b>à un coefficient près</b> : ' +
+        M('f(x) = a' + fact(pet) + fact(gra)) + '. Deux racines ne suffisent pas, il faut un point pour fixer ' + M('a') + '.',
+      'Le point le fixe : ' + M('f(' + nf(x0) + ') = a × (' + nf(x0 - pet) + ') × (' + nf(x0 - gra) + ') = ' + nf(P) + 'a') +
+        ', et cette valeur vaut ' + M(nf(v)) + '.',
+      'Donc ' + M(nf(P) + 'a = ' + nf(v)) + ', soit ' + M('a = frac{' + nf(v) + '}{' + nf(P) + '} = ' + nf(a)) +
+        '. <b>Attention au sens de la division</b> : c’est la valeur divisée par le produit, pas l’inverse.',
+      'On développe : ' + M('f(x) = ' + coef(a) + fact(pet) + fact(gra) + ' = ' + trinome(a, b, c)) + '.',
+      'Vérification : ' + M('f(' + nf(x0) + ') = ' + nf(a) + ' × (' + nf(x0 - pet) + ') × (' + nf(x0 - gra) + ') = ' + nf(v)) + ' \u2713'
+    ]
+  };
+});
+
 /* Corollaire des relations de Viète, dans le sens « on connaît S et P, on cherche
    les deux nombres ». La fiche de révision du contrôle le demande ; aucun exercice
    ne travaillait ce sens-là — la factorisation part du trinôme, pas de S et P. */
