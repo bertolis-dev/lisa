@@ -1077,7 +1077,7 @@ function M(src){ return '<span class="m">' + mathHtml(src) + '</span>'; }
 function Mc(src){ return '<div class="center">' + M(src) + '</div>'; }
 
 /* version de la construction, remplacée par build.py */
-const VERSION_APP = '1.53';
+const VERSION_APP = '1.54';
 
 /* ---------- utilitaires numériques ---------- */
 const R = {
@@ -1619,11 +1619,25 @@ const CHAPITRES = [
       '<li>' + M('@cos(frac{\u03C0}{3}) = frac{1}{2}') + ', ' + M('@sin(frac{\u03C0}{3}) = frac{sqrt{3}}{2}') + '</li>' +
       '<li>' + M('@cos(frac{\u03C0}{2}) = 0') + ', ' + M('@sin(frac{\u03C0}{2}) = 1') + '</li></ul>' },
     { k: 'prop', t: 'Propriétés', c:
-      '<ul><li>' + M('@cos^{2}(x) + @sin^{2}(x) = 1') + '</li>' +
-      '<li>' + M('-1 \u2264 @cos(x) \u2264 1') + ' et ' + M('-1 \u2264 @sin(x) \u2264 1') + '</li>' +
-      '<li>Périodicité : ' + M('@cos(x + 2\u03C0) = @cos(x)') + '</li>' +
-      '<li>Parité : ' + M('@cos(-x) = @cos(x)') + ' (paire), ' + M('@sin(-x) = -@sin(x)') + ' (impaire)</li>' +
-      '<li>' + M('@cos(\u03C0 - x) = -@cos(x)') + ', ' + M('@sin(\u03C0 - x) = @sin(x)') + '</li></ul>' },
+      '<ul><li><b>Relation fondamentale</b> : ' + M('@cos^{2}(x) + @sin^{2}(x) = 1') + '</li>' +
+      '<li><b>Encadrement</b> : ' + M('-1 \u2264 @cos(x) \u2264 1') + ' et ' + M('-1 \u2264 @sin(x) \u2264 1') + '</li>' +
+      '<li><b>Tours complets</b> : un tour de plus ramène au même point, donc ' +
+      M('@cos(x + 2\u03C0) = @cos(x)') + ' <b>et</b> ' + M('@sin(x + 2\u03C0) = @sin(x)') + '</li>' +
+      '<li><b>Parité</b> : ' + M('@cos(-x) = @cos(x)') + ' (paire), ' + M('@sin(-x) = -@sin(x)') + ' (impaire)</li></ul>' },
+    { k: 'prop', t: 'Angles associés', c:
+      '<p>Les cinq lignes à savoir. Toutes se lisent sur le cercle : ' + M('-x') + ' est le symétrique par rapport à ' +
+      'l’axe des cosinus, ' + M('\u03C0 - x') + ' par rapport à l’axe des sinus, ' + M('\u03C0 + x') + ' par rapport au centre.</p>' +
+      '<table class="tab"><tr><th></th><th>' + M('@cos') + '</th><th>' + M('@sin') + '</th></tr>' +
+      '<tr><td>' + M('-x') + '</td><td>' + M('@cos(x)') + '</td><td>' + M('-@sin(x)') + '</td></tr>' +
+      '<tr><td>' + M('\u03C0 - x') + '</td><td>' + M('-@cos(x)') + '</td><td>' + M('@sin(x)') + '</td></tr>' +
+      '<tr><td>' + M('\u03C0 + x') + '</td><td>' + M('-@cos(x)') + '</td><td>' + M('-@sin(x)') + '</td></tr>' +
+      '<tr><td>' + M('frac{\u03C0}{2} - x') + '</td><td>' + M('@sin(x)') + '</td><td>' + M('@cos(x)') + '</td></tr>' +
+      '<tr><td>' + M('frac{\u03C0}{2} + x') + '</td><td>' + M('-@sin(x)') + '</td><td>' + M('@cos(x)') + '</td></tr></table>' +
+      '<p><b>Le repère qui évite l’erreur</b> : avec ' + M('\u03C0') + ' seul, le cosinus change de signe et le sinus ne change pas ; ' +
+      'avec ' + M('frac{\u03C0}{2}') + ', cosinus et sinus <b>échangent leurs rôles</b>.</p>' +
+      '<div class="ex">' + M('@cos(-frac{\u03C0}{3}) = @cos(frac{\u03C0}{3}) = frac{1}{2}') + '<br>' +
+      M('@cos(\u03C0 - frac{\u03C0}{3}) = -@cos(frac{\u03C0}{3}) = -frac{1}{2}') + '<br>' +
+      M('@sin(\u03C0 + frac{\u03C0}{4}) = -@sin(frac{\u03C0}{4}) = -frac{sqrt{2}}{2}') + '</div>' },
     { k: 'prop', t: 'Dérivées', c:
       '<ul><li>' + M('(@cos)\u2032 = -@sin') + '</li><li>' + M('(@sin)\u2032 = @cos') + '</li></ul>' }
   ]
