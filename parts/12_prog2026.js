@@ -48,8 +48,8 @@ const CAPACITES_2026 = {
 'trigonometrie': [
   'Placer un point sur le cercle trigonométrique.',
   'Par lecture du cercle trigonométrique, déterminer les cosinus et sinus d’angles associés, pour des valeurs remarquables.',
-  'Déterminer la mesure principale d’un angle. <i>(ajout du cours de la classe)</i>',
-  'Résoudre ' + M('@cos(x) = @cos(a)') + ' et ' + M('@sin(x) = @sin(a)') + ', dans ' + M('\u211D') + ' puis dans un intervalle. <i>(ajout du cours de la classe)</i>'
+  'Déterminer la mesure principale d’un angle. <i>(traité dans le cours de la classe)</i>',
+  'Résoudre ' + M('@cos(x) = @cos(a)') + ' et ' + M('@sin(x) = @sin(a)') + ', dans ' + M('\u211D') + ' puis dans un intervalle. <i>(traité dans le cours de la classe)</i>'
 ],
 'produit-scalaire': [
   'Utiliser le produit scalaire pour démontrer une orthogonalité, calculer un angle, une longueur.',
