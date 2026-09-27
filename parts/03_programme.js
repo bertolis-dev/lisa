@@ -316,6 +316,8 @@ const CHAPITRES = [
     'Placer un point image sur le cercle trigonométrique, convertir degrés / radians.',
     'Utiliser les valeurs remarquables de cosinus et sinus.',
     'Utiliser la périodicité et la parité.',
+    'Résoudre les équations ' + M('@cos(x) = @cos(a)') + ' et ' + M('@sin(x) = @sin(a)') + '.',
+    'Déterminer la mesure principale d’un angle.',
     'Dériver les fonctions cosinus et sinus.'
   ],
   cours: [
@@ -326,12 +328,11 @@ const CHAPITRES = [
     { k: 'def', t: 'Cosinus et sinus', c:
       '<p>' + M('@cos(x)') + ' et ' + M('@sin(x)') + ' sont l\u2019abscisse et l\u2019ordonnée du point image de ' + M('x') + ' sur le cercle trigonométrique.</p>' },
     { k: 'prop', t: 'Valeurs remarquables', c:
-      '<ul>' +
-      '<li>' + M('@cos(0) = 1') + ', ' + M('@sin(0) = 0') + '</li>' +
-      '<li>' + M('@cos(frac{\u03C0}{6}) = frac{sqrt{3}}{2}') + ', ' + M('@sin(frac{\u03C0}{6}) = frac{1}{2}') + '</li>' +
-      '<li>' + M('@cos(frac{\u03C0}{4}) = @sin(frac{\u03C0}{4}) = frac{sqrt{2}}{2}') + '</li>' +
-      '<li>' + M('@cos(frac{\u03C0}{3}) = frac{1}{2}') + ', ' + M('@sin(frac{\u03C0}{3}) = frac{sqrt{3}}{2}') + '</li>' +
-      '<li>' + M('@cos(frac{\u03C0}{2}) = 0') + ', ' + M('@sin(frac{\u03C0}{2}) = 1') + '</li></ul>' },
+      '<div class="tabx"><table class="tab compacte"><tr><th>' + M('x') + '</th>' + '<th>' + M('0') + '</th>' + '<th>' + M('frac{\u03C0}{6}') + '</th>' + '<th>' + M('frac{\u03C0}{4}') + '</th>' + '<th>' + M('frac{\u03C0}{3}') + '</th>' + '<th>' + M('frac{\u03C0}{2}') + '</th>' + '<th>' + M('\u03C0') + '</th>' + '</tr>' +
+      '<tr><td>' + M('@cos(x)') + '</td>' + '<td>' + M('1') + '</td>' + '<td>' + M('frac{sqrt{3}}{2}') + '</td>' + '<td>' + M('frac{sqrt{2}}{2}') + '</td>' + '<td>' + M('frac{1}{2}') + '</td>' + '<td>' + M('0') + '</td>' + '<td>' + M('-1') + '</td>' + '</tr>' +
+      '<tr><td>' + M('@sin(x)') + '</td>' + '<td>' + M('0') + '</td>' + '<td>' + M('frac{1}{2}') + '</td>' + '<td>' + M('frac{sqrt{2}}{2}') + '</td>' + '<td>' + M('frac{sqrt{3}}{2}') + '</td>' + '<td>' + M('1') + '</td>' + '<td>' + M('0') + '</td>' + '</tr></table></div>' +
+      '<p><b>La lecture qui \u00E9vite de tout apprendre</b> : quand l\u2019angle passe de 0 \u00E0 ' + M('frac{\u03C0}{2}') + ', le sinus <b>monte</b> ' + M('0, frac{1}{2}, frac{sqrt{2}}{2}, frac{sqrt{3}}{2}, 1') + ' et le cosinus <b>descend</b> en prenant les m\u00EAmes nombres \u00E0 l\u2019envers. Une seule ligne \u00E0 retenir, l\u2019autre s\u2019en d\u00E9duit.</p>' +
+      '<p>En ' + M('\u03C0') + ' on est tout \u00E0 gauche du cercle, sur l\u2019axe des abscisses : ' + M('@cos(\u03C0) = -1') + ' et ' + M('@sin(\u03C0) = 0') + '.</p>' },
     { k: 'prop', t: 'Propriétés', c:
       '<ul><li><b>Relation fondamentale</b> : ' + M('@cos^{2}(x) + @sin^{2}(x) = 1') + '</li>' +
       '<li><b>Encadrement</b> : ' + M('-1 \u2264 @cos(x) \u2264 1') + ' et ' + M('-1 \u2264 @sin(x) \u2264 1') + '</li>' +
@@ -352,6 +353,47 @@ const CHAPITRES = [
       '<div class="ex">' + M('@cos(-frac{\u03C0}{3}) = @cos(frac{\u03C0}{3}) = frac{1}{2}') + '<br>' +
       M('@cos(\u03C0 - frac{\u03C0}{3}) = -@cos(frac{\u03C0}{3}) = -frac{1}{2}') + '<br>' +
       M('@sin(\u03C0 + frac{\u03C0}{4}) = -@sin(frac{\u03C0}{4}) = -frac{sqrt{2}}{2}') + '</div>' },
+    { k: 'meth', t: 'Résoudre cos(x) = cos(a)', c:
+      '<p>On ne cherche jamais ' + M('x') + ' de front : on écrit d\u2019abord le second membre comme un <b>cosinus</b>, ' +
+      'puis on lit sur le cercle <b>tous</b> les points qui ont cette abscisse.</p>' +
+      '<p>Le cosinus est l\u2019abscisse. Deux points du cercle ont la même abscisse : ' + M('a') + ' et ' + M('-a') + ', ' +
+      'symétriques par rapport à l\u2019axe horizontal. On y ajoute les tours complets :</p>' +
+      Mc('@cos(x) = @cos(a) \u21D4 x = a + 2k\u03C0 ou x = -a + 2k\u03C0, k \u2208 \u2124') +
+      '<div class="ex">' + M('@cos(x) = frac{1}{2}') + '<br>' +
+      M('frac{1}{2} = @cos(frac{\u03C0}{3})') + ', donc ' + M('@cos(x) = @cos(frac{\u03C0}{3})') + '<br>' +
+      M('x = frac{\u03C0}{3} + 2k\u03C0') + ' ou ' + M('x = -frac{\u03C0}{3} + 2k\u03C0') + ', ' + M('k \u2208 \u2124') + '<br>' +
+      M('S = { frac{\u03C0}{3} + 2k\u03C0 ; -frac{\u03C0}{3} + 2k\u03C0 }') + '</div>' },
+    { k: 'meth', t: 'Résoudre sin(x) = sin(a)', c:
+      '<p>Même démarche, mais le sinus est l\u2019<b>ordonnée</b>. Deux points du cercle ont la même ordonnée : ' +
+      M('a') + ' et ' + M('\u03C0 - a') + ', symétriques par rapport à l\u2019axe vertical.</p>' +
+      Mc('@sin(x) = @sin(a) \u21D4 x = a + 2k\u03C0 ou x = \u03C0 - a + 2k\u03C0, k \u2208 \u2124') +
+      '<div class="ex">' + M('@sin(x) = frac{sqrt{2}}{2}') + '<br>' +
+      M('frac{sqrt{2}}{2} = @sin(frac{\u03C0}{4})') + ', donc ' + M('@sin(x) = @sin(frac{\u03C0}{4})') + '<br>' +
+      M('x = frac{\u03C0}{4} + 2k\u03C0') + ' ou ' + M('x = \u03C0 - frac{\u03C0}{4} + 2k\u03C0 = frac{3\u03C0}{4} + 2k\u03C0') + '</div>' },
+    { k: 'meth', t: 'Ne garder que les solutions d\u2019un intervalle', c:
+      '<p>Une fois les solutions écrites avec ' + M('2k\u03C0') + ', on essaie les valeurs de ' + M('k') + ' : ' +
+      M('k = 0') + ', puis ' + M('k = 1') + ' et ' + M('k = -1') + '. On s\u2019arrête dès qu\u2019on sort de l\u2019intervalle.</p>' +
+      '<div class="ex">Résoudre ' + M('@cos(x) = -frac{sqrt{3}}{2}') + ' sur ' + M('] -\u03C0 ; \u03C0 ]') + '.<br>' +
+      M('-frac{sqrt{3}}{2} = @cos(frac{5\u03C0}{6})') + ', donc ' + M('x = frac{5\u03C0}{6} + 2k\u03C0') + ' ou ' + M('x = -frac{5\u03C0}{6} + 2k\u03C0') + '.<br>' +
+      M('k = 0') + ' donne ' + M('frac{5\u03C0}{6}') + ' et ' + M('-frac{5\u03C0}{6}') + ' : les deux sont dans l\u2019intervalle.<br>' +
+      M('k = 1') + ' ou ' + M('k = -1') + ' fait sortir à coup sûr, car on déplace de ' + M('2\u03C0') + '.<br>' +
+      M('S = { -frac{5\u03C0}{6} ; frac{5\u03C0}{6} }') + '</div>' },
+    { k: 'meth', t: 'Mesure principale', c:
+      '<p>Un même point du cercle a une infinité de mesures, qui diffèrent toutes de ' + M('2k\u03C0') + '. ' +
+      'La <b>mesure principale</b> est la seule qui appartient à ' + M('] -\u03C0 ; \u03C0 ]') + '.</p>' +
+      '<p>On ajoute ou on retire des ' + M('2\u03C0') + ' jusqu\u2019à y tomber. Un ' + M('2\u03C0') + ' vaut ' +
+      M('frac{12\u03C0}{6}') + ', ' + M('frac{8\u03C0}{4}') + ', ' + M('frac{6\u03C0}{3}') + ' : on met au même dénominateur avant de soustraire.</p>' +
+      '<div class="ex">Mesure principale de ' + M('frac{25\u03C0}{6}') + ' :<br>' +
+      M('frac{25\u03C0}{6} - 2\u03C0 = frac{25\u03C0 - 12\u03C0}{6} = frac{13\u03C0}{6}') + ' : encore trop grand.<br>' +
+      M('frac{13\u03C0}{6} - 2\u03C0 = frac{\u03C0}{6}') + ' : cette fois on est dans ' + M('] -\u03C0 ; \u03C0 ]') + '.<br>' +
+      'La mesure principale est ' + M('frac{\u03C0}{6}') + '.</div>' },
+    { k: 'piege', t: 'Les deux erreurs qui coûtent tout le point', c:
+      '<ul><li><b>Croiser les deux règles.</b> Avec un cosinus c\u2019est ' + M('-a') + ', avec un sinus c\u2019est ' + M('\u03C0 - a') + '. ' +
+      'Le moyen de ne pas confondre : on ne retient rien, on <b>dessine le cercle</b> et on regarde où sont les deux points.</li>' +
+      '<li><b>Oublier le ' + M('2k\u03C0') + '.</b> Sans lui on donne deux solutions au lieu d\u2019une infinité. ' +
+      'Il ne disparaît que si l\u2019énoncé impose un intervalle.</li></ul>' +
+      '<p class="tiny">Autre réflexe : ' + M('@cos(x) = 3') + ' et ' + M('@sin(x) = -1,2') + ' n\u2019ont <b>aucune</b> solution, ' +
+      'puisque cosinus et sinus restent entre ' + M('-1') + ' et 1.</p>' },
     { k: 'prop', t: 'Dérivées', c:
       '<ul><li>' + M('(@cos)\u2032 = -@sin') + '</li><li>' + M('(@sin)\u2032 = @cos') + '</li></ul>' }
   ]

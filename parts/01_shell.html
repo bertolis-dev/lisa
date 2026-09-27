@@ -88,7 +88,7 @@ input{font:inherit;color:inherit}
 /* la barre de fraction doit tomber sur l'axe mathématique, à la hauteur du trait du « = » :
    les deux lignes ont exactement la même hauteur, la barre est donc au milieu du bloc,
    et « vertical-align: middle » place ce milieu sur l'axe. */
-.frac{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;font-size:.86em;line-height:1.22}
+.frac{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;font-size:.86em;line-height:1.22;margin:0 .12em}
 .frac>.n{padding:0 .32em .06em;border-bottom:1.2px solid currentColor}
 .frac>.d{padding:.06em .32em 0}
 .sqrt>.rad{border-top:1px solid currentColor;padding:0 .15em 0 .06em;margin-left:-.06em}
@@ -595,7 +595,7 @@ pre.code code{background:none;padding:0}
 .bilan-rank{margin-top:22px;text-align:left;background:var(--surface-2);border:1px solid var(--line-soft);border-radius:var(--r);padding:14px 16px}
 .bilan-rank b{font-family:var(--serif);font-size:17px;font-weight:600}
 .toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
-.seg{display:inline-flex;background:var(--surface-2);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.seg{display:inline-flex;flex-wrap:wrap;max-width:100%;background:var(--surface-2);border:1px solid var(--line);border-radius:8px;overflow:hidden}
 .seg button{padding:6px 13px;font-size:13px;font-weight:600;color:var(--ink-2)}
 .seg button.on{background:var(--accent);color:#fff}
 :root[data-theme="dark"] .seg button.on{color:#0E1424}
@@ -868,6 +868,12 @@ body.menu-ouvert{position:fixed;left:0;right:0;width:100%;overflow:hidden}
 
 /* ---------- tableaux d'effectifs et de lois ---------- */
 table.tab{border-collapse:collapse;margin:14px auto 4px;font-size:14.5px;font-variant-numeric:tabular-nums}
+/* tableau large : on le rend defilable plutot que de deborder de l'ecran */
+.tabx{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:14px 0 4px}
+.tabx table.tab{margin:0 auto}
+table.tab.compacte th,table.tab.compacte td{padding:6px 7px}
+table.tab.compacte th{font-size:12.5px}
+table.tab.compacte td{font-size:13.5px}
 table.tab th,table.tab td{border:1px solid var(--line);padding:7px 14px;text-align:center}
 table.tab th{background:var(--surface-2);font-weight:700;font-size:13.5px}
 table.tab tr:first-child th{background:var(--accent-soft);color:var(--accent-ink)}

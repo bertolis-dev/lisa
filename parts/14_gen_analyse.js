@@ -380,3 +380,216 @@ G('trigonometrie', 'tg-identite', 'Utiliser cos² + sin² = 1', 'ent', function(
     ]
   };
 });
+
+/* --- outils communs aux équations trigonométriques ---
+   Un angle est repéré par sa mesure en douzièmes de π : 2 vaut π/6, 3 vaut
+   π/4, 6 vaut π/2, 12 vaut π. Tout se calcule alors sur des entiers, ce qui
+   évite les arrondis et rend les vérifications exactes. */
+const TRIG12 = {
+  0:  { c: '1', s: '0' },
+  2:  { c: 'frac{sqrt{3}}{2}', s: 'frac{1}{2}' },
+  3:  { c: 'frac{sqrt{2}}{2}', s: 'frac{sqrt{2}}{2}' },
+  4:  { c: 'frac{1}{2}', s: 'frac{sqrt{3}}{2}' },
+  6:  { c: '0', s: '1' },
+  8:  { c: '-frac{1}{2}', s: 'frac{sqrt{3}}{2}' },
+  9:  { c: '-frac{sqrt{2}}{2}', s: 'frac{sqrt{2}}{2}' },
+  10: { c: '-frac{sqrt{3}}{2}', s: 'frac{1}{2}' },
+  12: { c: '-1', s: '0' }
+};
+/* écriture de m douzièmes de π, fraction réduite : 8 -> 2π/3 */
+function angPi(m){
+  if (m === 0) return '0';
+  let k = m, n = 12;
+  const g = pgcd(Math.abs(k), n);
+  k /= g; n /= g;
+  const t = (Math.abs(k) === 1 ? 'π' : Math.abs(k) + 'π');
+  const e = (n === 1 ? t : 'frac{' + t + '}{' + n + '}');
+  return (k < 0 ? '-' : '') + e;
+}
+function negVal(v){ return v === '0' ? '0' : (v.charAt(0) === '-' ? v.slice(1) : '-' + v); }
+/* ramène une mesure dans ] -π ; π ], c'est-à-dire m dans ] -12 ; 12 ] */
+function principal12(m){
+  let r = ((m % 24) + 24) % 24;
+  return r > 12 ? r - 24 : r;
+}
+/* cosinus et sinus exacts d'une mesure remarquable, quelle qu'elle soit */
+function cos12(m){ const t = TRIG12[Math.abs(principal12(m))]; return t ? t.c : null; }
+function sin12(m){
+  const r = principal12(m), t = TRIG12[Math.abs(r)];
+  if (!t) return null;
+  return r < 0 ? negVal(t.s) : t.s;
+}
+/* quelques valeurs pour fabriquer des distracteurs de QCM */
+const VALS_REM = ['1', '-1', '0', 'frac{1}{2}', '-frac{1}{2}',
+  'frac{sqrt{2}}{2}', '-frac{sqrt{2}}{2}', 'frac{sqrt{3}}{2}', '-frac{sqrt{3}}{2}'];
+
+G('trigonometrie', 'tg-exact-associes', 'Valeur exacte hors du premier quart', 'ent', function(){
+  /* on évite le premier quart de tour : c'est là que le détour par un angle
+     associé devient indispensable */
+  const m = R.pick([8, 9, 10, 12, 14, 15, 16, 18, 20, 21, 22, 26, 27, 28, -2, -3, -4, -8, -9, -10, -15, -16]);
+  const cos = Math.random() < 0.5;
+  const bonne = cos ? cos12(m) : sin12(m);
+  const r = principal12(m);
+  const ref = Math.abs(r) > 6 ? 12 - Math.abs(r) : Math.abs(r);   /* angle du premier quart */
+  const options = R.shuffle(R.shuffle(VALS_REM.filter(v => v !== bonne)).slice(0, 3).concat([bonne]));
+  const etapes = [];
+  if (m !== r) etapes.push('On enlève d’abord les tours complets : ' + M(angPi(m) + ' = ' + angPi(r) + (m - r > 0 ? ' + ' : ' - ') +
+    (Math.abs(m - r) === 24 ? '2π' : nf(Math.abs(m - r) / 12) + 'π')) + ', et un tour ne change ni le cosinus ni le sinus.');
+  const surAxe = (r === 0 || Math.abs(r) === 6 || r === 12);
+  if (surAxe){
+    etapes.push('Le point image de ' + M(angPi(r)) + ' tombe <b>sur un axe</b> : ses deux coordonnées se lisent ' +
+      'directement, ' + M('@cos(' + angPi(r) + ') = ' + cos12(r)) + ' et ' + M('@sin(' + angPi(r) + ') = ' + sin12(r)) + '.');
+  } else {
+    etapes.push('Le point image de ' + M(angPi(r)) + ' est ' + (r < 0 ? 'sous' : 'au-dessus de') + ' l’axe des abscisses, ' +
+      (Math.abs(r) > 6 ? 'à <b>gauche</b>' : 'à <b>droite</b>') + ' de l’axe des ordonnées : ' +
+      M('@cos') + ' y est ' + (Math.abs(r) > 6 ? '<b>négatif</b>' : '<b>positif</b>') + ' et ' +
+      M('@sin') + ' ' + (r < 0 ? '<b>négatif</b>' : '<b>positif</b>') + '.');
+    etapes.push('On se ramène à l’angle remarquable ' + M(angPi(ref)) + ' du premier quart : ' +
+      M('@cos(' + angPi(ref) + ') = ' + TRIG12[ref].c) + ' et ' + M('@sin(' + angPi(ref) + ') = ' + TRIG12[ref].s) + '.');
+  }
+  etapes.push('D’où ' + M((cos ? '@cos' : '@sin') + '(' + angPi(m) + ') = ' + bonne) + '.');
+  etapes.push('<b>Vérification gratuite</b> : ' + M('@cos^{2} + @sin^{2} = 1') + '. Ici ' +
+    M('@cos(' + angPi(m) + ') = ' + cos12(m)) + ' et ' + M('@sin(' + angPi(m) + ') = ' + sin12(m)) + '.');
+  return {
+    enonce: '<p>Donne la valeur exacte de</p>' + Mc((cos ? '@cos' : '@sin') + '(' + angPi(m) + ')'),
+    qcm: { options: options.map(v => M(v)), bon: options.indexOf(bonne) },
+    etapes: etapes
+  };
+});
+
+G('trigonometrie', 'tg-eq-cos', 'Résoudre cos(x) = c dans ℝ', 'ent', function(){
+  const m = R.pick([2, 3, 4, 6, 8, 9, 10]);          /* a dans [ 0 ; π ] */
+  const val = TRIG12[m].c;
+  const faux = R.shuffle([2, 3, 4, 6, 8, 9, 10].filter(k => TRIG12[k].c !== val)).slice(0, 3);
+  const angles = R.shuffle(faux.concat([m]));
+  const formes = ['-a + 2kπ', 'π - a + 2kπ', 'a + kπ', 'π + a + 2kπ'];
+  return {
+    enonce: '<p>Résous dans ' + M('ℝ') + ' l’équation</p>' + Mc('@cos(x) = ' + val),
+    champs: [
+      { type: 'choix', label: 'Un angle ' + M('a') + ' tel que ' + M('@cos(a) = ' + val),
+        options: angles.map(k => M(angPi(k))), bon: angles.indexOf(m) },
+      { type: 'choix', label: 'Première solution : ' + M('x = a + 2kπ') + '. La seconde s’écrit',
+        options: formes.map(f => M(f)), bon: 0 }
+    ],
+    etapes: [
+      'On commence par écrire le second membre comme un cosinus : ' + M(val + ' = @cos(' + angPi(m) + ')') + '.',
+      'L’équation devient ' + M('@cos(x) = @cos(' + angPi(m) + ')') + '.',
+      'Le cosinus est l’<b>abscisse</b> sur le cercle. Deux points ont cette abscisse : ' + M(angPi(m)) +
+        ' et son symétrique par rapport à l’axe horizontal, ' + M(angPi(-m)) + '.',
+      'En ajoutant les tours complets : ' + Mc('x = ' + angPi(m) + ' + 2kπ  ou  x = ' + angPi(-m) + ' + 2kπ,  k ∈ ℤ'),
+      '<b>Le piège</b> : ' + M('π - a') + ' est la règle du <b>sinus</b>. Avec un cosinus, c’est ' + M('-a') + '. ' +
+        'Un cercle tracé au brouillon tranche en deux secondes.',
+      '<b>Le second piège</b> : sans le ' + M('2kπ') + ', on donne deux solutions au lieu d’une infinité — et la question est fausse.'
+    ]
+  };
+});
+
+G('trigonometrie', 'tg-eq-sin', 'Résoudre sin(x) = c dans ℝ', 'ent', function(){
+  const m = R.pick([2, 3, 4, -2, -3, -4, 6]);        /* a dans [ -π/2 ; π/2 ] */
+  const val = m < 0 ? negVal(TRIG12[-m].s) : TRIG12[m].s;
+  const pool = [2, 3, 4, -2, -3, -4, 6].filter(k => (k < 0 ? negVal(TRIG12[-k].s) : TRIG12[k].s) !== val);
+  const angles = R.shuffle(R.shuffle(pool).slice(0, 3).concat([m]));
+  const formes = ['π - a + 2kπ', '-a + 2kπ', 'a + kπ', 'π + a + 2kπ'];
+  const autre = principal12(12 - m);
+  return {
+    enonce: '<p>Résous dans ' + M('ℝ') + ' l’équation</p>' + Mc('@sin(x) = ' + val),
+    champs: [
+      { type: 'choix', label: 'Un angle ' + M('a') + ' tel que ' + M('@sin(a) = ' + val),
+        options: angles.map(k => M(angPi(k))), bon: angles.indexOf(m) },
+      { type: 'choix', label: 'Première solution : ' + M('x = a + 2kπ') + '. La seconde s’écrit',
+        options: formes.map(f => M(f)), bon: 0 }
+    ],
+    etapes: [
+      'On écrit le second membre comme un sinus : ' + M(val + ' = @sin(' + angPi(m) + ')') + '.',
+      'L’équation devient ' + M('@sin(x) = @sin(' + angPi(m) + ')') + '.',
+      'Le sinus est l’<b>ordonnée</b>. Deux points du cercle ont cette ordonnée : ' + M(angPi(m)) +
+        ' et son symétrique par rapport à l’axe vertical, ' + M('π - ' + angPi(m)) + ' c’est-à-dire ' + M(angPi(autre)) + '.',
+      'En ajoutant les tours complets : ' + Mc('x = ' + angPi(m) + ' + 2kπ  ou  x = ' + angPi(autre) + ' + 2kπ,  k ∈ ℤ'),
+      '<b>Le piège</b> : ' + M('-a') + ' est la règle du <b>cosinus</b>. Avec un sinus, c’est ' + M('π - a') + '.',
+      'Contrôle : ' + M('@sin(' + angPi(autre) + ') = ' + (m < 0 ? negVal(TRIG12[-m].s) : TRIG12[m].s)) +
+        ', on retombe bien sur ' + M(val) + '. ✓'
+    ]
+  };
+});
+
+G('trigonometrie', 'tg-eq-intervalle', 'Résoudre sur un intervalle', 'ds', function(){
+  const cos = Math.random() < 0.5;
+  let m, s1, s2, val;
+  if (cos){
+    m = R.pick([2, 3, 4, 6, 8, 9, 10]);
+    val = TRIG12[m].c;
+    s1 = -m; s2 = m;                                   /* -a < a, tous deux dans ] -π ; π ] */
+  } else {
+    m = R.pick([2, 3, 4, -2, -3, -4]);
+    val = m < 0 ? negVal(TRIG12[-m].s) : TRIG12[m].s;
+    const a2 = principal12(12 - m);                    /* π - a ramené dans ] -π ; π ] */
+    s1 = Math.min(m, a2); s2 = Math.max(m, a2);
+  }
+  /* distracteurs : les réponses qu'on obtient en croisant les deux règles */
+  const pieges = cos ? [principal12(12 - m), principal12(12 + m)] : [-m, principal12(12 + m)];
+  const pool = [];
+  [s1, s2].concat(pieges).concat([2, 3, 4, 6, 8, 9, 10, -2, -3, -4, -6, -8, -9, -10]).forEach(k => {
+    if (TRIG12[Math.abs(principal12(k))] && pool.indexOf(principal12(k)) < 0) pool.push(principal12(k));
+  });
+  const options = pool.slice(0, 6);
+  if (options.indexOf(s1) < 0) options[options.length - 2] = s1;
+  if (options.indexOf(s2) < 0) options[options.length - 1] = s2;
+  options.sort((a, b) => a - b);
+  return {
+    enonce: '<p>Résous sur ' + M('] -π ; π ]') + ' l’équation</p>' +
+            Mc((cos ? '@cos' : '@sin') + '(x) = ' + val) +
+            '<p>Donne les deux solutions dans l’ordre croissant.</p>',
+    champs: [
+      { type: 'choix', label: 'Plus petite solution', options: options.map(k => M(angPi(k))), bon: options.indexOf(s1) },
+      { type: 'choix', label: 'Plus grande solution', options: options.map(k => M(angPi(k))), bon: options.indexOf(s2) }
+    ],
+    etapes: [
+      'Étape 1 — on écrit le second membre comme ' + (cos ? 'un cosinus' : 'un sinus') + ' : ' +
+        M(val + ' = ' + (cos ? '@cos' : '@sin') + '(' + angPi(m) + ')') + '.',
+      'Étape 2 — on applique la règle : ' + (cos
+        ? M('@cos(x) = @cos(a) ⇔ x = a + 2kπ ou x = -a + 2kπ')
+        : M('@sin(x) = @sin(a) ⇔ x = a + 2kπ ou x = π - a + 2kπ')) + '.',
+      'Ici : ' + M('x = ' + angPi(m) + ' + 2kπ') + ' ou ' + M('x = ' + angPi(cos ? -m : principal12(12 - m)) + ' + 2kπ') + '.',
+      'Étape 3 — on trie sur l’intervalle. ' + M('k = 0') + ' donne ' + M(angPi(s1)) + ' et ' + M(angPi(s2)) +
+        ', tous deux dans ' + M('] -π ; π ]') + '. Tout autre ' + M('k') + ' déplace de ' + M('2π') + ' au moins, donc fait sortir.',
+      Mc('S = { ' + angPi(s1) + ' ; ' + angPi(s2) + ' }'),
+      '<b>Réflexe de contrôle</b> : replace les deux solutions sur le cercle. Elles doivent être symétriques par rapport à ' +
+        (cos ? 'l’axe des <b>abscisses</b>' : 'l’axe des <b>ordonnées</b>') + '. Si ce n’est pas le cas, la règle a été croisée.'
+    ]
+  };
+});
+
+G('trigonometrie', 'tg-mesure-principale', 'Mesure principale', 'ent', function(){
+  const base = R.pick([2, 3, 4, 6, 8, 9, 10, 12, -2, -3, -4, -6, -8, -9, -10]);
+  const tours = R.pick([-2, -1, 1, 2]);
+  const m = base + 24 * tours;
+  const faux = [];
+  [base + 24 * (tours > 0 ? tours - 1 : tours + 1), -base, principal12(12 - base)].forEach(k => {
+    const v = principal12(k);
+    if (v !== base && faux.indexOf(v) < 0 && TRIG12[Math.abs(v)]) faux.push(v);
+  });
+  while (faux.length < 3){
+    const v = R.pick([2, 3, 4, 6, 8, 9, 10, 12, -2, -3, -4, -6, -8, -9, -10]);
+    if (v !== base && faux.indexOf(v) < 0) faux.push(v);
+  }
+  const options = faux.slice(0, 3).concat([base]).sort((a, b) => a - b);
+  const etapes = ['La mesure principale est la seule mesure du point qui appartient à ' + M('] -π ; π ]') +
+    '. On retire ou on ajoute des ' + M('2π') + ' jusqu’à y tomber.'];
+  let cour = m;
+  const pas = tours > 0 ? -24 : 24;
+  while (cour !== base){
+    const suiv = cour + pas;
+    etapes.push(M(angPi(cour) + (pas < 0 ? ' - 2π = ' : ' + 2π = ') + angPi(suiv)) +
+      (suiv === base ? ' : cette fois on est dans ' + M('] -π ; π ]') + '. ✓' : ' : on n’y est pas encore.'));
+    cour = suiv;
+  }
+  etapes.push('La mesure principale de ' + M(angPi(m)) + ' est donc ' + M(angPi(base)) + '.');
+  etapes.push('<b>Le raccourci</b> : on écrit ' + M('2π') + ' avec le <b>même dénominateur</b> que l’angle, et on ne touche plus qu’aux numérateurs. ' +
+    M('2π = frac{4π}{2} = frac{6π}{3} = frac{8π}{4} = frac{12π}{6}') + '.');
+  etapes.push('<b>Attention à la borne</b> : ' + M('π') + ' est dans l’intervalle, ' + M('-π') + ' ne l’est pas.');
+  return {
+    enonce: '<p>Détermine la mesure principale de l’angle</p>' + Mc(angPi(m)),
+    champs: [{ type: 'choix', label: 'Mesure principale', options: options.map(k => M(angPi(k))), bon: options.indexOf(base) }],
+    etapes: etapes
+  };
+});
