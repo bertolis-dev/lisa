@@ -487,18 +487,46 @@ function vueChapitre(){
       const parNiveau = {};
       ORDRE_NIVEAUX.forEach(n => { parNiveau[n] = []; });
       c.gens.forEach(g => parNiveau[g.niveau].push(g));
-      h += '<p class="lede" style="margin-bottom:16px">Choisis un niveau. Chaque série comporte 8 questions tirées au sort ' +
-           '(les valeurs changent à chaque fois), et rapporte des points selon la difficulté.</p><div class="niveaux">';
-      h += '<button class="niv" data-serie="' + c.id + '|mixte"><b>Série mixte</b>' +
-           '<span>Les ' + c.gens.length + ' types d’exercices du chapitre, mélangés.</span></button>';
-      ORDRE_NIVEAUX.forEach(n => {
-        if (!parNiveau[n].length) return;
-        h += '<button class="niv' + (n === 'exp' ? ' dur' : '') + (n === 'demo' ? ' demo' : '') + '" data-serie="' + c.id + '|' + n + '">' +
-             '<b>' + NIVEAUX[n] + '<span class="pts">' + POINTS[n] + ' pts</span></b>' +
-             (n === 'exp' ? '<span class="avert">Niveau évaluation exigeante</span>' : '') +
-             (n === 'demo' ? '<span class="avert" style="color:var(--accent)">À rédiger sur ton cahier</span>' : '') +
-             '<span>' + parNiveau[n].map(g => g.label).join(' &middot; ') + '</span></button>';
-      });
+      const par = parcoursChapitre(c);
+      /* niveaux déjà servis par le parcours : on ne les réaffiche pas en dessous,
+         la page répétait deux fois la même liste d'exercices */
+      const servis = {};
+      PARCOURS.forEach(x => x.n.forEach(n => { servis[n] = 1; }));
+      if (par.length > 1){
+        h += '<div class="eyebrow" style="margin-bottom:6px">Parcours d’entraînement</div>' +
+             '<p class="lede" style="margin-bottom:14px">Trois séries à faire dans l’ordre, une par soir. ' +
+             'Les valeurs changent à chaque tirage : autant de fois que tu veux, ce ne sont jamais les mêmes nombres.</p>' +
+             '<div class="niveaux">' + par.map((x, i) =>
+               '<button class="niv etape" data-serie="' + c.id + '|' + x.id + '">' +
+               '<b><span class="num">' + (i + 1) + '</span><span class="ti">' + x.t + '</span>' +
+               '<span class="pts">' + x.mn + ' min</span></b>' +
+               '<span>' + x.s + '</span>' +
+               '<span class="tiny">' + x.q + ' questions &middot; ' + x.pool.map(g => g.label).join(' &middot; ') + '</span>' +
+               '</button>').join('') + '</div>';
+        h += '<div class="eyebrow" style="margin:24px 0 6px">Aussi</div><div class="niveaux">';
+        h += '<button class="niv" data-serie="' + c.id + '|mixte"><b>Série mixte</b>' +
+             '<span>Les ' + c.gens.length + ' types d’exercices du chapitre, mélangés, 8 questions.</span></button>';
+        ORDRE_NIVEAUX.forEach(n => {
+          if (servis[n] || !parNiveau[n] || !parNiveau[n].length) return;
+          h += '<button class="niv' + (n === 'demo' ? ' demo' : '') + '" data-serie="' + c.id + '|' + n + '">' +
+               '<b>' + NIVEAUX[n] + '<span class="pts">' + POINTS[n] + ' pts</span></b>' +
+               (n === 'demo' ? '<span class="avert" style="color:var(--accent)">À rédiger sur ton cahier</span>' : '') +
+               '<span>' + parNiveau[n].map(g => g.label).join(' &middot; ') + '</span></button>';
+        });
+      } else {
+        h += '<p class="lede" style="margin-bottom:16px">Chaque série comporte 8 questions tirées au sort ' +
+             '(les valeurs changent à chaque fois), et rapporte des points selon la difficulté.</p><div class="niveaux">';
+        h += '<button class="niv" data-serie="' + c.id + '|mixte"><b>Série mixte</b>' +
+             '<span>Les ' + c.gens.length + ' types d’exercices du chapitre, mélangés.</span></button>';
+        ORDRE_NIVEAUX.forEach(n => {
+          if (!parNiveau[n].length) return;
+          h += '<button class="niv' + (n === 'exp' ? ' dur' : '') + (n === 'demo' ? ' demo' : '') + '" data-serie="' + c.id + '|' + n + '">' +
+               '<b>' + NIVEAUX[n] + '<span class="pts">' + POINTS[n] + ' pts</span></b>' +
+               (n === 'exp' ? '<span class="avert">Niveau évaluation exigeante</span>' : '') +
+               (n === 'demo' ? '<span class="avert" style="color:var(--accent)">À rédiger sur ton cahier</span>' : '') +
+               '<span>' + parNiveau[n].map(g => g.label).join(' &middot; ') + '</span></button>';
+        });
+      }
       h += '</div>';
     }
   }
@@ -578,6 +606,30 @@ function tirer(pool, n){
   while (liste.length < n) liste = liste.concat(R.shuffle(pool));
   return liste.slice(0, n);
 }
+/* ---------- parcours d'entraînement ----------
+   Trois séries graduées à faire dans l'ordre. Elles se déduisent des niveaux
+   que les générateurs portent déjà : aucune donnée à écrire chapitre par
+   chapitre, donc elles valent pour les trente chapitres de l'application et
+   non pour le seul qu'on travaille aujourd'hui. Les démonstrations sont
+   exclues : elles se rédigent sur le cahier, ce n'est pas une série rapide. */
+const MIN_PAR_Q = { app: 1.5, ent: 2.5, ds: 4, exp: 5 };
+const PARCOURS = [
+  { id: 'p1', t: 'Échauffement', s: 'Les automatismes. Rien de piégeux, on remet la main dessus.', n: ['app'] },
+  { id: 'p2', t: 'Application', s: 'Les méthodes du cours, une par une.', n: ['ent'] },
+  { id: 'p3', t: 'Niveau devoir', s: 'Les questions qui font la différence le jour du contrôle.', n: ['ds', 'exp'] }
+];
+function parcoursChapitre(c){
+  return PARCOURS.map(x => {
+    const pool = c.gens.filter(g => x.n.indexOf(g.niveau) >= 0);
+    if (!pool.length) return null;
+    /* la série s'ajuste au chapitre : deux tirages par type d'exercice,
+       entre 4 et 8 questions */
+    const q = Math.min(8, Math.max(4, pool.length * 2));
+    const mn = Math.round(pool.reduce((t, g) => t + (MIN_PAR_Q[g.niveau] || 3), 0) / pool.length * q);
+    return { id: x.id, t: x.t, s: x.s, pool: pool, q: q, mn: mn };
+  }).filter(Boolean);
+}
+
 function lancerSerie(pool, n, mode, titre, secondes){
   if (!pool.length) return;
   serie = {
@@ -1193,6 +1245,11 @@ document.addEventListener('click', function(e){
   }
   if (d.serie){
     const p = d.serie.split('|'), c = CHAP[p[0]];
+    if (p[1].charAt(0) === 'p'){
+      const et = parcoursChapitre(c).find(x => x.id === p[1]);
+      if (et) lancerSerie(et.pool, et.q, 'chapitre', c.titre + ' · ' + et.t);
+      return;
+    }
     const pool = p[1] === 'mixte' ? c.gens : c.gens.filter(g => g.niveau === p[1]);
     lancerSerie(pool, 8, 'chapitre', c.titre + (p[1] === 'mixte' ? '' : ' · ' + NIVEAUX[p[1]]));
     return;

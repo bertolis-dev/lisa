@@ -359,23 +359,22 @@ G('trigonometrie', 'tg-associes', 'Angles associés', 'ent', function(){
 });
 
 G('trigonometrie', 'tg-identite', 'Utiliser cos² + sin² = 1', 'ent', function(){
-  const p = R.pick([[3, 4, 5], [5, 12, 13], [8, 15, 17], [7, 24, 25], [20, 21, 29]]);
+  const t = R.pick([[3, 4, 5], [5, 12, 13], [8, 15, 17], [7, 24, 25], [20, 21, 29]]);
   const cosConnu = Math.random() < 0.5;
-  const c = p[0] / p[2], s = p[1] / p[2];
-  const donne = cosConnu ? c : s;
-  const cherche = cosConnu ? s : c;
+  const don = cosConnu ? t[0] : t[1], che = cosConnu ? t[1] : t[0], h = t[2];
   return {
-    enonce: '<p>Un réel ' + M('x') + ' appartient à ' + M('[ 0 ; frac{π}{2} ]') + ' et ' +
-            M((cosConnu ? '@cos' : '@sin') + '(x) = frac{' + (cosConnu ? p[0] : p[1]) + '}{' + p[2] + '}') + '.</p>' +
-            '<p>Calcule ' + M((cosConnu ? '@sin' : '@cos') + '(x)') + ' (valeur décimale, arrondie au millième).</p>',
-    champs: [{ type: 'num', label: (cosConnu ? 'sin' : 'cos') + '(x) ≈', bon: Math.round(cherche * 1000) / 1000, tol: 0.0011 }],
+    enonce: '<p>Un réel ' + M('x') + ' appartient à ' + M('[ 0 ; frac{π}{2} ]') + ' et</p>' +
+            Mc((cosConnu ? '@cos' : '@sin') + '(x) = frac{' + don + '}{' + h + '}') +
+            '<p>Donne la valeur <b>exacte</b> de ' + M((cosConnu ? '@sin' : '@cos') + '(x)') + '.</p>',
+    champs: [{ type: 'exact', forme: 'simple', bon: { p: che, m: 0, d: 0, q: h },
+               label: M((cosConnu ? '@sin' : '@cos') + '(x)') + ' =' }],
     etapes: [
       'On part de l’identité fondamentale : ' + M('@cos^{2}(x) + @sin^{2}(x) = 1') + '.',
-      M((cosConnu ? '@sin' : '@cos') + '^{2}(x) = 1 - (frac{' + (cosConnu ? p[0] : p[1]) + '}{' + p[2] + '})^{2} = 1 - frac{' +
-        (cosConnu ? p[0] * p[0] : p[1] * p[1]) + '}{' + (p[2] * p[2]) + '} = frac{' + (cosConnu ? p[1] * p[1] : p[0] * p[0]) + '}{' + (p[2] * p[2]) + '}'),
-      'Donc ' + M((cosConnu ? '@sin' : '@cos') + '(x) = ±frac{' + (cosConnu ? p[1] : p[0]) + '}{' + p[2] + '}') + '.',
+      M((cosConnu ? '@sin' : '@cos') + '^{2}(x) = 1 - (frac{' + don + '}{' + h + '})^{2} = 1 - frac{' +
+        (don * don) + '}{' + (h * h) + '} = frac{' + (che * che) + '}{' + (h * h) + '}'),
+      'Donc ' + M((cosConnu ? '@sin' : '@cos') + '(x) = ±frac{' + che + '}{' + h + '}') + '.',
       '<b>C’est ici qu’on tranche</b> : ' + M('x ∈ [ 0 ; frac{π}{2} ]') + ' place le point dans le quart <b>en haut à droite</b>, ' +
-        'où cosinus et sinus sont tous deux <b>positifs</b>. On garde donc ' + M('+frac{' + (cosConnu ? p[1] : p[0]) + '}{' + p[2] + '} ≈ ' + nf(Math.round(cherche * 1000) / 1000)) + '.',
+        'où cosinus et sinus sont tous deux <b>positifs</b>. On garde ' + M('frac{' + che + '}{' + h + '}') + '.',
       'Oublier de discuter le signe est l’erreur la plus fréquente sur cet exercice.'
     ]
   };
@@ -419,9 +418,6 @@ function sin12(m){
   if (!t) return null;
   return r < 0 ? negVal(t.s) : t.s;
 }
-/* quelques valeurs pour fabriquer des distracteurs de QCM */
-const VALS_REM = ['1', '-1', '0', 'frac{1}{2}', '-frac{1}{2}',
-  'frac{sqrt{2}}{2}', '-frac{sqrt{2}}{2}', 'frac{sqrt{3}}{2}', '-frac{sqrt{3}}{2}'];
 
 /* les neuf valeurs remarquables, écrites pour la saisie exacte (p + m√d)/q */
 const EXACT_VAL = {
@@ -579,5 +575,91 @@ G('trigonometrie', 'tg-mesure-principale', 'Mesure principale', 'ent', function(
             '<p class="tiny">Un dénominateur laissé vide vaut 1.</p>',
     champs: [{ type: 'angle', label: 'Mesure principale', bon: [{ p: base, q: 12 }] }],
     etapes: etapes
+  };
+});
+
+/* les quatre quarts de cercle : intervalle affiché, signe de cos, signe de sin */
+const QUARTS = [
+  { i: '[ 0 ; frac{π}{2} ]', c: 1, s: 1, ou: 'en haut à droite' },
+  { i: '[ frac{π}{2} ; π ]', c: -1, s: 1, ou: 'en haut à gauche' },
+  { i: '[ -π ; -frac{π}{2} ]', c: -1, s: -1, ou: 'en bas à gauche' },
+  { i: '[ -frac{π}{2} ; 0 ]', c: 1, s: -1, ou: 'en bas à droite' }
+];
+
+G('trigonometrie', 'tg-identite-quadrant', 'cos² + sin² = 1 hors du premier quart', 'ds', function(){
+  const t = R.pick([[1, 3], [2, 3], [1, 4], [3, 4], [1, 5], [2, 5], [3, 5], [4, 5], [2, 7], [5, 13]]);
+  const num = t[0], den = t[1], rad = den * den - num * num;
+  const cosConnu = Math.random() < 0.5;
+  const q = R.pick(QUARTS);
+  const signeDonne = cosConnu ? q.c : q.s;          /* le signe de la donnée suit le quart */
+  const signeCherche = cosConnu ? q.s : q.c;
+  const donne = (signeDonne < 0 ? '-' : '') + 'frac{' + num + '}{' + den + '}';
+  const nomD = cosConnu ? '@cos' : '@sin', nomC = cosConnu ? '@sin' : '@cos';
+  const brut = 'frac{sqrt{' + rad + '}}{' + den + '}';
+  return {
+    enonce: '<p>Un réel ' + M('x') + ' appartient à ' + M(q.i) + ' et</p>' +
+            Mc(nomD + '(x) = ' + donne) +
+            '<p>Donne la valeur <b>exacte</b> de ' + M(nomC + '(x)') + '. Le signe doit être justifié.</p>' +
+            '<p class="tiny">Une case laissée vide vaut 0 : sans racine, seuls ' + M('a') + ' et ' + M('d') + ' sont à remplir.</p>',
+    champs: [{ type: 'exact', forme: 'radical', bon: { p: 0, m: signeCherche, d: rad, q: den },
+               label: M(nomC + '(x)') + ' =' }],
+    etapes: [
+      'Le signe de la donnée ne change rien au calcul : on élève au carré. ' +
+        M(nomD + '^{2}(x) = frac{' + (num * num) + '}{' + (den * den) + '}') + '.',
+      M(nomC + '^{2}(x) = 1 - frac{' + (num * num) + '}{' + (den * den) + '} = frac{' + rad + '}{' + (den * den) + '}'),
+      'Donc ' + M(nomC + '(x) = ±' + brut) + (rad !== 1 && Math.sqrt(rad) % 1 === 0
+        ? ', et ' + M('sqrt{' + rad + '} = ' + Math.round(Math.sqrt(rad))) + ' : la racine tombe juste.'
+        : '.'),
+      '<b>Le point se place avant de conclure.</b> ' + M('x ∈ ' + q.i) + ' met le point <b>' + q.ou + '</b> : ' +
+        M('@cos') + ' y est ' + (q.c < 0 ? '<b>négatif</b>' : '<b>positif</b>') + ' et ' +
+        M('@sin') + ' ' + (q.s < 0 ? '<b>négatif</b>' : '<b>positif</b>') + '. ' +
+        'On garde donc ' + M(nomC + '(x) = ' + (signeCherche < 0 ? '-' : '') + brut) + '.',
+      'Contrôle : ' + M('(' + donne + ')^{2} + (' + (signeCherche < 0 ? '-' : '') + brut + ')^{2} = frac{' +
+        (num * num) + ' + ' + rad + '}{' + (den * den) + '} = 1') + ' ✓',
+      '<b>Ce qui coûte le point</b> : conclure au signe + par habitude. Le signe se lit sur le cercle, jamais sur le calcul.'
+    ]
+  };
+});
+
+G('trigonometrie', 'tg-eq-forme', 'Mettre en forme puis résoudre', 'ds', function(){
+  /* 2cos(x) + d = 0 : il faut isoler avant de reconnaître une valeur remarquable,
+     et l'intervalle [ 0 ; 2π ] oblige à reprendre les k un par un */
+  const cos = Math.random() < 0.5;
+  const m = cos ? R.pick([2, 3, 4, 6, 8, 9, 10]) : R.pick([2, 3, 4, -2, -3, -4]);
+  const val = cos ? TRIG12[m].c : (m < 0 ? negVal(TRIG12[-m].s) : TRIG12[m].s);
+  /* 2 × la valeur remarquable : 1, √2 ou √3, au signe près */
+  const dbl = { 'frac{1}{2}': '1', 'frac{sqrt{2}}{2}': 'sqrt{2}', 'frac{sqrt{3}}{2}': 'sqrt{3}',
+                '0': '0', '1': '2', '-1': '-2' };
+  const neg = val.charAt(0) === '-';
+  const noyau = dbl[neg ? val.slice(1) : val];
+  const deux = (neg ? '-' : '') + noyau;                    /* 2×val */
+  const oppose = neg ? noyau : '-' + noyau;                 /* le terme constant de l'équation */
+  /* solutions dans [ 0 ; 2π ], en douzièmes de π */
+  const s1 = cos ? m : (m > 0 ? m : 24 + m);
+  const s2 = cos ? 24 - m : (m > 0 ? 12 - m : 12 - m);
+  const a = Math.min(s1, s2), b2 = Math.max(s1, s2);
+  return {
+    enonce: '<p>Résous sur ' + M('[ 0 ; 2π ]') + ' l’équation</p>' +
+            Mc('2' + (cos ? '@cos' : '@sin') + '(x) ' + (oppose.charAt(0) === '-' ? '- ' + oppose.slice(1) : '+ ' + oppose) + ' = 0') +
+            '<p class="tiny">Attention : l’intervalle n’est pas ' + M('] -π ; π ]') + '. ' +
+            'L’ordre des deux réponses est indifférent, un dénominateur vide vaut 1.</p>',
+    champs: [{ type: 'angle', label: 'Les deux solutions', bon: [{ p: a, q: 12 }, { p: b2, q: 12 }] }],
+    etapes: [
+      '<b>Mise en forme d’abord.</b> ' + Mc('2' + (cos ? '@cos' : '@sin') + '(x) = ' + deux + ' ⇔ ' +
+        (cos ? '@cos' : '@sin') + '(x) = ' + val),
+      'On reconnaît une valeur remarquable : ' + M(val + ' = ' + (cos ? '@cos' : '@sin') + '(' + angPi(m) + ')') + '.',
+      'Règle : ' + (cos
+        ? M('@cos(x) = @cos(a) ⇔ x = a + 2kπ ou x = -a + 2kπ')
+        : M('@sin(x) = @sin(a) ⇔ x = a + 2kπ ou x = π - a + 2kπ')) + ', soit ' +
+        M('x = ' + angPi(m) + ' + 2kπ') + ' ou ' + M('x = ' + angPi(cos ? -m : 12 - m) + ' + 2kπ') + '.',
+      '<b>Le tri, et c’est là que ça se joue.</b> L’intervalle ' + M('[ 0 ; 2π ]') + ' ne contient aucun négatif : ' +
+        'la famille ' + M(angPi(cos ? -m : 12 - m)) + ' demande ' + M('k = ' + ((cos ? -m : 12 - m) < 0 ? '1' : '0')) +
+        ' pour y entrer' + ((cos ? -m : 12 - m) < 0 ? ', ce qui donne ' + M(angPi(cos ? 24 - m : 12 - m)) : '') + '.',
+      'On vérifie chaque candidat : ' + M(angPi(a)) + ' et ' + M(angPi(b2)) + ' sont dans ' + M('[ 0 ; 2π ]') +
+        ', le tirage suivant dépasse ' + M('2π') + '.',
+      Mc('S = { ' + angPi(a) + ' ; ' + angPi(b2) + ' }'),
+      '<b>L’erreur attendue</b> : s’arrêter à la première solution en oubliant que ' + M('k = 1') +
+        ' ramène la seconde dans l’intervalle. C’est la moitié des points.'
+    ]
   };
 });
