@@ -47,7 +47,9 @@ const CAPACITES_2026 = {
 ],
 'trigonometrie': [
   'Placer un point sur le cercle trigonométrique.',
-  'Par lecture du cercle trigonométrique, déterminer les cosinus et sinus d’angles associés, pour des valeurs remarquables.'
+  'Par lecture du cercle trigonométrique, déterminer les cosinus et sinus d’angles associés, pour des valeurs remarquables.',
+  'Déterminer la mesure principale d’un angle. <i>(ajout du cours de la classe)</i>',
+  'Résoudre ' + M('@cos(x) = @cos(a)') + ' et ' + M('@sin(x) = @sin(a)') + ', dans ' + M('\u211D') + ' puis dans un intervalle. <i>(ajout du cours de la classe)</i>'
 ],
 'produit-scalaire': [
   'Utiliser le produit scalaire pour démontrer une orthogonalité, calculer un angle, une longueur.',
@@ -116,14 +118,13 @@ function insererApres(id, titre, bloc){
 CHAP['trigonometrie'].titre = 'Trigonométrie';
 CHAP['trigonometrie'].resume = 'Cercle trigonométrique, radian, cosinus et sinus.';
 retirerBloc('trigonometrie', 'Dérivées');
-remplacerBloc('trigonometrie', 'Propriétés', { k: 'prop', t: 'Angles associés', c:
-  '<ul><li>' + M('@cos^{2}(x) + @sin^{2}(x) = 1') + '</li>' +
-  '<li>' + M('-1 \u2264 @cos(x) \u2264 1') + ' et ' + M('-1 \u2264 @sin(x) \u2264 1') + '</li>' +
-  '<li>' + M('@cos(-x) = @cos(x)') + ' et ' + M('@sin(-x) = -@sin(x)') + '</li>' +
-  '<li>' + M('@cos(\u03C0 - x) = -@cos(x)') + ' et ' + M('@sin(\u03C0 - x) = @sin(x)') + '</li>' +
-  '<li>' + M('@cos(x + 2\u03C0) = @cos(x)') + ' : on retombe au même point après un tour complet.</li></ul>' +
-  '<p class="tiny">Programme 2026 : on lit ces relations <b>sur le cercle</b>. L’étude des fonctions ' +
-  M('@cos') + ' et ' + M('@sin') + ' (périodicité, dérivées) est reportée en terminale.</p>' });
+remplacerBloc('trigonometrie', 'Propriétés', { k: 'prop', t: 'Propriétés', c:
+  '<ul><li><b>Relation fondamentale</b> : ' + M('@cos^{2}(x) + @sin^{2}(x) = 1') + '</li>' +
+  '<li><b>Encadrement</b> : ' + M('-1 \u2264 @cos(x) \u2264 1') + ' et ' + M('-1 \u2264 @sin(x) \u2264 1') + '</li>' +
+  '<li><b>Tours complets</b> : ' + M('@cos(x + 2\u03C0) = @cos(x)') + ' et ' + M('@sin(x + 2\u03C0) = @sin(x)') + '</li>' +
+  '<li><b>Parité</b> : ' + M('@cos(-x) = @cos(x)') + ' (paire), ' + M('@sin(-x) = -@sin(x)') + ' (impaire)</li></ul>' +
+  '<p class="tiny">Programme 2026 : ces relations se lisent <b>sur le cercle</b>. L’étude des fonctions ' +
+  M('@cos') + ' et ' + M('@sin') + ' (dérivées) est reportée en terminale.</p>' });
 
 /* ---------- SECOND DEGRÉ : la forme factorisée passe devant ---------- */
 insererApres('second-degre', 'Fonction polynôme du second degré', { k: 'prop', t: 'La forme factorisée d’abord', c:

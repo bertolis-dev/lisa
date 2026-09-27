@@ -88,7 +88,7 @@ input{font:inherit;color:inherit}
 /* la barre de fraction doit tomber sur l'axe mathématique, à la hauteur du trait du « = » :
    les deux lignes ont exactement la même hauteur, la barre est donc au milieu du bloc,
    et « vertical-align: middle » place ce milieu sur l'axe. */
-.frac{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;font-size:.86em;line-height:1.22}
+.frac{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;font-size:.86em;line-height:1.22;margin:0 .12em}
 .frac>.n{padding:0 .32em .06em;border-bottom:1.2px solid currentColor}
 .frac>.d{padding:.06em .32em 0}
 .sqrt>.rad{border-top:1px solid currentColor;padding:0 .15em 0 .06em;margin-left:-.06em}
@@ -595,7 +595,7 @@ pre.code code{background:none;padding:0}
 .bilan-rank{margin-top:22px;text-align:left;background:var(--surface-2);border:1px solid var(--line-soft);border-radius:var(--r);padding:14px 16px}
 .bilan-rank b{font-family:var(--serif);font-size:17px;font-weight:600}
 .toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
-.seg{display:inline-flex;background:var(--surface-2);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.seg{display:inline-flex;flex-wrap:wrap;max-width:100%;background:var(--surface-2);border:1px solid var(--line);border-radius:8px;overflow:hidden}
 .seg button{padding:6px 13px;font-size:13px;font-weight:600;color:var(--ink-2)}
 .seg button.on{background:var(--accent);color:#fff}
 :root[data-theme="dark"] .seg button.on{color:#0E1424}
@@ -868,6 +868,12 @@ body.menu-ouvert{position:fixed;left:0;right:0;width:100%;overflow:hidden}
 
 /* ---------- tableaux d'effectifs et de lois ---------- */
 table.tab{border-collapse:collapse;margin:14px auto 4px;font-size:14.5px;font-variant-numeric:tabular-nums}
+/* tableau large : on le rend defilable plutot que de deborder de l'ecran */
+.tabx{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:14px 0 4px}
+.tabx table.tab{margin:0 auto}
+table.tab.compacte th,table.tab.compacte td{padding:6px 7px}
+table.tab.compacte th{font-size:12.5px}
+table.tab.compacte td{font-size:13.5px}
 table.tab th,table.tab td{border:1px solid var(--line);padding:7px 14px;text-align:center}
 table.tab th{background:var(--surface-2);font-weight:700;font-size:13.5px}
 table.tab tr:first-child th{background:var(--accent-soft);color:var(--accent-ink)}
@@ -1055,7 +1061,7 @@ function M(src){ return '<span class="m">' + mathHtml(src) + '</span>'; }
 function Mc(src){ return '<div class="center">' + M(src) + '</div>'; }
 
 /* version de la construction, remplacée par build.py */
-const VERSION_APP = '1.54';
+const VERSION_APP = '1.61';
 
 /* ---------- utilitaires numériques ---------- */
 const R = {
@@ -1580,6 +1586,8 @@ const CHAPITRES = [
     'Placer un point image sur le cercle trigonométrique, convertir degrés / radians.',
     'Utiliser les valeurs remarquables de cosinus et sinus.',
     'Utiliser la périodicité et la parité.',
+    'Résoudre les équations ' + M('@cos(x) = @cos(a)') + ' et ' + M('@sin(x) = @sin(a)') + '.',
+    'Déterminer la mesure principale d’un angle.',
     'Dériver les fonctions cosinus et sinus.'
   ],
   cours: [
@@ -1590,12 +1598,11 @@ const CHAPITRES = [
     { k: 'def', t: 'Cosinus et sinus', c:
       '<p>' + M('@cos(x)') + ' et ' + M('@sin(x)') + ' sont l\u2019abscisse et l\u2019ordonnée du point image de ' + M('x') + ' sur le cercle trigonométrique.</p>' },
     { k: 'prop', t: 'Valeurs remarquables', c:
-      '<ul>' +
-      '<li>' + M('@cos(0) = 1') + ', ' + M('@sin(0) = 0') + '</li>' +
-      '<li>' + M('@cos(frac{\u03C0}{6}) = frac{sqrt{3}}{2}') + ', ' + M('@sin(frac{\u03C0}{6}) = frac{1}{2}') + '</li>' +
-      '<li>' + M('@cos(frac{\u03C0}{4}) = @sin(frac{\u03C0}{4}) = frac{sqrt{2}}{2}') + '</li>' +
-      '<li>' + M('@cos(frac{\u03C0}{3}) = frac{1}{2}') + ', ' + M('@sin(frac{\u03C0}{3}) = frac{sqrt{3}}{2}') + '</li>' +
-      '<li>' + M('@cos(frac{\u03C0}{2}) = 0') + ', ' + M('@sin(frac{\u03C0}{2}) = 1') + '</li></ul>' },
+      '<div class="tabx"><table class="tab compacte"><tr><th>' + M('x') + '</th>' + '<th>' + M('0') + '</th>' + '<th>' + M('frac{\u03C0}{6}') + '</th>' + '<th>' + M('frac{\u03C0}{4}') + '</th>' + '<th>' + M('frac{\u03C0}{3}') + '</th>' + '<th>' + M('frac{\u03C0}{2}') + '</th>' + '<th>' + M('\u03C0') + '</th>' + '</tr>' +
+      '<tr><td>' + M('@cos(x)') + '</td>' + '<td>' + M('1') + '</td>' + '<td>' + M('frac{sqrt{3}}{2}') + '</td>' + '<td>' + M('frac{sqrt{2}}{2}') + '</td>' + '<td>' + M('frac{1}{2}') + '</td>' + '<td>' + M('0') + '</td>' + '<td>' + M('-1') + '</td>' + '</tr>' +
+      '<tr><td>' + M('@sin(x)') + '</td>' + '<td>' + M('0') + '</td>' + '<td>' + M('frac{1}{2}') + '</td>' + '<td>' + M('frac{sqrt{2}}{2}') + '</td>' + '<td>' + M('frac{sqrt{3}}{2}') + '</td>' + '<td>' + M('1') + '</td>' + '<td>' + M('0') + '</td>' + '</tr></table></div>' +
+      '<p><b>La lecture qui \u00E9vite de tout apprendre</b> : quand l\u2019angle passe de 0 \u00E0 ' + M('frac{\u03C0}{2}') + ', le sinus <b>monte</b> ' + M('0, frac{1}{2}, frac{sqrt{2}}{2}, frac{sqrt{3}}{2}, 1') + ' et le cosinus <b>descend</b> en prenant les m\u00EAmes nombres \u00E0 l\u2019envers. Une seule ligne \u00E0 retenir, l\u2019autre s\u2019en d\u00E9duit.</p>' +
+      '<p>En ' + M('\u03C0') + ' on est tout \u00E0 gauche du cercle, sur l\u2019axe des abscisses : ' + M('@cos(\u03C0) = -1') + ' et ' + M('@sin(\u03C0) = 0') + '.</p>' },
     { k: 'prop', t: 'Propriétés', c:
       '<ul><li><b>Relation fondamentale</b> : ' + M('@cos^{2}(x) + @sin^{2}(x) = 1') + '</li>' +
       '<li><b>Encadrement</b> : ' + M('-1 \u2264 @cos(x) \u2264 1') + ' et ' + M('-1 \u2264 @sin(x) \u2264 1') + '</li>' +
@@ -1616,6 +1623,47 @@ const CHAPITRES = [
       '<div class="ex">' + M('@cos(-frac{\u03C0}{3}) = @cos(frac{\u03C0}{3}) = frac{1}{2}') + '<br>' +
       M('@cos(\u03C0 - frac{\u03C0}{3}) = -@cos(frac{\u03C0}{3}) = -frac{1}{2}') + '<br>' +
       M('@sin(\u03C0 + frac{\u03C0}{4}) = -@sin(frac{\u03C0}{4}) = -frac{sqrt{2}}{2}') + '</div>' },
+    { k: 'meth', t: 'Résoudre cos(x) = cos(a)', c:
+      '<p>On ne cherche jamais ' + M('x') + ' de front : on écrit d\u2019abord le second membre comme un <b>cosinus</b>, ' +
+      'puis on lit sur le cercle <b>tous</b> les points qui ont cette abscisse.</p>' +
+      '<p>Le cosinus est l\u2019abscisse. Deux points du cercle ont la même abscisse : ' + M('a') + ' et ' + M('-a') + ', ' +
+      'symétriques par rapport à l\u2019axe horizontal. On y ajoute les tours complets :</p>' +
+      Mc('@cos(x) = @cos(a) \u21D4 x = a + 2k\u03C0 ou x = -a + 2k\u03C0, k \u2208 \u2124') +
+      '<div class="ex">' + M('@cos(x) = frac{1}{2}') + '<br>' +
+      M('frac{1}{2} = @cos(frac{\u03C0}{3})') + ', donc ' + M('@cos(x) = @cos(frac{\u03C0}{3})') + '<br>' +
+      M('x = frac{\u03C0}{3} + 2k\u03C0') + ' ou ' + M('x = -frac{\u03C0}{3} + 2k\u03C0') + ', ' + M('k \u2208 \u2124') + '<br>' +
+      M('S = { frac{\u03C0}{3} + 2k\u03C0 ; -frac{\u03C0}{3} + 2k\u03C0 }') + '</div>' },
+    { k: 'meth', t: 'Résoudre sin(x) = sin(a)', c:
+      '<p>Même démarche, mais le sinus est l\u2019<b>ordonnée</b>. Deux points du cercle ont la même ordonnée : ' +
+      M('a') + ' et ' + M('\u03C0 - a') + ', symétriques par rapport à l\u2019axe vertical.</p>' +
+      Mc('@sin(x) = @sin(a) \u21D4 x = a + 2k\u03C0 ou x = \u03C0 - a + 2k\u03C0, k \u2208 \u2124') +
+      '<div class="ex">' + M('@sin(x) = frac{sqrt{2}}{2}') + '<br>' +
+      M('frac{sqrt{2}}{2} = @sin(frac{\u03C0}{4})') + ', donc ' + M('@sin(x) = @sin(frac{\u03C0}{4})') + '<br>' +
+      M('x = frac{\u03C0}{4} + 2k\u03C0') + ' ou ' + M('x = \u03C0 - frac{\u03C0}{4} + 2k\u03C0 = frac{3\u03C0}{4} + 2k\u03C0') + '</div>' },
+    { k: 'meth', t: 'Ne garder que les solutions d\u2019un intervalle', c:
+      '<p>Une fois les solutions écrites avec ' + M('2k\u03C0') + ', on essaie les valeurs de ' + M('k') + ' : ' +
+      M('k = 0') + ', puis ' + M('k = 1') + ' et ' + M('k = -1') + '. On s\u2019arrête dès qu\u2019on sort de l\u2019intervalle.</p>' +
+      '<div class="ex">Résoudre ' + M('@cos(x) = -frac{sqrt{3}}{2}') + ' sur ' + M('] -\u03C0 ; \u03C0 ]') + '.<br>' +
+      M('-frac{sqrt{3}}{2} = @cos(frac{5\u03C0}{6})') + ', donc ' + M('x = frac{5\u03C0}{6} + 2k\u03C0') + ' ou ' + M('x = -frac{5\u03C0}{6} + 2k\u03C0') + '.<br>' +
+      M('k = 0') + ' donne ' + M('frac{5\u03C0}{6}') + ' et ' + M('-frac{5\u03C0}{6}') + ' : les deux sont dans l\u2019intervalle.<br>' +
+      M('k = 1') + ' ou ' + M('k = -1') + ' fait sortir à coup sûr, car on déplace de ' + M('2\u03C0') + '.<br>' +
+      M('S = { -frac{5\u03C0}{6} ; frac{5\u03C0}{6} }') + '</div>' },
+    { k: 'meth', t: 'Mesure principale', c:
+      '<p>Un même point du cercle a une infinité de mesures, qui diffèrent toutes de ' + M('2k\u03C0') + '. ' +
+      'La <b>mesure principale</b> est la seule qui appartient à ' + M('] -\u03C0 ; \u03C0 ]') + '.</p>' +
+      '<p>On ajoute ou on retire des ' + M('2\u03C0') + ' jusqu\u2019à y tomber. Un ' + M('2\u03C0') + ' vaut ' +
+      M('frac{12\u03C0}{6}') + ', ' + M('frac{8\u03C0}{4}') + ', ' + M('frac{6\u03C0}{3}') + ' : on met au même dénominateur avant de soustraire.</p>' +
+      '<div class="ex">Mesure principale de ' + M('frac{25\u03C0}{6}') + ' :<br>' +
+      M('frac{25\u03C0}{6} - 2\u03C0 = frac{25\u03C0 - 12\u03C0}{6} = frac{13\u03C0}{6}') + ' : encore trop grand.<br>' +
+      M('frac{13\u03C0}{6} - 2\u03C0 = frac{\u03C0}{6}') + ' : cette fois on est dans ' + M('] -\u03C0 ; \u03C0 ]') + '.<br>' +
+      'La mesure principale est ' + M('frac{\u03C0}{6}') + '.</div>' },
+    { k: 'piege', t: 'Les deux erreurs qui coûtent tout le point', c:
+      '<ul><li><b>Croiser les deux règles.</b> Avec un cosinus c\u2019est ' + M('-a') + ', avec un sinus c\u2019est ' + M('\u03C0 - a') + '. ' +
+      'Le moyen de ne pas confondre : on ne retient rien, on <b>dessine le cercle</b> et on regarde où sont les deux points.</li>' +
+      '<li><b>Oublier le ' + M('2k\u03C0') + '.</b> Sans lui on donne deux solutions au lieu d\u2019une infinité. ' +
+      'Il ne disparaît que si l\u2019énoncé impose un intervalle.</li></ul>' +
+      '<p class="tiny">Autre réflexe : ' + M('@cos(x) = 3') + ' et ' + M('@sin(x) = -1,2') + ' n\u2019ont <b>aucune</b> solution, ' +
+      'puisque cosinus et sinus restent entre ' + M('-1') + ' et 1.</p>' },
     { k: 'prop', t: 'Dérivées', c:
       '<ul><li>' + M('(@cos)\u2032 = -@sin') + '</li><li>' + M('(@sin)\u2032 = @cos') + '</li></ul>' }
   ]
@@ -3658,7 +3706,9 @@ const CAPACITES_2026 = {
 ],
 'trigonometrie': [
   'Placer un point sur le cercle trigonométrique.',
-  'Par lecture du cercle trigonométrique, déterminer les cosinus et sinus d’angles associés, pour des valeurs remarquables.'
+  'Par lecture du cercle trigonométrique, déterminer les cosinus et sinus d’angles associés, pour des valeurs remarquables.',
+  'Déterminer la mesure principale d’un angle. <i>(ajout du cours de la classe)</i>',
+  'Résoudre ' + M('@cos(x) = @cos(a)') + ' et ' + M('@sin(x) = @sin(a)') + ', dans ' + M('\u211D') + ' puis dans un intervalle. <i>(ajout du cours de la classe)</i>'
 ],
 'produit-scalaire': [
   'Utiliser le produit scalaire pour démontrer une orthogonalité, calculer un angle, une longueur.',
@@ -3727,14 +3777,13 @@ function insererApres(id, titre, bloc){
 CHAP['trigonometrie'].titre = 'Trigonométrie';
 CHAP['trigonometrie'].resume = 'Cercle trigonométrique, radian, cosinus et sinus.';
 retirerBloc('trigonometrie', 'Dérivées');
-remplacerBloc('trigonometrie', 'Propriétés', { k: 'prop', t: 'Angles associés', c:
-  '<ul><li>' + M('@cos^{2}(x) + @sin^{2}(x) = 1') + '</li>' +
-  '<li>' + M('-1 \u2264 @cos(x) \u2264 1') + ' et ' + M('-1 \u2264 @sin(x) \u2264 1') + '</li>' +
-  '<li>' + M('@cos(-x) = @cos(x)') + ' et ' + M('@sin(-x) = -@sin(x)') + '</li>' +
-  '<li>' + M('@cos(\u03C0 - x) = -@cos(x)') + ' et ' + M('@sin(\u03C0 - x) = @sin(x)') + '</li>' +
-  '<li>' + M('@cos(x + 2\u03C0) = @cos(x)') + ' : on retombe au même point après un tour complet.</li></ul>' +
-  '<p class="tiny">Programme 2026 : on lit ces relations <b>sur le cercle</b>. L’étude des fonctions ' +
-  M('@cos') + ' et ' + M('@sin') + ' (périodicité, dérivées) est reportée en terminale.</p>' });
+remplacerBloc('trigonometrie', 'Propriétés', { k: 'prop', t: 'Propriétés', c:
+  '<ul><li><b>Relation fondamentale</b> : ' + M('@cos^{2}(x) + @sin^{2}(x) = 1') + '</li>' +
+  '<li><b>Encadrement</b> : ' + M('-1 \u2264 @cos(x) \u2264 1') + ' et ' + M('-1 \u2264 @sin(x) \u2264 1') + '</li>' +
+  '<li><b>Tours complets</b> : ' + M('@cos(x + 2\u03C0) = @cos(x)') + ' et ' + M('@sin(x + 2\u03C0) = @sin(x)') + '</li>' +
+  '<li><b>Parité</b> : ' + M('@cos(-x) = @cos(x)') + ' (paire), ' + M('@sin(-x) = -@sin(x)') + ' (impaire)</li></ul>' +
+  '<p class="tiny">Programme 2026 : ces relations se lisent <b>sur le cercle</b>. L’étude des fonctions ' +
+  M('@cos') + ' et ' + M('@sin') + ' (dérivées) est reportée en terminale.</p>' });
 
 /* ---------- SECOND DEGRÉ : la forme factorisée passe devant ---------- */
 insererApres('second-degre', 'Fonction polynôme du second degré', { k: 'prop', t: 'La forme factorisée d’abord', c:
@@ -4611,6 +4660,219 @@ G('trigonometrie', 'tg-identite', 'Utiliser cos² + sin² = 1', 'ent', function(
         'où cosinus et sinus sont tous deux <b>positifs</b>. On garde donc ' + M('+frac{' + (cosConnu ? p[1] : p[0]) + '}{' + p[2] + '} ≈ ' + nf(Math.round(cherche * 1000) / 1000)) + '.',
       'Oublier de discuter le signe est l’erreur la plus fréquente sur cet exercice.'
     ]
+  };
+});
+
+/* --- outils communs aux équations trigonométriques ---
+   Un angle est repéré par sa mesure en douzièmes de π : 2 vaut π/6, 3 vaut
+   π/4, 6 vaut π/2, 12 vaut π. Tout se calcule alors sur des entiers, ce qui
+   évite les arrondis et rend les vérifications exactes. */
+const TRIG12 = {
+  0:  { c: '1', s: '0' },
+  2:  { c: 'frac{sqrt{3}}{2}', s: 'frac{1}{2}' },
+  3:  { c: 'frac{sqrt{2}}{2}', s: 'frac{sqrt{2}}{2}' },
+  4:  { c: 'frac{1}{2}', s: 'frac{sqrt{3}}{2}' },
+  6:  { c: '0', s: '1' },
+  8:  { c: '-frac{1}{2}', s: 'frac{sqrt{3}}{2}' },
+  9:  { c: '-frac{sqrt{2}}{2}', s: 'frac{sqrt{2}}{2}' },
+  10: { c: '-frac{sqrt{3}}{2}', s: 'frac{1}{2}' },
+  12: { c: '-1', s: '0' }
+};
+/* écriture de m douzièmes de π, fraction réduite : 8 -> 2π/3 */
+function angPi(m){
+  if (m === 0) return '0';
+  let k = m, n = 12;
+  const g = pgcd(Math.abs(k), n);
+  k /= g; n /= g;
+  const t = (Math.abs(k) === 1 ? 'π' : Math.abs(k) + 'π');
+  const e = (n === 1 ? t : 'frac{' + t + '}{' + n + '}');
+  return (k < 0 ? '-' : '') + e;
+}
+function negVal(v){ return v === '0' ? '0' : (v.charAt(0) === '-' ? v.slice(1) : '-' + v); }
+/* ramène une mesure dans ] -π ; π ], c'est-à-dire m dans ] -12 ; 12 ] */
+function principal12(m){
+  let r = ((m % 24) + 24) % 24;
+  return r > 12 ? r - 24 : r;
+}
+/* cosinus et sinus exacts d'une mesure remarquable, quelle qu'elle soit */
+function cos12(m){ const t = TRIG12[Math.abs(principal12(m))]; return t ? t.c : null; }
+function sin12(m){
+  const r = principal12(m), t = TRIG12[Math.abs(r)];
+  if (!t) return null;
+  return r < 0 ? negVal(t.s) : t.s;
+}
+/* quelques valeurs pour fabriquer des distracteurs de QCM */
+const VALS_REM = ['1', '-1', '0', 'frac{1}{2}', '-frac{1}{2}',
+  'frac{sqrt{2}}{2}', '-frac{sqrt{2}}{2}', 'frac{sqrt{3}}{2}', '-frac{sqrt{3}}{2}'];
+
+G('trigonometrie', 'tg-exact-associes', 'Valeur exacte hors du premier quart', 'ent', function(){
+  /* on évite le premier quart de tour : c'est là que le détour par un angle
+     associé devient indispensable */
+  const m = R.pick([8, 9, 10, 12, 14, 15, 16, 18, 20, 21, 22, 26, 27, 28, -2, -3, -4, -8, -9, -10, -15, -16]);
+  const cos = Math.random() < 0.5;
+  const bonne = cos ? cos12(m) : sin12(m);
+  const r = principal12(m);
+  const ref = Math.abs(r) > 6 ? 12 - Math.abs(r) : Math.abs(r);   /* angle du premier quart */
+  const options = R.shuffle(R.shuffle(VALS_REM.filter(v => v !== bonne)).slice(0, 3).concat([bonne]));
+  const etapes = [];
+  if (m !== r) etapes.push('On enlève d’abord les tours complets : ' + M(angPi(m) + ' = ' + angPi(r) + (m - r > 0 ? ' + ' : ' - ') +
+    (Math.abs(m - r) === 24 ? '2π' : nf(Math.abs(m - r) / 12) + 'π')) + ', et un tour ne change ni le cosinus ni le sinus.');
+  const surAxe = (r === 0 || Math.abs(r) === 6 || r === 12);
+  if (surAxe){
+    etapes.push('Le point image de ' + M(angPi(r)) + ' tombe <b>sur un axe</b> : ses deux coordonnées se lisent ' +
+      'directement, ' + M('@cos(' + angPi(r) + ') = ' + cos12(r)) + ' et ' + M('@sin(' + angPi(r) + ') = ' + sin12(r)) + '.');
+  } else {
+    etapes.push('Le point image de ' + M(angPi(r)) + ' est ' + (r < 0 ? 'sous' : 'au-dessus de') + ' l’axe des abscisses, ' +
+      (Math.abs(r) > 6 ? 'à <b>gauche</b>' : 'à <b>droite</b>') + ' de l’axe des ordonnées : ' +
+      M('@cos') + ' y est ' + (Math.abs(r) > 6 ? '<b>négatif</b>' : '<b>positif</b>') + ' et ' +
+      M('@sin') + ' ' + (r < 0 ? '<b>négatif</b>' : '<b>positif</b>') + '.');
+    etapes.push('On se ramène à l’angle remarquable ' + M(angPi(ref)) + ' du premier quart : ' +
+      M('@cos(' + angPi(ref) + ') = ' + TRIG12[ref].c) + ' et ' + M('@sin(' + angPi(ref) + ') = ' + TRIG12[ref].s) + '.');
+  }
+  etapes.push('D’où ' + M((cos ? '@cos' : '@sin') + '(' + angPi(m) + ') = ' + bonne) + '.');
+  etapes.push('<b>Vérification gratuite</b> : ' + M('@cos^{2} + @sin^{2} = 1') + '. Ici ' +
+    M('@cos(' + angPi(m) + ') = ' + cos12(m)) + ' et ' + M('@sin(' + angPi(m) + ') = ' + sin12(m)) + '.');
+  return {
+    enonce: '<p>Donne la valeur exacte de</p>' + Mc((cos ? '@cos' : '@sin') + '(' + angPi(m) + ')'),
+    qcm: { options: options.map(v => M(v)), bon: options.indexOf(bonne) },
+    etapes: etapes
+  };
+});
+
+G('trigonometrie', 'tg-eq-cos', 'Résoudre cos(x) = c dans ℝ', 'ent', function(){
+  const m = R.pick([2, 3, 4, 6, 8, 9, 10]);          /* a dans [ 0 ; π ] */
+  const val = TRIG12[m].c;
+  const faux = R.shuffle([2, 3, 4, 6, 8, 9, 10].filter(k => TRIG12[k].c !== val)).slice(0, 3);
+  const angles = R.shuffle(faux.concat([m]));
+  const formes = ['-a + 2kπ', 'π - a + 2kπ', 'a + kπ', 'π + a + 2kπ'];
+  return {
+    enonce: '<p>Résous dans ' + M('ℝ') + ' l’équation</p>' + Mc('@cos(x) = ' + val),
+    champs: [
+      { type: 'choix', label: 'Un angle ' + M('a') + ' tel que ' + M('@cos(a) = ' + val),
+        options: angles.map(k => M(angPi(k))), bon: angles.indexOf(m) },
+      { type: 'choix', label: 'Première solution : ' + M('x = a + 2kπ') + '. La seconde s’écrit',
+        options: formes.map(f => M(f)), bon: 0 }
+    ],
+    etapes: [
+      'On commence par écrire le second membre comme un cosinus : ' + M(val + ' = @cos(' + angPi(m) + ')') + '.',
+      'L’équation devient ' + M('@cos(x) = @cos(' + angPi(m) + ')') + '.',
+      'Le cosinus est l’<b>abscisse</b> sur le cercle. Deux points ont cette abscisse : ' + M(angPi(m)) +
+        ' et son symétrique par rapport à l’axe horizontal, ' + M(angPi(-m)) + '.',
+      'En ajoutant les tours complets : ' + Mc('x = ' + angPi(m) + ' + 2kπ  ou  x = ' + angPi(-m) + ' + 2kπ,  k ∈ ℤ'),
+      '<b>Le piège</b> : ' + M('π - a') + ' est la règle du <b>sinus</b>. Avec un cosinus, c’est ' + M('-a') + '. ' +
+        'Un cercle tracé au brouillon tranche en deux secondes.',
+      '<b>Le second piège</b> : sans le ' + M('2kπ') + ', on donne deux solutions au lieu d’une infinité — et la question est fausse.'
+    ]
+  };
+});
+
+G('trigonometrie', 'tg-eq-sin', 'Résoudre sin(x) = c dans ℝ', 'ent', function(){
+  const m = R.pick([2, 3, 4, -2, -3, -4, 6]);        /* a dans [ -π/2 ; π/2 ] */
+  const val = m < 0 ? negVal(TRIG12[-m].s) : TRIG12[m].s;
+  const pool = [2, 3, 4, -2, -3, -4, 6].filter(k => (k < 0 ? negVal(TRIG12[-k].s) : TRIG12[k].s) !== val);
+  const angles = R.shuffle(R.shuffle(pool).slice(0, 3).concat([m]));
+  const formes = ['π - a + 2kπ', '-a + 2kπ', 'a + kπ', 'π + a + 2kπ'];
+  const autre = principal12(12 - m);
+  return {
+    enonce: '<p>Résous dans ' + M('ℝ') + ' l’équation</p>' + Mc('@sin(x) = ' + val),
+    champs: [
+      { type: 'choix', label: 'Un angle ' + M('a') + ' tel que ' + M('@sin(a) = ' + val),
+        options: angles.map(k => M(angPi(k))), bon: angles.indexOf(m) },
+      { type: 'choix', label: 'Première solution : ' + M('x = a + 2kπ') + '. La seconde s’écrit',
+        options: formes.map(f => M(f)), bon: 0 }
+    ],
+    etapes: [
+      'On écrit le second membre comme un sinus : ' + M(val + ' = @sin(' + angPi(m) + ')') + '.',
+      'L’équation devient ' + M('@sin(x) = @sin(' + angPi(m) + ')') + '.',
+      'Le sinus est l’<b>ordonnée</b>. Deux points du cercle ont cette ordonnée : ' + M(angPi(m)) +
+        ' et son symétrique par rapport à l’axe vertical, ' + M('π - ' + angPi(m)) + ' c’est-à-dire ' + M(angPi(autre)) + '.',
+      'En ajoutant les tours complets : ' + Mc('x = ' + angPi(m) + ' + 2kπ  ou  x = ' + angPi(autre) + ' + 2kπ,  k ∈ ℤ'),
+      '<b>Le piège</b> : ' + M('-a') + ' est la règle du <b>cosinus</b>. Avec un sinus, c’est ' + M('π - a') + '.',
+      'Contrôle : ' + M('@sin(' + angPi(autre) + ') = ' + (m < 0 ? negVal(TRIG12[-m].s) : TRIG12[m].s)) +
+        ', on retombe bien sur ' + M(val) + '. ✓'
+    ]
+  };
+});
+
+G('trigonometrie', 'tg-eq-intervalle', 'Résoudre sur un intervalle', 'ds', function(){
+  const cos = Math.random() < 0.5;
+  let m, s1, s2, val;
+  if (cos){
+    m = R.pick([2, 3, 4, 6, 8, 9, 10]);
+    val = TRIG12[m].c;
+    s1 = -m; s2 = m;                                   /* -a < a, tous deux dans ] -π ; π ] */
+  } else {
+    m = R.pick([2, 3, 4, -2, -3, -4]);
+    val = m < 0 ? negVal(TRIG12[-m].s) : TRIG12[m].s;
+    const a2 = principal12(12 - m);                    /* π - a ramené dans ] -π ; π ] */
+    s1 = Math.min(m, a2); s2 = Math.max(m, a2);
+  }
+  /* distracteurs : les réponses qu'on obtient en croisant les deux règles */
+  const pieges = cos ? [principal12(12 - m), principal12(12 + m)] : [-m, principal12(12 + m)];
+  const pool = [];
+  [s1, s2].concat(pieges).concat([2, 3, 4, 6, 8, 9, 10, -2, -3, -4, -6, -8, -9, -10]).forEach(k => {
+    if (TRIG12[Math.abs(principal12(k))] && pool.indexOf(principal12(k)) < 0) pool.push(principal12(k));
+  });
+  const options = pool.slice(0, 6);
+  if (options.indexOf(s1) < 0) options[options.length - 2] = s1;
+  if (options.indexOf(s2) < 0) options[options.length - 1] = s2;
+  options.sort((a, b) => a - b);
+  return {
+    enonce: '<p>Résous sur ' + M('] -π ; π ]') + ' l’équation</p>' +
+            Mc((cos ? '@cos' : '@sin') + '(x) = ' + val) +
+            '<p>Donne les deux solutions dans l’ordre croissant.</p>',
+    champs: [
+      { type: 'choix', label: 'Plus petite solution', options: options.map(k => M(angPi(k))), bon: options.indexOf(s1) },
+      { type: 'choix', label: 'Plus grande solution', options: options.map(k => M(angPi(k))), bon: options.indexOf(s2) }
+    ],
+    etapes: [
+      'Étape 1 — on écrit le second membre comme ' + (cos ? 'un cosinus' : 'un sinus') + ' : ' +
+        M(val + ' = ' + (cos ? '@cos' : '@sin') + '(' + angPi(m) + ')') + '.',
+      'Étape 2 — on applique la règle : ' + (cos
+        ? M('@cos(x) = @cos(a) ⇔ x = a + 2kπ ou x = -a + 2kπ')
+        : M('@sin(x) = @sin(a) ⇔ x = a + 2kπ ou x = π - a + 2kπ')) + '.',
+      'Ici : ' + M('x = ' + angPi(m) + ' + 2kπ') + ' ou ' + M('x = ' + angPi(cos ? -m : principal12(12 - m)) + ' + 2kπ') + '.',
+      'Étape 3 — on trie sur l’intervalle. ' + M('k = 0') + ' donne ' + M(angPi(s1)) + ' et ' + M(angPi(s2)) +
+        ', tous deux dans ' + M('] -π ; π ]') + '. Tout autre ' + M('k') + ' déplace de ' + M('2π') + ' au moins, donc fait sortir.',
+      Mc('S = { ' + angPi(s1) + ' ; ' + angPi(s2) + ' }'),
+      '<b>Réflexe de contrôle</b> : replace les deux solutions sur le cercle. Elles doivent être symétriques par rapport à ' +
+        (cos ? 'l’axe des <b>abscisses</b>' : 'l’axe des <b>ordonnées</b>') + '. Si ce n’est pas le cas, la règle a été croisée.'
+    ]
+  };
+});
+
+G('trigonometrie', 'tg-mesure-principale', 'Mesure principale', 'ent', function(){
+  const base = R.pick([2, 3, 4, 6, 8, 9, 10, 12, -2, -3, -4, -6, -8, -9, -10]);
+  const tours = R.pick([-2, -1, 1, 2]);
+  const m = base + 24 * tours;
+  const faux = [];
+  [base + 24 * (tours > 0 ? tours - 1 : tours + 1), -base, principal12(12 - base)].forEach(k => {
+    const v = principal12(k);
+    if (v !== base && faux.indexOf(v) < 0 && TRIG12[Math.abs(v)]) faux.push(v);
+  });
+  while (faux.length < 3){
+    const v = R.pick([2, 3, 4, 6, 8, 9, 10, 12, -2, -3, -4, -6, -8, -9, -10]);
+    if (v !== base && faux.indexOf(v) < 0) faux.push(v);
+  }
+  const options = faux.slice(0, 3).concat([base]).sort((a, b) => a - b);
+  const etapes = ['La mesure principale est la seule mesure du point qui appartient à ' + M('] -π ; π ]') +
+    '. On retire ou on ajoute des ' + M('2π') + ' jusqu’à y tomber.'];
+  let cour = m;
+  const pas = tours > 0 ? -24 : 24;
+  while (cour !== base){
+    const suiv = cour + pas;
+    etapes.push(M(angPi(cour) + (pas < 0 ? ' - 2π = ' : ' + 2π = ') + angPi(suiv)) +
+      (suiv === base ? ' : cette fois on est dans ' + M('] -π ; π ]') + '. ✓' : ' : on n’y est pas encore.'));
+    cour = suiv;
+  }
+  etapes.push('La mesure principale de ' + M(angPi(m)) + ' est donc ' + M(angPi(base)) + '.');
+  etapes.push('<b>Le raccourci</b> : on écrit ' + M('2π') + ' avec le <b>même dénominateur</b> que l’angle, et on ne touche plus qu’aux numérateurs. ' +
+    M('2π = frac{4π}{2} = frac{6π}{3} = frac{8π}{4} = frac{12π}{6}') + '.');
+  etapes.push('<b>Attention à la borne</b> : ' + M('π') + ' est dans l’intervalle, ' + M('-π') + ' ne l’est pas.');
+  return {
+    enonce: '<p>Détermine la mesure principale de l’angle</p>' + Mc(angPi(m)),
+    champs: [{ type: 'choix', label: 'Mesure principale', options: options.map(k => M(angPi(k))), bon: options.indexOf(base) }],
+    etapes: etapes
   };
 });
 /* =========================================================================
