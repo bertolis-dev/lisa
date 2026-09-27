@@ -269,6 +269,23 @@ table.tab.signes th,table.tab.signes td{padding:6px 9px;white-space:nowrap}
 .exact.frac2 .den{border-top:2px solid var(--ink-2);padding-top:4px;margin-top:1px;
   width:100%;box-sizing:border-box}
 .exact.frac2 .cell{border:1px solid var(--line)}
+/* une famille de solutions : p pi / q + 2k pi, saisie case par case */
+.angls{display:flex;flex-direction:column;gap:9px;align-items:flex-start}
+.angls .ou{font-family:var(--serif);font-style:italic;color:var(--ink-3);font-size:14px;padding-left:4px}
+.angl{display:inline-flex;align-items:center;gap:9px;flex-wrap:wrap}
+.angl .exact.frac2{align-items:stretch}
+.angl .lig>b{font-family:var(--serif);font-size:17px;padding:0 3px}
+.angl .per{display:inline-flex;align-items:center;gap:4px}
+.angls .cell{display:inline-flex;align-items:center;gap:4px;background:var(--surface-2);
+  border:1px solid var(--line);border-radius:8px;padding:3px 5px 3px 9px}
+.angls .cell input{width:48px;padding:6px 4px;text-align:center;font-size:15px;border:none;
+  background:none;font-variant-numeric:tabular-nums}
+.angls .cell input:focus{outline:none}
+.angls .cell:focus-within{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-soft)}
+@media (max-width:560px){.angls .cell input{width:40px}.angl{gap:6px}}
+.angl .per>b{font-family:var(--serif);font-size:17px;font-weight:400}
+.field:has(.angls){flex-direction:column;align-items:flex-start;gap:7px}
+.field:has(.angls) label{min-width:0}
 @media (max-width:560px){.exact .cell input{width:42px}.exact .cases{gap:6px}}
 .choices{display:flex;flex-direction:column;gap:8px;margin-top:18px}
 .choice{display:flex;align-items:center;gap:11px;padding:12px 14px;border:1px solid var(--line);border-radius:8px;background:var(--surface-2);text-align:left;font-size:15px;transition:border-color .1s,background .1s}
