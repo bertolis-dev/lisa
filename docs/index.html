@@ -291,6 +291,23 @@ table.tab.signes th,table.tab.signes td{padding:6px 9px;white-space:nowrap}
 .exact.frac2 .den{border-top:2px solid var(--ink-2);padding-top:4px;margin-top:1px;
   width:100%;box-sizing:border-box}
 .exact.frac2 .cell{border:1px solid var(--line)}
+/* une famille de solutions : p pi / q + 2k pi, saisie case par case */
+.angls{display:flex;flex-direction:column;gap:9px;align-items:flex-start}
+.angls .ou{font-family:var(--serif);font-style:italic;color:var(--ink-3);font-size:14px;padding-left:4px}
+.angl{display:inline-flex;align-items:center;gap:9px;flex-wrap:wrap}
+.angl .exact.frac2{align-items:stretch}
+.angl .lig>b{font-family:var(--serif);font-size:17px;padding:0 3px}
+.angl .per{display:inline-flex;align-items:center;gap:4px}
+.angls .cell{display:inline-flex;align-items:center;gap:4px;background:var(--surface-2);
+  border:1px solid var(--line);border-radius:8px;padding:3px 5px 3px 9px}
+.angls .cell input{width:48px;padding:6px 4px;text-align:center;font-size:15px;border:none;
+  background:none;font-variant-numeric:tabular-nums}
+.angls .cell input:focus{outline:none}
+.angls .cell:focus-within{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-soft)}
+@media (max-width:560px){.angls .cell input{width:40px}.angl{gap:6px}}
+.angl .per>b{font-family:var(--serif);font-size:17px;font-weight:400}
+.field:has(.angls){flex-direction:column;align-items:flex-start;gap:7px}
+.field:has(.angls) label{min-width:0}
 @media (max-width:560px){.exact .cell input{width:42px}.exact .cases{gap:6px}}
 .choices{display:flex;flex-direction:column;gap:8px;margin-top:18px}
 .choice{display:flex;align-items:center;gap:11px;padding:12px 14px;border:1px solid var(--line);border-radius:8px;background:var(--surface-2);text-align:left;font-size:15px;transition:border-color .1s,background .1s}
@@ -1083,7 +1100,7 @@ function M(src){ return '<span class="m">' + mathHtml(src) + '</span>'; }
 function Mc(src){ return '<div class="center">' + M(src) + '</div>'; }
 
 /* version de la construction, remplacée par build.py */
-const VERSION_APP = '1.62';
+const VERSION_APP = '1.67';
 
 /* ---------- utilitaires numériques ---------- */
 const R = {
@@ -4727,6 +4744,20 @@ function sin12(m){
 const VALS_REM = ['1', '-1', '0', 'frac{1}{2}', '-frac{1}{2}',
   'frac{sqrt{2}}{2}', '-frac{sqrt{2}}{2}', 'frac{sqrt{3}}{2}', '-frac{sqrt{3}}{2}'];
 
+/* les neuf valeurs remarquables, écrites pour la saisie exacte (p + m√d)/q */
+const EXACT_VAL = {
+  '1': { p: 1, m: 0, d: 0, q: 1 },
+  '0': { p: 0, m: 0, d: 0, q: 1 },
+  'frac{1}{2}': { p: 1, m: 0, d: 0, q: 2 },
+  'frac{sqrt{2}}{2}': { p: 0, m: 1, d: 2, q: 2 },
+  'frac{sqrt{3}}{2}': { p: 0, m: 1, d: 3, q: 2 }
+};
+function exactDeTexte(v){
+  const neg = v.charAt(0) === '-', b = EXACT_VAL[neg ? v.slice(1) : v];
+  if (!b) return null;
+  return { p: neg ? -b.p : b.p, m: neg ? -b.m : b.m, d: b.d, q: b.q };
+}
+
 G('trigonometrie', 'tg-exact-associes', 'Valeur exacte hors du premier quart', 'ent', function(){
   /* on évite le premier quart de tour : c'est là que le détour par un angle
      associé devient indispensable */
@@ -4735,7 +4766,6 @@ G('trigonometrie', 'tg-exact-associes', 'Valeur exacte hors du premier quart', '
   const bonne = cos ? cos12(m) : sin12(m);
   const r = principal12(m);
   const ref = Math.abs(r) > 6 ? 12 - Math.abs(r) : Math.abs(r);   /* angle du premier quart */
-  const options = R.shuffle(R.shuffle(VALS_REM.filter(v => v !== bonne)).slice(0, 3).concat([bonne]));
   const etapes = [];
   if (m !== r) etapes.push('On enlève d’abord les tours complets : ' + M(angPi(m) + ' = ' + angPi(r) + (m - r > 0 ? ' + ' : ' - ') +
     (Math.abs(m - r) === 24 ? '2π' : nf(Math.abs(m - r) / 12) + 'π')) + ', et un tour ne change ni le cosinus ni le sinus.');
@@ -4755,26 +4785,26 @@ G('trigonometrie', 'tg-exact-associes', 'Valeur exacte hors du premier quart', '
   etapes.push('<b>Vérification gratuite</b> : ' + M('@cos^{2} + @sin^{2} = 1') + '. Ici ' +
     M('@cos(' + angPi(m) + ') = ' + cos12(m)) + ' et ' + M('@sin(' + angPi(m) + ') = ' + sin12(m)) + '.');
   return {
-    enonce: '<p>Donne la valeur exacte de</p>' + Mc((cos ? '@cos' : '@sin') + '(' + angPi(m) + ')'),
-    qcm: { options: options.map(v => M(v)), bon: options.indexOf(bonne) },
+    enonce: '<p>Donne la valeur exacte de</p>' + Mc((cos ? '@cos' : '@sin') + '(' + angPi(m) + ')') +
+            '<p class="tiny">Une case laissée vide vaut 0 : sans racine, seuls ' + M('a') + ' et ' + M('d') + ' sont à remplir.</p>',
+    champs: [{ type: 'exact', forme: 'radical', bon: exactDeTexte(bonne),
+               label: M((cos ? '@cos' : '@sin') + '(' + angPi(m) + ')') + ' =' }],
     etapes: etapes
   };
 });
 
+/* consigne commune aux équations : on écrit les familles, on ne les reconnaît pas */
+const AIDE_FAM = '<p class="tiny">Écris chaque famille de solutions dans les cases : le numérateur ' +
+  '(avec son signe), le dénominateur, puis le coefficient devant ' + M('kπ') + '. ' +
+  'Un dénominateur laissé vide vaut 1. L’ordre des deux familles est indifférent.</p>';
+
 G('trigonometrie', 'tg-eq-cos', 'Résoudre cos(x) = c dans ℝ', 'ent', function(){
   const m = R.pick([2, 3, 4, 6, 8, 9, 10]);          /* a dans [ 0 ; π ] */
   const val = TRIG12[m].c;
-  const faux = R.shuffle([2, 3, 4, 6, 8, 9, 10].filter(k => TRIG12[k].c !== val)).slice(0, 3);
-  const angles = R.shuffle(faux.concat([m]));
-  const formes = ['-a + 2kπ', 'π - a + 2kπ', 'a + kπ', 'π + a + 2kπ'];
   return {
-    enonce: '<p>Résous dans ' + M('ℝ') + ' l’équation</p>' + Mc('@cos(x) = ' + val),
-    champs: [
-      { type: 'choix', label: 'Un angle ' + M('a') + ' tel que ' + M('@cos(a) = ' + val),
-        options: angles.map(k => M(angPi(k))), bon: angles.indexOf(m) },
-      { type: 'choix', label: 'Première solution : ' + M('x = a + 2kπ') + '. La seconde s’écrit',
-        options: formes.map(f => M(f)), bon: 0 }
-    ],
+    enonce: '<p>Résous dans ' + M('ℝ') + ' l’équation</p>' + Mc('@cos(x) = ' + val) + AIDE_FAM,
+    champs: [{ type: 'angle', label: M('x') + ' =', periode: true,
+               bon: [{ p: m, q: 12 }, { p: -m, q: 12 }] }],
     etapes: [
       'On commence par écrire le second membre comme un cosinus : ' + M(val + ' = @cos(' + angPi(m) + ')') + '.',
       'L’équation devient ' + M('@cos(x) = @cos(' + angPi(m) + ')') + '.',
@@ -4783,35 +4813,31 @@ G('trigonometrie', 'tg-eq-cos', 'Résoudre cos(x) = c dans ℝ', 'ent', function
       'En ajoutant les tours complets : ' + Mc('x = ' + angPi(m) + ' + 2kπ  ou  x = ' + angPi(-m) + ' + 2kπ,  k ∈ ℤ'),
       '<b>Le piège</b> : ' + M('π - a') + ' est la règle du <b>sinus</b>. Avec un cosinus, c’est ' + M('-a') + '. ' +
         'Un cercle tracé au brouillon tranche en deux secondes.',
-      '<b>Le second piège</b> : sans le ' + M('2kπ') + ', on donne deux solutions au lieu d’une infinité — et la question est fausse.'
+      '<b>Le second piège</b> : sans le ' + M('2kπ') + ', on donne deux solutions au lieu d’une infinité — et la question est fausse. ' +
+        M('kπ') + ' ne marche pas non plus : un demi-tour change le signe du cosinus.'
     ]
   };
 });
 
 G('trigonometrie', 'tg-eq-sin', 'Résoudre sin(x) = c dans ℝ', 'ent', function(){
-  const m = R.pick([2, 3, 4, -2, -3, -4, 6]);        /* a dans [ -π/2 ; π/2 ] */
+  const m = R.pick([2, 3, 4, -2, -3, -4]);           /* a dans [ -π/2 ; π/2 ] ; π/2 exclu : π - a = a */
   const val = m < 0 ? negVal(TRIG12[-m].s) : TRIG12[m].s;
-  const pool = [2, 3, 4, -2, -3, -4, 6].filter(k => (k < 0 ? negVal(TRIG12[-k].s) : TRIG12[k].s) !== val);
-  const angles = R.shuffle(R.shuffle(pool).slice(0, 3).concat([m]));
-  const formes = ['π - a + 2kπ', '-a + 2kπ', 'a + kπ', 'π + a + 2kπ'];
   const autre = principal12(12 - m);
   return {
-    enonce: '<p>Résous dans ' + M('ℝ') + ' l’équation</p>' + Mc('@sin(x) = ' + val),
-    champs: [
-      { type: 'choix', label: 'Un angle ' + M('a') + ' tel que ' + M('@sin(a) = ' + val),
-        options: angles.map(k => M(angPi(k))), bon: angles.indexOf(m) },
-      { type: 'choix', label: 'Première solution : ' + M('x = a + 2kπ') + '. La seconde s’écrit',
-        options: formes.map(f => M(f)), bon: 0 }
-    ],
+    enonce: '<p>Résous dans ' + M('ℝ') + ' l’équation</p>' + Mc('@sin(x) = ' + val) + AIDE_FAM,
+    champs: [{ type: 'angle', label: M('x') + ' =', periode: true,
+               bon: [{ p: m, q: 12 }, { p: 12 - m, q: 12 }] }],
     etapes: [
       'On écrit le second membre comme un sinus : ' + M(val + ' = @sin(' + angPi(m) + ')') + '.',
       'L’équation devient ' + M('@sin(x) = @sin(' + angPi(m) + ')') + '.',
       'Le sinus est l’<b>ordonnée</b>. Deux points du cercle ont cette ordonnée : ' + M(angPi(m)) +
-        ' et son symétrique par rapport à l’axe vertical, ' + M('π - ' + angPi(m)) + ' c’est-à-dire ' + M(angPi(autre)) + '.',
+        ' et son symétrique par rapport à l’axe vertical, ' + M('π - ' + angPi(m)) + ' c’est-à-dire ' + M(angPi(12 - m)) +
+        (autre !== 12 - m ? ', soit ' + M(angPi(autre)) + ' une fois ramené dans ' + M('] -π ; π ]') : '') + '.',
       'En ajoutant les tours complets : ' + Mc('x = ' + angPi(m) + ' + 2kπ  ou  x = ' + angPi(autre) + ' + 2kπ,  k ∈ ℤ'),
       '<b>Le piège</b> : ' + M('-a') + ' est la règle du <b>cosinus</b>. Avec un sinus, c’est ' + M('π - a') + '.',
-      'Contrôle : ' + M('@sin(' + angPi(autre) + ') = ' + (m < 0 ? negVal(TRIG12[-m].s) : TRIG12[m].s)) +
-        ', on retombe bien sur ' + M(val) + '. ✓'
+      'Contrôle : ' + M('@sin(' + angPi(autre) + ') = ' + val) + ', on retombe bien sur le second membre. ✓',
+      '<b>Deux écritures valent la même famille</b> : ' + M(angPi(12 - m) + ' + 2kπ') + ' et ' + M(angPi(autre) + ' + 2kπ') +
+        ' décrivent le même ensemble, puisqu’elles diffèrent de ' + M('2π') + '. Les deux sont acceptées.'
     ]
   };
 });
@@ -4822,31 +4848,19 @@ G('trigonometrie', 'tg-eq-intervalle', 'Résoudre sur un intervalle', 'ds', func
   if (cos){
     m = R.pick([2, 3, 4, 6, 8, 9, 10]);
     val = TRIG12[m].c;
-    s1 = -m; s2 = m;                                   /* -a < a, tous deux dans ] -π ; π ] */
+    s1 = -m; s2 = m;                                   /* -a et a, tous deux dans ] -π ; π ] */
   } else {
     m = R.pick([2, 3, 4, -2, -3, -4]);
     val = m < 0 ? negVal(TRIG12[-m].s) : TRIG12[m].s;
     const a2 = principal12(12 - m);                    /* π - a ramené dans ] -π ; π ] */
     s1 = Math.min(m, a2); s2 = Math.max(m, a2);
   }
-  /* distracteurs : les réponses qu'on obtient en croisant les deux règles */
-  const pieges = cos ? [principal12(12 - m), principal12(12 + m)] : [-m, principal12(12 + m)];
-  const pool = [];
-  [s1, s2].concat(pieges).concat([2, 3, 4, 6, 8, 9, 10, -2, -3, -4, -6, -8, -9, -10]).forEach(k => {
-    if (TRIG12[Math.abs(principal12(k))] && pool.indexOf(principal12(k)) < 0) pool.push(principal12(k));
-  });
-  const options = pool.slice(0, 6);
-  if (options.indexOf(s1) < 0) options[options.length - 2] = s1;
-  if (options.indexOf(s2) < 0) options[options.length - 1] = s2;
-  options.sort((a, b) => a - b);
   return {
     enonce: '<p>Résous sur ' + M('] -π ; π ]') + ' l’équation</p>' +
             Mc((cos ? '@cos' : '@sin') + '(x) = ' + val) +
-            '<p>Donne les deux solutions dans l’ordre croissant.</p>',
-    champs: [
-      { type: 'choix', label: 'Plus petite solution', options: options.map(k => M(angPi(k))), bon: options.indexOf(s1) },
-      { type: 'choix', label: 'Plus grande solution', options: options.map(k => M(angPi(k))), bon: options.indexOf(s2) }
-    ],
+            '<p class="tiny">Ici les solutions sont en nombre fini : pas de ' + M('2kπ') + '. ' +
+            'L’ordre des deux réponses est indifférent, un dénominateur vide vaut 1.</p>',
+    champs: [{ type: 'angle', label: 'Les deux solutions', bon: [{ p: s1, q: 12 }, { p: s2, q: 12 }] }],
     etapes: [
       'Étape 1 — on écrit le second membre comme ' + (cos ? 'un cosinus' : 'un sinus') + ' : ' +
         M(val + ' = ' + (cos ? '@cos' : '@sin') + '(' + angPi(m) + ')') + '.',
@@ -4867,16 +4881,6 @@ G('trigonometrie', 'tg-mesure-principale', 'Mesure principale', 'ent', function(
   const base = R.pick([2, 3, 4, 6, 8, 9, 10, 12, -2, -3, -4, -6, -8, -9, -10]);
   const tours = R.pick([-2, -1, 1, 2]);
   const m = base + 24 * tours;
-  const faux = [];
-  [base + 24 * (tours > 0 ? tours - 1 : tours + 1), -base, principal12(12 - base)].forEach(k => {
-    const v = principal12(k);
-    if (v !== base && faux.indexOf(v) < 0 && TRIG12[Math.abs(v)]) faux.push(v);
-  });
-  while (faux.length < 3){
-    const v = R.pick([2, 3, 4, 6, 8, 9, 10, 12, -2, -3, -4, -6, -8, -9, -10]);
-    if (v !== base && faux.indexOf(v) < 0) faux.push(v);
-  }
-  const options = faux.slice(0, 3).concat([base]).sort((a, b) => a - b);
   const etapes = ['La mesure principale est la seule mesure du point qui appartient à ' + M('] -π ; π ]') +
     '. On retire ou on ajoute des ' + M('2π') + ' jusqu’à y tomber.'];
   let cour = m;
@@ -4892,8 +4896,9 @@ G('trigonometrie', 'tg-mesure-principale', 'Mesure principale', 'ent', function(
     M('2π = frac{4π}{2} = frac{6π}{3} = frac{8π}{4} = frac{12π}{6}') + '.');
   etapes.push('<b>Attention à la borne</b> : ' + M('π') + ' est dans l’intervalle, ' + M('-π') + ' ne l’est pas.');
   return {
-    enonce: '<p>Détermine la mesure principale de l’angle</p>' + Mc(angPi(m)),
-    champs: [{ type: 'choix', label: 'Mesure principale', options: options.map(k => M(angPi(k))), bon: options.indexOf(base) }],
+    enonce: '<p>Détermine la mesure principale de l’angle</p>' + Mc(angPi(m)) +
+            '<p class="tiny">Un dénominateur laissé vide vaut 1.</p>',
+    champs: [{ type: 'angle', label: 'Mesure principale', bon: [{ p: base, q: 12 }] }],
     etapes: etapes
   };
 });
@@ -16118,7 +16123,7 @@ function vueDS(){
 function repondu(q){
   if (q.bareme) return false;
   if (q.qcm) return q.choix !== null && q.choix !== undefined;
-  return q.champs.some(f => f.type === 'choix' ? f.saisie !== undefined : String(f.saisie || '').trim() !== '');
+  return q.champs.some(f => !champVide(f));
 }
 
 /* ---------------- copie corrigée ---------------- */
@@ -16160,10 +16165,10 @@ function vueCopie(){
       } else {
         q.champs.forEach(f => {
           const ok = champOk(f);
-          const don = (f.type === 'choix')
-            ? (f.saisie === undefined ? '<i>sans réponse</i>' : f.options[f.saisie])
-            : (String(f.saisie || '').trim() === '' ? '<i>sans réponse</i>' : esc(f.saisie));
-          const att = (f.type === 'choix') ? f.options[f.bon] : nf(f.bon);
+          /* la saisie guidée est un objet : on la réécrit, on ne l'affiche pas brute */
+          const dit = texteSaisie(f);
+          const don = dit === null ? '<i>sans réponse</i>' : dit;
+          const att = texteAttendu(f);
           h += '<div class="rep' + (ok ? ' ok' : ' ko') + '"><span>' + f.label + '</span>' + don +
                (ok ? '' : ' <b class="att">→ ' + att + '</b>') + '</div>';
         });
@@ -17435,7 +17440,10 @@ function lireExact(s){
   const p = entierSaisi(s.p), q = entierSaisi(s.q);
   if (p === null || q === null || q === 0) return null;
   if (s.m === undefined) return { p: p, m: 0, d: 0, q: q };
-  const m = entierSaisi(s.m), d = entierSaisi(s.d);
+  /* pas de radical dans la réponse : on n'oblige pas à taper deux zéros */
+  const vide = c => s[c] === undefined || String(s[c]).trim() === '';
+  if (vide('m') && vide('d')) return { p: p, m: 0, d: 0, q: q };
+  const m = entierSaisi(s.m), d = vide('d') && entierSaisi(s.m) === 0 ? 0 : entierSaisi(s.d);
   if (m === null || d === null || d < 0) return null;
   return { p: p, m: m, d: d, q: q };
 }
@@ -17475,8 +17483,106 @@ function champExact(id, f, bloque){
     '<span class="lig den">' + box('q', 0, '') + '</span></span>';
 }
 
+/* ---------- réponse angulaire : x = pπ/q + 2kπ, saisie case par case ----------
+   Les solutions d'une équation trigonométrique ne sont pas des nombres mais des
+   familles : « π/3 + 2kπ ». Un champ numérique ne sait rien en faire et un QCM
+   n'entraîne que la reconnaissance, alors que le devoir demande de les écrire.
+   On saisit donc numérateur, dénominateur et coefficient de kπ, et on compare
+   les écritures réduites. L'ordre des deux familles est indifférent : la réponse
+   est un ensemble, pas une liste. */
+
+/* combien vaut la période demandée ? 0 = aucune (réponse dans un intervalle) */
+function periodeAngle(f){ return f.periode === undefined || f.periode === false ? 0 : (f.periode === true ? 2 : f.periode); }
+/* pπ/q réduit, q > 0 ; p = 0 donne l'angle nul */
+function normAngle(a){
+  if (!a) return null;
+  let p = Math.round(a.p), q = Math.round(a.q === undefined ? 1 : a.q);
+  if (!isFinite(p) || !isFinite(q) || q === 0) return null;
+  if (q < 0){ p = -p; q = -q; }
+  if (p === 0) return { p: 0, q: 1 };
+  const g = pgcd(Math.abs(p), q) || 1;
+  return { p: p / g, q: q / g };
+}
+/* mini-syntaxe : -3π/4, π, 0 */
+function texteAngle(a){
+  const n = normAngle(a);
+  if (!n) return '—';
+  if (n.p === 0) return '0';
+  const t = (Math.abs(n.p) === 1 ? 'π' : nf(Math.abs(n.p)) + 'π');
+  return (n.p < 0 ? '-' : '') + (n.q === 1 ? t : 'frac{' + t + '}{' + nf(n.q) + '}');
+}
+/* deux familles sont égales si elles diffèrent d'un multiple de la période :
+   7π/6 + 2kπ et -5π/6 + 2kπ sont le même ensemble. On ramène donc dans ] -π ; π ]. */
+function normAngleMod(a, k){
+  const n = normAngle(a);
+  if (!n || !k) return n;
+  const M2 = k * n.q;
+  let r = ((n.p % M2) + M2) % M2;
+  if (r * 2 > M2) r -= M2;
+  return normAngle({ p: r, q: n.q });
+}
+function texteAnglesListe(liste, k){
+  const per = k ? ' + ' + (k === 1 ? 'kπ' : nf(k) + 'kπ') : '';
+  return liste.map(a => texteAngle(a) + per).join(' ou ');
+}
+function texteAngles(f){
+  const k = periodeAngle(f);
+  return texteAnglesListe((f.bon || []).map(x => normAngleMod(x, k)), k);
+}
+/* lit les cases ; un dénominateur laissé vide vaut 1, on écrit bien « π » et non « π/1 » */
+function lireAngle(f){
+  const s = (f.saisie && typeof f.saisie === 'object') ? f.saisie : null;
+  if (!s) return null;
+  const n = (f.bon || []).length, k = periodeAngle(f), liste = [];
+  let kk = 0;
+  for (let i = 0; i < n; i++){
+    const p = entierSaisi(s['p' + i]);
+    if (p === null) return null;
+    const vide = s['q' + i] === undefined || String(s['q' + i]).trim() === '';
+    const q = vide ? 1 : entierSaisi(s['q' + i]);
+    const a = normAngle({ p: p, q: q });
+    if (!a) return null;
+    liste.push(a);
+    if (k){
+      const c = entierSaisi(s['k' + i]);
+      if (c === null) return null;
+      if (i === 0) kk = c; else if (c !== kk) return null;
+    }
+  }
+  return { liste: liste, k: kk };
+}
+function angleOk(f){
+  const a = lireAngle(f), k = periodeAngle(f);
+  const b = (f.bon || []).map(x => normAngleMod(x, k));
+  if (!a || b.some(x => !x) || a.liste.length !== b.length) return false;
+  if (k && a.k !== k) return false;
+  const cle = x => x.p / x.q;
+  const A = a.liste.map(x => normAngleMod(x, k)).sort((u, v) => cle(u) - cle(v));
+  const B = b.slice().sort((u, v) => cle(u) - cle(v));
+  return A.every((x, i) => x.p === B[i].p && x.q === B[i].q);
+}
+function champAngle(id, f, bloque){
+  const s = (f.saisie && typeof f.saisie === 'object') ? f.saisie : {};
+  const box = (cle, signe) => '<span class="cell">' +
+    '<input id="' + id + '-' + cle + '" type="text" inputmode="decimal" autocomplete="off" value="' +
+    (s[cle] === undefined ? '' : esc(s[cle])) + '"' + (bloque ? ' disabled' : '') + '>' +
+    (signe ? '<button class="signe mini" type="button" data-signe="' + id + '-' + cle + '"' +
+      ' aria-label="Changer le signe"' + (bloque ? ' disabled' : '') + '>±</button>' : '') + '</span>';
+  const k = periodeAngle(f);
+  const lignes = (f.bon || []).map((b, i) =>
+    '<span class="angl">' +
+      '<span class="exact frac2 fr">' +
+        '<span class="lig num">' + box('p' + i, 1) + '<b>π</b></span>' +
+        '<span class="lig den">' + box('q' + i, 0) + '</span>' +
+      '</span>' +
+      (k ? '<span class="per"><b>+</b>' + box('k' + i, 0) + '<b>kπ</b></span>' : '') +
+    '</span>');
+  return '<span class="angls">' + lignes.join('<span class="ou">ou</span>') + '</span>';
+}
+
 function champSaisie(id, f, bloque){
   if (f.type === 'exact') return champExact(id, f, bloque);
+  if (f.type === 'angle') return champAngle(id, f, bloque);
   const txt = f.type === 'texte';
   const input = '<input id="' + id + '" type="text" inputmode="' + (txt ? 'text' : 'decimal') + '"' +
     (txt ? ' spellcheck="false" autocapitalize="off"' : '') +
@@ -17496,12 +17602,35 @@ function basculerSigne(id){
   el.value = v.charAt(0) === '-' ? v.slice(1) : '-' + v;
   el.focus();
 }
+/* l'écriture attendue, quel que soit le type de champ */
+function texteAttendu(f){
+  if (f.type === 'choix') return f.options[f.bon];
+  if (f.type === 'texte') return f.bon;
+  if (f.type === 'exact') return M(texteExact(f.bon));
+  if (f.type === 'angle') return M(texteAngles(f));
+  return nf(f.bon);
+}
+/* ce que l'élève a écrit, relu et remis en forme ; null s'il n'a rien mis */
+function texteSaisie(f){
+  if (f.type === 'choix') return f.saisie === undefined ? null : f.options[f.saisie];
+  if (f.type === 'exact'){ const n = normExact(lireExact(f.saisie)); return n ? M(texteExact(n)) : null; }
+  if (f.type === 'angle'){ const a = lireAngle(f); return a ? M(texteAnglesListe(a.liste, a.k || periodeAngle(f))) : null; }
+  const v = String(f.saisie === undefined ? '' : f.saisie).trim();
+  return v === '' ? null : esc(v);
+}
+/* un champ resté vide : la saisie guidée est un objet, pas une chaîne */
+function champVide(f){
+  if (f.type === 'choix') return f.saisie === undefined;
+  if (f.type === 'exact' || f.type === 'angle'){
+    const s = f.saisie;
+    if (!s || typeof s !== 'object') return true;
+    return !Object.keys(s).some(c => String(s[c] === undefined ? '' : s[c]).trim() !== '');
+  }
+  return String(f.saisie === undefined ? '' : f.saisie).trim() === '';
+}
 function verdictChamp(f, ok){
   if (ok) return '<span class="tiny" style="color:var(--juste);font-weight:700">✓</span>';
-  const att = f.type === 'choix' ? f.options[f.bon]
-    : (f.type === 'texte' ? f.bon
-    : (f.type === 'exact' ? M(texteExact(f.bon)) : nf(f.bon)));
-  return '<span class="tiny" style="color:var(--faux);font-weight:700">✗ attendu : ' + att + '</span>';
+  return '<span class="tiny" style="color:var(--faux);font-weight:700">✗ attendu : ' + texteAttendu(f) + '</span>';
 }
 /* normalise une réponse en texte : minuscules, sans accent, espaces réduits */
 /* plage des signes diacritiques, construite sans caractere combinant dans le source */
@@ -17514,6 +17643,7 @@ function normTexte(v){
 }
 function champOk(f){
   if (f.type === 'choix') return f.saisie === f.bon;
+  if (f.type === 'angle') return angleOk(f);
   if (f.type === 'exact'){
     const a = normExact(lireExact(f.saisie)), b = normExact(f.bon);
     /* égalité d'écritures, pas de valeurs : une décimale approchée ne passe pas,
@@ -17539,6 +17669,16 @@ function champOk(f){
 /* lit un champ, simple ou en cases ; partagée par les séries, le DS et le défi */
 function lireChamp(id, f){
   if (f.type === 'choix') return;
+  if (f.type === 'angle'){
+    const lu = {}, k = periodeAngle(f);
+    (f.bon || []).forEach((b, i) => {
+      ['p' + i, 'q' + i].concat(k ? ['k' + i] : []).forEach(c => {
+        const el = document.getElementById(id + '-' + c); if (el) lu[c] = el.value;
+      });
+    });
+    f.saisie = lu;
+    return;
+  }
   if (f.type === 'exact'){
     const lu = {}, cles = avecRadical(f) ? ['p', 'm', 'd', 'q'] : ['p', 'q'];
     cles.forEach(c => { const el = document.getElementById(id + '-' + c); if (el) lu[c] = el.value; });

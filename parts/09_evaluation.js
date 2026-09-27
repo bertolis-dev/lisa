@@ -121,7 +121,7 @@ function vueDS(){
 function repondu(q){
   if (q.bareme) return false;
   if (q.qcm) return q.choix !== null && q.choix !== undefined;
-  return q.champs.some(f => f.type === 'choix' ? f.saisie !== undefined : String(f.saisie || '').trim() !== '');
+  return q.champs.some(f => !champVide(f));
 }
 
 /* ---------------- copie corrigée ---------------- */
@@ -163,10 +163,10 @@ function vueCopie(){
       } else {
         q.champs.forEach(f => {
           const ok = champOk(f);
-          const don = (f.type === 'choix')
-            ? (f.saisie === undefined ? '<i>sans réponse</i>' : f.options[f.saisie])
-            : (String(f.saisie || '').trim() === '' ? '<i>sans réponse</i>' : esc(f.saisie));
-          const att = (f.type === 'choix') ? f.options[f.bon] : nf(f.bon);
+          /* la saisie guidée est un objet : on la réécrit, on ne l'affiche pas brute */
+          const dit = texteSaisie(f);
+          const don = dit === null ? '<i>sans réponse</i>' : dit;
+          const att = texteAttendu(f);
           h += '<div class="rep' + (ok ? ' ok' : ' ko') + '"><span>' + f.label + '</span>' + don +
                (ok ? '' : ' <b class="att">→ ' + att + '</b>') + '</div>';
         });

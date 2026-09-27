@@ -773,7 +773,10 @@ function lireExact(s){
   const p = entierSaisi(s.p), q = entierSaisi(s.q);
   if (p === null || q === null || q === 0) return null;
   if (s.m === undefined) return { p: p, m: 0, d: 0, q: q };
-  const m = entierSaisi(s.m), d = entierSaisi(s.d);
+  /* pas de radical dans la réponse : on n'oblige pas à taper deux zéros */
+  const vide = c => s[c] === undefined || String(s[c]).trim() === '';
+  if (vide('m') && vide('d')) return { p: p, m: 0, d: 0, q: q };
+  const m = entierSaisi(s.m), d = vide('d') && entierSaisi(s.m) === 0 ? 0 : entierSaisi(s.d);
   if (m === null || d === null || d < 0) return null;
   return { p: p, m: m, d: d, q: q };
 }
@@ -813,8 +816,106 @@ function champExact(id, f, bloque){
     '<span class="lig den">' + box('q', 0, '') + '</span></span>';
 }
 
+/* ---------- réponse angulaire : x = pπ/q + 2kπ, saisie case par case ----------
+   Les solutions d'une équation trigonométrique ne sont pas des nombres mais des
+   familles : « π/3 + 2kπ ». Un champ numérique ne sait rien en faire et un QCM
+   n'entraîne que la reconnaissance, alors que le devoir demande de les écrire.
+   On saisit donc numérateur, dénominateur et coefficient de kπ, et on compare
+   les écritures réduites. L'ordre des deux familles est indifférent : la réponse
+   est un ensemble, pas une liste. */
+
+/* combien vaut la période demandée ? 0 = aucune (réponse dans un intervalle) */
+function periodeAngle(f){ return f.periode === undefined || f.periode === false ? 0 : (f.periode === true ? 2 : f.periode); }
+/* pπ/q réduit, q > 0 ; p = 0 donne l'angle nul */
+function normAngle(a){
+  if (!a) return null;
+  let p = Math.round(a.p), q = Math.round(a.q === undefined ? 1 : a.q);
+  if (!isFinite(p) || !isFinite(q) || q === 0) return null;
+  if (q < 0){ p = -p; q = -q; }
+  if (p === 0) return { p: 0, q: 1 };
+  const g = pgcd(Math.abs(p), q) || 1;
+  return { p: p / g, q: q / g };
+}
+/* mini-syntaxe : -3π/4, π, 0 */
+function texteAngle(a){
+  const n = normAngle(a);
+  if (!n) return '—';
+  if (n.p === 0) return '0';
+  const t = (Math.abs(n.p) === 1 ? 'π' : nf(Math.abs(n.p)) + 'π');
+  return (n.p < 0 ? '-' : '') + (n.q === 1 ? t : 'frac{' + t + '}{' + nf(n.q) + '}');
+}
+/* deux familles sont égales si elles diffèrent d'un multiple de la période :
+   7π/6 + 2kπ et -5π/6 + 2kπ sont le même ensemble. On ramène donc dans ] -π ; π ]. */
+function normAngleMod(a, k){
+  const n = normAngle(a);
+  if (!n || !k) return n;
+  const M2 = k * n.q;
+  let r = ((n.p % M2) + M2) % M2;
+  if (r * 2 > M2) r -= M2;
+  return normAngle({ p: r, q: n.q });
+}
+function texteAnglesListe(liste, k){
+  const per = k ? ' + ' + (k === 1 ? 'kπ' : nf(k) + 'kπ') : '';
+  return liste.map(a => texteAngle(a) + per).join(' ou ');
+}
+function texteAngles(f){
+  const k = periodeAngle(f);
+  return texteAnglesListe((f.bon || []).map(x => normAngleMod(x, k)), k);
+}
+/* lit les cases ; un dénominateur laissé vide vaut 1, on écrit bien « π » et non « π/1 » */
+function lireAngle(f){
+  const s = (f.saisie && typeof f.saisie === 'object') ? f.saisie : null;
+  if (!s) return null;
+  const n = (f.bon || []).length, k = periodeAngle(f), liste = [];
+  let kk = 0;
+  for (let i = 0; i < n; i++){
+    const p = entierSaisi(s['p' + i]);
+    if (p === null) return null;
+    const vide = s['q' + i] === undefined || String(s['q' + i]).trim() === '';
+    const q = vide ? 1 : entierSaisi(s['q' + i]);
+    const a = normAngle({ p: p, q: q });
+    if (!a) return null;
+    liste.push(a);
+    if (k){
+      const c = entierSaisi(s['k' + i]);
+      if (c === null) return null;
+      if (i === 0) kk = c; else if (c !== kk) return null;
+    }
+  }
+  return { liste: liste, k: kk };
+}
+function angleOk(f){
+  const a = lireAngle(f), k = periodeAngle(f);
+  const b = (f.bon || []).map(x => normAngleMod(x, k));
+  if (!a || b.some(x => !x) || a.liste.length !== b.length) return false;
+  if (k && a.k !== k) return false;
+  const cle = x => x.p / x.q;
+  const A = a.liste.map(x => normAngleMod(x, k)).sort((u, v) => cle(u) - cle(v));
+  const B = b.slice().sort((u, v) => cle(u) - cle(v));
+  return A.every((x, i) => x.p === B[i].p && x.q === B[i].q);
+}
+function champAngle(id, f, bloque){
+  const s = (f.saisie && typeof f.saisie === 'object') ? f.saisie : {};
+  const box = (cle, signe) => '<span class="cell">' +
+    '<input id="' + id + '-' + cle + '" type="text" inputmode="decimal" autocomplete="off" value="' +
+    (s[cle] === undefined ? '' : esc(s[cle])) + '"' + (bloque ? ' disabled' : '') + '>' +
+    (signe ? '<button class="signe mini" type="button" data-signe="' + id + '-' + cle + '"' +
+      ' aria-label="Changer le signe"' + (bloque ? ' disabled' : '') + '>±</button>' : '') + '</span>';
+  const k = periodeAngle(f);
+  const lignes = (f.bon || []).map((b, i) =>
+    '<span class="angl">' +
+      '<span class="exact frac2 fr">' +
+        '<span class="lig num">' + box('p' + i, 1) + '<b>π</b></span>' +
+        '<span class="lig den">' + box('q' + i, 0) + '</span>' +
+      '</span>' +
+      (k ? '<span class="per"><b>+</b>' + box('k' + i, 0) + '<b>kπ</b></span>' : '') +
+    '</span>');
+  return '<span class="angls">' + lignes.join('<span class="ou">ou</span>') + '</span>';
+}
+
 function champSaisie(id, f, bloque){
   if (f.type === 'exact') return champExact(id, f, bloque);
+  if (f.type === 'angle') return champAngle(id, f, bloque);
   const txt = f.type === 'texte';
   const input = '<input id="' + id + '" type="text" inputmode="' + (txt ? 'text' : 'decimal') + '"' +
     (txt ? ' spellcheck="false" autocapitalize="off"' : '') +
@@ -834,12 +935,35 @@ function basculerSigne(id){
   el.value = v.charAt(0) === '-' ? v.slice(1) : '-' + v;
   el.focus();
 }
+/* l'écriture attendue, quel que soit le type de champ */
+function texteAttendu(f){
+  if (f.type === 'choix') return f.options[f.bon];
+  if (f.type === 'texte') return f.bon;
+  if (f.type === 'exact') return M(texteExact(f.bon));
+  if (f.type === 'angle') return M(texteAngles(f));
+  return nf(f.bon);
+}
+/* ce que l'élève a écrit, relu et remis en forme ; null s'il n'a rien mis */
+function texteSaisie(f){
+  if (f.type === 'choix') return f.saisie === undefined ? null : f.options[f.saisie];
+  if (f.type === 'exact'){ const n = normExact(lireExact(f.saisie)); return n ? M(texteExact(n)) : null; }
+  if (f.type === 'angle'){ const a = lireAngle(f); return a ? M(texteAnglesListe(a.liste, a.k || periodeAngle(f))) : null; }
+  const v = String(f.saisie === undefined ? '' : f.saisie).trim();
+  return v === '' ? null : esc(v);
+}
+/* un champ resté vide : la saisie guidée est un objet, pas une chaîne */
+function champVide(f){
+  if (f.type === 'choix') return f.saisie === undefined;
+  if (f.type === 'exact' || f.type === 'angle'){
+    const s = f.saisie;
+    if (!s || typeof s !== 'object') return true;
+    return !Object.keys(s).some(c => String(s[c] === undefined ? '' : s[c]).trim() !== '');
+  }
+  return String(f.saisie === undefined ? '' : f.saisie).trim() === '';
+}
 function verdictChamp(f, ok){
   if (ok) return '<span class="tiny" style="color:var(--juste);font-weight:700">✓</span>';
-  const att = f.type === 'choix' ? f.options[f.bon]
-    : (f.type === 'texte' ? f.bon
-    : (f.type === 'exact' ? M(texteExact(f.bon)) : nf(f.bon)));
-  return '<span class="tiny" style="color:var(--faux);font-weight:700">✗ attendu : ' + att + '</span>';
+  return '<span class="tiny" style="color:var(--faux);font-weight:700">✗ attendu : ' + texteAttendu(f) + '</span>';
 }
 /* normalise une réponse en texte : minuscules, sans accent, espaces réduits */
 /* plage des signes diacritiques, construite sans caractere combinant dans le source */
@@ -852,6 +976,7 @@ function normTexte(v){
 }
 function champOk(f){
   if (f.type === 'choix') return f.saisie === f.bon;
+  if (f.type === 'angle') return angleOk(f);
   if (f.type === 'exact'){
     const a = normExact(lireExact(f.saisie)), b = normExact(f.bon);
     /* égalité d'écritures, pas de valeurs : une décimale approchée ne passe pas,
@@ -877,6 +1002,16 @@ function champOk(f){
 /* lit un champ, simple ou en cases ; partagée par les séries, le DS et le défi */
 function lireChamp(id, f){
   if (f.type === 'choix') return;
+  if (f.type === 'angle'){
+    const lu = {}, k = periodeAngle(f);
+    (f.bon || []).forEach((b, i) => {
+      ['p' + i, 'q' + i].concat(k ? ['k' + i] : []).forEach(c => {
+        const el = document.getElementById(id + '-' + c); if (el) lu[c] = el.value;
+      });
+    });
+    f.saisie = lu;
+    return;
+  }
   if (f.type === 'exact'){
     const lu = {}, cles = avecRadical(f) ? ['p', 'm', 'd', 'q'] : ['p', 'q'];
     cles.forEach(c => { const el = document.getElementById(id + '-' + c); if (el) lu[c] = el.value; });

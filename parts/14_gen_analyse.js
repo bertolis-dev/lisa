@@ -423,6 +423,20 @@ function sin12(m){
 const VALS_REM = ['1', '-1', '0', 'frac{1}{2}', '-frac{1}{2}',
   'frac{sqrt{2}}{2}', '-frac{sqrt{2}}{2}', 'frac{sqrt{3}}{2}', '-frac{sqrt{3}}{2}'];
 
+/* les neuf valeurs remarquables, écrites pour la saisie exacte (p + m√d)/q */
+const EXACT_VAL = {
+  '1': { p: 1, m: 0, d: 0, q: 1 },
+  '0': { p: 0, m: 0, d: 0, q: 1 },
+  'frac{1}{2}': { p: 1, m: 0, d: 0, q: 2 },
+  'frac{sqrt{2}}{2}': { p: 0, m: 1, d: 2, q: 2 },
+  'frac{sqrt{3}}{2}': { p: 0, m: 1, d: 3, q: 2 }
+};
+function exactDeTexte(v){
+  const neg = v.charAt(0) === '-', b = EXACT_VAL[neg ? v.slice(1) : v];
+  if (!b) return null;
+  return { p: neg ? -b.p : b.p, m: neg ? -b.m : b.m, d: b.d, q: b.q };
+}
+
 G('trigonometrie', 'tg-exact-associes', 'Valeur exacte hors du premier quart', 'ent', function(){
   /* on évite le premier quart de tour : c'est là que le détour par un angle
      associé devient indispensable */
@@ -431,7 +445,6 @@ G('trigonometrie', 'tg-exact-associes', 'Valeur exacte hors du premier quart', '
   const bonne = cos ? cos12(m) : sin12(m);
   const r = principal12(m);
   const ref = Math.abs(r) > 6 ? 12 - Math.abs(r) : Math.abs(r);   /* angle du premier quart */
-  const options = R.shuffle(R.shuffle(VALS_REM.filter(v => v !== bonne)).slice(0, 3).concat([bonne]));
   const etapes = [];
   if (m !== r) etapes.push('On enlève d’abord les tours complets : ' + M(angPi(m) + ' = ' + angPi(r) + (m - r > 0 ? ' + ' : ' - ') +
     (Math.abs(m - r) === 24 ? '2π' : nf(Math.abs(m - r) / 12) + 'π')) + ', et un tour ne change ni le cosinus ni le sinus.');
@@ -451,26 +464,26 @@ G('trigonometrie', 'tg-exact-associes', 'Valeur exacte hors du premier quart', '
   etapes.push('<b>Vérification gratuite</b> : ' + M('@cos^{2} + @sin^{2} = 1') + '. Ici ' +
     M('@cos(' + angPi(m) + ') = ' + cos12(m)) + ' et ' + M('@sin(' + angPi(m) + ') = ' + sin12(m)) + '.');
   return {
-    enonce: '<p>Donne la valeur exacte de</p>' + Mc((cos ? '@cos' : '@sin') + '(' + angPi(m) + ')'),
-    qcm: { options: options.map(v => M(v)), bon: options.indexOf(bonne) },
+    enonce: '<p>Donne la valeur exacte de</p>' + Mc((cos ? '@cos' : '@sin') + '(' + angPi(m) + ')') +
+            '<p class="tiny">Une case laissée vide vaut 0 : sans racine, seuls ' + M('a') + ' et ' + M('d') + ' sont à remplir.</p>',
+    champs: [{ type: 'exact', forme: 'radical', bon: exactDeTexte(bonne),
+               label: M((cos ? '@cos' : '@sin') + '(' + angPi(m) + ')') + ' =' }],
     etapes: etapes
   };
 });
 
+/* consigne commune aux équations : on écrit les familles, on ne les reconnaît pas */
+const AIDE_FAM = '<p class="tiny">Écris chaque famille de solutions dans les cases : le numérateur ' +
+  '(avec son signe), le dénominateur, puis le coefficient devant ' + M('kπ') + '. ' +
+  'Un dénominateur laissé vide vaut 1. L’ordre des deux familles est indifférent.</p>';
+
 G('trigonometrie', 'tg-eq-cos', 'Résoudre cos(x) = c dans ℝ', 'ent', function(){
   const m = R.pick([2, 3, 4, 6, 8, 9, 10]);          /* a dans [ 0 ; π ] */
   const val = TRIG12[m].c;
-  const faux = R.shuffle([2, 3, 4, 6, 8, 9, 10].filter(k => TRIG12[k].c !== val)).slice(0, 3);
-  const angles = R.shuffle(faux.concat([m]));
-  const formes = ['-a + 2kπ', 'π - a + 2kπ', 'a + kπ', 'π + a + 2kπ'];
   return {
-    enonce: '<p>Résous dans ' + M('ℝ') + ' l’équation</p>' + Mc('@cos(x) = ' + val),
-    champs: [
-      { type: 'choix', label: 'Un angle ' + M('a') + ' tel que ' + M('@cos(a) = ' + val),
-        options: angles.map(k => M(angPi(k))), bon: angles.indexOf(m) },
-      { type: 'choix', label: 'Première solution : ' + M('x = a + 2kπ') + '. La seconde s’écrit',
-        options: formes.map(f => M(f)), bon: 0 }
-    ],
+    enonce: '<p>Résous dans ' + M('ℝ') + ' l’équation</p>' + Mc('@cos(x) = ' + val) + AIDE_FAM,
+    champs: [{ type: 'angle', label: M('x') + ' =', periode: true,
+               bon: [{ p: m, q: 12 }, { p: -m, q: 12 }] }],
     etapes: [
       'On commence par écrire le second membre comme un cosinus : ' + M(val + ' = @cos(' + angPi(m) + ')') + '.',
       'L’équation devient ' + M('@cos(x) = @cos(' + angPi(m) + ')') + '.',
@@ -479,35 +492,31 @@ G('trigonometrie', 'tg-eq-cos', 'Résoudre cos(x) = c dans ℝ', 'ent', function
       'En ajoutant les tours complets : ' + Mc('x = ' + angPi(m) + ' + 2kπ  ou  x = ' + angPi(-m) + ' + 2kπ,  k ∈ ℤ'),
       '<b>Le piège</b> : ' + M('π - a') + ' est la règle du <b>sinus</b>. Avec un cosinus, c’est ' + M('-a') + '. ' +
         'Un cercle tracé au brouillon tranche en deux secondes.',
-      '<b>Le second piège</b> : sans le ' + M('2kπ') + ', on donne deux solutions au lieu d’une infinité — et la question est fausse.'
+      '<b>Le second piège</b> : sans le ' + M('2kπ') + ', on donne deux solutions au lieu d’une infinité — et la question est fausse. ' +
+        M('kπ') + ' ne marche pas non plus : un demi-tour change le signe du cosinus.'
     ]
   };
 });
 
 G('trigonometrie', 'tg-eq-sin', 'Résoudre sin(x) = c dans ℝ', 'ent', function(){
-  const m = R.pick([2, 3, 4, -2, -3, -4, 6]);        /* a dans [ -π/2 ; π/2 ] */
+  const m = R.pick([2, 3, 4, -2, -3, -4]);           /* a dans [ -π/2 ; π/2 ] ; π/2 exclu : π - a = a */
   const val = m < 0 ? negVal(TRIG12[-m].s) : TRIG12[m].s;
-  const pool = [2, 3, 4, -2, -3, -4, 6].filter(k => (k < 0 ? negVal(TRIG12[-k].s) : TRIG12[k].s) !== val);
-  const angles = R.shuffle(R.shuffle(pool).slice(0, 3).concat([m]));
-  const formes = ['π - a + 2kπ', '-a + 2kπ', 'a + kπ', 'π + a + 2kπ'];
   const autre = principal12(12 - m);
   return {
-    enonce: '<p>Résous dans ' + M('ℝ') + ' l’équation</p>' + Mc('@sin(x) = ' + val),
-    champs: [
-      { type: 'choix', label: 'Un angle ' + M('a') + ' tel que ' + M('@sin(a) = ' + val),
-        options: angles.map(k => M(angPi(k))), bon: angles.indexOf(m) },
-      { type: 'choix', label: 'Première solution : ' + M('x = a + 2kπ') + '. La seconde s’écrit',
-        options: formes.map(f => M(f)), bon: 0 }
-    ],
+    enonce: '<p>Résous dans ' + M('ℝ') + ' l’équation</p>' + Mc('@sin(x) = ' + val) + AIDE_FAM,
+    champs: [{ type: 'angle', label: M('x') + ' =', periode: true,
+               bon: [{ p: m, q: 12 }, { p: 12 - m, q: 12 }] }],
     etapes: [
       'On écrit le second membre comme un sinus : ' + M(val + ' = @sin(' + angPi(m) + ')') + '.',
       'L’équation devient ' + M('@sin(x) = @sin(' + angPi(m) + ')') + '.',
       'Le sinus est l’<b>ordonnée</b>. Deux points du cercle ont cette ordonnée : ' + M(angPi(m)) +
-        ' et son symétrique par rapport à l’axe vertical, ' + M('π - ' + angPi(m)) + ' c’est-à-dire ' + M(angPi(autre)) + '.',
+        ' et son symétrique par rapport à l’axe vertical, ' + M('π - ' + angPi(m)) + ' c’est-à-dire ' + M(angPi(12 - m)) +
+        (autre !== 12 - m ? ', soit ' + M(angPi(autre)) + ' une fois ramené dans ' + M('] -π ; π ]') : '') + '.',
       'En ajoutant les tours complets : ' + Mc('x = ' + angPi(m) + ' + 2kπ  ou  x = ' + angPi(autre) + ' + 2kπ,  k ∈ ℤ'),
       '<b>Le piège</b> : ' + M('-a') + ' est la règle du <b>cosinus</b>. Avec un sinus, c’est ' + M('π - a') + '.',
-      'Contrôle : ' + M('@sin(' + angPi(autre) + ') = ' + (m < 0 ? negVal(TRIG12[-m].s) : TRIG12[m].s)) +
-        ', on retombe bien sur ' + M(val) + '. ✓'
+      'Contrôle : ' + M('@sin(' + angPi(autre) + ') = ' + val) + ', on retombe bien sur le second membre. ✓',
+      '<b>Deux écritures valent la même famille</b> : ' + M(angPi(12 - m) + ' + 2kπ') + ' et ' + M(angPi(autre) + ' + 2kπ') +
+        ' décrivent le même ensemble, puisqu’elles diffèrent de ' + M('2π') + '. Les deux sont acceptées.'
     ]
   };
 });
@@ -518,31 +527,19 @@ G('trigonometrie', 'tg-eq-intervalle', 'Résoudre sur un intervalle', 'ds', func
   if (cos){
     m = R.pick([2, 3, 4, 6, 8, 9, 10]);
     val = TRIG12[m].c;
-    s1 = -m; s2 = m;                                   /* -a < a, tous deux dans ] -π ; π ] */
+    s1 = -m; s2 = m;                                   /* -a et a, tous deux dans ] -π ; π ] */
   } else {
     m = R.pick([2, 3, 4, -2, -3, -4]);
     val = m < 0 ? negVal(TRIG12[-m].s) : TRIG12[m].s;
     const a2 = principal12(12 - m);                    /* π - a ramené dans ] -π ; π ] */
     s1 = Math.min(m, a2); s2 = Math.max(m, a2);
   }
-  /* distracteurs : les réponses qu'on obtient en croisant les deux règles */
-  const pieges = cos ? [principal12(12 - m), principal12(12 + m)] : [-m, principal12(12 + m)];
-  const pool = [];
-  [s1, s2].concat(pieges).concat([2, 3, 4, 6, 8, 9, 10, -2, -3, -4, -6, -8, -9, -10]).forEach(k => {
-    if (TRIG12[Math.abs(principal12(k))] && pool.indexOf(principal12(k)) < 0) pool.push(principal12(k));
-  });
-  const options = pool.slice(0, 6);
-  if (options.indexOf(s1) < 0) options[options.length - 2] = s1;
-  if (options.indexOf(s2) < 0) options[options.length - 1] = s2;
-  options.sort((a, b) => a - b);
   return {
     enonce: '<p>Résous sur ' + M('] -π ; π ]') + ' l’équation</p>' +
             Mc((cos ? '@cos' : '@sin') + '(x) = ' + val) +
-            '<p>Donne les deux solutions dans l’ordre croissant.</p>',
-    champs: [
-      { type: 'choix', label: 'Plus petite solution', options: options.map(k => M(angPi(k))), bon: options.indexOf(s1) },
-      { type: 'choix', label: 'Plus grande solution', options: options.map(k => M(angPi(k))), bon: options.indexOf(s2) }
-    ],
+            '<p class="tiny">Ici les solutions sont en nombre fini : pas de ' + M('2kπ') + '. ' +
+            'L’ordre des deux réponses est indifférent, un dénominateur vide vaut 1.</p>',
+    champs: [{ type: 'angle', label: 'Les deux solutions', bon: [{ p: s1, q: 12 }, { p: s2, q: 12 }] }],
     etapes: [
       'Étape 1 — on écrit le second membre comme ' + (cos ? 'un cosinus' : 'un sinus') + ' : ' +
         M(val + ' = ' + (cos ? '@cos' : '@sin') + '(' + angPi(m) + ')') + '.',
@@ -563,16 +560,6 @@ G('trigonometrie', 'tg-mesure-principale', 'Mesure principale', 'ent', function(
   const base = R.pick([2, 3, 4, 6, 8, 9, 10, 12, -2, -3, -4, -6, -8, -9, -10]);
   const tours = R.pick([-2, -1, 1, 2]);
   const m = base + 24 * tours;
-  const faux = [];
-  [base + 24 * (tours > 0 ? tours - 1 : tours + 1), -base, principal12(12 - base)].forEach(k => {
-    const v = principal12(k);
-    if (v !== base && faux.indexOf(v) < 0 && TRIG12[Math.abs(v)]) faux.push(v);
-  });
-  while (faux.length < 3){
-    const v = R.pick([2, 3, 4, 6, 8, 9, 10, 12, -2, -3, -4, -6, -8, -9, -10]);
-    if (v !== base && faux.indexOf(v) < 0) faux.push(v);
-  }
-  const options = faux.slice(0, 3).concat([base]).sort((a, b) => a - b);
   const etapes = ['La mesure principale est la seule mesure du point qui appartient à ' + M('] -π ; π ]') +
     '. On retire ou on ajoute des ' + M('2π') + ' jusqu’à y tomber.'];
   let cour = m;
@@ -588,8 +575,9 @@ G('trigonometrie', 'tg-mesure-principale', 'Mesure principale', 'ent', function(
     M('2π = frac{4π}{2} = frac{6π}{3} = frac{8π}{4} = frac{12π}{6}') + '.');
   etapes.push('<b>Attention à la borne</b> : ' + M('π') + ' est dans l’intervalle, ' + M('-π') + ' ne l’est pas.');
   return {
-    enonce: '<p>Détermine la mesure principale de l’angle</p>' + Mc(angPi(m)),
-    champs: [{ type: 'choix', label: 'Mesure principale', options: options.map(k => M(angPi(k))), bon: options.indexOf(base) }],
+    enonce: '<p>Détermine la mesure principale de l’angle</p>' + Mc(angPi(m)) +
+            '<p class="tiny">Un dénominateur laissé vide vaut 1.</p>',
+    champs: [{ type: 'angle', label: 'Mesure principale', bon: [{ p: base, q: 12 }] }],
     etapes: etapes
   };
 });
